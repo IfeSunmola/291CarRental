@@ -1,0 +1,112 @@
+﻿namespace _291CarRental
+{
+    partial class LandingPage
+    {
+        /// <summary>
+        ///  Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        ///  Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        ///  Required method for Designer support - do not modify
+        ///  the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.empIdLabel = new System.Windows.Forms.Label();
+            this.empIdTextbox = new System.Windows.Forms.TextBox();
+            this.empLoginButton = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Location = new System.Drawing.Point(180, 147);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(168, 82);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "CUSTOMERS";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.customerButtonClick);
+            // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(435, 147);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(168, 82);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "EMPLOYEES";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.employeeButtonClick);
+            // 
+            // empIdLabel
+            // 
+            this.empIdLabel.AutoSize = true;
+            this.empIdLabel.Location = new System.Drawing.Point(180, 293);
+            this.empIdLabel.Name = "empIdLabel";
+            this.empIdLabel.Size = new System.Drawing.Size(113, 25);
+            this.empIdLabel.TabIndex = 2;
+            this.empIdLabel.Text = "Employee ID";
+            // 
+            // empIdTextbox
+            // 
+            this.empIdTextbox.Location = new System.Drawing.Point(382, 293);
+            this.empIdTextbox.Name = "empIdTextbox";
+            this.empIdTextbox.Size = new System.Drawing.Size(150, 31);
+            this.empIdTextbox.TabIndex = 3;
+            // 
+            // empLoginButton
+            // 
+            this.empLoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.empLoginButton.Location = new System.Drawing.Point(302, 378);
+            this.empLoginButton.Name = "empLoginButton";
+            this.empLoginButton.Size = new System.Drawing.Size(168, 47);
+            this.empLoginButton.TabIndex = 4;
+            this.empLoginButton.Text = "LOGIN";
+            this.empLoginButton.UseVisualStyleBackColor = true;
+            this.empLoginButton.Click += new System.EventHandler(this.empOrCustomerIdButton_Click);
+            // 
+            // LandingPage
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.empLoginButton);
+            this.Controls.Add(this.empIdTextbox);
+            this.Controls.Add(this.empIdLabel);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Name = "LandingPage";
+            this.Text = "LandingPage";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private Button button1;
+        private Button button2;
+        private Label empIdLabel;
+        private TextBox empIdTextbox;
+        private Button empLoginButton;
+    }
+}

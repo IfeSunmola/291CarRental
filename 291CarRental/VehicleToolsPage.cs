@@ -1,0 +1,106 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace _291CarRental
+{
+    public partial class VehicleToolsPage : Form
+    {
+        public VehicleToolsPage()
+        {
+            InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            updatePanel.Visible = false;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // don't delete vehicle if it is has been rented out
+            DialogResult confirmDelete = MessageBox.Show(
+                "Are you sure you want to delete (vehicle details)?" +
+                "\nThis process is IRREVERSIBLE.", 
+                "CONFORM VEHICLE DELETE",
+                MessageBoxButtons.YesNo);
+
+            if (confirmDelete == DialogResult.Yes)
+            {
+                MessageBox.Show("Vehicle deleted");
+            }
+            else
+            {
+                MessageBox.Show("Deletion cancelled");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            updatePanel.Visible = true;
+            /*yearLabel.Visible = true;
+            yearTextbox.Visible = true;
+
+            brandLabel.Visible = true;
+            brandTextbox.Visible = true;
+
+            modelLabel.Visible = true;
+            modelTextbox.Visible = true;
+
+            transmissionLabel.Visible = true;
+            trasmissionComobox.Visible = true;
+
+            numOfSeatsLabel.Visible = true;
+            numOfSeatsTextbox.Visible = true;
+
+            currentMileageLabel.Visible = true;
+            currentMileageTextbox.Visible = true;
+
+            colorLabel.Visible = true;
+            colorTextbox.Visible = true;
+
+            plateNumberLabel.Visible = true;
+            plateNumberTextbox.Visible = true;
+
+            saveChangesButton.Visible = true;*/
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmAdding = MessageBox.Show(
+               "Confirm adding of (vehicle details?)",
+               "CONFIRM ADDING VEHICLE",
+               MessageBoxButtons.YesNo);
+
+            if(confirmAdding == DialogResult.Yes)
+            {
+                MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
+            }
+            else if(confirmAdding == DialogResult.No)
+            {
+                MessageBox.Show("VEHICLE NOT ADDED");
+            }
+        }
+
+        private void saveChangesButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmUpdating = MessageBox.Show(
+               "Confirm updating of (vehicle details?)",
+               "CONFIRM UPDATE VEHICLE",
+               MessageBoxButtons.YesNo);
+
+            if (confirmUpdating == DialogResult.Yes)
+            {
+                MessageBox.Show("VEHICLE UPDATED SUCCESSFULLY");
+            }
+            else if (confirmUpdating == DialogResult.No)
+            {
+                MessageBox.Show("VEHICLE NOT UPDATED");
+            }
+        }
+    }
+}
