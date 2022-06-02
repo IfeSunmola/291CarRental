@@ -14,9 +14,12 @@ namespace _291CarRental
     public partial class ReturnAVehiclePage : Form
     {
         private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        public ReturnAVehiclePage()
+        private EmployeeLandingPage previousPage;
+        public ReturnAVehiclePage(EmployeeLandingPage previousPage)
         {
             InitializeComponent();
+            this.previousPage = previousPage;
+
             this.StartPosition = FormStartPosition.CenterScreen;
 
             customerIDRadio.Checked = true;
@@ -79,6 +82,12 @@ namespace _291CarRental
         private void plateNumberRadio_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonLabel.Text = plateNumberRadio.Text;
+        }
+
+        private void backButtonClick(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
         }
     }
 }

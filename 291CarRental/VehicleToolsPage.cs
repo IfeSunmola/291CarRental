@@ -12,9 +12,12 @@ namespace _291CarRental
 {
     public partial class VehicleToolsPage : Form
     {
-        public VehicleToolsPage()
+        private EmployeeLandingPage previousPage;
+        public VehicleToolsPage(EmployeeLandingPage previousPage)
         {
             InitializeComponent();
+            this.previousPage = previousPage;
+
             this.StartPosition = FormStartPosition.CenterScreen;
             updatePanel.Visible = false;
 
@@ -76,6 +79,12 @@ namespace _291CarRental
             {
                 MessageBox.Show("VEHICLE NOT UPDATED");
             }
+        }
+
+        private void backButtonClick(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
         }
     }
 }

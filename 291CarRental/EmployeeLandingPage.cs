@@ -24,17 +24,17 @@ namespace _291CarRental
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new EmpViewVehiclesInfoRequest().Show();
+            new empViewAllVehicles(this).Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new VehicleToolsPage().Show();
+            new VehicleToolsPage(this).Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new ReturnAVehiclePage().Show();
+            new ReturnAVehiclePage(this).Show();
         }
 
         private void button4_Click(object sender, EventArgs e)

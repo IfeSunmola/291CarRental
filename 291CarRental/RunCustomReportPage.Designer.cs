@@ -32,6 +32,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,11 +73,22 @@
             this.dataGridView1.Size = new System.Drawing.Size(688, 225);
             this.dataGridView1.TabIndex = 10;
             // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(366, 340);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(102, 44);
+            this.button2.TabIndex = 22;
+            this.button2.Text = "BACK";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // RunCustomReportPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 725);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
@@ -95,5 +107,6 @@
         private ComboBox comboBox1;
         private Button button1;
         private DataGridView dataGridView1;
+        private Button button2;
     }
 }

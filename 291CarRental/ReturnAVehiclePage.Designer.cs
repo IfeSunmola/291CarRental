@@ -37,6 +37,7 @@
             this.radioButtonLabel = new System.Windows.Forms.Label();
             this.radioButtonTextbox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             this.customerRentalsDataGripView.AllowUserToResizeColumns = false;
             this.customerRentalsDataGripView.AllowUserToResizeRows = false;
             this.customerRentalsDataGripView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customerRentalsDataGripView.Location = new System.Drawing.Point(68, 226);
+            this.customerRentalsDataGripView.Location = new System.Drawing.Point(133, 223);
             this.customerRentalsDataGripView.MultiSelect = false;
             this.customerRentalsDataGripView.Name = "customerRentalsDataGripView";
             this.customerRentalsDataGripView.ReadOnly = true;
@@ -71,7 +72,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(68, 23);
+            this.label1.Location = new System.Drawing.Point(133, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 25);
             this.label1.TabIndex = 9;
@@ -80,7 +81,7 @@
             // customerIDRadio
             // 
             this.customerIDRadio.AutoSize = true;
-            this.customerIDRadio.Location = new System.Drawing.Point(194, 23);
+            this.customerIDRadio.Location = new System.Drawing.Point(259, 22);
             this.customerIDRadio.Name = "customerIDRadio";
             this.customerIDRadio.Size = new System.Drawing.Size(151, 29);
             this.customerIDRadio.TabIndex = 10;
@@ -92,7 +93,7 @@
             // phoneNumberRadio
             // 
             this.phoneNumberRadio.AutoSize = true;
-            this.phoneNumberRadio.Location = new System.Drawing.Point(378, 23);
+            this.phoneNumberRadio.Location = new System.Drawing.Point(443, 22);
             this.phoneNumberRadio.Name = "phoneNumberRadio";
             this.phoneNumberRadio.Size = new System.Drawing.Size(172, 29);
             this.phoneNumberRadio.TabIndex = 11;
@@ -104,7 +105,7 @@
             // plateNumberRadio
             // 
             this.plateNumberRadio.AutoSize = true;
-            this.plateNumberRadio.Location = new System.Drawing.Point(580, 21);
+            this.plateNumberRadio.Location = new System.Drawing.Point(645, 20);
             this.plateNumberRadio.Name = "plateNumberRadio";
             this.plateNumberRadio.Size = new System.Drawing.Size(161, 29);
             this.plateNumberRadio.TabIndex = 12;
@@ -116,7 +117,7 @@
             // radioButtonLabel
             // 
             this.radioButtonLabel.AutoSize = true;
-            this.radioButtonLabel.Location = new System.Drawing.Point(68, 95);
+            this.radioButtonLabel.Location = new System.Drawing.Point(334, 85);
             this.radioButtonLabel.Name = "radioButtonLabel";
             this.radioButtonLabel.Size = new System.Drawing.Size(147, 25);
             this.radioButtonLabel.TabIndex = 13;
@@ -124,7 +125,7 @@
             // 
             // radioButtonTextbox
             // 
-            this.radioButtonTextbox.Location = new System.Drawing.Point(221, 95);
+            this.radioButtonTextbox.Location = new System.Drawing.Point(487, 85);
             this.radioButtonTextbox.Name = "radioButtonTextbox";
             this.radioButtonTextbox.Size = new System.Drawing.Size(150, 31);
             this.radioButtonTextbox.TabIndex = 14;
@@ -132,7 +133,7 @@
             // button3
             // 
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Location = new System.Drawing.Point(409, 143);
+            this.button3.Location = new System.Drawing.Point(421, 146);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(216, 62);
             this.button3.TabIndex = 16;
@@ -140,11 +141,23 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.getCustomerRentalsButton_Click);
             // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(12, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(102, 44);
+            this.button2.TabIndex = 22;
+            this.button2.Text = "BACK";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.backButtonClick);
+            // 
             // ReturnAVehiclePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 673);
+            this.ClientSize = new System.Drawing.Size(1096, 673);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.radioButtonTextbox);
             this.Controls.Add(this.radioButtonLabel);
@@ -173,5 +186,6 @@
         private Label radioButtonLabel;
         private TextBox radioButtonTextbox;
         private Button button3;
+        private Button button2;
     }
 }

@@ -11,15 +11,17 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
-    public partial class EmpViewVehiclesInfoRequest : Form
+    public partial class empViewAllVehicles : Form
     {
         private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         private SqlConnection connection;
         private SqlCommand command;
         private SqlDataReader? reader; // nullable, initialization not needed
-        public EmpViewVehiclesInfoRequest()
+        private EmployeeLandingPage previousPage;
+        public empViewAllVehicles(EmployeeLandingPage previousPage)
         {
             InitializeComponent();
+            this.previousPage = previousPage;
 
             connection = new SqlConnection(connectionString);
             command = new SqlCommand();
@@ -151,6 +153,12 @@ namespace _291CarRental
             {
                 MessageBox.Show("VEHICLE NOT RENTED");
             }
+        }
+
+        private void backButtonClick(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
         }
     }
 }
