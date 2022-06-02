@@ -42,31 +42,6 @@ namespace _291CarRental
         private void button3_Click(object sender, EventArgs e)
         {
             updatePanel.Visible = true;
-            /*yearLabel.Visible = true;
-            yearTextbox.Visible = true;
-
-            brandLabel.Visible = true;
-            brandTextbox.Visible = true;
-
-            modelLabel.Visible = true;
-            modelTextbox.Visible = true;
-
-            transmissionLabel.Visible = true;
-            trasmissionComobox.Visible = true;
-
-            numOfSeatsLabel.Visible = true;
-            numOfSeatsTextbox.Visible = true;
-
-            currentMileageLabel.Visible = true;
-            currentMileageTextbox.Visible = true;
-
-            colorLabel.Visible = true;
-            colorTextbox.Visible = true;
-
-            plateNumberLabel.Visible = true;
-            plateNumberTextbox.Visible = true;
-
-            saveChangesButton.Visible = true;*/
         }
 
         private void button1_Click(object sender, EventArgs e)

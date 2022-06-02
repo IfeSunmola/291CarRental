@@ -66,11 +66,6 @@ namespace _291CarRental
             new StartAReturnPage().Show();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void customerIDRadio_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonLabel.Text = customerIDRadio.Text;

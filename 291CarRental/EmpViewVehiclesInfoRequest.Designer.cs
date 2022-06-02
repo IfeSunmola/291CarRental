@@ -142,7 +142,6 @@
             this.showVehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.showVehicleDataGridView.Size = new System.Drawing.Size(904, 398);
             this.showVehicleDataGridView.TabIndex = 10;
-            this.showVehicleDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.showVehicleDataGridView_CellContentClick);
             this.showVehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.showVehicleDataGridView_CellMouseClick);
             // 
             // estimatedCostLabel

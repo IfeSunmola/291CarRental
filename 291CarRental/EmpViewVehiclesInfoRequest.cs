@@ -73,24 +73,6 @@ namespace _291CarRental
             showVehicleDataGripViewPanel.Visible = true;
             rentVehicleButton.Visible = true;
         }
-
-        private void bookForCustomerLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            
-            /*if (customerIdTextbox.Visible && customerIDLabel.Visible)
-            {
-                bookForCustomerLinkLabel.Text = "Booking for customer?";
-                customerIDLabel.Visible = false;
-                customerIdTextbox.Visible = false;
-            }
-            else
-            {
-                bookForCustomerLinkLabel.Text = "Not booking for customer?";
-                customerIDLabel.Visible = true;
-                customerIdTextbox.Visible = true;
-            }
-            */
-        }
     
         private void fillVehicleClassAndBranchCombobox()
         {
@@ -152,17 +134,6 @@ namespace _291CarRental
             }
 
             estimatedCostLabel.Text = "ESTIMATED COST: $120";
-        }
-
-        private void showVehicleDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //customerDetailsPanel.Visible = true;
-            
         }
 
         private void button2_Click(object sender, EventArgs e)
