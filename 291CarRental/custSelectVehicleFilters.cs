@@ -6,23 +6,17 @@ namespace _291CarRental
 {
     public partial class CustSelectVehicleFilters : Form
     {
-        private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection connection;
-        private SqlCommand command;
-        private SqlDataReader? reader; // nullable, initialization not needed
+        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
+        private SqlConnection? connection;
+        private SqlCommand? command;
+        private SqlDataReader? reader;
         private LandingPage previousPage;
         public CustSelectVehicleFilters(LandingPage previousPage)
         {
             InitializeComponent();
             this.previousPage = previousPage;
-
-            connection = new SqlConnection(connectionString);
-            command = new SqlCommand();
-
-            command.Connection = connection;
-
             this.StartPosition = FormStartPosition.CenterScreen;
-
+            addressLabel.Visible = false;
             fillComboBoxes();
         }
 
@@ -34,6 +28,40 @@ namespace _291CarRental
 
         private void searchButton_Click(object sender, EventArgs e)
         {
+            if (validated())
+            {
+                
+            }
+        }
+
+        private String getBranchAddress()
+        {
+            int branchId = (int)branchComboBox.SelectedIndex + 1;// +1 because sql primary key starts from 1
+            String branchAddress = "";
+            String query =
+                @"SELECT trim(street_number + ' ' + street_name + ', ' + city)
+                        FROM Branch 
+                    WHERE  branch_id = " + branchId + ";";
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+
+                connection.Open();
+                // null checking is not needed here because of the earlier validations but... why not
+                var rawBranchAddress = command.ExecuteScalar();
+                if (rawBranchAddress != null)
+                {
+                    branchAddress = (String)rawBranchAddress;
+                }
+            }
+            return branchAddress;
+        }
+
+        private bool validated()
+        {
+            bool result = false;
+            String vehicleClassSelected = (String)vehicleClassCombobox.SelectedItem;
+            String branchSelected = (String)branchComboBox.SelectedItem;
             if (fromDatePicker.Value.Date <= DateTime.Now.Date)
             {
                 MessageBox.Show("Vehicles must be booked one day before");
@@ -42,17 +70,29 @@ namespace _291CarRental
             {
                 MessageBox.Show("FROM DATE HAS TO BE BEFORE TO DATE");
             }
+            else if (String.IsNullOrEmpty(vehicleClassSelected))
+            {
+                MessageBox.Show("SELECT A VEHICLE CLASS");
+            }
+            else if (String.IsNullOrEmpty(branchSelected))
+            {
+                MessageBox.Show("SELECT A BRANCH");
+            }
+            else
+            {
+                result = true;
+            }
+            return result;
         }
-
+        
         private void fillComboBoxes()
         {
             String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
-            try
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.CommandText = query;
                 reader = command.ExecuteReader();
-
                 while (reader.Read())
                 {
                     vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class"));
@@ -63,21 +103,11 @@ namespace _291CarRental
                     branchComboBox.Items.Add(reader.GetString("branch_name"));
                 }
                 reader.Close();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
+            }  
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-
             DialogResult confirmExit = MessageBox.Show(
                 "Are you sure you want to exit the application?" +
                 "\nAny unsaved information will be lost".ToUpper(),
@@ -88,6 +118,13 @@ namespace _291CarRental
                 Application.Exit();
             }
 
+        }
+        
+        // update the address field as the customer selects different branches
+        private void branchComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addressLabel.Text = "Address: " + getBranchAddress();
+            addressLabel.Visible = true;
         }
     }
 }

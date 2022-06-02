@@ -35,7 +35,7 @@
             this.toDatePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDatePicker = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
+            this.addressLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -50,6 +50,7 @@
             this.branchComboBox.Size = new System.Drawing.Size(182, 33);
             this.branchComboBox.TabIndex = 11;
             this.branchComboBox.Text = "BRANCH";
+            this.branchComboBox.SelectedIndexChanged += new System.EventHandler(this.branchComboBox_SelectedIndexChanged);
             // 
             // vehicleClassCombobox
             // 
@@ -103,19 +104,19 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // label7
+            // addressLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(151, 213);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 25);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "ADDRESS:";
+            this.addressLabel.AutoSize = true;
+            this.addressLabel.Location = new System.Drawing.Point(151, 213);
+            this.addressLabel.Name = "addressLabel";
+            this.addressLabel.Size = new System.Drawing.Size(359, 25);
+            this.addressLabel.TabIndex = 19;
+            this.addressLabel.Text = "ADDRESS: HEHE FUNNY ADDRESS HEHEHE";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.addressLabel);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
@@ -180,5 +181,6 @@
         private Panel panel1;
         private Button button3;
         private Button button2;
+        private Label addressLabel;
     }
 }
