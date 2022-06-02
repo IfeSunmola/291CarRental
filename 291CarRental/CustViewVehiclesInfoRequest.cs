@@ -17,9 +17,11 @@ namespace _291CarRental
         private SqlConnection connection;
         private SqlCommand command;
         private SqlDataReader? reader; // nullable, initialization not needed
-        public CustViewVehiclesInfoRequest()
+        private LandingPage previousPage;
+        public CustViewVehiclesInfoRequest(LandingPage previousPage)
         {
             InitializeComponent();
+            this.previousPage = previousPage;
 
             connection = new SqlConnection(connectionString);
             command = new SqlCommand();
@@ -65,6 +67,12 @@ namespace _291CarRental
                 connection.Close();
             }
 
+        }
+
+        private void backButtonClick(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
         }
     }
 }

@@ -36,12 +36,13 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // branchComboBox
             // 
             this.branchComboBox.FormattingEnabled = true;
-            this.branchComboBox.Location = new System.Drawing.Point(286, 220);
+            this.branchComboBox.Location = new System.Drawing.Point(382, 232);
             this.branchComboBox.Name = "branchComboBox";
             this.branchComboBox.Size = new System.Drawing.Size(182, 33);
             this.branchComboBox.TabIndex = 11;
@@ -50,7 +51,7 @@
             // vehicleClassCombobox
             // 
             this.vehicleClassCombobox.FormattingEnabled = true;
-            this.vehicleClassCombobox.Location = new System.Drawing.Point(46, 220);
+            this.vehicleClassCombobox.Location = new System.Drawing.Point(142, 232);
             this.vehicleClassCombobox.Name = "vehicleClassCombobox";
             this.vehicleClassCombobox.Size = new System.Drawing.Size(182, 33);
             this.vehicleClassCombobox.TabIndex = 10;
@@ -59,7 +60,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 150);
+            this.label2.Location = new System.Drawing.Point(142, 162);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 25);
             this.label2.TabIndex = 9;
@@ -68,7 +69,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 83);
+            this.label1.Location = new System.Drawing.Point(142, 95);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 25);
             this.label1.TabIndex = 8;
@@ -76,14 +77,14 @@
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(168, 150);
+            this.dateTimePicker2.Location = new System.Drawing.Point(264, 162);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(300, 31);
             this.dateTimePicker2.TabIndex = 7;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(168, 83);
+            this.dateTimePicker1.Location = new System.Drawing.Point(264, 95);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(300, 31);
             this.dateTimePicker1.TabIndex = 6;
@@ -91,7 +92,7 @@
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(258, 322);
+            this.button1.Location = new System.Drawing.Point(286, 353);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(226, 71);
             this.button1.TabIndex = 12;
@@ -102,17 +103,29 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(46, 272);
+            this.label7.Location = new System.Drawing.Point(142, 284);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(94, 25);
             this.label7.TabIndex = 19;
             this.label7.Text = "ADDRESS:";
+            // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(22, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(102, 44);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "BACK";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.backButtonClick);
             // 
             // CustViewVehiclesInfoRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.branchComboBox);
@@ -138,5 +151,6 @@
         private DateTimePicker dateTimePicker1;
         private Button button1;
         private Label label7;
+        private Button button2;
     }
 }

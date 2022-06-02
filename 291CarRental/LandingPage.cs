@@ -4,8 +4,6 @@ namespace _291CarRental
 {
     public partial class LandingPage : Form
     {
-        //public static SqlConnection? connecton;
-        //private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         public LandingPage()
         {
             InitializeComponent();
@@ -14,20 +12,12 @@ namespace _291CarRental
             empIdLabel.Visible = false;
             empIdTextbox.Visible = false;
             empLoginButton.Visible = false;
-          //  connecton = new SqlConnection(connectionString);
         }
 
         private void customerButtonClick(object sender, EventArgs e)
         {
-            /*empOrCustomerIdLabel.Text = "Customer ID: ";
-            empOrCustomerIdLabel.Visible = true;
-
-            empOrCustomerIdTextbox.Text = "";
-            empOrCustomerIdTextbox.Visible=true;
-
-            empOrCustomerIdButton.Text = "VIEW VEHICLES";
-            empOrCustomerIdButton.Visible=true;*/
-            new CustViewVehiclesInfoRequest().Show();
+            this.Visible = false;
+            new CustViewVehiclesInfoRequest(this).Show();
         }
 
         private void employeeButtonClick(object sender, EventArgs e)
