@@ -22,30 +22,32 @@ namespace _291CarRental
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new empViewAllVehicles(this).Show();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            new VehicleToolsPage(this).Show();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            new ReturnAVehiclePage(this).Show();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            new RunCustomReportPage().Show();  
-        }
-
-        private void backButtonClick(object sender, EventArgs e)
+        // start on click events
+        private void backButtonClicked(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
+
+        private void viewAvailableVehiclesButtonClicked(object sender, EventArgs e)
+        {
+            new empViewAllVehicles(this).Show();
+        }
+
+        private void returnAVehicleButtonClicked(object sender, EventArgs e)
+        {
+            new ReturnAVehiclePage(this).Show();
+        }
+
+        private void vehicleToolsButtonClicked(object sender, EventArgs e)
+        {
+            new VehicleToolsPage(this).Show();
+        }
+
+        private void runCustomReportsButtonClicked(object sender, EventArgs e)
+        {
+            new RunCustomReportPage().Show();
+        }
+        // end on click events
     }
 }

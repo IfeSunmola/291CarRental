@@ -1,6 +1,6 @@
 ﻿namespace _291CarRental
 {
-    partial class CustViewVehiclesInfoRequest
+    partial class custSelectVehicleFilters
     {
         /// <summary>
         /// Required designer variable.
@@ -98,7 +98,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "SEARCH";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.searchButtonClicked);
             // 
             // label7
             // 
@@ -118,7 +118,7 @@
             this.button2.TabIndex = 20;
             this.button2.Text = "BACK";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.backButtonClick);
+            this.button2.Click += new System.EventHandler(this.backButtonClicked);
             // 
             // CustViewVehiclesInfoRequest
             // 
@@ -135,7 +135,7 @@
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "CustViewVehiclesInfoRequest";
-            this.Text = "CustomerViewVehicles";
+            this.Text = "SELECT VEHICLE FILTERS";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -80,7 +80,7 @@
             this.Controls.Add(this.showVehicleDataGridView);
             this.Controls.Add(this.label1);
             this.Name = "custViewVehiclePage";
-            this.Text = "custViewVehiclePage";
+            this.Text = "CUSTOMER VIEWING AVAILABLE VEHICLES";
             ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

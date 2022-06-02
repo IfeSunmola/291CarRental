@@ -146,7 +146,7 @@
             this.button2.TabIndex = 27;
             this.button2.Text = "BACK";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.backButtonClick);
+            this.button2.Click += new System.EventHandler(this.backButton_Click);
             // 
             // numericUpDown3
             // 
@@ -243,7 +243,7 @@
             this.button1.TabIndex = 18;
             this.button1.Text = "ADD VEHICLE";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.addVehicleButton_Click);
             // 
             // textBox7
             // 
@@ -578,7 +578,7 @@
             this.button5.TabIndex = 37;
             this.button5.Text = "START UPDATING";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button3_Click);
+            this.button5.Click += new System.EventHandler(this.startUpdatingButton_Click);
             // 
             // textBox9
             // 
@@ -638,7 +638,7 @@
             this.button3.TabIndex = 19;
             this.button3.Text = "DELETE THIS VEHICLE";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button2_Click);
+            this.button3.Click += new System.EventHandler(this.deleteVehicleButton_Click);
             // 
             // textBox8
             // 

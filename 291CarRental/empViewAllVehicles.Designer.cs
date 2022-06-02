@@ -109,7 +109,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "FIND AVAILABLE VEHICLES";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.findAvailableVehiclesButtonClicked);
             // 
             // customerIDLabel
             // 
@@ -143,7 +143,7 @@
             this.showVehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.showVehicleDataGridView.Size = new System.Drawing.Size(904, 398);
             this.showVehicleDataGridView.TabIndex = 10;
-            this.showVehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.showVehicleDataGridView_CellMouseClick);
+            this.showVehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleInfoClicked);
             // 
             // estimatedCostLabel
             // 
@@ -164,7 +164,7 @@
             this.rentVehicleButton.Text = "RENT THIS VEHICLE";
             this.rentVehicleButton.UseVisualStyleBackColor = true;
             this.rentVehicleButton.Visible = false;
-            this.rentVehicleButton.Click += new System.EventHandler(this.button2_Click);
+            this.rentVehicleButton.Click += new System.EventHandler(this.rentThisVehicleButtonClicked);
             // 
             // showVehicleDataGripViewPanel
             // 
@@ -219,7 +219,7 @@
             this.button2.TabIndex = 21;
             this.button2.Text = "BACK";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.backButtonClick);
+            this.button2.Click += new System.EventHandler(this.backButtonClicked);
             // 
             // empViewAllVehicles
             // 
@@ -243,7 +243,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.branchComboBox);
             this.Name = "empViewAllVehicles";
-            this.Text = "VIEW AVAILABLE VEHICLES";
+            this.Text = "EMPLOYEE VIEWING AVAILABLE VEHICLES";
             ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).EndInit();
             this.showVehicleDataGripViewPanel.ResumeLayout(false);
             this.showVehicleDataGripViewPanel.PerformLayout();

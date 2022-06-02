@@ -14,22 +14,24 @@ namespace _291CarRental
             empLoginButton.Visible = false;
         }
 
-        private void customerButtonClick(object sender, EventArgs e)
+        // start on click events
+        private void custButtonClicked(object sender, EventArgs e)
         {
             this.Visible = false;
-            new CustViewVehiclesInfoRequest(this).Show();
+            new custSelectVehicleFilters(this).Show();
         }
 
-        private void employeeButtonClick(object sender, EventArgs e)
+        private void empButtonClicked(object sender, EventArgs e)
         {
             empIdLabel.Visible = true;
             empIdTextbox.Visible = true;
             empLoginButton.Visible = true;
         }
 
-        private void empOrCustomerIdButton_Click(object sender, EventArgs e)
+        private void empLoginButtonClicked(object sender, EventArgs e)
         {
             new EmployeeLandingPage(this).Show();
         }
+        // end on click events
     }
 }

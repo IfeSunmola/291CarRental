@@ -44,7 +44,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "CUSTOMERS";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.customerButtonClick);
+            this.button1.Click += new System.EventHandler(this.custButtonClicked);
             // 
             // button2
             // 
@@ -55,7 +55,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "EMPLOYEES";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.employeeButtonClick);
+            this.button2.Click += new System.EventHandler(this.empButtonClicked);
             // 
             // empIdLabel
             // 
@@ -82,7 +82,7 @@
             this.empLoginButton.TabIndex = 4;
             this.empLoginButton.Text = "LOGIN";
             this.empLoginButton.UseVisualStyleBackColor = true;
-            this.empLoginButton.Click += new System.EventHandler(this.empOrCustomerIdButton_Click);
+            this.empLoginButton.Click += new System.EventHandler(this.empLoginButtonClicked);
             // 
             // LandingPage
             // 
@@ -95,7 +95,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "LandingPage";
-            this.Text = "LandingPage";
+            this.Text = "LANDING PAGE";
             this.ResumeLayout(false);
             this.PerformLayout();
 

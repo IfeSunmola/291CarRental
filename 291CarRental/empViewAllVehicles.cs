@@ -25,12 +25,12 @@ namespace _291CarRental
 
             connection = new SqlConnection(connectionString);
             command = new SqlCommand();
-            
+
             command.Connection = connection;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            fillVehicleClassAndBranchCombobox();
+            fillComboBoxes();
         }
 
         private DataTable getAvailableVehicleList()
@@ -57,10 +57,17 @@ namespace _291CarRental
             {
                 connection.Close();
             }
-             return cars;
+            return cars;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // start on click events
+        private void backButtonClicked(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
+        }
+
+        private void findAvailableVehiclesButtonClicked(object sender, EventArgs e)
         {
             //new empViewVehiclePage().Show();
             // load data into the DataGripView
@@ -75,8 +82,49 @@ namespace _291CarRental
             showVehicleDataGripViewPanel.Visible = true;
             rentVehicleButton.Visible = true;
         }
-    
-        private void fillVehicleClassAndBranchCombobox()
+
+        private void vehicleInfoClicked(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            String query = "";
+            try
+            {
+                connection.Open();
+                command.CommandText = query;
+                // reader = command.ExecuteReader();
+
+                //reader.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            estimatedCostLabel.Text = "ESTIMATED COST: $120";
+        }
+
+        private void rentThisVehicleButtonClicked(object sender, EventArgs e)
+        {
+            DialogResult confirmRenting = MessageBox.Show(
+              "Confirm renting of 2022 KIA SPORTAGE for JOHN DOE (003) ",
+              "CONFIRM RENTING VEHICLE",
+              MessageBoxButtons.YesNo);
+
+            if (confirmRenting == DialogResult.Yes)
+            {
+                MessageBox.Show("VEHICLE RENTED SUCCESSFULLY");
+            }
+            else if (confirmRenting == DialogResult.No)
+            {
+                MessageBox.Show("VEHICLE NOT RENTED");
+            }
+        }
+        // end on click events
+        
+        private void fillComboBoxes()
         {
             String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
             try
@@ -104,61 +152,7 @@ namespace _291CarRental
             {
                 connection.Close();
             }
-           
-        }
 
-        private void showVehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            String query = "";
-           /* String t = showVehicleDataGridView.Columns[0].ToString();
-
-            int rowIndex = showVehicleDataGridView.CurrentRow.Index;
-            DataGridViewRow row = showVehicleDataGridView.Rows[0];
-            
-            t = showVehicleDataGridView.SelectedRows[0].ToString();
-            t = row.ToString();
-            MessageBox.Show(rowIndex + "");*/
-            try
-            {
-                connection.Open();
-                command.CommandText = query;
-               // reader = command.ExecuteReader();
-                
-                //reader.Close();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            estimatedCostLabel.Text = "ESTIMATED COST: $120";
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            DialogResult confirmRenting = MessageBox.Show(
-              "Confirm renting of 2022 KIA SPORTAGE for JOHN DOE (003) ",
-              "CONFIRM RENTING VEHICLE",
-              MessageBoxButtons.YesNo);
-
-            if(confirmRenting == DialogResult.Yes)
-            {
-                MessageBox.Show("VEHICLE RENTED SUCCESSFULLY");
-            }
-            else if (confirmRenting == DialogResult.No)
-            {
-                MessageBox.Show("VEHICLE NOT RENTED");
-            }
-        }
-
-        private void backButtonClick(object sender, EventArgs e)
-        {
-            this.Close();
-            previousPage.Visible = true;
         }
     }
 }

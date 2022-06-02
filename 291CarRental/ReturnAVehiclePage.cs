@@ -53,7 +53,13 @@ namespace _291CarRental
             return cars;
         }
 
-        private void getCustomerRentalsButton_Click(object sender, EventArgs e)
+        private void backButtonClicked(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
+        }
+
+        private void findAllRentalsButtonClicked(object sender, EventArgs e)
         {
             // load data into the DataGripView
             customerRentalsDataGripView.DataSource = getCustomerRentals();
@@ -64,7 +70,7 @@ namespace _291CarRental
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void startAReturnButtonClicked(object sender, EventArgs e)
         {
             new StartAReturnPage().Show();
         }
@@ -82,12 +88,6 @@ namespace _291CarRental
         private void plateNumberRadio_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonLabel.Text = plateNumberRadio.Text;
-        }
-
-        private void backButtonClick(object sender, EventArgs e)
-        {
-            this.Close();
-            previousPage.Visible = true;
-        }
+        }  
     }
 }

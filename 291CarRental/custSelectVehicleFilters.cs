@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
-    public partial class CustViewVehiclesInfoRequest : Form
+    public partial class custSelectVehicleFilters : Form
     {
         private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         private SqlConnection connection;
         private SqlCommand command;
         private SqlDataReader? reader; // nullable, initialization not needed
         private LandingPage previousPage;
-        public CustViewVehiclesInfoRequest(LandingPage previousPage)
+        public custSelectVehicleFilters(LandingPage previousPage)
         {
             InitializeComponent();
             this.previousPage = previousPage;
@@ -30,16 +30,24 @@ namespace _291CarRental
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            fillVehicleClassAndBranchCombobox();
+            fillComboBoxes();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // start on click events
+        private void backButtonClicked(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
+        }
+
+        private void searchButtonClicked(object sender, EventArgs e)
         {
             this.Visible = false;
             new custViewVehiclePage(this).Show();
         }
+        // end on click events
 
-        private void fillVehicleClassAndBranchCombobox()
+        private void fillComboBoxes()
         {
             String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
             try
@@ -68,12 +76,6 @@ namespace _291CarRental
                 connection.Close();
             }
 
-        }
-
-        private void backButtonClick(object sender, EventArgs e)
-        {
-            this.Close();
-            previousPage.Visible = true;
         }
     }
 }

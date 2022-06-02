@@ -48,7 +48,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "VIEW AVAILABLE VEHICLES";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.viewAvailableVehiclesButtonClicked);
             // 
             // button2
             // 
@@ -59,7 +59,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "VEHICLE TOOLS";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.vehicleToolsButtonClicked);
             // 
             // button3
             // 
@@ -70,7 +70,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "RETURN A VEHICLE";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.returnAVehicleButtonClicked);
             // 
             // button4
             // 
@@ -81,7 +81,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "RUN CUSTOM REPORTS";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.runCustomReportsButtonClicked);
             // 
             // label1
             // 
@@ -128,7 +128,7 @@
             this.button5.TabIndex = 22;
             this.button5.Text = "BACK";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.backButtonClick);
+            this.button5.Click += new System.EventHandler(this.backButtonClicked);
             // 
             // EmployeeLandingPage
             // 
@@ -145,7 +145,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "EmployeeLandingPage";
-            this.Text = "EmployeeLandingPage";
+            this.Text = "EMPLOYEE LANDING PAGE";
             this.ResumeLayout(false);
             this.PerformLayout();
 

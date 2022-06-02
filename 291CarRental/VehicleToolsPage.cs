@@ -23,7 +23,7 @@ namespace _291CarRental
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void deleteVehicleButton_Click(object sender, EventArgs e)
         {
             // don't delete vehicle if it is has been rented out
             DialogResult confirmDelete = MessageBox.Show(
@@ -42,26 +42,27 @@ namespace _291CarRental
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            updatePanel.Visible = true;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        // add 
+        private void addVehicleButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmAdding = MessageBox.Show(
                "Confirm adding of (vehicle details?)",
                "CONFIRM ADDING VEHICLE",
                MessageBoxButtons.YesNo);
 
-            if(confirmAdding == DialogResult.Yes)
+            if (confirmAdding == DialogResult.Yes)
             {
                 MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
             }
-            else if(confirmAdding == DialogResult.No)
+            else if (confirmAdding == DialogResult.No)
             {
                 MessageBox.Show("VEHICLE NOT ADDED");
             }
+        }
+        // update
+        private void startUpdatingButton_Click(object sender, EventArgs e)
+        {
+            updatePanel.Visible = true;
         }
 
         private void saveChangesButton_Click(object sender, EventArgs e)
@@ -80,8 +81,9 @@ namespace _291CarRental
                 MessageBox.Show("VEHICLE NOT UPDATED");
             }
         }
+        // delete
 
-        private void backButtonClick(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;

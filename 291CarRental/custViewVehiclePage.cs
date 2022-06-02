@@ -17,8 +17,8 @@ namespace _291CarRental
         private SqlConnection connection;
         private SqlCommand command;
         private SqlDataReader? reader; // nullable, initialization not needed
-        private CustViewVehiclesInfoRequest previousPage;
-        public custViewVehiclePage(CustViewVehiclesInfoRequest previousPage)
+        private custSelectVehicleFilters previousPage;
+        public custViewVehiclePage(custSelectVehicleFilters previousPage)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -69,10 +69,12 @@ namespace _291CarRental
             return cars;
         }
 
+        // start on click events
         private void backButton(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
+        // end on click events
     }
 }

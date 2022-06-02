@@ -67,7 +67,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "START A RETURN";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.startAReturnButtonClicked);
             // 
             // label1
             // 
@@ -139,7 +139,7 @@
             this.button3.TabIndex = 16;
             this.button3.Text = "FIND ALL RENTALS";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.getCustomerRentalsButton_Click);
+            this.button3.Click += new System.EventHandler(this.findAllRentalsButtonClicked);
             // 
             // button2
             // 
@@ -150,7 +150,7 @@
             this.button2.TabIndex = 22;
             this.button2.Text = "BACK";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.backButtonClick);
+            this.button2.Click += new System.EventHandler(this.backButtonClicked);
             // 
             // ReturnAVehiclePage
             // 
@@ -168,7 +168,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.customerRentalsDataGripView);
             this.Name = "ReturnAVehiclePage";
-            this.Text = "ReturnAVehiclePage";
+            this.Text = "RETURNING A VEHICLE";
             ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

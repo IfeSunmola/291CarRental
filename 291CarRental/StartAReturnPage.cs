@@ -19,12 +19,12 @@ namespace _291CarRental
             amountDuePanel.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void calculateAmountDue_ButtonClicked(object sender, EventArgs e)
         {
             amountDuePanel.Visible = true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void finishReturn_ButtonClicked(object sender, EventArgs e)
         {
             DialogResult confirmPayment = MessageBox.Show(
                 "HAS THE CUSTOMER PAID THE AMOUNT DUE OF $120?", 

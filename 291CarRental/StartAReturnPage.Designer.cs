@@ -98,7 +98,7 @@
             this.button1.TabIndex = 19;
             this.button1.Text = "CALCULATE AMOUNT DUE";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.calculateAmountDue_ButtonClicked);
             // 
             // label4
             // 
@@ -163,7 +163,7 @@
             this.button2.TabIndex = 26;
             this.button2.Text = "FINISH RETURN";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.finishReturn_ButtonClicked);
             // 
             // label10
             // 
@@ -222,7 +222,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "StartAReturnPage";
-            this.Text = "StartAReturnPage";
+            this.Text = "RETURNING A VEHICLE";
             this.amountDuePanel.ResumeLayout(false);
             this.amountDuePanel.PerformLayout();
             this.ResumeLayout(false);
