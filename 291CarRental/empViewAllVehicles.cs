@@ -116,6 +116,8 @@ namespace _291CarRental
             if (confirmRenting == DialogResult.Yes)
             {
                 MessageBox.Show("VEHICLE RENTED SUCCESSFULLY");
+                this.Close();
+                previousPage.Visible = true;
             }
             else if (confirmRenting == DialogResult.No)
             {
