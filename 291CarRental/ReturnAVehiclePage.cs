@@ -18,6 +18,8 @@ namespace _291CarRental
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            customerIDRadio.Checked = true;
         }
 
         private DataTable getCustomerRentals()
@@ -62,6 +64,26 @@ namespace _291CarRental
         private void button1_Click(object sender, EventArgs e)
         {
             new StartAReturnPage().Show();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void customerIDRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonLabel.Text = customerIDRadio.Text;
+        }
+
+        private void phoneNumberRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonLabel.Text = phoneNumberRadio.Text;
+        }
+
+        private void plateNumberRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonLabel.Text = plateNumberRadio.Text;
         }
     }
 }

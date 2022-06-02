@@ -35,6 +35,7 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // branchComboBox
@@ -98,11 +99,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(46, 272);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 25);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "ADDRESS:";
+            // 
             // CustViewVehiclesInfoRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.branchComboBox);
             this.Controls.Add(this.vehicleClassCombobox);
@@ -126,5 +137,6 @@
         private DateTimePicker dateTimePicker2;
         private DateTimePicker dateTimePicker1;
         private Button button1;
+        private Label label7;
     }
 }

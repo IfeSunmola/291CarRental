@@ -71,6 +71,7 @@ namespace _291CarRental
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             showVehicleDataGripViewPanel.Visible = true;
+            rentVehicleButton.Visible = true;
         }
 
         private void bookForCustomerLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -160,8 +161,8 @@ namespace _291CarRental
 
         private void button3_Click(object sender, EventArgs e)
         {
-            customerDetailsPanel.Visible = true;
-            rentVehicleButton.Visible = true;
+            //customerDetailsPanel.Visible = true;
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
