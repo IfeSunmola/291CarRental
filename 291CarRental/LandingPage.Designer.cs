@@ -31,9 +31,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.empIdLabel = new System.Windows.Forms.Label();
-            this.empIdTextbox = new System.Windows.Forms.TextBox();
             this.empLoginButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.errorMessageLabel = new System.Windows.Forms.Label();
+            this.empIdTextbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -67,13 +68,6 @@
             this.empIdLabel.TabIndex = 2;
             this.empIdLabel.Text = "Employee ID";
             // 
-            // empIdTextbox
-            // 
-            this.empIdTextbox.Location = new System.Drawing.Point(382, 293);
-            this.empIdTextbox.Name = "empIdTextbox";
-            this.empIdTextbox.Size = new System.Drawing.Size(150, 31);
-            this.empIdTextbox.TabIndex = 3;
-            // 
             // empLoginButton
             // 
             this.empLoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -97,14 +91,36 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // errorMessageLabel
+            // 
+            this.errorMessageLabel.AutoSize = true;
+            this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorMessageLabel.Location = new System.Drawing.Point(382, 325);
+            this.errorMessageLabel.Name = "errorMessageLabel";
+            this.errorMessageLabel.Size = new System.Drawing.Size(160, 25);
+            this.errorMessageLabel.TabIndex = 25;
+            this.errorMessageLabel.Text = "ERROR MESSAGE";
+            this.errorMessageLabel.Visible = false;
+            // 
+            // empIdTextbox
+            // 
+            this.empIdTextbox.Location = new System.Drawing.Point(382, 290);
+            this.empIdTextbox.Name = "empIdTextbox";
+            this.empIdTextbox.ShortcutsEnabled = false;
+            this.empIdTextbox.Size = new System.Drawing.Size(150, 31);
+            this.empIdTextbox.TabIndex = 27;
+            this.empIdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.empIdTextbox_KeyPress);
+            // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.empIdTextbox);
+            this.Controls.Add(this.errorMessageLabel);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.empLoginButton);
-            this.Controls.Add(this.empIdTextbox);
             this.Controls.Add(this.empIdLabel);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -121,8 +137,9 @@
         private Button button1;
         private Button button2;
         private Label empIdLabel;
-        private TextBox empIdTextbox;
         private Button empLoginButton;
         private Button button3;
+        private Label errorMessageLabel;
+        private TextBox empIdTextbox;
     }
 }
