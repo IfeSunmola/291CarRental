@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace _291CarRental
 {
-    public partial class custSelectVehicleFilters : Form
+    public partial class CustSelectVehicleFilters : Form
     {
         private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         private SqlConnection connection;
         private SqlCommand command;
         private SqlDataReader? reader; // nullable, initialization not needed
         private LandingPage previousPage;
-        public custSelectVehicleFilters(LandingPage previousPage)
+        public CustSelectVehicleFilters(LandingPage previousPage)
         {
             InitializeComponent();
             this.previousPage = previousPage;
@@ -43,7 +36,7 @@ namespace _291CarRental
         private void searchButtonClicked(object sender, EventArgs e)
         {
             this.Visible = false;
-            new custViewVehiclePage(this).Show();
+            new CustViewVehiclePage(this).Show();
         }
         // end on click events
 

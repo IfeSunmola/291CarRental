@@ -1,6 +1,6 @@
 ﻿namespace _291CarRental
 {
-    partial class custViewVehiclePage
+    partial class CustViewVehiclePage
     {
         /// <summary>
         /// Required designer variable.

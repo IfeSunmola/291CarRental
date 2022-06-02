@@ -31,7 +31,7 @@ namespace _291CarRental
         private void viewAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new empViewAllVehicles(this).Show();
+            new EmpViewAllVehicles(this).Show();
         }
 
         private void returnAVehicleButton_Click(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿namespace _291CarRental
 {
-    partial class empViewAllVehicles
+    partial class EmpViewAllVehicles
     {
         /// <summary>
         /// Required designer variable.

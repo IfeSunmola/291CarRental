@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
-    public partial class empViewAllVehicles : Form
+    public partial class EmpViewAllVehicles : Form
     {
         private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         private SqlConnection connection;
         private SqlCommand command;
         private SqlDataReader? reader; // nullable, initialization not needed
         private EmployeeLandingPage previousPage;
-        public empViewAllVehicles(EmployeeLandingPage previousPage)
+        public EmpViewAllVehicles(EmployeeLandingPage previousPage)
         {
             InitializeComponent();
             this.previousPage = previousPage;

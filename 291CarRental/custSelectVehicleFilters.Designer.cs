@@ -1,6 +1,6 @@
 ﻿namespace _291CarRental
 {
-    partial class custSelectVehicleFilters
+    partial class CustSelectVehicleFilters
     {
         /// <summary>
         /// Required designer variable.

@@ -18,7 +18,7 @@ namespace _291CarRental
         private void custButtonClicked(object sender, EventArgs e)
         {
             this.Visible = false;
-            new custSelectVehicleFilters(this).Show();
+            new CustSelectVehicleFilters(this).Show();
         }
 
         private void empButtonClicked(object sender, EventArgs e)
