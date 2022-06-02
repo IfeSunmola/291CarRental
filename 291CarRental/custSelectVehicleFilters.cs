@@ -26,7 +26,6 @@ namespace _291CarRental
             fillComboBoxes();
         }
 
-        // start on click events
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -35,10 +34,15 @@ namespace _291CarRental
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
-            new CustViewVehiclePage(this).Show();
+            if (fromDatePicker.Value.Date <= DateTime.Now.Date)
+            {
+                MessageBox.Show("Vehicles must be booked one day before");
+            }
+            else if (fromDatePicker.Value.Date >= toDatePicker.Value.Date)
+            {
+                MessageBox.Show("FROM DATE HAS TO BE BEFORE TO DATE");
+            }
         }
-        // end on click events
 
         private void fillComboBoxes()
         {

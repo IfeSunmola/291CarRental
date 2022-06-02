@@ -32,8 +32,8 @@
             this.vehicleClassCombobox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.toDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.fromDatePicker = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -78,19 +78,19 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "FROM";
             // 
-            // dateTimePicker2
+            // toDatePicker
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(273, 91);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(300, 31);
-            this.dateTimePicker2.TabIndex = 7;
+            this.toDatePicker.Location = new System.Drawing.Point(273, 91);
+            this.toDatePicker.Name = "toDatePicker";
+            this.toDatePicker.Size = new System.Drawing.Size(300, 31);
+            this.toDatePicker.TabIndex = 7;
             // 
-            // dateTimePicker1
+            // fromDatePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(273, 24);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(300, 31);
-            this.dateTimePicker1.TabIndex = 6;
+            this.fromDatePicker.Location = new System.Drawing.Point(273, 24);
+            this.fromDatePicker.Name = "fromDatePicker";
+            this.fromDatePicker.Size = new System.Drawing.Size(300, 31);
+            this.fromDatePicker.TabIndex = 6;
             // 
             // button1
             // 
@@ -120,9 +120,9 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.branchComboBox);
-            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.fromDatePicker);
             this.panel1.Controls.Add(this.vehicleClassCombobox);
-            this.panel1.Controls.Add(this.dateTimePicker2);
+            this.panel1.Controls.Add(this.toDatePicker);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
@@ -173,8 +173,8 @@
         private ComboBox vehicleClassCombobox;
         private Label label2;
         private Label label1;
-        private DateTimePicker dateTimePicker2;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker toDatePicker;
+        private DateTimePicker fromDatePicker;
         private Button button1;
         private Label label7;
         private Panel panel1;
