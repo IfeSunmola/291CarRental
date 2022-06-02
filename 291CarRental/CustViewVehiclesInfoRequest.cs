@@ -35,7 +35,8 @@ namespace _291CarRental
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new custViewVehiclePage().Show();
+            this.Visible = false;
+            new custViewVehiclePage(this).Show();
         }
 
         private void fillVehicleClassAndBranchCombobox()

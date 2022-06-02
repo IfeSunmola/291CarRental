@@ -30,6 +30,7 @@
         {
             this.showVehicleDataGridView = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,13 +59,24 @@
             this.label1.Size = new System.Drawing.Size(694, 25);
             this.label1.TabIndex = 4;
             this.label1.Text = "SHOWING AVAILABLE VEHICLES FROM NOVEMBER 20, 2022 TO SEPTEMBER 12, 2022";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.Location = new System.Drawing.Point(25, 27);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(102, 44);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "BACK";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.backButton);
             // 
             // custViewVehiclePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1029, 533);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.showVehicleDataGridView);
             this.Controls.Add(this.label1);
             this.Name = "custViewVehiclePage";
@@ -79,5 +91,6 @@
 
         private DataGridView showVehicleDataGridView;
         private Label label1;
+        private Button button2;
     }
 }
