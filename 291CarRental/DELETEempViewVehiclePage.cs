@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
-    public partial class empViewVehiclePage : Form
+    public partial class DELETEempViewVehiclePage : Form
     {
         private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        public empViewVehiclePage()
+        public DELETEempViewVehiclePage()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -50,7 +50,7 @@ namespace _291CarRental
                     "\nVehicle Details: 2022 Toyota, Corolla" +
                     "\nAmount Paid: $130",
                     "VEHICLE RENTAL SUCESS");
-                new EmployeeLandingPage().Show();
+                //new EmployeeLandingPage().Show();
 
             }
             else if (confirmRental == DialogResult.No)

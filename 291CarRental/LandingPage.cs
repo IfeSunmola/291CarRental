@@ -29,7 +29,7 @@ namespace _291CarRental
 
         private void empOrCustomerIdButton_Click(object sender, EventArgs e)
         {
-            new EmployeeLandingPage().Show();
+            new EmployeeLandingPage(this).Show();
         }
     }
 }

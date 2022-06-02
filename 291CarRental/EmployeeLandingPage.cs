@@ -13,10 +13,12 @@ namespace _291CarRental
 {
     public partial class EmployeeLandingPage : Form
     {
-        
-        public EmployeeLandingPage()
+        private LandingPage previousPage;
+        public EmployeeLandingPage(LandingPage previousPage)
         {
             InitializeComponent();
+            this.previousPage = previousPage;
+
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -38,6 +40,12 @@ namespace _291CarRental
         private void button4_Click(object sender, EventArgs e)
         {
             new RunCustomReportPage().Show();  
+        }
+
+        private void backButtonClick(object sender, EventArgs e)
+        {
+            this.Close();
+            previousPage.Visible = true;
         }
     }
 }
