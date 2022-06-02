@@ -30,6 +30,7 @@ namespace _291CarRental
 
         private void empLoginButtonClicked(object sender, EventArgs e)
         {
+            this.Visible = false;
             new EmployeeLandingPage(this).Show();
         }
         // end on click events

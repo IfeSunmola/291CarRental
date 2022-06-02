@@ -48,7 +48,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "VIEW AVAILABLE VEHICLES";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.viewAvailableVehiclesButtonClicked);
+            this.button1.Click += new System.EventHandler(this.viewAvailableVehiclesButton_Click);
             // 
             // button2
             // 
@@ -59,7 +59,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "VEHICLE TOOLS";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.vehicleToolsButtonClicked);
+            this.button2.Click += new System.EventHandler(this.vehicleToolsButton_Click);
             // 
             // button3
             // 
@@ -70,7 +70,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "RETURN A VEHICLE";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.returnAVehicleButtonClicked);
+            this.button3.Click += new System.EventHandler(this.returnAVehicleButton_Click);
             // 
             // button4
             // 
@@ -81,7 +81,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "RUN CUSTOM REPORTS";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.runCustomReportsButtonClicked);
+            this.button4.Click += new System.EventHandler(this.runCustomReportsButton_Click);
             // 
             // label1
             // 
@@ -128,7 +128,7 @@
             this.button5.TabIndex = 22;
             this.button5.Text = "BACK";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.backButtonClicked);
+            this.button5.Click += new System.EventHandler(this.backButton_Click);
             // 
             // EmployeeLandingPage
             // 

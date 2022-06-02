@@ -39,7 +39,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(62, 32);
+            this.label1.Location = new System.Drawing.Point(156, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(251, 25);
             this.label1.TabIndex = 0;
@@ -48,7 +48,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(378, 32);
+            this.comboBox1.Location = new System.Drawing.Point(472, 34);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(314, 33);
             this.comboBox1.TabIndex = 1;
@@ -56,7 +56,7 @@
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(307, 239);
+            this.button1.Location = new System.Drawing.Point(401, 241);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(194, 82);
             this.button1.TabIndex = 9;
@@ -66,7 +66,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(62, 419);
+            this.dataGridView1.Location = new System.Drawing.Point(156, 421);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 33;
@@ -76,18 +76,19 @@
             // button2
             // 
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Location = new System.Drawing.Point(366, 340);
+            this.button2.Location = new System.Drawing.Point(12, 34);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 44);
             this.button2.TabIndex = 22;
             this.button2.Text = "BACK";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.backButton_Click);
             // 
             // RunCustomReportPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 725);
+            this.ClientSize = new System.Drawing.Size(969, 725);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
