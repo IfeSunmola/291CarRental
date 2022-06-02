@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.showVehicleDataGridView = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.showingVehiclesLabel = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -54,14 +54,14 @@
             this.showVehicleDataGridView.Size = new System.Drawing.Size(904, 324);
             this.showVehicleDataGridView.TabIndex = 5;
             // 
-            // label1
+            // showingVehiclesLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(135, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(694, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "SHOWING AVAILABLE VEHICLES FROM NOVEMBER 20, 2022 TO SEPTEMBER 12, 2022";
+            this.showingVehiclesLabel.AutoSize = true;
+            this.showingVehiclesLabel.Location = new System.Drawing.Point(135, 0);
+            this.showingVehiclesLabel.Name = "showingVehiclesLabel";
+            this.showingVehiclesLabel.Size = new System.Drawing.Size(328, 25);
+            this.showingVehiclesLabel.TabIndex = 4;
+            this.showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM ";
             // 
             // button3
             // 
@@ -91,7 +91,7 @@
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.showVehicleDataGridView);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.showingVehiclesLabel);
             this.panel1.Location = new System.Drawing.Point(21, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(984, 476);
@@ -120,5 +120,6 @@
         private Button button3;
         private Button button1;
         private Panel panel1;
+        private Label showingVehiclesLabel;
     }
 }

@@ -13,23 +13,25 @@ namespace _291CarRental
 {
     public partial class CustViewVehiclePage : Form
     {
-        private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection connection;
-        private SqlCommand command;
-        private SqlDataReader? reader; // nullable, initialization not needed
+        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
+        private SqlConnection? connection;
+        private SqlCommand? command;
+        private SqlDataReader? reader;
+
         private CustSelectVehicleFilters previousPage;
-        public CustViewVehiclePage(CustSelectVehicleFilters previousPage)
+        private DateTimePicker fromDate;
+        private DateTimePicker toDate;
+        
+        public CustViewVehiclePage(CustSelectVehicleFilters previousPage, DateTimePicker fromDate, DateTimePicker toDate)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-
+            this.fromDate = fromDate;
+            this.toDate = toDate; 
             this.previousPage = previousPage;
 
-
-            connection = new SqlConnection(connectionString);
-            command = new SqlCommand();
-
-            command.Connection = connection;
+            String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
+            showingVehiclesLabel.Text += stringToAppend;
 
 
             showVehicleDataGridView.DataSource = getAvailableVehicleList();
@@ -50,21 +52,14 @@ namespace _291CarRental
                                  WHERE Vehicle.branch_id = Branch.branch_id
                                  AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id;
                                 ";
-            try
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.CommandText = query;
                 reader = command.ExecuteReader();
                 cars.Load(reader);
                 reader.Close();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
             }
             return cars;
         }

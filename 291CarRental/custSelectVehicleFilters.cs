@@ -30,7 +30,8 @@ namespace _291CarRental
         {
             if (validated())
             {
-                
+                this.Visible = false;
+                new CustViewVehiclePage(this, fromDatePicker, toDatePicker).Show();
             }
         }
 
