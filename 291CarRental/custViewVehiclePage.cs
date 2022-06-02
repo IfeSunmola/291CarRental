@@ -69,12 +69,24 @@ namespace _291CarRental
             return cars;
         }
 
-        // start on click events
-        private void backButton(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
-        // end on click events
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmExit = MessageBox.Show(
+                "Are you sure you want to exit the application?" +
+                "\nAny unsaved information will be lost".ToUpper(),
+                "CONFIRM EXIT",
+                MessageBoxButtons.YesNo);
+            if (confirmExit == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+
+        }
     }
 }

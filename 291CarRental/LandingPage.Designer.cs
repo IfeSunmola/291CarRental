@@ -33,6 +33,7 @@
             this.empIdLabel = new System.Windows.Forms.Label();
             this.empIdTextbox = new System.Windows.Forms.TextBox();
             this.empLoginButton = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -44,7 +45,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "CUSTOMERS";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.custButtonClicked);
+            this.button1.Click += new System.EventHandler(this.custButton_Click);
             // 
             // button2
             // 
@@ -55,7 +56,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "EMPLOYEES";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.empButtonClicked);
+            this.button2.Click += new System.EventHandler(this.empButton_Click);
             // 
             // empIdLabel
             // 
@@ -82,18 +83,32 @@
             this.empLoginButton.TabIndex = 4;
             this.empLoginButton.Text = "LOGIN";
             this.empLoginButton.UseVisualStyleBackColor = true;
-            this.empLoginButton.Click += new System.EventHandler(this.empLoginButtonClicked);
+            this.empLoginButton.Click += new System.EventHandler(this.empLoginButton_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.Location = new System.Drawing.Point(686, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(102, 44);
+            this.button3.TabIndex = 24;
+            this.button3.Text = "EXIT";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.empLoginButton);
             this.Controls.Add(this.empIdTextbox);
             this.Controls.Add(this.empIdLabel);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.MaximizeBox = false;
             this.Name = "LandingPage";
             this.Text = "LANDING PAGE";
             this.ResumeLayout(false);
@@ -108,5 +123,6 @@
         private Label empIdLabel;
         private TextBox empIdTextbox;
         private Button empLoginButton;
+        private Button button3;
     }
 }

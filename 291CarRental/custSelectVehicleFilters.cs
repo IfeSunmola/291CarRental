@@ -27,13 +27,13 @@ namespace _291CarRental
         }
 
         // start on click events
-        private void backButtonClicked(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
-        private void searchButtonClicked(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             new CustViewVehiclePage(this).Show();
@@ -67,6 +67,21 @@ namespace _291CarRental
             finally
             {
                 connection.Close();
+            }
+
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+
+            DialogResult confirmExit = MessageBox.Show(
+                "Are you sure you want to exit the application?" +
+                "\nAny unsaved information will be lost".ToUpper(),
+                "CONFIRM EXIT",
+                MessageBoxButtons.YesNo);
+            if (confirmExit == DialogResult.Yes)
+            {
+                Application.Exit();
             }
 
         }

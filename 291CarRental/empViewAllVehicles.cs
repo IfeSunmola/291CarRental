@@ -21,6 +21,9 @@ namespace _291CarRental
         public EmpViewAllVehicles(EmployeeLandingPage previousPage)
         {
             InitializeComponent();
+
+            //this.FormBorderStyle = FormBorderStyle.None;
+
             this.previousPage = previousPage;
 
             connection = new SqlConnection(connectionString);
@@ -61,13 +64,13 @@ namespace _291CarRental
         }
 
         // start on click events
-        private void backButtonClicked(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
-        private void findAvailableVehiclesButtonClicked(object sender, EventArgs e)
+        private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
             //new empViewVehiclePage().Show();
             // load data into the DataGripView
@@ -83,7 +86,7 @@ namespace _291CarRental
             rentVehicleButton.Visible = true;
         }
 
-        private void vehicleInfoClicked(object sender, DataGridViewCellMouseEventArgs e)
+        private void vehicleInfoRow_Click(object sender, DataGridViewCellMouseEventArgs e)
         {
             String query = "";
             try
@@ -106,7 +109,7 @@ namespace _291CarRental
             estimatedCostLabel.Text = "ESTIMATED COST: $120";
         }
 
-        private void rentThisVehicleButtonClicked(object sender, EventArgs e)
+        private void rentThisVehicleButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmRenting = MessageBox.Show(
               "Confirm renting of 2022 KIA SPORTAGE for JOHN DOE (003) ",
@@ -155,6 +158,20 @@ namespace _291CarRental
                 connection.Close();
             }
 
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmExit = MessageBox.Show(
+                "Are you sure you want to exit the application?" +
+                "\nAny unsaved information will be lost".ToUpper(),
+                "CONFIRM EXIT",
+                MessageBoxButtons.YesNo);
+            if (confirmExit == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            
         }
     }
 }

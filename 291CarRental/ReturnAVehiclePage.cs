@@ -53,13 +53,13 @@ namespace _291CarRental
             return cars;
         }
 
-        private void backButtonClicked(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
-        private void findAllRentalsButtonClicked(object sender, EventArgs e)
+        private void findAllRentalsButton_Click(object sender, EventArgs e)
         {
             // load data into the DataGripView
             customerRentalsDataGripView.DataSource = getCustomerRentals();
@@ -70,9 +70,10 @@ namespace _291CarRental
             }
         }
 
-        private void startAReturnButtonClicked(object sender, EventArgs e)
+        private void startAReturnButton_Click(object sender, EventArgs e)
         {
-            new StartAReturnPage().Show();
+            this.Visible = false;
+            new StartAReturnPage(this).Show();
         }
 
         private void customerIDRadio_CheckedChanged(object sender, EventArgs e)
@@ -88,6 +89,20 @@ namespace _291CarRental
         private void plateNumberRadio_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonLabel.Text = plateNumberRadio.Text;
-        }  
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmExit = MessageBox.Show(
+                "Are you sure you want to exit the application?" +
+                "\nAny unsaved information will be lost".ToUpper(),
+                "CONFIRM EXIT",
+                MessageBoxButtons.YesNo);
+            if (confirmExit == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+
+        }
     }
 }

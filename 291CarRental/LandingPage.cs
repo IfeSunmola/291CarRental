@@ -14,25 +14,37 @@ namespace _291CarRental
             empLoginButton.Visible = false;
         }
 
-        // start on click events
-        private void custButtonClicked(object sender, EventArgs e)
+        private void custButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             new CustSelectVehicleFilters(this).Show();
         }
 
-        private void empButtonClicked(object sender, EventArgs e)
+        private void empButton_Click(object sender, EventArgs e)
         {
             empIdLabel.Visible = true;
             empIdTextbox.Visible = true;
             empLoginButton.Visible = true;
         }
 
-        private void empLoginButtonClicked(object sender, EventArgs e)
+        private void empLoginButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             new EmployeeLandingPage(this).Show();
         }
-        // end on click events
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmExit = MessageBox.Show(
+                "Are you sure you want to exit the application?" +
+                "\nAny unsaved information will be lost".ToUpper(),
+                "CONFIRM EXIT",
+                MessageBoxButtons.YesNo);
+            if (confirmExit == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+
+        }
     }
 }

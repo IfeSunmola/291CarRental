@@ -51,5 +51,19 @@ namespace _291CarRental
             this.Visible = false;
             new RunCustomReportPage(this).Show();
         }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmExit = MessageBox.Show(
+                "Are you sure you want to exit the application?" +
+                "\nAny unsaved information will be lost".ToUpper(),
+                "CONFIRM EXIT",
+                MessageBoxButtons.YesNo);
+            if (confirmExit == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+
+        }
     }
 }
