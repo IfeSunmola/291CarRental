@@ -91,6 +91,16 @@ namespace _291CarRental
             }
         }
 
+        private void idAndPhoneNumberValidator()
+        {
+            String customerId = customerIdTextbox.Text;
+            String phoneNumber = phoneNumberTextbox.Text;
+
+            if (!String.IsNullOrEmpty(customerId) && !String.IsNullOrEmpty(phoneNumber))
+            {// both customerid text box and phone number text box are filled, not allowed
+
+            }
+        }
         private bool validateSearchDetials()
         {
             bool result = false;
@@ -104,6 +114,7 @@ namespace _291CarRental
             {
                 MessageBox.Show("FROM DATE HAS TO BE BEFORE TO DATE");
             }
+            // below are redundant but that's okay because hehehehe
             else if (String.IsNullOrEmpty(vehicleClassSelected))
             {
                 MessageBox.Show("SELECT A VEHICLE CLASS");
@@ -274,6 +285,18 @@ namespace _291CarRental
                 reader.Close();
             }
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
+        }
+
+        // this method make the employee id textbox only accept numbers
+        // copy and paste won't work because Shortcuts are disabled
+        private void customerIdTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void phoneNumberTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }

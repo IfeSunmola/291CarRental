@@ -140,6 +140,7 @@
             this.customerIdTextbox.Name = "customerIdTextbox";
             this.customerIdTextbox.Size = new System.Drawing.Size(150, 31);
             this.customerIdTextbox.TabIndex = 8;
+            this.customerIdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customerIdTextbox_KeyPress);
             // 
             // vehicleDataGridView
             // 
@@ -258,9 +259,11 @@
             // phoneNumberTextbox
             // 
             this.phoneNumberTextbox.Location = new System.Drawing.Point(543, 134);
+            this.phoneNumberTextbox.MaxLength = 10;
             this.phoneNumberTextbox.Name = "phoneNumberTextbox";
             this.phoneNumberTextbox.Size = new System.Drawing.Size(150, 31);
             this.phoneNumberTextbox.TabIndex = 16;
+            this.phoneNumberTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.phoneNumberTextbox_KeyPress);
             // 
             // label5
             // 
