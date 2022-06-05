@@ -13,13 +13,44 @@ namespace _291CarRental
 {
     public partial class EmployeeLandingPage : Form
     {
+        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
+        private SqlConnection? connection;
+        private SqlCommand? command;
+        private SqlDataReader? reader;
+
         private LandingPage previousPage;
-        public EmployeeLandingPage(LandingPage previousPage)
+        private String empId;
+
+        public EmployeeLandingPage(LandingPage previousPage, String empId)
         {
             InitializeComponent();
             this.previousPage = previousPage;
+            this.empId = empId;
 
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            empIdLabel.Text = empId;
+            empNameLabel.Text = getEmpName();
+            
+        }
+
+        private String getEmpName()
+        {
+            String? result = "";
+            String query = "SELECT trim(first_name) + ' ' + trim(last_name)" +
+                "\nFROM Employee" +
+                "\nWHERE emp_id = " + empId + ";";
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                var empName = command.ExecuteScalar();  
+                if (empName != null)
+                {
+                    result = empName.ToString();
+                }
+            }
+            return result;
         }
 
         private void backButton_Click(object sender, EventArgs e)

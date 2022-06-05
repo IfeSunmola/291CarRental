@@ -33,8 +33,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.empIdLabel = new System.Windows.Forms.Label();
+            this.empNameLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -95,23 +95,23 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Employee ID:";
             // 
-            // label2
+            // empIdLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 154);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 25);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "001";
+            this.empIdLabel.AutoSize = true;
+            this.empIdLabel.Location = new System.Drawing.Point(3, 154);
+            this.empIdLabel.Name = "empIdLabel";
+            this.empIdLabel.Size = new System.Drawing.Size(42, 25);
+            this.empIdLabel.TabIndex = 5;
+            this.empIdLabel.Text = "001";
             // 
-            // label3
+            // empNameLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 261);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 25);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Loren Ipsum";
+            this.empNameLabel.AutoSize = true;
+            this.empNameLabel.Location = new System.Drawing.Point(3, 261);
+            this.empNameLabel.Name = "empNameLabel";
+            this.empNameLabel.Size = new System.Drawing.Size(111, 25);
+            this.empNameLabel.TabIndex = 7;
+            this.empNameLabel.Text = "Loren Ipsum";
             // 
             // label4
             // 
@@ -148,11 +148,11 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.empNameLabel);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.empIdLabel);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button3);
@@ -184,8 +184,8 @@
         private Button button3;
         private Button button4;
         private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label empIdLabel;
+        private Label empNameLabel;
         private Label label4;
         private Button button5;
         private Button button6;

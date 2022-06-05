@@ -48,12 +48,13 @@ namespace _291CarRental
                 using (command = new SqlCommand(query, connection))
                 {
                     connection.Open();
-                    if (command.ExecuteScalar() != null)
+                    var empId = command.ExecuteScalar();
+                    if (empId != null)
                     {// not null means a value was returned, value will only be returned if the emp_id was found
                         MessageBox.Show("LOGIN SUCCESSFULL", "ID FOUND");
                         this.Visible = false;
                         errorMessageLabel.Visible = false;
-                        new EmployeeLandingPage(this).ShowDialog();
+                        new EmployeeLandingPage(this, empId.ToString()).ShowDialog();
                     }
                     else
                     {
