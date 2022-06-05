@@ -16,6 +16,7 @@ namespace _291CarRental
             InitializeComponent();
             this.previousPage = previousPage;
             this.StartPosition = FormStartPosition.CenterScreen;
+            fromDatePicker.Value = DateTime.Now.AddHours(24);
             addressLabel.Visible = false;
             fillComboBoxes();
         }
@@ -31,7 +32,8 @@ namespace _291CarRental
             if (validated())
             {
                 this.Visible = false;
-                new CustViewVehiclePage(this, fromDatePicker, toDatePicker).Show();
+                new CustViewVehiclePage(this, fromDatePicker, toDatePicker, (int)vehicleClassCombobox.SelectedIndex + 1,
+                    (int)branchComboBox.SelectedIndex + 1).Show();
             }
         }
 

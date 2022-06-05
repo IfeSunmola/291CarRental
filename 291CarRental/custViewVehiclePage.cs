@@ -21,14 +21,19 @@ namespace _291CarRental
         private CustSelectVehicleFilters previousPage;
         private DateTimePicker fromDate;
         private DateTimePicker toDate;
+        private int vehicleClassId;
+        private int branchId;
+
         
-        public CustViewVehiclePage(CustSelectVehicleFilters previousPage, DateTimePicker fromDate, DateTimePicker toDate)
+        public CustViewVehiclePage(CustSelectVehicleFilters previousPage, DateTimePicker fromDate, DateTimePicker toDate, int vehicleClassId, int branchId)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.fromDate = fromDate;
             this.toDate = toDate; 
             this.previousPage = previousPage;
+            this.vehicleClassId = vehicleClassId;
+            this.branchId = branchId;
 
             String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text += stringToAppend;
@@ -50,8 +55,9 @@ namespace _291CarRental
             String query = @"SELECT vehicle_id, branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model
                                  FROM Vehicle, Branch, Vehicle_Class
                                  WHERE Vehicle.branch_id = Branch.branch_id
-                                 AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id;
-                                ";
+                                 AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id
+                                 AND Vehicle.branch_id = " + branchId + 
+                                 "AND Vehicle.vehicle_class_id = " + vehicleClassId+ ";";
 
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
@@ -82,6 +88,13 @@ namespace _291CarRental
                 Application.Exit();
             }
 
+        }
+
+        private String addQuotes(String stringToAdd)
+        {
+            String temp1 = stringToAdd.Insert(0, "'");
+            String temp2 = temp1.Insert(temp1.Length, "'");
+            return temp2;
         }
     }
 }
