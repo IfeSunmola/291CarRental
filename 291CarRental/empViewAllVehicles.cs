@@ -35,8 +35,7 @@ namespace _291CarRental
             addressLabel.Visible = false;
             fillComboBoxes();
 
-            customerNameLabel.Visible = false;
-            goldMemberLabel.Visible = false;
+            customerDetailsPanel.Visible = false;
         }
 
         private DataTable getAvailableVehicleList()
@@ -78,6 +77,7 @@ namespace _291CarRental
         {
             if (validateSearchDetials())
             {
+                getCustomerDetails();
                 vehicleDataGridView.DataSource = getAvailableVehicleList();
                 vehicleDataGridView.Columns["vehicle_id"].Visible = false;
                 //disable sorting the columns
@@ -88,6 +88,36 @@ namespace _291CarRental
                 showVehicleDataGripViewPanel.Visible = true;
                 String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
                 showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
+            }
+        }
+
+        private void getCustomerDetails()
+        {
+            String customerId = customerIdTextbox.Text;
+            String query = "SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name AS name, membership_type" +
+                            "\nFROM Customer " +
+                            "\nWHERE customer_id = " + customerId;
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    customerNameLabel.Text = "CUSTOMER NAME: " + reader.GetString(0);
+                    MessageBox.Show(reader.GetString(0));
+                    if (reader.GetString(1).Equals("Gold"))
+                    {
+                        goldMemberLabel.Text = "GOLD MEMBER: YES";
+                    }
+                    else
+                    {
+                        goldMemberLabel.Text = "GOLD MEMBER: NO";
+                    }
+                }
+                customerDetailsPanel.Visible = true;    
+                reader.Close();
             }
         }
 
