@@ -116,7 +116,9 @@ namespace _291CarRental
                     branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
                 }
                 reader.Close();
-            }  
+            }
+            vehicleClassCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            branchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
