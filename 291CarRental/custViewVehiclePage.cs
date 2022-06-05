@@ -38,11 +38,12 @@ namespace _291CarRental
             String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text += stringToAppend;
 
+            estimatedCostLabel.Text = "";
 
-            showVehicleDataGridView.DataSource = getAvailableVehicleList();
-            showVehicleDataGridView.Columns["vehicle_id"].Visible = false;
+            vehicleDataGridView.DataSource = getAvailableVehicleList();
+            vehicleDataGridView.Columns["vehicle_id"].Visible = false;
             //disable sorting the columns
-            foreach (DataGridViewColumn dataGridViewColumn in showVehicleDataGridView.Columns)
+            foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
             {
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
@@ -95,6 +96,67 @@ namespace _291CarRental
             String temp1 = stringToAdd.Insert(0, "'");
             String temp2 = temp1.Insert(temp1.Length, "'");
             return temp2;
+        }
+
+        private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
+            int daysBetween = (toDate.Value - fromDate.Value).Days + 1;
+            Decimal dailyRate = getRates(currentVehicleId).Item1;
+            Decimal weeklyRate = getRates(currentVehicleId).Item2;
+            Decimal monthlyRate = getRates(currentVehicleId).Item3;
+
+            MessageBox.Show("Daily: " + dailyRate +
+                "\nWeekly: " + weeklyRate +
+                "\nMonthly: " + monthlyRate);
+
+            if (daysBetween <= 7)
+            {
+                estimatedCostLabel.Text = string.Empty;
+            }
+            else if (daysBetween > 7 && daysBetween < 30)
+            {
+                
+            }
+            else //if (daysBetween >= 30)
+            {
+                
+            }
+        }
+
+
+        private Tuple<Decimal, Decimal, Decimal> getRates(int currentVehicleId)
+        {
+            String query = "SELECT daily_rate, weekly_rate, monthly_rate" +
+                  "\nFROM Vehicle_Class, Vehicle " +
+                  "\nWHERE vehicle.vehicle_id = " + currentVehicleId +
+                  "\nAND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id;";
+
+            Decimal dailyRate = 0.0m, weeklyRate = 0.0m, monthlyRate = 0.0m;
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.GetName(0).Equals("daily_rate"))
+                    {
+                        dailyRate = reader.GetDecimal(0);
+                    }
+                    if (reader.GetName(1).Equals("weekly_rate"))
+                    {
+                        weeklyRate = reader.GetDecimal(1);
+                    }
+                    if (reader.GetName(2).Equals("monthly_rate"))
+                    {
+                        monthlyRate = reader.GetDecimal(2);
+                    }
+
+                }
+                reader.Close();
+            }
+            return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
     }
 }

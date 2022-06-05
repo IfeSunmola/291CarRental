@@ -16,7 +16,8 @@ namespace _291CarRental
             InitializeComponent();
             this.previousPage = previousPage;
             this.StartPosition = FormStartPosition.CenterScreen;
-            fromDatePicker.Value = DateTime.Now.AddHours(24);
+            fromDatePicker.Value = DateTime.Now.AddDays(1);
+            toDatePicker.Value = DateTime.Now.AddDays(2);
             addressLabel.Visible = false;
             fillComboBoxes();
         }

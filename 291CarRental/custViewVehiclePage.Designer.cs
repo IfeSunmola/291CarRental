@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.showVehicleDataGridView = new System.Windows.Forms.DataGridView();
+            this.vehicleDataGridView = new System.Windows.Forms.DataGridView();
             this.showingVehiclesLabel = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).BeginInit();
+            this.estimatedCostLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // showVehicleDataGridView
             // 
-            this.showVehicleDataGridView.AllowUserToAddRows = false;
-            this.showVehicleDataGridView.AllowUserToDeleteRows = false;
-            this.showVehicleDataGridView.AllowUserToResizeColumns = false;
-            this.showVehicleDataGridView.AllowUserToResizeRows = false;
-            this.showVehicleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.showVehicleDataGridView.Location = new System.Drawing.Point(32, 69);
-            this.showVehicleDataGridView.MultiSelect = false;
-            this.showVehicleDataGridView.Name = "showVehicleDataGridView";
-            this.showVehicleDataGridView.ReadOnly = true;
-            this.showVehicleDataGridView.RowHeadersWidth = 62;
-            this.showVehicleDataGridView.RowTemplate.Height = 33;
-            this.showVehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.showVehicleDataGridView.Size = new System.Drawing.Size(904, 324);
-            this.showVehicleDataGridView.TabIndex = 5;
+            this.vehicleDataGridView.AllowUserToAddRows = false;
+            this.vehicleDataGridView.AllowUserToDeleteRows = false;
+            this.vehicleDataGridView.AllowUserToResizeColumns = false;
+            this.vehicleDataGridView.AllowUserToResizeRows = false;
+            this.vehicleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.vehicleDataGridView.Location = new System.Drawing.Point(32, 69);
+            this.vehicleDataGridView.MultiSelect = false;
+            this.vehicleDataGridView.Name = "showVehicleDataGridView";
+            this.vehicleDataGridView.ReadOnly = true;
+            this.vehicleDataGridView.RowHeadersWidth = 62;
+            this.vehicleDataGridView.RowTemplate.Height = 33;
+            this.vehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.vehicleDataGridView.Size = new System.Drawing.Size(904, 324);
+            this.vehicleDataGridView.TabIndex = 5;
+            this.vehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleDataGridView_CellMouseClick);
             // 
             // showingVehiclesLabel
             // 
@@ -88,14 +90,24 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.estimatedCostLabel);
             this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.showVehicleDataGridView);
+            this.panel1.Controls.Add(this.vehicleDataGridView);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.showingVehiclesLabel);
             this.panel1.Location = new System.Drawing.Point(21, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(984, 476);
             this.panel1.TabIndex = 25;
+            // 
+            // estimatedCostLabel
+            // 
+            this.estimatedCostLabel.AutoSize = true;
+            this.estimatedCostLabel.Location = new System.Drawing.Point(32, 420);
+            this.estimatedCostLabel.Name = "estimatedCostLabel";
+            this.estimatedCostLabel.Size = new System.Drawing.Size(200, 25);
+            this.estimatedCostLabel.TabIndex = 25;
+            this.estimatedCostLabel.Text = "ESTIMATED COST:  0.00";
             // 
             // CustViewVehiclePage
             // 
@@ -106,7 +118,7 @@
             this.MaximizeBox = false;
             this.Name = "CustViewVehiclePage";
             this.Text = "CUSTOMER VIEWING AVAILABLE VEHICLES";
-            ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -115,11 +127,12 @@
 
         #endregion
 
-        private DataGridView showVehicleDataGridView;
+        private DataGridView vehicleDataGridView;
         private Label label1;
         private Button button3;
         private Button button1;
         private Panel panel1;
         private Label showingVehiclesLabel;
+        private Label estimatedCostLabel;
     }
 }
