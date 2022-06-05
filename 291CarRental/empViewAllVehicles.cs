@@ -91,16 +91,6 @@ namespace _291CarRental
             }
         }
 
-        private void idAndPhoneNumberValidator()
-        {
-            String customerId = customerIdTextbox.Text;
-            String phoneNumber = phoneNumberTextbox.Text;
-
-            if (!String.IsNullOrEmpty(customerId) && !String.IsNullOrEmpty(phoneNumber))
-            {// both customerid text box and phone number text box are filled, not allowed
-
-            }
-        }
         private bool validateSearchDetials()
         {
             bool result = false;
