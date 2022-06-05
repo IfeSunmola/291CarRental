@@ -109,12 +109,12 @@
             // 
             // showingVehiclesLabel
             // 
-            this.showingVehiclesLabel.AutoSize = true;
-            this.showingVehiclesLabel.Location = new System.Drawing.Point(135, 0);
+            this.showingVehiclesLabel.Location = new System.Drawing.Point(108, 10);
             this.showingVehiclesLabel.Name = "showingVehiclesLabel";
-            this.showingVehiclesLabel.Size = new System.Drawing.Size(328, 25);
+            this.showingVehiclesLabel.Size = new System.Drawing.Size(754, 25);
             this.showingVehiclesLabel.TabIndex = 4;
             this.showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM ";
+            this.showingVehiclesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button3
             // 
