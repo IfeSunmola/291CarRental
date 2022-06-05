@@ -174,9 +174,14 @@ namespace _291CarRental
             vehicleClassCombobox.Items.Add("ALL CLASSES");
             branchComboBox.Items.Add("ALL BRANCHES");
             vehicleClassCombobox.SelectedIndex = 0;
-            branchComboBox.SelectedIndex = 0;
+            //branchComboBox.SelectedIndex = 0;
 
-            String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
+            String query = "SELECT vehicle_class FROM Vehicle_Class;" +
+                "\nSELECT branch_name FROM Branch;" +
+                "\nSELECT Employee.branch_id" +
+                "\nFROM Employee, Branch " +
+                "\nWHERE Employee.branch_id = Branch.branch_id" +
+                "\nAND emp_id = " + empId ;
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
             {
@@ -190,6 +195,11 @@ namespace _291CarRental
                 while (reader.Read())
                 {
                     branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
+                }
+                reader.NextResult();
+                if (reader.Read())
+                {
+                    branchComboBox.SelectedIndex = reader.GetInt32("branch_id");
                 }
                 reader.Close();
             }
@@ -243,7 +253,6 @@ namespace _291CarRental
             addressLabel.Text = getBranchAddress();
             addressLabel.Visible = true;
         }
-
 
         private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
