@@ -19,6 +19,7 @@ namespace _291CarRental
         private SqlDataReader? reader;
         private EmployeeLandingPage previousPage;
         private String empId;
+        private String currentCustName;
 
         public EmpViewAllVehicles(EmployeeLandingPage previousPage, String empId)
         {
@@ -26,6 +27,7 @@ namespace _291CarRental
 
             this.previousPage = previousPage;
             this.empId = empId;
+            this.currentCustName = "";
 
             this.StartPosition = FormStartPosition.CenterScreen;
             vehicleDataGridView.Columns.Clear();
@@ -75,7 +77,7 @@ namespace _291CarRental
 
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
-            if (validateSearchDetials())
+            if (validateSearchDetails())
             {
                 getCustomerDetails();
                 vehicleDataGridView.DataSource = getAvailableVehicleList();
@@ -105,8 +107,8 @@ namespace _291CarRental
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    customerNameLabel.Text = "CUSTOMER NAME: " + reader.GetString(0);
-                    MessageBox.Show(reader.GetString(0));
+                    currentCustName = reader.GetString(0);
+                    customerNameLabel.Text = "CUSTOMER NAME: " + currentCustName;
                     if (reader.GetString(1).Equals("Gold"))
                     {
                         goldMemberLabel.Text = "GOLD MEMBER: YES";
@@ -121,7 +123,7 @@ namespace _291CarRental
             }
         }
 
-        private bool validateSearchDetials()
+        private bool validateSearchDetails()
         {
             bool result = false;
             String vehicleClassSelected = (String)vehicleClassCombobox.SelectedItem;
@@ -150,22 +152,66 @@ namespace _291CarRental
             return result;
         }
 
+        private String addQuotes(String stringToAdd)
+        {
+            String temp1 = stringToAdd.Insert(0, "'");
+            String temp2 = temp1.Insert(temp1.Length, "'");
+            return temp2;
+        }
+
         private void rentThisVehicleButton_Click(object sender, EventArgs e)
         {
+            String year = (String) vehicleDataGridView.CurrentRow.Cells["year"].Value;
+            String brand = (String)vehicleDataGridView.CurrentRow.Cells["brand"].Value;
+            String model = (String)vehicleDataGridView.CurrentRow.Cells["model"].Value;
+            String from = fromDatePicker.Value.Date.ToString("D");
+            String to = toDatePicker.Value.Date.ToString("D");
+
             DialogResult confirmRenting = MessageBox.Show(
-              "Confirm renting of 2022 KIA SPORTAGE for JOHN DOE (003) ",
+              "Confirm renting of " + year + " " + brand + " " + model + " for " + currentCustName +
+              "\nAmount Due now: " + estimatedCostLabel.Text +
+              "\nPick up and drop off location: " + addressLabel.Text +
+              "\nPickup date: " + from +
+              "\nExpected dropoff date: " + to,
               "CONFIRM RENTING VEHICLE",
-              MessageBoxButtons.YesNo);
+              MessageBoxButtons.YesNo) ;
 
             if (confirmRenting == DialogResult.Yes)
             {
-                MessageBox.Show("VEHICLE RENTED SUCCESSFULLY");
-                this.Close();
-                previousPage.Visible = true;
+                doRentInDb();
             }
-            else if (confirmRenting == DialogResult.No)
+        }
+
+        private void doRentInDb()
+        {
+            String from = fromDatePicker.Value.Date.ToString("d");
+            String to = toDatePicker.Value.Date.ToString("d");
+            String? vehicleId = vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value.ToString();
+            String branchId = branchComboBox.SelectedIndex.ToString();
+            String classRequested = vehicleClassCombobox.SelectedIndex.ToString();
+            String query = "INSERT INTO Rental" +
+                "\n(start_date_of_booking, expected_dropoff_date, amount_due_now, emp_id_booking, " +
+                "pickup_branch_id, vehicle_id, vehicle_class_requested, customer_id)" +
+                "\nVALUES" +
+                "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " + 
+                empId + ", " + branchId + ", " + vehicleId + ", " + classRequested + 
+                ", " + customerIdTextbox.Text + ");";
+
+            MessageBox.Show(query);
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
             {
-                MessageBox.Show("VEHICLE NOT RENTED");
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("VEHICLE RENTED SUCCESSFULLY.");
+                }
+                else
+                {
+                    MessageBox.Show("AN ERROR OCCURED, TRY AGAIN");
+                }
             }
         }
 
@@ -242,7 +288,7 @@ namespace _291CarRental
                 var rawBranchAddress = command.ExecuteScalar();
                 if (rawBranchAddress != null)
                 {
-                    branchAddress = "Address: " + (String)rawBranchAddress;
+                    branchAddress = (String)rawBranchAddress;
                 }
             }
             return branchAddress;
@@ -262,23 +308,23 @@ namespace _291CarRental
             Decimal weeklyRate = getRates(currentVehicleId).Item2;
             Decimal monthlyRate = getRates(currentVehicleId).Item3;
 
-            estimatedCostLabel.Text = "ESTIMATED COST: ";
+            estimatedCostLabel.Text = "$0.00";
             if (daysBetween <= 7)
             {
-                estimatedCostLabel.Text += (daysBetween * dailyRate).ToString("C");
+                estimatedCostLabel.Text = (daysBetween * dailyRate).ToString("C");
             }
             else if (daysBetween > 7 && daysBetween < 30)
             {
 
                 Decimal weekly = (daysBetween / 7) * weeklyRate;
                 Decimal daily = (daysBetween % 7) * dailyRate;
-                estimatedCostLabel.Text += (weekly + daily).ToString("C");
+                estimatedCostLabel.Text = (weekly + daily).ToString("C");
             }
             else //if (daysBetween >= 30)
             {
                 Decimal monthly = (daysBetween / 14) * monthlyRate;
                 Decimal weekly = (daysBetween % 14) * weeklyRate;
-                estimatedCostLabel.Text += (monthly + weekly).ToString("C");
+                estimatedCostLabel.Text = (monthly + weekly).ToString("C");
             }
         }
 

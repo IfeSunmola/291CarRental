@@ -43,9 +43,10 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estimatedCostLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.rentVehicleButton = new System.Windows.Forms.Button();
             this.showVehicleDataGripViewPanel = new System.Windows.Forms.Panel();
+            this.estimatedCostLabel = new System.Windows.Forms.Label();
             this.showingVehiclesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.phoneNumberTextbox = new System.Windows.Forms.TextBox();
@@ -54,6 +55,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.customerDetailsPanel = new System.Windows.Forms.Panel();
             this.customerNameLabel = new System.Windows.Forms.Label();
             this.goldMemberLabel = new System.Windows.Forms.Label();
@@ -208,14 +210,14 @@
             this.Column5.ReadOnly = true;
             this.Column5.Width = 150;
             // 
-            // estimatedCostLabel
+            // label7
             // 
-            this.estimatedCostLabel.AutoSize = true;
-            this.estimatedCostLabel.Location = new System.Drawing.Point(0, 438);
-            this.estimatedCostLabel.Name = "estimatedCostLabel";
-            this.estimatedCostLabel.Size = new System.Drawing.Size(200, 25);
-            this.estimatedCostLabel.TabIndex = 11;
-            this.estimatedCostLabel.Text = "ESTIMATED COST:  0.00";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(0, 438);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(161, 25);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "ESTIMATED COST: ";
             // 
             // rentVehicleButton
             // 
@@ -230,15 +232,25 @@
             // 
             // showVehicleDataGripViewPanel
             // 
+            this.showVehicleDataGripViewPanel.Controls.Add(this.estimatedCostLabel);
             this.showVehicleDataGripViewPanel.Controls.Add(this.showingVehiclesLabel);
             this.showVehicleDataGripViewPanel.Controls.Add(this.vehicleDataGridView);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.estimatedCostLabel);
+            this.showVehicleDataGripViewPanel.Controls.Add(this.label7);
             this.showVehicleDataGripViewPanel.Controls.Add(this.rentVehicleButton);
             this.showVehicleDataGripViewPanel.Location = new System.Drawing.Point(19, 271);
             this.showVehicleDataGripViewPanel.Name = "showVehicleDataGripViewPanel";
             this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(887, 557);
             this.showVehicleDataGripViewPanel.TabIndex = 17;
             this.showVehicleDataGripViewPanel.Visible = false;
+            // 
+            // estimatedCostLabel
+            // 
+            this.estimatedCostLabel.AutoSize = true;
+            this.estimatedCostLabel.Location = new System.Drawing.Point(155, 438);
+            this.estimatedCostLabel.Name = "estimatedCostLabel";
+            this.estimatedCostLabel.Size = new System.Drawing.Size(46, 25);
+            this.estimatedCostLabel.TabIndex = 17;
+            this.estimatedCostLabel.Text = "0.00";
             // 
             // showingVehiclesLabel
             // 
@@ -279,7 +291,7 @@
             // addressLabel
             // 
             this.addressLabel.AutoSize = true;
-            this.addressLabel.Location = new System.Drawing.Point(493, 83);
+            this.addressLabel.Location = new System.Drawing.Point(557, 78);
             this.addressLabel.Name = "addressLabel";
             this.addressLabel.Size = new System.Drawing.Size(94, 25);
             this.addressLabel.TabIndex = 18;
@@ -310,6 +322,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.customerDetailsPanel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.branchComboBox);
@@ -329,6 +342,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(906, 831);
             this.panel1.TabIndex = 23;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(472, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 25);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "ADDRESS:";
             // 
             // customerDetailsPanel
             // 
@@ -400,7 +422,7 @@
         private Label customerIDLabel;
         private TextBox customerIdTextbox;
         private DataGridView vehicleDataGridView;
-        private Label estimatedCostLabel;
+        private Label label7;
         private Button rentVehicleButton;
         private Panel showVehicleDataGripViewPanel;
         private Label label6;
@@ -420,5 +442,7 @@
         private Label goldMemberLabel;
         private Label customerNameLabel;
         private Panel customerDetailsPanel;
+        private Label estimatedCostLabel;
+        private Label label3;
     }
 }
