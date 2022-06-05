@@ -35,6 +35,9 @@ namespace _291CarRental
             this.vehicleClassId = vehicleClassId;
             this.branchId = branchId;
 
+            vehicleDataGridView.Columns.Clear();
+            //vehicleDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
+
             String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text += stringToAppend;
 
