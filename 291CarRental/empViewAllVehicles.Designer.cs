@@ -37,7 +37,12 @@
             this.findAvailableVehiclesButton = new System.Windows.Forms.Button();
             this.customerIDLabel = new System.Windows.Forms.Label();
             this.customerIdTextbox = new System.Windows.Forms.TextBox();
-            this.showVehicleDataGridView = new System.Windows.Forms.DataGridView();
+            this.vehicleDataGridView = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estimatedCostLabel = new System.Windows.Forms.Label();
             this.rentVehicleButton = new System.Windows.Forms.Button();
             this.showVehicleDataGripViewPanel = new System.Windows.Forms.Panel();
@@ -50,7 +55,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).BeginInit();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -134,23 +141,69 @@
             this.customerIdTextbox.Size = new System.Drawing.Size(150, 31);
             this.customerIdTextbox.TabIndex = 8;
             // 
-            // showVehicleDataGridView
+            // vehicleDataGridView
             // 
-            this.showVehicleDataGridView.AllowUserToAddRows = false;
-            this.showVehicleDataGridView.AllowUserToDeleteRows = false;
-            this.showVehicleDataGridView.AllowUserToResizeColumns = false;
-            this.showVehicleDataGridView.AllowUserToResizeRows = false;
-            this.showVehicleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.showVehicleDataGridView.Location = new System.Drawing.Point(3, 37);
-            this.showVehicleDataGridView.MultiSelect = false;
-            this.showVehicleDataGridView.Name = "showVehicleDataGridView";
-            this.showVehicleDataGridView.ReadOnly = true;
-            this.showVehicleDataGridView.RowHeadersWidth = 62;
-            this.showVehicleDataGridView.RowTemplate.Height = 33;
-            this.showVehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.showVehicleDataGridView.Size = new System.Drawing.Size(884, 398);
-            this.showVehicleDataGridView.TabIndex = 10;
-            this.showVehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleInfoRow_Click);
+            this.vehicleDataGridView.AllowUserToAddRows = false;
+            this.vehicleDataGridView.AllowUserToDeleteRows = false;
+            this.vehicleDataGridView.AllowUserToResizeColumns = false;
+            this.vehicleDataGridView.AllowUserToResizeRows = false;
+            this.vehicleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.vehicleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5});
+            this.vehicleDataGridView.Location = new System.Drawing.Point(14, 37);
+            this.vehicleDataGridView.MultiSelect = false;
+            this.vehicleDataGridView.Name = "vehicleDataGridView";
+            this.vehicleDataGridView.ReadOnly = true;
+            this.vehicleDataGridView.RowHeadersWidth = 62;
+            this.vehicleDataGridView.RowTemplate.Height = 33;
+            this.vehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.vehicleDataGridView.Size = new System.Drawing.Size(844, 398);
+            this.vehicleDataGridView.TabIndex = 10;
+            this.vehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleDataGridView_CellMouseClick);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Location";
+            this.Column1.MinimumWidth = 8;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Class";
+            this.Column2.MinimumWidth = 8;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 150;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Year";
+            this.Column3.MinimumWidth = 8;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Brand";
+            this.Column4.MinimumWidth = 8;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 150;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Model";
+            this.Column5.MinimumWidth = 8;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 150;
             // 
             // estimatedCostLabel
             // 
@@ -164,34 +217,34 @@
             // rentVehicleButton
             // 
             this.rentVehicleButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rentVehicleButton.Location = new System.Drawing.Point(359, 767);
+            this.rentVehicleButton.Location = new System.Drawing.Point(315, 490);
             this.rentVehicleButton.Name = "rentVehicleButton";
             this.rentVehicleButton.Size = new System.Drawing.Size(199, 64);
             this.rentVehicleButton.TabIndex = 12;
             this.rentVehicleButton.Text = "RENT THIS VEHICLE";
             this.rentVehicleButton.UseVisualStyleBackColor = true;
-            this.rentVehicleButton.Visible = false;
             this.rentVehicleButton.Click += new System.EventHandler(this.rentThisVehicleButton_Click);
             // 
             // showVehicleDataGripViewPanel
             // 
             this.showVehicleDataGripViewPanel.Controls.Add(this.showingVehiclesLabel);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.showVehicleDataGridView);
+            this.showVehicleDataGripViewPanel.Controls.Add(this.vehicleDataGridView);
             this.showVehicleDataGripViewPanel.Controls.Add(this.estimatedCostLabel);
+            this.showVehicleDataGripViewPanel.Controls.Add(this.rentVehicleButton);
             this.showVehicleDataGripViewPanel.Location = new System.Drawing.Point(19, 271);
             this.showVehicleDataGripViewPanel.Name = "showVehicleDataGripViewPanel";
-            this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(887, 475);
+            this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(887, 557);
             this.showVehicleDataGripViewPanel.TabIndex = 17;
             this.showVehicleDataGripViewPanel.Visible = false;
             // 
             // showingVehiclesLabel
             // 
-            this.showingVehiclesLabel.AutoSize = true;
-            this.showingVehiclesLabel.Location = new System.Drawing.Point(346, 9);
+            this.showingVehiclesLabel.Location = new System.Drawing.Point(14, 9);
             this.showingVehiclesLabel.Name = "showingVehiclesLabel";
-            this.showingVehiclesLabel.Size = new System.Drawing.Size(268, 25);
+            this.showingVehiclesLabel.Size = new System.Drawing.Size(844, 25);
             this.showingVehiclesLabel.TabIndex = 16;
             this.showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES";
+            this.showingVehiclesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
@@ -252,6 +305,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.branchComboBox);
             this.panel1.Controls.Add(this.findAvailableVehiclesButton);
@@ -260,7 +315,6 @@
             this.panel1.Controls.Add(this.addressLabel);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.phoneNumberTextbox);
-            this.panel1.Controls.Add(this.rentVehicleButton);
             this.panel1.Controls.Add(this.showVehicleDataGripViewPanel);
             this.panel1.Controls.Add(this.customerIdTextbox);
             this.panel1.Controls.Add(this.label5);
@@ -282,6 +336,24 @@
             this.panel2.Size = new System.Drawing.Size(1154, 868);
             this.panel2.TabIndex = 24;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 177);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(145, 25);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Customer Name:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 217);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(139, 25);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "GOLD MEMBER:";
+            // 
             // EmpViewAllVehicles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -291,7 +363,7 @@
             this.MaximizeBox = false;
             this.Name = "EmpViewAllVehicles";
             this.Text = "EMPLOYEE VIEWING AVAILABLE VEHICLES";
-            ((System.ComponentModel.ISupportInitialize)(this.showVehicleDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).EndInit();
             this.showVehicleDataGripViewPanel.ResumeLayout(false);
             this.showVehicleDataGripViewPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -312,7 +384,7 @@
         private Button findAvailableVehiclesButton;
         private Label customerIDLabel;
         private TextBox customerIdTextbox;
-        private DataGridView showVehicleDataGridView;
+        private DataGridView vehicleDataGridView;
         private Label estimatedCostLabel;
         private Button rentVehicleButton;
         private Panel showVehicleDataGripViewPanel;
@@ -325,5 +397,12 @@
         private Panel panel1;
         private Panel panel2;
         private Label showingVehiclesLabel;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column5;
+        private Label label4;
+        private Label label3;
     }
 }

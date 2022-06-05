@@ -28,6 +28,7 @@ namespace _291CarRental
             this.empId = empId;
 
             this.StartPosition = FormStartPosition.CenterScreen;
+            vehicleDataGridView.Columns.Clear();
 
             fromDatePicker.Value = DateTime.Now.AddDays(1);
             toDatePicker.Value = DateTime.Now.AddDays(2);
@@ -37,13 +38,22 @@ namespace _291CarRental
 
         private DataTable getAvailableVehicleList()
         {
-            DataTable cars = new DataTable();
-            String query = @"SELECT vehicle_id, branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model
-                                 FROM Vehicle, Branch, Vehicle_Class
-                                 WHERE Vehicle.branch_id = Branch.branch_id
-                                 AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id;
-                                ";
+            int branchId = (int)branchComboBox.SelectedIndex;
+            int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex;
 
+            DataTable cars = new DataTable();
+            String query = "SELECT vehicle_id, branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model" +
+                "\nFROM Vehicle, Branch, Vehicle_Class" +
+                "\nWHERE Vehicle.branch_id = Branch.branch_id" +
+                "\nAND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id";
+            if (branchId != 0)// a specific branch was selected, add filters
+            {
+                query += "\nAND Vehicle.branch_id = " + branchId + "";
+            }
+            if (vehicleClassId != 0)// a specific class was selected, add filters
+            {
+                query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
+            }
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
             {
@@ -63,41 +73,42 @@ namespace _291CarRental
 
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
-            //new empViewVehiclePage().Show();
-            // load data into the DataGripView
-            //showVehicleDataGridView.Rows.Clear();
-            showVehicleDataGridView.DataSource = getAvailableVehicleList();
-            showVehicleDataGridView.Columns["vehicle_id"].Visible = false;
+            validateCustomer();
+
+            vehicleDataGridView.DataSource = getAvailableVehicleList();
+            vehicleDataGridView.Columns["vehicle_id"].Visible = false;
             //disable sorting the columns
-            foreach (DataGridViewColumn dataGridViewColumn in showVehicleDataGridView.Columns)
+            foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
             {
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             showVehicleDataGripViewPanel.Visible = true;
-            rentVehicleButton.Visible = true;
+            String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
+            showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
         }
 
-        private void vehicleInfoRow_Click(object sender, DataGridViewCellMouseEventArgs e)
+        private void validateCustomer()
         {
-            String query = "";
-            try
+            String customerId = customerIdTextbox.Text;
+            if (!String.IsNullOrEmpty(customerId))
             {
-                connection.Open();
-                command.CommandText = query;
-                // reader = command.ExecuteReader();
+                String query = "SELECT customer_id FROM Customer WHERE customer_id = " + customerId + ";";
+                using (connection = new SqlConnection(connectionString))
+                using (command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    var rawCustomerId = command.ExecuteScalar();
+                    if (rawCustomerId != null)
+                    {
+                        MessageBox.Show("Customer found", "ID FOUND");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Customer not found, try again", "INCORRECT ID");
+                    }
+                }
+            }
 
-                //reader.Close();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            estimatedCostLabel.Text = "ESTIMATED COST: $120";
         }
 
         private void rentThisVehicleButton_Click(object sender, EventArgs e)
@@ -190,6 +201,69 @@ namespace _291CarRental
         {
             addressLabel.Text = getBranchAddress();
             addressLabel.Visible = true;
+        }
+
+
+        private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
+            int daysBetween = (toDatePicker.Value - fromDatePicker.Value).Days + 1;
+            Decimal dailyRate = getRates(currentVehicleId).Item1;
+            Decimal weeklyRate = getRates(currentVehicleId).Item2;
+            Decimal monthlyRate = getRates(currentVehicleId).Item3;
+
+            estimatedCostLabel.Text = "ESTIMATED COST: ";
+            if (daysBetween <= 7)
+            {
+                estimatedCostLabel.Text += (daysBetween * dailyRate).ToString("C");
+            }
+            else if (daysBetween > 7 && daysBetween < 30)
+            {
+
+                Decimal weekly = (daysBetween / 7) * weeklyRate;
+                Decimal daily = (daysBetween % 7) * dailyRate;
+                estimatedCostLabel.Text += (weekly + daily).ToString("C");
+            }
+            else //if (daysBetween >= 30)
+            {
+                Decimal monthly = (daysBetween / 14) * monthlyRate;
+                Decimal weekly = (daysBetween % 14) * weeklyRate;
+                estimatedCostLabel.Text += (monthly + weekly).ToString("C");
+            }
+        }
+
+        private Tuple<Decimal, Decimal, Decimal> getRates(int currentVehicleId)
+        {
+            String query = "SELECT daily_rate, weekly_rate, monthly_rate" +
+                  "\nFROM Vehicle_Class, Vehicle " +
+                  "\nWHERE vehicle.vehicle_id = " + currentVehicleId +
+                  "\nAND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id;";
+
+            Decimal dailyRate = 0.0m, weeklyRate = 0.0m, monthlyRate = 0.0m;
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.GetName(0).Equals("daily_rate"))
+                    {
+                        dailyRate = reader.GetDecimal(0);
+                    }
+                    if (reader.GetName(1).Equals("weekly_rate"))
+                    {
+                        weeklyRate = reader.GetDecimal(1);
+                    }
+                    if (reader.GetName(2).Equals("monthly_rate"))
+                    {
+                        monthlyRate = reader.GetDecimal(2);
+                    }
+
+                }
+                reader.Close();
+            }
+            return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
     }
 }
