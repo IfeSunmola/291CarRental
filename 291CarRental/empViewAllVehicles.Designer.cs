@@ -54,9 +54,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.goldMemberLabel = new System.Windows.Forms.Label();
+            this.customerNameLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -305,8 +305,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.goldMemberLabel);
+            this.panel1.Controls.Add(this.customerNameLabel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.branchComboBox);
             this.panel1.Controls.Add(this.findAvailableVehiclesButton);
@@ -326,6 +326,24 @@
             this.panel1.Size = new System.Drawing.Size(906, 831);
             this.panel1.TabIndex = 23;
             // 
+            // goldMemberLabel
+            // 
+            this.goldMemberLabel.AutoSize = true;
+            this.goldMemberLabel.Location = new System.Drawing.Point(13, 217);
+            this.goldMemberLabel.Name = "goldMemberLabel";
+            this.goldMemberLabel.Size = new System.Drawing.Size(139, 25);
+            this.goldMemberLabel.TabIndex = 20;
+            this.goldMemberLabel.Text = "GOLD MEMBER:";
+            // 
+            // customerNameLabel
+            // 
+            this.customerNameLabel.AutoSize = true;
+            this.customerNameLabel.Location = new System.Drawing.Point(13, 177);
+            this.customerNameLabel.Name = "customerNameLabel";
+            this.customerNameLabel.Size = new System.Drawing.Size(162, 25);
+            this.customerNameLabel.TabIndex = 19;
+            this.customerNameLabel.Text = "CUSTOMER NAME:";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button2);
@@ -335,24 +353,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1154, 868);
             this.panel2.TabIndex = 24;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 177);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 25);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Customer Name:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 217);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 25);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "GOLD MEMBER:";
             // 
             // EmpViewAllVehicles
             // 
@@ -402,7 +402,7 @@
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
-        private Label label4;
-        private Label label3;
+        private Label goldMemberLabel;
+        private Label customerNameLabel;
     }
 }

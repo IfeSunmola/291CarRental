@@ -19,7 +19,7 @@ namespace _291CarRental
         private SqlDataReader? reader;
         private EmployeeLandingPage previousPage;
         private String empId;
-        
+
         public EmpViewAllVehicles(EmployeeLandingPage previousPage, String empId)
         {
             InitializeComponent();
@@ -34,6 +34,9 @@ namespace _291CarRental
             toDatePicker.Value = DateTime.Now.AddDays(2);
             addressLabel.Visible = false;
             fillComboBoxes();
+
+            customerNameLabel.Visible = false;
+            goldMemberLabel.Visible = false;
         }
 
         private DataTable getAvailableVehicleList()
@@ -73,42 +76,47 @@ namespace _291CarRental
 
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
-            validateCustomer();
-
-            vehicleDataGridView.DataSource = getAvailableVehicleList();
-            vehicleDataGridView.Columns["vehicle_id"].Visible = false;
-            //disable sorting the columns
-            foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
+            if (validateSearchDetials())
             {
-                dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                vehicleDataGridView.DataSource = getAvailableVehicleList();
+                vehicleDataGridView.Columns["vehicle_id"].Visible = false;
+                //disable sorting the columns
+                foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
+                {
+                    dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+                showVehicleDataGripViewPanel.Visible = true;
+                String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
+                showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
             }
-            showVehicleDataGripViewPanel.Visible = true;
-            String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
-            showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
         }
 
-        private void validateCustomer()
+        private bool validateSearchDetials()
         {
-            String customerId = customerIdTextbox.Text;
-            if (!String.IsNullOrEmpty(customerId))
+            bool result = false;
+            String vehicleClassSelected = (String)vehicleClassCombobox.SelectedItem;
+            String branchSelected = (String)branchComboBox.SelectedItem;
+            if (fromDatePicker.Value.Date <= DateTime.Now.Date)
             {
-                String query = "SELECT customer_id FROM Customer WHERE customer_id = " + customerId + ";";
-                using (connection = new SqlConnection(connectionString))
-                using (command = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    var rawCustomerId = command.ExecuteScalar();
-                    if (rawCustomerId != null)
-                    {
-                        MessageBox.Show("Customer found", "ID FOUND");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Customer not found, try again", "INCORRECT ID");
-                    }
-                }
+                MessageBox.Show("Vehicles must be booked one day before");
             }
-
+            else if (fromDatePicker.Value.Date >= toDatePicker.Value.Date)
+            {
+                MessageBox.Show("FROM DATE HAS TO BE BEFORE TO DATE");
+            }
+            else if (String.IsNullOrEmpty(vehicleClassSelected))
+            {
+                MessageBox.Show("SELECT A VEHICLE CLASS");
+            }
+            else if (String.IsNullOrEmpty(branchSelected))
+            {
+                MessageBox.Show("SELECT A BRANCH");
+            }
+            else
+            {
+                result = true;
+            }
+            return result;
         }
 
         private void rentThisVehicleButton_Click(object sender, EventArgs e)
@@ -129,7 +137,7 @@ namespace _291CarRental
                 MessageBox.Show("VEHICLE NOT RENTED");
             }
         }
-        
+
         private void fillComboBoxes()
         {
             vehicleClassCombobox.Items.Add("ALL CLASSES");
@@ -154,6 +162,8 @@ namespace _291CarRental
                 }
                 reader.Close();
             }
+            vehicleClassCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            branchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -167,7 +177,7 @@ namespace _291CarRental
             {
                 Application.Exit();
             }
-            
+
         }
 
         private String getBranchAddress()
