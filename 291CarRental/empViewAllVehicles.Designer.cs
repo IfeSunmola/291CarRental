@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.fromDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.toDatePicker = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.vehicleClassCombobox = new System.Windows.Forms.ComboBox();
             this.branchComboBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.findAvailableVehiclesButton = new System.Windows.Forms.Button();
             this.customerIDLabel = new System.Windows.Forms.Label();
             this.customerIdTextbox = new System.Windows.Forms.TextBox();
             this.showVehicleDataGridView = new System.Windows.Forms.DataGridView();
             this.estimatedCostLabel = new System.Windows.Forms.Label();
             this.rentVehicleButton = new System.Windows.Forms.Button();
             this.showVehicleDataGripViewPanel = new System.Windows.Forms.Panel();
+            this.showingVehiclesLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.phoneNumberTextbox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.addressLabel = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -55,19 +56,19 @@
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // fromDatePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(112, 8);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(300, 31);
-            this.dateTimePicker1.TabIndex = 0;
+            this.fromDatePicker.Location = new System.Drawing.Point(112, 8);
+            this.fromDatePicker.Name = "fromDatePicker";
+            this.fromDatePicker.Size = new System.Drawing.Size(300, 31);
+            this.fromDatePicker.TabIndex = 0;
             // 
-            // dateTimePicker2
+            // toDatePicker
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(535, 8);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(300, 31);
-            this.dateTimePicker2.TabIndex = 1;
+            this.toDatePicker.Location = new System.Drawing.Point(535, 8);
+            this.toDatePicker.Name = "toDatePicker";
+            this.toDatePicker.Size = new System.Drawing.Size(300, 31);
+            this.toDatePicker.TabIndex = 1;
             // 
             // label1
             // 
@@ -104,17 +105,18 @@
             this.branchComboBox.Size = new System.Drawing.Size(182, 33);
             this.branchComboBox.TabIndex = 5;
             this.branchComboBox.Text = "BRANCH";
+            this.branchComboBox.SelectedIndexChanged += new System.EventHandler(this.branchComboBox_SelectedIndexChanged);
             // 
-            // button1
+            // findAvailableVehiclesButton
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(324, 189);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(263, 62);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "FIND AVAILABLE VEHICLES";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.findAvailableVehiclesButton_Click);
+            this.findAvailableVehiclesButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.findAvailableVehiclesButton.Location = new System.Drawing.Point(324, 189);
+            this.findAvailableVehiclesButton.Name = "findAvailableVehiclesButton";
+            this.findAvailableVehiclesButton.Size = new System.Drawing.Size(263, 62);
+            this.findAvailableVehiclesButton.TabIndex = 6;
+            this.findAvailableVehiclesButton.Text = "FIND AVAILABLE VEHICLES";
+            this.findAvailableVehiclesButton.UseVisualStyleBackColor = true;
+            this.findAvailableVehiclesButton.Click += new System.EventHandler(this.findAvailableVehiclesButton_Click);
             // 
             // customerIDLabel
             // 
@@ -139,21 +141,21 @@
             this.showVehicleDataGridView.AllowUserToResizeColumns = false;
             this.showVehicleDataGridView.AllowUserToResizeRows = false;
             this.showVehicleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.showVehicleDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.showVehicleDataGridView.Location = new System.Drawing.Point(3, 37);
             this.showVehicleDataGridView.MultiSelect = false;
             this.showVehicleDataGridView.Name = "showVehicleDataGridView";
             this.showVehicleDataGridView.ReadOnly = true;
             this.showVehicleDataGridView.RowHeadersWidth = 62;
             this.showVehicleDataGridView.RowTemplate.Height = 33;
             this.showVehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.showVehicleDataGridView.Size = new System.Drawing.Size(904, 398);
+            this.showVehicleDataGridView.Size = new System.Drawing.Size(884, 398);
             this.showVehicleDataGridView.TabIndex = 10;
             this.showVehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleInfoRow_Click);
             // 
             // estimatedCostLabel
             // 
             this.estimatedCostLabel.AutoSize = true;
-            this.estimatedCostLabel.Location = new System.Drawing.Point(0, 417);
+            this.estimatedCostLabel.Location = new System.Drawing.Point(0, 438);
             this.estimatedCostLabel.Name = "estimatedCostLabel";
             this.estimatedCostLabel.Size = new System.Drawing.Size(200, 25);
             this.estimatedCostLabel.TabIndex = 11;
@@ -173,13 +175,23 @@
             // 
             // showVehicleDataGripViewPanel
             // 
+            this.showVehicleDataGripViewPanel.Controls.Add(this.showingVehiclesLabel);
             this.showVehicleDataGripViewPanel.Controls.Add(this.showVehicleDataGridView);
             this.showVehicleDataGripViewPanel.Controls.Add(this.estimatedCostLabel);
             this.showVehicleDataGripViewPanel.Location = new System.Drawing.Point(19, 271);
             this.showVehicleDataGripViewPanel.Name = "showVehicleDataGripViewPanel";
-            this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(931, 457);
+            this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(887, 475);
             this.showVehicleDataGripViewPanel.TabIndex = 17;
             this.showVehicleDataGripViewPanel.Visible = false;
+            // 
+            // showingVehiclesLabel
+            // 
+            this.showingVehiclesLabel.AutoSize = true;
+            this.showingVehiclesLabel.Location = new System.Drawing.Point(346, 9);
+            this.showingVehiclesLabel.Name = "showingVehiclesLabel";
+            this.showingVehiclesLabel.Size = new System.Drawing.Size(268, 25);
+            this.showingVehiclesLabel.TabIndex = 16;
+            this.showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES";
             // 
             // label6
             // 
@@ -190,12 +202,12 @@
             this.label6.TabIndex = 15;
             this.label6.Text = "PHONE NUMBER";
             // 
-            // textBox1
+            // phoneNumberTextbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(543, 134);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 31);
-            this.textBox1.TabIndex = 16;
+            this.phoneNumberTextbox.Location = new System.Drawing.Point(543, 134);
+            this.phoneNumberTextbox.Name = "phoneNumberTextbox";
+            this.phoneNumberTextbox.Size = new System.Drawing.Size(150, 31);
+            this.phoneNumberTextbox.TabIndex = 16;
             // 
             // label5
             // 
@@ -206,14 +218,14 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "OR";
             // 
-            // label7
+            // addressLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(493, 83);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 25);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "ADDRESS:";
+            this.addressLabel.AutoSize = true;
+            this.addressLabel.Location = new System.Drawing.Point(493, 83);
+            this.addressLabel.Name = "addressLabel";
+            this.addressLabel.Size = new System.Drawing.Size(94, 25);
+            this.addressLabel.TabIndex = 18;
+            this.addressLabel.Text = "ADDRESS:";
             // 
             // button2
             // 
@@ -242,19 +254,19 @@
             // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.branchComboBox);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.findAvailableVehiclesButton);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.vehicleClassCombobox);
-            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.addressLabel);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.phoneNumberTextbox);
             this.panel1.Controls.Add(this.rentVehicleButton);
             this.panel1.Controls.Add(this.showVehicleDataGripViewPanel);
             this.panel1.Controls.Add(this.customerIdTextbox);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.dateTimePicker2);
+            this.panel1.Controls.Add(this.toDatePicker);
             this.panel1.Controls.Add(this.customerIDLabel);
-            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.fromDatePicker);
             this.panel1.Location = new System.Drawing.Point(121, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(906, 831);
@@ -291,13 +303,13 @@
 
         #endregion
 
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker fromDatePicker;
+        private DateTimePicker toDatePicker;
         private Label label1;
         private Label label2;
         private ComboBox vehicleClassCombobox;
         private ComboBox branchComboBox;
-        private Button button1;
+        private Button findAvailableVehiclesButton;
         private Label customerIDLabel;
         private TextBox customerIdTextbox;
         private DataGridView showVehicleDataGridView;
@@ -305,12 +317,13 @@
         private Button rentVehicleButton;
         private Panel showVehicleDataGripViewPanel;
         private Label label6;
-        private TextBox textBox1;
+        private TextBox phoneNumberTextbox;
         private Label label5;
-        private Label label7;
+        private Label addressLabel;
         private Button button2;
         private Button button3;
         private Panel panel1;
         private Panel panel2;
+        private Label showingVehiclesLabel;
     }
 }

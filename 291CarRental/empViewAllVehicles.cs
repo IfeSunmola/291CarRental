@@ -13,26 +13,25 @@ namespace _291CarRental
 {
     public partial class EmpViewAllVehicles : Form
     {
-        private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection connection;
-        private SqlCommand command;
-        private SqlDataReader? reader; // nullable, initialization not needed
+        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
+        private SqlConnection? connection;
+        private SqlCommand? command;
+        private SqlDataReader? reader;
         private EmployeeLandingPage previousPage;
-        public EmpViewAllVehicles(EmployeeLandingPage previousPage)
+        private String empId;
+        
+        public EmpViewAllVehicles(EmployeeLandingPage previousPage, String empId)
         {
             InitializeComponent();
 
-            //this.FormBorderStyle = FormBorderStyle.None;
-
             this.previousPage = previousPage;
-
-            connection = new SqlConnection(connectionString);
-            command = new SqlCommand();
-
-            command.Connection = connection;
+            this.empId = empId;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            fromDatePicker.Value = DateTime.Now.AddDays(1);
+            toDatePicker.Value = DateTime.Now.AddDays(2);
+            addressLabel.Visible = false;
             fillComboBoxes();
         }
 
@@ -44,26 +43,18 @@ namespace _291CarRental
                                  WHERE Vehicle.branch_id = Branch.branch_id
                                  AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id;
                                 ";
-            try
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.CommandText = query;
                 reader = command.ExecuteReader();
                 cars.Load(reader);
                 reader.Close();
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
             return cars;
         }
 
-        // start on click events
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -127,37 +118,31 @@ namespace _291CarRental
                 MessageBox.Show("VEHICLE NOT RENTED");
             }
         }
-        // end on click events
         
         private void fillComboBoxes()
         {
+            vehicleClassCombobox.Items.Add("ALL CLASSES");
+            branchComboBox.Items.Add("ALL BRANCHES");
+            vehicleClassCombobox.SelectedIndex = 0;
+            branchComboBox.SelectedIndex = 0;
+
             String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
-            try
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.CommandText = query;
                 reader = command.ExecuteReader();
-
                 while (reader.Read())
                 {
-                    vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class"));
+                    vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
                 }
                 reader.NextResult();
                 while (reader.Read())
                 {
-                    branchComboBox.Items.Add(reader.GetString("branch_name"));
+                    branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
                 }
                 reader.Close();
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -172,6 +157,39 @@ namespace _291CarRental
                 Application.Exit();
             }
             
+        }
+
+        private String getBranchAddress()
+        {
+            int branchId = (int)branchComboBox.SelectedIndex;// not adding +1 because of "ALL BRANCHES"
+            if (branchId == 0)
+            {
+                return "";
+            }
+            String branchAddress = "";
+            String query =
+                @"SELECT trim(street_number + ' ' + street_name + ', ' + city)
+                        FROM Branch 
+                    WHERE  branch_id = " + branchId + ";";
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+
+                connection.Open();
+                // null checking is not needed here because of the earlier validations but... why not
+                var rawBranchAddress = command.ExecuteScalar();
+                if (rawBranchAddress != null)
+                {
+                    branchAddress = "Address: " + (String)rawBranchAddress;
+                }
+            }
+            return branchAddress;
+        }
+
+        private void branchComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addressLabel.Text = getBranchAddress();
+            addressLabel.Visible = true;
         }
     }
 }
