@@ -49,7 +49,6 @@
             this.branchComboBox.Name = "branchComboBox";
             this.branchComboBox.Size = new System.Drawing.Size(182, 33);
             this.branchComboBox.TabIndex = 11;
-            this.branchComboBox.Text = "BRANCH";
             this.branchComboBox.SelectedIndexChanged += new System.EventHandler(this.branchComboBox_SelectedIndexChanged);
             // 
             // vehicleClassCombobox
@@ -59,7 +58,6 @@
             this.vehicleClassCombobox.Name = "vehicleClassCombobox";
             this.vehicleClassCombobox.Size = new System.Drawing.Size(182, 33);
             this.vehicleClassCombobox.TabIndex = 10;
-            this.vehicleClassCombobox.Text = "VEHICLE CLASS";
             // 
             // label2
             // 

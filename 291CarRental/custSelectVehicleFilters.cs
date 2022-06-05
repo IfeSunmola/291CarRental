@@ -33,14 +33,18 @@ namespace _291CarRental
             if (validated())
             {
                 this.Visible = false;
-                new CustViewVehiclePage(this, fromDatePicker, toDatePicker, (int)vehicleClassCombobox.SelectedIndex + 1,
-                    (int)branchComboBox.SelectedIndex + 1).Show();
+                new CustViewVehiclePage(this, fromDatePicker, toDatePicker, (int)vehicleClassCombobox.SelectedIndex,
+                    (int)branchComboBox.SelectedIndex).Show();
             }
         }
 
         private String getBranchAddress()
         {
-            int branchId = (int)branchComboBox.SelectedIndex + 1;// +1 because sql primary key starts from 1
+            int branchId = (int)branchComboBox.SelectedIndex;// not adding +1 because of "ALL BRANCHES"
+            if (branchId == 0)
+            {
+                return "";
+            }
             String branchAddress = "";
             String query =
                 @"SELECT trim(street_number + ' ' + street_name + ', ' + city)
@@ -55,7 +59,7 @@ namespace _291CarRental
                 var rawBranchAddress = command.ExecuteScalar();
                 if (rawBranchAddress != null)
                 {
-                    branchAddress = (String)rawBranchAddress;
+                    branchAddress = "Address: " + (String)rawBranchAddress;
                 }
             }
             return branchAddress;
@@ -91,6 +95,11 @@ namespace _291CarRental
         
         private void fillComboBoxes()
         {
+            vehicleClassCombobox.Items.Add("ALL CLASSES");
+            branchComboBox.Items.Add("ALL BRANCHES");
+            vehicleClassCombobox.SelectedIndex = 0;
+            branchComboBox.SelectedIndex = 0;
+
             String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
@@ -99,12 +108,12 @@ namespace _291CarRental
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class"));
+                    vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
                 }
                 reader.NextResult();
                 while (reader.Read())
                 {
-                    branchComboBox.Items.Add(reader.GetString("branch_name"));
+                    branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
                 }
                 reader.Close();
             }  
@@ -127,7 +136,7 @@ namespace _291CarRental
         // update the address field as the customer selects different branches
         private void branchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            addressLabel.Text = "Address: " + getBranchAddress();
+            addressLabel.Text = getBranchAddress();
             addressLabel.Visible = true;
         }
     }

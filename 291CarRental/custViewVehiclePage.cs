@@ -53,13 +53,18 @@ namespace _291CarRental
         private DataTable getAvailableVehicleList()
         {
             DataTable cars = new DataTable();
-            String query = @"SELECT vehicle_id, branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model
-                                 FROM Vehicle, Branch, Vehicle_Class
-                                 WHERE Vehicle.branch_id = Branch.branch_id
-                                 AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id
-                                 AND Vehicle.branch_id = " + branchId + 
-                                 "AND Vehicle.vehicle_class_id = " + vehicleClassId+ ";";
-
+            String query = "SELECT vehicle_id, branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model" +
+                "\nFROM Vehicle, Branch, Vehicle_Class" +
+                "\nWHERE Vehicle.branch_id = Branch.branch_id" +
+                "\nAND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id";
+            if (branchId != 0)// a specific branch was selected, add filters
+            {
+                query += "\nAND Vehicle.branch_id = " + branchId + "";
+            }
+            if (vehicleClassId != 0)// a specific class was selected, add filters
+            {
+                query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
+            }
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
             {
@@ -106,24 +111,25 @@ namespace _291CarRental
             Decimal weeklyRate = getRates(currentVehicleId).Item2;
             Decimal monthlyRate = getRates(currentVehicleId).Item3;
 
-            MessageBox.Show("Daily: " + dailyRate +
-                "\nWeekly: " + weeklyRate +
-                "\nMonthly: " + monthlyRate);
-
+            estimatedCostLabel.Text = "ESTIMATED COST: ";
             if (daysBetween <= 7)
             {
-                estimatedCostLabel.Text = string.Empty;
+                estimatedCostLabel.Text += (daysBetween * dailyRate).ToString("C");
             }
             else if (daysBetween > 7 && daysBetween < 30)
             {
-                
+               
+                Decimal weekly = (daysBetween / 7) * weeklyRate;
+                Decimal daily = (daysBetween % 7) * dailyRate;
+                estimatedCostLabel.Text += (weekly + daily).ToString("C");
             }
             else //if (daysBetween >= 30)
             {
-                
+                Decimal monthly = (daysBetween / 14) * monthlyRate;
+                Decimal weekly = (daysBetween % 14) * weeklyRate;
+                estimatedCostLabel.Text += (monthly + weekly).ToString("C");
             }
         }
-
 
         private Tuple<Decimal, Decimal, Decimal> getRates(int currentVehicleId)
         {
