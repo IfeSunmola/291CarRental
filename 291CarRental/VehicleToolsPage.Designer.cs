@@ -31,44 +31,48 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.add_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.add_yearTextbox = new System.Windows.Forms.NumericUpDown();
+            this.add_currentMileageTextbox = new System.Windows.Forms.NumericUpDown();
+            this.add_numOfSeatsTextbox = new System.Windows.Forms.NumericUpDown();
+            this.add_branchCombobox = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.add_colorCombobox = new System.Windows.Forms.ComboBox();
+            this.add_brandCombobox = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.add_plateNumberTextbox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.add_transmissionTypeCombobox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.add_modelTextbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.updatePanel = new System.Windows.Forms.Panel();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.edit_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.edit_colorCombobox = new System.Windows.Forms.ComboBox();
+            this.edit_branchCombobox = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.edit_currentMileageTextbox = new System.Windows.Forms.NumericUpDown();
+            this.edit_numOfSeatsTextbox = new System.Windows.Forms.NumericUpDown();
+            this.edit_brandCombobox = new System.Windows.Forms.ComboBox();
+            this.edit_yearTextbox = new System.Windows.Forms.NumericUpDown();
             this.yearLabel = new System.Windows.Forms.Label();
             this.saveChangesButton = new System.Windows.Forms.Button();
             this.brandLabel = new System.Windows.Forms.Label();
-            this.plateNumberTextbox = new System.Windows.Forms.TextBox();
+            this.edit_plateNumberTextbox = new System.Windows.Forms.TextBox();
             this.plateNumberLabel = new System.Windows.Forms.Label();
             this.modelLabel = new System.Windows.Forms.Label();
-            this.colorTextbox = new System.Windows.Forms.TextBox();
-            this.modelTextbox = new System.Windows.Forms.TextBox();
+            this.edit_modelTextbox = new System.Windows.Forms.TextBox();
             this.colorLabel = new System.Windows.Forms.Label();
             this.transmissionLabel = new System.Windows.Forms.Label();
-            this.trasmissionComobox = new System.Windows.Forms.ComboBox();
+            this.edit_trasmissionComobox = new System.Windows.Forms.ComboBox();
             this.currentMileageLabel = new System.Windows.Forms.Label();
             this.numOfSeatsLabel = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -87,14 +91,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.add_yearTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.add_currentMileageTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.add_numOfSeatsTextbox)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.updatePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edit_currentMileageTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edit_numOfSeatsTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edit_yearTextbox)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -108,128 +112,145 @@
             this.tabControl1.Location = new System.Drawing.Point(123, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 467);
+            this.tabControl1.Size = new System.Drawing.Size(776, 520);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.numericUpDown3);
-            this.tabPage1.Controls.Add(this.numericUpDown2);
-            this.tabPage1.Controls.Add(this.numericUpDown1);
-            this.tabPage1.Controls.Add(this.comboBox4);
+            this.tabPage1.Controls.Add(this.add_vehicleClassCombobox);
+            this.tabPage1.Controls.Add(this.label14);
+            this.tabPage1.Controls.Add(this.add_yearTextbox);
+            this.tabPage1.Controls.Add(this.add_currentMileageTextbox);
+            this.tabPage1.Controls.Add(this.add_numOfSeatsTextbox);
+            this.tabPage1.Controls.Add(this.add_branchCombobox);
             this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.comboBox3);
-            this.tabPage1.Controls.Add(this.comboBox2);
+            this.tabPage1.Controls.Add(this.add_colorCombobox);
+            this.tabPage1.Controls.Add(this.add_brandCombobox);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.textBox7);
+            this.tabPage1.Controls.Add(this.add_plateNumberTextbox);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.add_transmissionTypeCombobox);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.textBox3);
+            this.tabPage1.Controls.Add(this.add_modelTextbox);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 429);
+            this.tabPage1.Size = new System.Drawing.Size(768, 482);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Add VEHICLE";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown3
+            // add_vehicleClassCombobox
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(57, 85);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.add_vehicleClassCombobox.FormattingEnabled = true;
+            this.add_vehicleClassCombobox.Location = new System.Drawing.Point(60, 364);
+            this.add_vehicleClassCombobox.Name = "add_vehicleClassCombobox";
+            this.add_vehicleClassCombobox.Size = new System.Drawing.Size(165, 33);
+            this.add_vehicleClassCombobox.TabIndex = 28;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(60, 326);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(135, 25);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "VEHICLE CLASS";
+            // 
+            // add_yearTextbox
+            // 
+            this.add_yearTextbox.Location = new System.Drawing.Point(59, 59);
+            this.add_yearTextbox.Maximum = new decimal(new int[] {
             2022,
             0,
             0,
             0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.add_yearTextbox.Minimum = new decimal(new int[] {
             1970,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(150, 31);
-            this.numericUpDown3.TabIndex = 26;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.add_yearTextbox.Name = "add_yearTextbox";
+            this.add_yearTextbox.Size = new System.Drawing.Size(150, 31);
+            this.add_yearTextbox.TabIndex = 26;
+            this.add_yearTextbox.Value = new decimal(new int[] {
             1970,
             0,
             0,
             0});
             // 
-            // numericUpDown2
+            // add_currentMileageTextbox
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(517, 197);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(150, 31);
-            this.numericUpDown2.TabIndex = 25;
+            this.add_currentMileageTextbox.Location = new System.Drawing.Point(519, 171);
+            this.add_currentMileageTextbox.Name = "add_currentMileageTextbox";
+            this.add_currentMileageTextbox.Size = new System.Drawing.Size(150, 31);
+            this.add_currentMileageTextbox.TabIndex = 25;
             // 
-            // numericUpDown1
+            // add_numOfSeatsTextbox
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(288, 195);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.add_numOfSeatsTextbox.Location = new System.Drawing.Point(290, 169);
+            this.add_numOfSeatsTextbox.Maximum = new decimal(new int[] {
             8,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.add_numOfSeatsTextbox.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(150, 31);
-            this.numericUpDown1.TabIndex = 24;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.add_numOfSeatsTextbox.Name = "add_numOfSeatsTextbox";
+            this.add_numOfSeatsTextbox.Size = new System.Drawing.Size(150, 31);
+            this.add_numOfSeatsTextbox.TabIndex = 24;
+            this.add_numOfSeatsTextbox.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
             // 
-            // comboBox4
+            // add_branchCombobox
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(517, 297);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(165, 33);
-            this.comboBox4.TabIndex = 23;
-            this.comboBox4.Text = "SELECT ONE";
+            this.add_branchCombobox.FormattingEnabled = true;
+            this.add_branchCombobox.Location = new System.Drawing.Point(519, 271);
+            this.add_branchCombobox.Name = "add_branchCombobox";
+            this.add_branchCombobox.Size = new System.Drawing.Size(165, 33);
+            this.add_branchCombobox.TabIndex = 23;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(517, 259);
+            this.label11.Location = new System.Drawing.Point(519, 233);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(82, 25);
             this.label11.TabIndex = 21;
             this.label11.Text = "BRANCH";
             // 
-            // comboBox3
+            // add_colorCombobox
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(58, 297);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(165, 33);
-            this.comboBox3.TabIndex = 20;
+            this.add_colorCombobox.FormattingEnabled = true;
+            this.add_colorCombobox.Location = new System.Drawing.Point(60, 271);
+            this.add_colorCombobox.Name = "add_colorCombobox";
+            this.add_colorCombobox.Size = new System.Drawing.Size(165, 33);
+            this.add_colorCombobox.TabIndex = 20;
             // 
-            // comboBox2
+            // add_brandCombobox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(288, 84);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(165, 33);
-            this.comboBox2.TabIndex = 19;
-            this.comboBox2.Text = "SELECT ONE";
+            this.add_brandCombobox.FormattingEnabled = true;
+            this.add_brandCombobox.Location = new System.Drawing.Point(290, 58);
+            this.add_brandCombobox.Name = "add_brandCombobox";
+            this.add_brandCombobox.Size = new System.Drawing.Size(165, 33);
+            this.add_brandCombobox.TabIndex = 19;
             // 
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(315, 368);
+            this.button1.Location = new System.Drawing.Point(300, 425);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(140, 41);
             this.button1.TabIndex = 18;
@@ -237,17 +258,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.addVehicleButton_Click);
             // 
-            // textBox7
+            // add_plateNumberTextbox
             // 
-            this.textBox7.Location = new System.Drawing.Point(288, 297);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(150, 31);
-            this.textBox7.TabIndex = 16;
+            this.add_plateNumberTextbox.Location = new System.Drawing.Point(290, 271);
+            this.add_plateNumberTextbox.Name = "add_plateNumberTextbox";
+            this.add_plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
+            this.add_plateNumberTextbox.TabIndex = 16;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(288, 259);
+            this.label8.Location = new System.Drawing.Point(290, 233);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(136, 25);
             this.label8.TabIndex = 15;
@@ -256,7 +277,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(57, 259);
+            this.label7.Location = new System.Drawing.Point(59, 233);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(69, 25);
             this.label7.TabIndex = 13;
@@ -265,7 +286,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(517, 159);
+            this.label6.Location = new System.Drawing.Point(519, 133);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(164, 25);
             this.label6.TabIndex = 11;
@@ -274,40 +295,40 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(288, 159);
+            this.label5.Location = new System.Drawing.Point(290, 133);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(165, 25);
             this.label5.TabIndex = 9;
             this.label5.Text = "NUMBER OF SEATS";
             // 
-            // comboBox1
+            // add_transmissionTypeCombobox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(57, 195);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(182, 33);
-            this.comboBox1.TabIndex = 8;
+            this.add_transmissionTypeCombobox.FormattingEnabled = true;
+            this.add_transmissionTypeCombobox.Location = new System.Drawing.Point(59, 169);
+            this.add_transmissionTypeCombobox.Name = "add_transmissionTypeCombobox";
+            this.add_transmissionTypeCombobox.Size = new System.Drawing.Size(182, 33);
+            this.add_transmissionTypeCombobox.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(57, 158);
+            this.label4.Location = new System.Drawing.Point(59, 132);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(183, 25);
             this.label4.TabIndex = 6;
             this.label4.Text = "TRANSMISSION TYPE";
             // 
-            // textBox3
+            // add_modelTextbox
             // 
-            this.textBox3.Location = new System.Drawing.Point(517, 84);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(150, 31);
-            this.textBox3.TabIndex = 5;
+            this.add_modelTextbox.Location = new System.Drawing.Point(519, 58);
+            this.add_modelTextbox.Name = "add_modelTextbox";
+            this.add_modelTextbox.Size = new System.Drawing.Size(150, 31);
+            this.add_modelTextbox.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(517, 46);
+            this.label3.Location = new System.Drawing.Point(519, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 25);
             this.label3.TabIndex = 4;
@@ -316,7 +337,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(288, 46);
+            this.label2.Location = new System.Drawing.Point(290, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 25);
             this.label2.TabIndex = 2;
@@ -325,7 +346,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 46);
+            this.label1.Location = new System.Drawing.Point(59, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 25);
             this.label1.TabIndex = 0;
@@ -340,45 +361,74 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 429);
+            this.tabPage2.Size = new System.Drawing.Size(768, 482);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "EDIT VEHICLE";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // updatePanel
             // 
-            this.updatePanel.Controls.Add(this.comboBox6);
+            this.updatePanel.Controls.Add(this.edit_vehicleClassCombobox);
+            this.updatePanel.Controls.Add(this.label15);
+            this.updatePanel.Controls.Add(this.edit_colorCombobox);
+            this.updatePanel.Controls.Add(this.edit_branchCombobox);
             this.updatePanel.Controls.Add(this.label13);
-            this.updatePanel.Controls.Add(this.numericUpDown6);
-            this.updatePanel.Controls.Add(this.numericUpDown5);
-            this.updatePanel.Controls.Add(this.comboBox5);
-            this.updatePanel.Controls.Add(this.numericUpDown4);
+            this.updatePanel.Controls.Add(this.edit_currentMileageTextbox);
+            this.updatePanel.Controls.Add(this.edit_numOfSeatsTextbox);
+            this.updatePanel.Controls.Add(this.edit_brandCombobox);
+            this.updatePanel.Controls.Add(this.edit_yearTextbox);
             this.updatePanel.Controls.Add(this.yearLabel);
             this.updatePanel.Controls.Add(this.saveChangesButton);
             this.updatePanel.Controls.Add(this.brandLabel);
-            this.updatePanel.Controls.Add(this.plateNumberTextbox);
+            this.updatePanel.Controls.Add(this.edit_plateNumberTextbox);
             this.updatePanel.Controls.Add(this.plateNumberLabel);
             this.updatePanel.Controls.Add(this.modelLabel);
-            this.updatePanel.Controls.Add(this.colorTextbox);
-            this.updatePanel.Controls.Add(this.modelTextbox);
+            this.updatePanel.Controls.Add(this.edit_modelTextbox);
             this.updatePanel.Controls.Add(this.colorLabel);
             this.updatePanel.Controls.Add(this.transmissionLabel);
-            this.updatePanel.Controls.Add(this.trasmissionComobox);
+            this.updatePanel.Controls.Add(this.edit_trasmissionComobox);
             this.updatePanel.Controls.Add(this.currentMileageLabel);
             this.updatePanel.Controls.Add(this.numOfSeatsLabel);
             this.updatePanel.Location = new System.Drawing.Point(23, 54);
             this.updatePanel.Name = "updatePanel";
-            this.updatePanel.Size = new System.Drawing.Size(721, 369);
+            this.updatePanel.Size = new System.Drawing.Size(721, 422);
             this.updatePanel.TabIndex = 38;
             // 
-            // comboBox6
+            // edit_vehicleClassCombobox
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(460, 269);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(165, 33);
-            this.comboBox6.TabIndex = 42;
-            this.comboBox6.Text = "SELECT ONE";
+            this.edit_vehicleClassCombobox.FormattingEnabled = true;
+            this.edit_vehicleClassCombobox.Location = new System.Drawing.Point(3, 354);
+            this.edit_vehicleClassCombobox.Name = "edit_vehicleClassCombobox";
+            this.edit_vehicleClassCombobox.Size = new System.Drawing.Size(165, 33);
+            this.edit_vehicleClassCombobox.TabIndex = 45;
+            this.edit_vehicleClassCombobox.Text = "SELECT ONE";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 316);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(135, 25);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "VEHICLE CLASS";
+            // 
+            // edit_colorCombobox
+            // 
+            this.edit_colorCombobox.FormattingEnabled = true;
+            this.edit_colorCombobox.Location = new System.Drawing.Point(0, 269);
+            this.edit_colorCombobox.Name = "edit_colorCombobox";
+            this.edit_colorCombobox.Size = new System.Drawing.Size(165, 33);
+            this.edit_colorCombobox.TabIndex = 43;
+            this.edit_colorCombobox.Text = "SELECT ONE";
+            // 
+            // edit_branchCombobox
+            // 
+            this.edit_branchCombobox.FormattingEnabled = true;
+            this.edit_branchCombobox.Location = new System.Drawing.Point(460, 269);
+            this.edit_branchCombobox.Name = "edit_branchCombobox";
+            this.edit_branchCombobox.Size = new System.Drawing.Size(165, 33);
+            this.edit_branchCombobox.TabIndex = 42;
+            this.edit_branchCombobox.Text = "SELECT ONE";
             // 
             // label13
             // 
@@ -389,61 +439,61 @@
             this.label13.TabIndex = 41;
             this.label13.Text = "BRANCH";
             // 
-            // numericUpDown6
+            // edit_currentMileageTextbox
             // 
-            this.numericUpDown6.Location = new System.Drawing.Point(460, 169);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(150, 31);
-            this.numericUpDown6.TabIndex = 40;
+            this.edit_currentMileageTextbox.Location = new System.Drawing.Point(460, 169);
+            this.edit_currentMileageTextbox.Name = "edit_currentMileageTextbox";
+            this.edit_currentMileageTextbox.Size = new System.Drawing.Size(150, 31);
+            this.edit_currentMileageTextbox.TabIndex = 40;
             // 
-            // numericUpDown5
+            // edit_numOfSeatsTextbox
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(231, 167);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
+            this.edit_numOfSeatsTextbox.Location = new System.Drawing.Point(231, 167);
+            this.edit_numOfSeatsTextbox.Maximum = new decimal(new int[] {
             8,
             0,
             0,
             0});
-            this.numericUpDown5.Minimum = new decimal(new int[] {
+            this.edit_numOfSeatsTextbox.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(150, 31);
-            this.numericUpDown5.TabIndex = 39;
-            this.numericUpDown5.Value = new decimal(new int[] {
+            this.edit_numOfSeatsTextbox.Name = "edit_numOfSeatsTextbox";
+            this.edit_numOfSeatsTextbox.Size = new System.Drawing.Size(150, 31);
+            this.edit_numOfSeatsTextbox.TabIndex = 39;
+            this.edit_numOfSeatsTextbox.Value = new decimal(new int[] {
             2,
             0,
             0,
             0});
             // 
-            // comboBox5
+            // edit_brandCombobox
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(231, 70);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(165, 33);
-            this.comboBox5.TabIndex = 38;
-            this.comboBox5.Text = "SELECT ONE";
+            this.edit_brandCombobox.FormattingEnabled = true;
+            this.edit_brandCombobox.Location = new System.Drawing.Point(231, 56);
+            this.edit_brandCombobox.Name = "edit_brandCombobox";
+            this.edit_brandCombobox.Size = new System.Drawing.Size(165, 33);
+            this.edit_brandCombobox.TabIndex = 38;
+            this.edit_brandCombobox.Text = "SELECT ONE";
             // 
-            // numericUpDown4
+            // edit_yearTextbox
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(3, 56);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
+            this.edit_yearTextbox.Location = new System.Drawing.Point(3, 56);
+            this.edit_yearTextbox.Maximum = new decimal(new int[] {
             2022,
             0,
             0,
             0});
-            this.numericUpDown4.Minimum = new decimal(new int[] {
+            this.edit_yearTextbox.Minimum = new decimal(new int[] {
             1970,
             0,
             0,
             0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(150, 31);
-            this.numericUpDown4.TabIndex = 37;
-            this.numericUpDown4.Value = new decimal(new int[] {
+            this.edit_yearTextbox.Name = "edit_yearTextbox";
+            this.edit_yearTextbox.Size = new System.Drawing.Size(150, 31);
+            this.edit_yearTextbox.TabIndex = 37;
+            this.edit_yearTextbox.Value = new decimal(new int[] {
             1970,
             0,
             0,
@@ -461,7 +511,7 @@
             // saveChangesButton
             // 
             this.saveChangesButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.saveChangesButton.Location = new System.Drawing.Point(270, 324);
+            this.saveChangesButton.Location = new System.Drawing.Point(246, 367);
             this.saveChangesButton.Name = "saveChangesButton";
             this.saveChangesButton.Size = new System.Drawing.Size(210, 42);
             this.saveChangesButton.TabIndex = 36;
@@ -478,12 +528,12 @@
             this.brandLabel.TabIndex = 22;
             this.brandLabel.Text = "BRAND";
             // 
-            // plateNumberTextbox
+            // edit_plateNumberTextbox
             // 
-            this.plateNumberTextbox.Location = new System.Drawing.Point(231, 269);
-            this.plateNumberTextbox.Name = "plateNumberTextbox";
-            this.plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
-            this.plateNumberTextbox.TabIndex = 35;
+            this.edit_plateNumberTextbox.Location = new System.Drawing.Point(231, 269);
+            this.edit_plateNumberTextbox.Name = "edit_plateNumberTextbox";
+            this.edit_plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
+            this.edit_plateNumberTextbox.TabIndex = 35;
             // 
             // plateNumberLabel
             // 
@@ -503,19 +553,12 @@
             this.modelLabel.TabIndex = 24;
             this.modelLabel.Text = "MODEL";
             // 
-            // colorTextbox
+            // edit_modelTextbox
             // 
-            this.colorTextbox.Location = new System.Drawing.Point(0, 269);
-            this.colorTextbox.Name = "colorTextbox";
-            this.colorTextbox.Size = new System.Drawing.Size(150, 31);
-            this.colorTextbox.TabIndex = 33;
-            // 
-            // modelTextbox
-            // 
-            this.modelTextbox.Location = new System.Drawing.Point(460, 56);
-            this.modelTextbox.Name = "modelTextbox";
-            this.modelTextbox.Size = new System.Drawing.Size(150, 31);
-            this.modelTextbox.TabIndex = 25;
+            this.edit_modelTextbox.Location = new System.Drawing.Point(460, 56);
+            this.edit_modelTextbox.Name = "edit_modelTextbox";
+            this.edit_modelTextbox.Size = new System.Drawing.Size(150, 31);
+            this.edit_modelTextbox.TabIndex = 25;
             // 
             // colorLabel
             // 
@@ -535,13 +578,14 @@
             this.transmissionLabel.TabIndex = 26;
             this.transmissionLabel.Text = "TRANSMISSION TYPE";
             // 
-            // trasmissionComobox
+            // edit_trasmissionComobox
             // 
-            this.trasmissionComobox.FormattingEnabled = true;
-            this.trasmissionComobox.Location = new System.Drawing.Point(0, 167);
-            this.trasmissionComobox.Name = "trasmissionComobox";
-            this.trasmissionComobox.Size = new System.Drawing.Size(182, 33);
-            this.trasmissionComobox.TabIndex = 27;
+            this.edit_trasmissionComobox.FormattingEnabled = true;
+            this.edit_trasmissionComobox.Location = new System.Drawing.Point(0, 167);
+            this.edit_trasmissionComobox.Name = "edit_trasmissionComobox";
+            this.edit_trasmissionComobox.Size = new System.Drawing.Size(182, 33);
+            this.edit_trasmissionComobox.TabIndex = 27;
+            this.edit_trasmissionComobox.Text = "SELECT ONE";
             // 
             // currentMileageLabel
             // 
@@ -597,7 +641,7 @@
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(768, 429);
+            this.tabPage3.Size = new System.Drawing.Size(768, 482);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "DELETE VEHICLE";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -696,14 +740,14 @@
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Location = new System.Drawing.Point(21, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1030, 478);
+            this.panel1.Size = new System.Drawing.Size(1030, 526);
             this.panel1.TabIndex = 29;
             // 
             // VehicleToolsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 502);
+            this.ClientSize = new System.Drawing.Size(1072, 550);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
             this.Name = "VehicleToolsPage";
@@ -711,16 +755,16 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.add_yearTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.add_currentMileageTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.add_numOfSeatsTextbox)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.updatePanel.ResumeLayout(false);
             this.updatePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edit_currentMileageTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edit_numOfSeatsTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edit_yearTextbox)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -737,27 +781,26 @@
         private TabPage tabPage3;
         private System.Diagnostics.Process process1;
         private Label label1;
-        private TextBox textBox7;
+        private TextBox add_plateNumberTextbox;
         private Label label8;
         private Label label7;
         private Label label6;
         private Label label5;
-        private ComboBox comboBox1;
+        private ComboBox add_transmissionTypeCombobox;
         private Label label4;
-        private TextBox textBox3;
+        private TextBox add_modelTextbox;
         private Label label3;
         private Label label9;
         private TextBox textBox8;
         private ContextMenuStrip contextMenuStrip1;
-        private TextBox plateNumberTextbox;
+        private TextBox edit_plateNumberTextbox;
         private Label plateNumberLabel;
-        private TextBox colorTextbox;
         private Label colorLabel;
         private Label currentMileageLabel;
         private Label numOfSeatsLabel;
-        private ComboBox trasmissionComobox;
+        private ComboBox edit_trasmissionComobox;
         private Label transmissionLabel;
-        private TextBox modelTextbox;
+        private TextBox edit_modelTextbox;
         private Label modelLabel;
         private Label brandLabel;
         private Label yearLabel;
@@ -768,24 +811,29 @@
         private Button saveChangesButton;
         private Button button3;
         private Panel updatePanel;
-        private NumericUpDown numericUpDown3;
-        private NumericUpDown numericUpDown2;
-        private NumericUpDown numericUpDown1;
-        private ComboBox comboBox4;
+        private NumericUpDown add_yearTextbox;
+        private NumericUpDown add_currentMileageTextbox;
+        private NumericUpDown add_numOfSeatsTextbox;
+        private ComboBox add_branchCombobox;
         private Label label11;
-        private ComboBox comboBox3;
-        private ComboBox comboBox2;
+        private ComboBox add_colorCombobox;
+        private ComboBox add_brandCombobox;
         private Label label2;
         private DataGridView dataGridView1;
         private Label label12;
-        private NumericUpDown numericUpDown6;
-        private NumericUpDown numericUpDown5;
-        private ComboBox comboBox5;
-        private NumericUpDown numericUpDown4;
-        private ComboBox comboBox6;
+        private NumericUpDown edit_currentMileageTextbox;
+        private NumericUpDown edit_numOfSeatsTextbox;
+        private ComboBox edit_brandCombobox;
+        private NumericUpDown edit_yearTextbox;
+        private ComboBox edit_branchCombobox;
         private Label label13;
         private Button button2;
         private Button button4;
         private Panel panel1;
+        private ComboBox add_vehicleClassCombobox;
+        private Label label14;
+        private ComboBox edit_colorCombobox;
+        private ComboBox edit_vehicleClassCombobox;
+        private Label label15;
     }
 }

@@ -74,7 +74,7 @@ namespace _291CarRental
         private void vehicleToolsButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new VehicleToolsPage(this).Show();
+            new VehicleToolsPage(this, empId).Show();
         }
 
         private void runCustomReportsButton_Click(object sender, EventArgs e)
