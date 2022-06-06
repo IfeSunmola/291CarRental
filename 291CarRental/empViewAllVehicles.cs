@@ -45,11 +45,38 @@ namespace _291CarRental
             int branchId = (int)branchComboBox.SelectedIndex;
             int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex;
 
+            String from = fromDatePicker.Value.Date.ToString("d");
+            String to = toDatePicker.Value.Date.ToString("d");
+
             DataTable cars = new DataTable();
-            String query = "SELECT vehicle_id, branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model" +
-                "\nFROM Vehicle, Branch, Vehicle_Class" +
-                "\nWHERE Vehicle.branch_id = Branch.branch_id" +
-                "\nAND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id";
+            String query = @"
+SELECT vehicle_id, branch_name as 'Location', vehicle_class AS 'Class', [year] AS 'Year', brand AS 'Brand', model AS 'Model'
+FROM Vehicle, Branch, Vehicle_Class 
+WHERE Vehicle.branch_id = Branch.branch_id
+AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id
+AND vehicle_id IN 
+(	SELECT vehicle_id
+	FROM Vehicle 
+	--WHERE branch_id = " + branchId + @"
+	EXCEPT 
+	(
+		(SELECT [vehicle_id]
+		FROM Rental
+		WHERE start_date_of_booking >= " + addQuotes(from) + @" and expected_dropoff_date <= " + addQuotes(to) + @")
+		UNION(
+			(SELECT [vehicle_id]
+			FROM Rental
+			WHERE  " + addQuotes(from) + @" >= start_date_of_booking and " + addQuotes(from) + @" <= expected_dropoff_date)
+		)
+		UNION(
+			(SELECT [vehicle_id]
+			FROM Rental
+			WHERE expected_dropoff_date >= " + addQuotes(to) + @" and start_date_of_booking <= " + addQuotes(to) + @")
+		)
+	) 
+)
+";
+
             if (branchId != 0)// a specific branch was selected, add filters
             {
                 query += "\nAND Vehicle.branch_id = " + branchId + "";
@@ -58,6 +85,8 @@ namespace _291CarRental
             {
                 query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
             }
+
+          // MessageBox.Show(query);
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
             {
