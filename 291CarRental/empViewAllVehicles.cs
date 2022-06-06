@@ -161,7 +161,7 @@ namespace _291CarRental
 
         private void rentThisVehicleButton_Click(object sender, EventArgs e)
         {
-            String year = (String) vehicleDataGridView.CurrentRow.Cells["year"].Value;
+            Int16 year = (Int16)vehicleDataGridView.CurrentRow.Cells["year"].Value;
             String brand = (String)vehicleDataGridView.CurrentRow.Cells["brand"].Value;
             String model = (String)vehicleDataGridView.CurrentRow.Cells["model"].Value;
             String from = fromDatePicker.Value.Date.ToString("D");

@@ -125,6 +125,7 @@
             this.Controls.Add(this.empIdLabel);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "LandingPage";
             this.Text = "LANDING PAGE";
