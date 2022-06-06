@@ -188,8 +188,68 @@ namespace _291CarRental
         // update
         private void startUpdatingButton_Click(object sender, EventArgs e)
         {
-            updatePanel.Visible = true;
+            
+            if (validateEditPlateNumber())
+            {
+                MessageBox.Show("PLATE NUMBER FOUND, START UPDATING");
+
+                prefillEditDetails(plateNumberSearch.Text);
+                updatePanel.Visible = true;
+            }
+            
         }
+
+        private void prefillEditDetails(String plateNumber)
+        {
+            String query = "SELECT year, brand, model, transmission_type, num_seats, current_mileage, " +
+                "color, plate_number, branch_id, vehicle_class_id " +
+                "\nFROM Vehicle " +
+                "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
+
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    edit_yearTextbox.Text = reader.GetInt16("year").ToString();
+                    edit_brandCombobox.SelectedItem = reader.GetString("brand");
+                    edit_modelTextbox.Text = reader.GetString("model");
+                    edit_transmissionComobox.SelectedItem = reader.GetString("transmission_type");
+                    edit_numOfSeatsTextbox.Text = reader.GetInt16("num_seats").ToString();
+                    edit_currentMileageTextbox.Text = reader.GetInt32("current_mileage").ToString();
+                    edit_colorCombobox.SelectedItem = reader.GetString("color");
+                    edit_plateNumberTextbox.Text = reader.GetString("plate_number");
+                    edit_branchCombobox.SelectedIndex = reader.GetInt32("branch_id") - 1;// - 1 because index starts from 0
+                    edit_vehicleClassCombobox.SelectedIndex = reader.GetInt32("vehicle_class_id") - 1;
+                }
+                reader.Close();
+            }
+        }
+
+        private bool validateEditPlateNumber()
+        {
+            if (String.IsNullOrEmpty(plateNumberSearch.Text))
+            {
+                MessageBox.Show("ENTER THE PLATE NUMBER");
+                return false;
+            }
+            if (!Regex.IsMatch(plateNumberSearch.Text, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
+            {
+                MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
+                return false;
+            }
+            if (!plateNumberInDb(plateNumberSearch.Text))
+            {
+                MessageBox.Show("PLATE NUMBER NOT FOUND");
+                return false;
+            }
+            return true;
+        }
+
 
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
@@ -310,17 +370,12 @@ namespace _291CarRental
                 }
                 reader.Close();
             }
-            add_brandCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-            add_vehicleClassCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-            add_branchCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-
             // transmission
             add_transmissionTypeCombobox.Items.Add("Automatic");
             add_transmissionTypeCombobox.Items.Add("Hybrid");
-            add_transmissionTypeCombobox.Items.Add("Manual");
-            add_transmissionTypeCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            add_transmissionTypeCombobox.Items.Add("Manual");         
             // color
-            add_colorCombobox.Items.Add("Blacl");
+            add_colorCombobox.Items.Add("Black");
             add_colorCombobox.Items.Add("Blue");
             add_colorCombobox.Items.Add("Grey");
             add_colorCombobox.Items.Add("Light Blue");
@@ -328,7 +383,13 @@ namespace _291CarRental
             add_colorCombobox.Items.Add("Silver");
             add_colorCombobox.Items.Add("White");
             add_colorCombobox.Items.Add("Yellow");
-            add_colorCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // copying combobox items from add vehicle tab to update vehicle tab
+            edit_brandCombobox.Items.AddRange(add_brandCombobox.Items.Cast<Object>().ToArray());
+            edit_transmissionComobox.Items.AddRange(add_transmissionTypeCombobox.Items.Cast<Object>().ToArray());
+            edit_colorCombobox.Items.AddRange(add_colorCombobox.Items.Cast<Object>().ToArray());
+            edit_branchCombobox.Items.AddRange(add_branchCombobox.Items.Cast<Object>().ToArray());
+            edit_vehicleClassCombobox.Items.AddRange(add_vehicleClassCombobox.Items.Cast<Object>().ToArray());
         }
     }
 }

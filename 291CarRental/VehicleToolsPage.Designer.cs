@@ -72,11 +72,11 @@
             this.edit_modelTextbox = new System.Windows.Forms.TextBox();
             this.colorLabel = new System.Windows.Forms.Label();
             this.transmissionLabel = new System.Windows.Forms.Label();
-            this.edit_trasmissionComobox = new System.Windows.Forms.ComboBox();
+            this.edit_transmissionComobox = new System.Windows.Forms.ComboBox();
             this.currentMileageLabel = new System.Windows.Forms.Label();
             this.numOfSeatsLabel = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.plateNumberSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -148,6 +148,7 @@
             // 
             // add_vehicleClassCombobox
             // 
+            this.add_vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.add_vehicleClassCombobox.FormattingEnabled = true;
             this.add_vehicleClassCombobox.Location = new System.Drawing.Point(60, 364);
             this.add_vehicleClassCombobox.Name = "add_vehicleClassCombobox";
@@ -188,6 +189,11 @@
             // add_currentMileageTextbox
             // 
             this.add_currentMileageTextbox.Location = new System.Drawing.Point(519, 171);
+            this.add_currentMileageTextbox.Maximum = new decimal(new int[] {
+            500000,
+            0,
+            0,
+            0});
             this.add_currentMileageTextbox.Name = "add_currentMileageTextbox";
             this.add_currentMileageTextbox.Size = new System.Drawing.Size(150, 31);
             this.add_currentMileageTextbox.TabIndex = 25;
@@ -216,6 +222,7 @@
             // 
             // add_branchCombobox
             // 
+            this.add_branchCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.add_branchCombobox.FormattingEnabled = true;
             this.add_branchCombobox.Location = new System.Drawing.Point(519, 271);
             this.add_branchCombobox.Name = "add_branchCombobox";
@@ -233,6 +240,7 @@
             // 
             // add_colorCombobox
             // 
+            this.add_colorCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.add_colorCombobox.FormattingEnabled = true;
             this.add_colorCombobox.Location = new System.Drawing.Point(60, 271);
             this.add_colorCombobox.Name = "add_colorCombobox";
@@ -241,6 +249,7 @@
             // 
             // add_brandCombobox
             // 
+            this.add_brandCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.add_brandCombobox.FormattingEnabled = true;
             this.add_brandCombobox.Location = new System.Drawing.Point(290, 58);
             this.add_brandCombobox.Name = "add_brandCombobox";
@@ -306,6 +315,7 @@
             // 
             // add_transmissionTypeCombobox
             // 
+            this.add_transmissionTypeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.add_transmissionTypeCombobox.FormattingEnabled = true;
             this.add_transmissionTypeCombobox.Location = new System.Drawing.Point(59, 169);
             this.add_transmissionTypeCombobox.Name = "add_transmissionTypeCombobox";
@@ -359,7 +369,7 @@
             // 
             this.tabPage2.Controls.Add(this.updatePanel);
             this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.textBox9);
+            this.tabPage2.Controls.Add(this.plateNumberSearch);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
@@ -389,7 +399,7 @@
             this.updatePanel.Controls.Add(this.edit_modelTextbox);
             this.updatePanel.Controls.Add(this.colorLabel);
             this.updatePanel.Controls.Add(this.transmissionLabel);
-            this.updatePanel.Controls.Add(this.edit_trasmissionComobox);
+            this.updatePanel.Controls.Add(this.edit_transmissionComobox);
             this.updatePanel.Controls.Add(this.currentMileageLabel);
             this.updatePanel.Controls.Add(this.numOfSeatsLabel);
             this.updatePanel.Location = new System.Drawing.Point(23, 54);
@@ -399,12 +409,12 @@
             // 
             // edit_vehicleClassCombobox
             // 
+            this.edit_vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_vehicleClassCombobox.FormattingEnabled = true;
             this.edit_vehicleClassCombobox.Location = new System.Drawing.Point(3, 354);
             this.edit_vehicleClassCombobox.Name = "edit_vehicleClassCombobox";
             this.edit_vehicleClassCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_vehicleClassCombobox.TabIndex = 45;
-            this.edit_vehicleClassCombobox.Text = "SELECT ONE";
             // 
             // label15
             // 
@@ -417,21 +427,21 @@
             // 
             // edit_colorCombobox
             // 
+            this.edit_colorCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_colorCombobox.FormattingEnabled = true;
             this.edit_colorCombobox.Location = new System.Drawing.Point(0, 269);
             this.edit_colorCombobox.Name = "edit_colorCombobox";
             this.edit_colorCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_colorCombobox.TabIndex = 43;
-            this.edit_colorCombobox.Text = "SELECT ONE";
             // 
             // edit_branchCombobox
             // 
+            this.edit_branchCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_branchCombobox.FormattingEnabled = true;
             this.edit_branchCombobox.Location = new System.Drawing.Point(460, 269);
             this.edit_branchCombobox.Name = "edit_branchCombobox";
             this.edit_branchCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_branchCombobox.TabIndex = 42;
-            this.edit_branchCombobox.Text = "SELECT ONE";
             // 
             // label13
             // 
@@ -445,6 +455,11 @@
             // edit_currentMileageTextbox
             // 
             this.edit_currentMileageTextbox.Location = new System.Drawing.Point(460, 169);
+            this.edit_currentMileageTextbox.Maximum = new decimal(new int[] {
+            500000,
+            0,
+            0,
+            0});
             this.edit_currentMileageTextbox.Name = "edit_currentMileageTextbox";
             this.edit_currentMileageTextbox.Size = new System.Drawing.Size(150, 31);
             this.edit_currentMileageTextbox.TabIndex = 40;
@@ -473,12 +488,12 @@
             // 
             // edit_brandCombobox
             // 
+            this.edit_brandCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_brandCombobox.FormattingEnabled = true;
             this.edit_brandCombobox.Location = new System.Drawing.Point(231, 56);
             this.edit_brandCombobox.Name = "edit_brandCombobox";
             this.edit_brandCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_brandCombobox.TabIndex = 38;
-            this.edit_brandCombobox.Text = "SELECT ONE";
             // 
             // edit_yearTextbox
             // 
@@ -533,7 +548,9 @@
             // 
             // edit_plateNumberTextbox
             // 
+            this.edit_plateNumberTextbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.edit_plateNumberTextbox.Location = new System.Drawing.Point(231, 269);
+            this.edit_plateNumberTextbox.MaxLength = 8;
             this.edit_plateNumberTextbox.Name = "edit_plateNumberTextbox";
             this.edit_plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
             this.edit_plateNumberTextbox.TabIndex = 35;
@@ -581,14 +598,14 @@
             this.transmissionLabel.TabIndex = 26;
             this.transmissionLabel.Text = "TRANSMISSION TYPE";
             // 
-            // edit_trasmissionComobox
+            // edit_transmissionComobox
             // 
-            this.edit_trasmissionComobox.FormattingEnabled = true;
-            this.edit_trasmissionComobox.Location = new System.Drawing.Point(0, 167);
-            this.edit_trasmissionComobox.Name = "edit_trasmissionComobox";
-            this.edit_trasmissionComobox.Size = new System.Drawing.Size(182, 33);
-            this.edit_trasmissionComobox.TabIndex = 27;
-            this.edit_trasmissionComobox.Text = "SELECT ONE";
+            this.edit_transmissionComobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.edit_transmissionComobox.FormattingEnabled = true;
+            this.edit_transmissionComobox.Location = new System.Drawing.Point(0, 167);
+            this.edit_transmissionComobox.Name = "edit_transmissionComobox";
+            this.edit_transmissionComobox.Size = new System.Drawing.Size(182, 33);
+            this.edit_transmissionComobox.TabIndex = 27;
             // 
             // currentMileageLabel
             // 
@@ -619,12 +636,14 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.startUpdatingButton_Click);
             // 
-            // textBox9
+            // plateNumberSearch
             // 
-            this.textBox9.Location = new System.Drawing.Point(184, 17);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(150, 31);
-            this.textBox9.TabIndex = 3;
+            this.plateNumberSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.plateNumberSearch.Location = new System.Drawing.Point(184, 17);
+            this.plateNumberSearch.MaxLength = 8;
+            this.plateNumberSearch.Name = "plateNumberSearch";
+            this.plateNumberSearch.Size = new System.Drawing.Size(150, 31);
+            this.plateNumberSearch.TabIndex = 3;
             // 
             // label10
             // 
@@ -801,13 +820,13 @@
         private Label colorLabel;
         private Label currentMileageLabel;
         private Label numOfSeatsLabel;
-        private ComboBox edit_trasmissionComobox;
+        private ComboBox edit_transmissionComobox;
         private Label transmissionLabel;
         private TextBox edit_modelTextbox;
         private Label modelLabel;
         private Label brandLabel;
         private Label yearLabel;
-        private TextBox textBox9;
+        private TextBox plateNumberSearch;
         private Label label10;
         private Button button1;
         private Button button5;
