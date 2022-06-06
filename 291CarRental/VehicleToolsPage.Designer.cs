@@ -143,7 +143,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(768, 482);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Add VEHICLE";
+            this.tabPage1.Text = "ADD VEHICLE";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // add_vehicleClassCombobox
