@@ -644,6 +644,7 @@
             this.plateNumberSearch.Name = "plateNumberSearch";
             this.plateNumberSearch.Size = new System.Drawing.Size(150, 31);
             this.plateNumberSearch.TabIndex = 3;
+            this.plateNumberSearch.TextChanged += new System.EventHandler(this.plateNumberSearch_TextChanged);
             // 
             // label10
             // 

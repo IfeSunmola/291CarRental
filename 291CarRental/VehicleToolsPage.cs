@@ -191,7 +191,7 @@ namespace _291CarRental
             
             if (validateEditPlateNumber())
             {
-                MessageBox.Show("PLATE NUMBER FOUND, START UPDATING");
+                MessageBox.Show("PLATE NUMBER FOUND. CURRENT VALUES HAS BEEN PRE FILLED");
 
                 prefillEditDetails(plateNumberSearch.Text);
                 updatePanel.Visible = true;
@@ -250,19 +250,76 @@ namespace _291CarRental
             return true;
         }
 
+        private void saveEdits()
+        {
+            String year = edit_yearTextbox.Text;
+            String brand = edit_brandCombobox.Text;
+            String model = edit_modelTextbox.Text;
+            String transmissionType = edit_transmissionComobox.Text;
+            String numSeats = edit_numOfSeatsTextbox.Text;
+            String currentMileage = edit_currentMileageTextbox.Text;
+            String color = edit_colorCombobox.Text;
+            String plateNumber = edit_plateNumberTextbox.Text;
+            String branchId = (edit_branchCombobox.SelectedIndex + 1).ToString();
+            String vehicleClassID = (edit_vehicleClassCombobox.SelectedIndex + 1).ToString();
 
+
+            String query = "UPDATE Vehicle" +
+                "\nSET year = " + year + ", brand = " + addQuotes(brand) + ", model = " + addQuotes(model) + 
+                ", transmission_type = " + addQuotes(transmissionType) + ", num_seats = " + numSeats + 
+                ", current_mileage = " + currentMileage + ", color = " + addQuotes(color) + 
+                ", plate_number = " + addQuotes(plateNumber) + ", branch_id = " + branchId + 
+                ", vehicle_class_id = " + vehicleClassID + 
+                "\nWHERE plate_number = " + addQuotes(plateNumberSearch.Text);
+
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected >= 1)
+                {
+                    MessageBox.Show(rowsAffected + " vehicle has been updated");
+                }
+            }
+        }
+        
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
-            DialogResult confirmUpdating = MessageBox.Show(
-               "Confirm updating of (vehicle details?)",
-               "CONFIRM UPDATE VEHICLE",
-               MessageBoxButtons.YesNo);
+            String year = edit_yearTextbox.Text;
+            String brand = edit_brandCombobox.Text;
+            String model = edit_modelTextbox.Text;
+            String transmissionType = edit_transmissionComobox.Text;
+            String numSeats = edit_numOfSeatsTextbox.Text;
+            String currentMileage = edit_currentMileageTextbox.Text;
+            String color = edit_colorCombobox.Text;
+            String plateNumber = edit_plateNumberTextbox.Text;
+            String branchId = (edit_branchCombobox.SelectedIndex + 1).ToString();
+            String vehicleClassID = (edit_vehicleClassCombobox.SelectedIndex + 1).ToString();
+            //saveEdits();
 
-            if (confirmUpdating == DialogResult.Yes)
+            DialogResult confirmUpdate = MessageBox.Show(
+                "CONFIRM NEW VEHICLE DETAILS BELOW" +
+                "\nYear: " + year + 
+                "\nBrand: " + brand + 
+                "\nModel: " + model + 
+                "\nTransmission Type: " + transmissionType + 
+                "\nNumber of Seats: " + numSeats + 
+                "\nCurrent Mileage: " + currentMileage + 
+                "\nColor: " + color + 
+                "\nPlate Number: " + plateNumber + 
+                "\nBranch: " + edit_branchCombobox.SelectedItem + 
+                "\nVehicle Class: " + edit_vehicleClassCombobox.SelectedItem,
+                "CONFIRM EDITING",
+                MessageBoxButtons.YesNo
+                );
+
+            if (confirmUpdate == DialogResult.Yes)
             {
-                MessageBox.Show("VEHICLE UPDATED SUCCESSFULLY");
+                saveEdits();
             }
-            else if (confirmUpdating == DialogResult.No)
+            else
             {
                 MessageBox.Show("VEHICLE NOT UPDATED");
             }
@@ -324,6 +381,11 @@ namespace _291CarRental
                 }
             }
             return false;
+        }
+
+        private void validatePlateNumber()
+        {
+
         }
 
         private String addQuotes(String stringToAdd)
@@ -390,6 +452,11 @@ namespace _291CarRental
             edit_colorCombobox.Items.AddRange(add_colorCombobox.Items.Cast<Object>().ToArray());
             edit_branchCombobox.Items.AddRange(add_branchCombobox.Items.Cast<Object>().ToArray());
             edit_vehicleClassCombobox.Items.AddRange(add_vehicleClassCombobox.Items.Cast<Object>().ToArray());
+        }
+
+        private void plateNumberSearch_TextChanged(object sender, EventArgs e)
+        {
+            updatePanel.Visible = false;
         }
     }
 }
