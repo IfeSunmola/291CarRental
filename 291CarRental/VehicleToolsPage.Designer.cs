@@ -260,8 +260,11 @@
             // 
             // add_plateNumberTextbox
             // 
+            this.add_plateNumberTextbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.add_plateNumberTextbox.Location = new System.Drawing.Point(290, 271);
+            this.add_plateNumberTextbox.MaxLength = 8;
             this.add_plateNumberTextbox.Name = "add_plateNumberTextbox";
+            this.add_plateNumberTextbox.PlaceholderText = "A1B-C2D3";
             this.add_plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
             this.add_plateNumberTextbox.TabIndex = 16;
             // 

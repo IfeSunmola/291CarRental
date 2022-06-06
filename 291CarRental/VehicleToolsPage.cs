@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -185,7 +186,7 @@ namespace _291CarRental
             String branchId = (add_branchCombobox.SelectedIndex + 1).ToString();
             String vehicleClassId = (add_vehicleClassCombobox.SelectedIndex + 1).ToString();
             String query = "INSERT INTO Vehicle VALUES" +
-                "( " + addQuotes(plateNumber) + ", " + addQuotes(year) + ", " + addQuotes(brand) + ", "
+                "( " + addQuotes(plateNumber) + ", " + year + ", " + addQuotes(brand) + ", "
                 + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", " 
                 + currentMileage + ", " + addQuotes(color) + ", " + branchId + ", " + vehicleClassId + ");";
             MessageBox.Show(query);
@@ -253,7 +254,15 @@ namespace _291CarRental
                 MessageBox.Show("ENTER THE PLATE NUMBER");
                 return false;
             }
-            
+            else
+            {
+                if (!Regex.IsMatch(plateNumber.Text.ToString(), "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$")){
+                    MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
+                    return false;
+                }
+            }
+
+
             if (branchCombobox.SelectedItem == null)
             {
                 MessageBox.Show("SELECT A BRANCH");
