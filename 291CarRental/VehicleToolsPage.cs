@@ -383,9 +383,20 @@ namespace _291CarRental
             return false;
         }
 
-        private void validatePlateNumber()
-        {
-
+        private bool isValidPlateNumber(TextBox plateNumberTextbox)
+        {// returns true if the plate number is valid, false if not
+            String plateNumber = plateNumberTextbox.Text;
+            if (String.IsNullOrEmpty(plateNumber))
+            {
+                MessageBox.Show("ENTER THE PLATE NUMBER");
+                return false;
+            }
+            if (!Regex.IsMatch(plateNumber, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
+            {
+                MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
+                return false;
+            }
+            return true;
         }
 
         private String addQuotes(String stringToAdd)
