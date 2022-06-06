@@ -128,8 +128,78 @@ namespace _291CarRental
                 add_numOfSeatsTextbox, add_currentMileageTextbox, add_colorCombobox, add_plateNumberTextbox, add_branchCombobox, add_vehicleClassCombobox);
             if (validated)
             {
-                MessageBox.Show("GOOD");
+                String year = add_yearTextbox.Text;
+                String brand = add_brandCombobox.Text;
+                String model = add_modelTextbox.Text;
+                String transmissionType = add_transmissionTypeCombobox.Text;
+                String numOfSeats = add_numOfSeatsTextbox.Text;
+                String currentMileage = add_currentMileageTextbox.Text;
+                String color = add_colorCombobox.Text;
+                String plateNumber = add_plateNumberTextbox.Text;
+                String branch = add_branchCombobox.Text;
+                String vehicleClass = add_vehicleClassCombobox.Text;
+
+                DialogResult confirmAdding = MessageBox.Show(
+                    "CONFIRM ADDING THIS VEHICLE TO BRANCH " + branch + 
+                    "\nYear: " + year +
+                    "\nBrand: " + brand +
+                    "\nModel: " + model +
+                    "\nTransmission Type: " + transmissionType +
+                    "\nNumber of seats: " + numOfSeats +
+                    "\nCurrent Mileage: " + currentMileage +
+                    "\nColor: " + color +
+                    "\nPlate Number: " + plateNumber +
+                    "\nVehicle Class: " + vehicleClass,
+                    "CONFIRM VEHICLE DETAILS",
+                    MessageBoxButtons.YesNo
+                    );
+                if (confirmAdding == DialogResult.Yes)
+                {
+                    if (addVehicleToDb(year, brand, model, transmissionType, numOfSeats, 
+                        currentMileage, color, plateNumber))
+                    {
+                        MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
+                    }
+                    else
+                    {
+                        MessageBox.Show("INTERNAL ERROR OCCURED.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("VEHICLE NOT ADDED");
+                }
             }
+        }
+
+        private String addQuotes(String stringToAdd)
+        {
+            String temp1 = stringToAdd.Insert(0, "'");
+            String temp2 = temp1.Insert(temp1.Length, "'");
+            return temp2;
+        }
+
+        private bool addVehicleToDb(String year, String brand, String model, String transmissionType, String numOfSeats, 
+            String currentMileage, String color, String plateNumber)
+        {
+            String branchId = (add_branchCombobox.SelectedIndex + 1).ToString();
+            String vehicleClassId = (add_vehicleClassCombobox.SelectedIndex + 1).ToString();
+            String query = "INSERT INTO Vehicle VALUES" +
+                "( " + addQuotes(plateNumber) + ", " + addQuotes(year) + ", " + addQuotes(brand) + ", "
+                + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", " 
+                + currentMileage + ", " + addQuotes(color) + ", " + branchId + ", " + vehicleClassId + ");";
+            MessageBox.Show(query);
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                if (command.ExecuteNonQuery() == 1)// 1 row was modified
+                {
+                    return true;
+                }
+            }
+                return false;
         }
 
         private bool doValidation(NumericUpDown year, ComboBox brandCombobox, TextBox model, ComboBox transmissionCombobox,
@@ -293,7 +363,7 @@ namespace _291CarRental
                 reader.NextResult();
                 while (reader.Read())
                 {// fill brand combo box
-                    add_brandCombobox.Items.Add(reader.GetString("brand").ToUpper());
+                    add_brandCombobox.Items.Add(reader.GetString("brand"));
                 }
                 reader.Close();
             }
@@ -302,19 +372,19 @@ namespace _291CarRental
             add_branchCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             // transmission
-            add_transmissionTypeCombobox.Items.Add("AUTOMATIC");
-            add_transmissionTypeCombobox.Items.Add("HYBRID");
-            add_transmissionTypeCombobox.Items.Add("MANUAL");
+            add_transmissionTypeCombobox.Items.Add("Automatic");
+            add_transmissionTypeCombobox.Items.Add("Hybrid");
+            add_transmissionTypeCombobox.Items.Add("Manual");
             add_transmissionTypeCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             // color
-            add_colorCombobox.Items.Add("BLACK");
-            add_colorCombobox.Items.Add("BLUE");
-            add_colorCombobox.Items.Add("GREY");
-            add_colorCombobox.Items.Add("LIGHT BLUE");
-            add_colorCombobox.Items.Add("RED");
-            add_colorCombobox.Items.Add("SILVER");
-            add_colorCombobox.Items.Add("WHITE");
-            add_colorCombobox.Items.Add("YELLOW");
+            add_colorCombobox.Items.Add("Blacl");
+            add_colorCombobox.Items.Add("Blue");
+            add_colorCombobox.Items.Add("Grey");
+            add_colorCombobox.Items.Add("Light Blue");
+            add_colorCombobox.Items.Add("Red");
+            add_colorCombobox.Items.Add("Silver");
+            add_colorCombobox.Items.Add("White");
+            add_colorCombobox.Items.Add("Yellow");
             add_colorCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
     }
