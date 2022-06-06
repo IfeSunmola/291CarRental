@@ -163,7 +163,7 @@ namespace _291CarRental
                     MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
                     return false;
                 }
-                if (plateNumberInDb(plateNumber.Text))
+                if (plateNumberInDb(plateNumber))
                 {
                     MessageBox.Show("PLATE NUMBER " + plateNumber.Text + " ALREADY EXISTS IN THE SYSTEM");
                     return false;
@@ -189,18 +189,24 @@ namespace _291CarRental
         private void startUpdatingButton_Click(object sender, EventArgs e)
         {
             
-            if (validateEditPlateNumber())
+            if (isValidPlateNumber(plateNumberSearch))
             {
-                MessageBox.Show("PLATE NUMBER FOUND. CURRENT VALUES HAS BEEN PRE FILLED");
-
-                prefillEditDetails(plateNumberSearch.Text);
-                updatePanel.Visible = true;
-            }
-            
+                if (plateNumberInDb(plateNumberSearch))
+                {
+                    MessageBox.Show("PLATE NUMBER FOUND. CURRENT VALUES HAS BEEN PRE FILLED");
+                    prefillEditDetails(plateNumberSearch);
+                    updatePanel.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("PLATE NUMBER NOT FOUND");
+                }
+            }  
         }
 
-        private void prefillEditDetails(String plateNumber)
+        private void prefillEditDetails(TextBox plateNumberTextbox)
         {
+            String plateNumber = plateNumberTextbox.Text;
             String query = "SELECT year, brand, model, transmission_type, num_seats, current_mileage, " +
                 "color, plate_number, branch_id, vehicle_class_id " +
                 "\nFROM Vehicle " +
@@ -242,7 +248,7 @@ namespace _291CarRental
                 MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
                 return false;
             }
-            if (!plateNumberInDb(plateNumberSearch.Text))
+            if (!plateNumberInDb(plateNumberSearch))
             {
                 MessageBox.Show("PLATE NUMBER NOT FOUND");
                 return false;
@@ -287,6 +293,16 @@ namespace _291CarRental
         
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
+            if (!isValidPlateNumber(edit_plateNumberTextbox))
+            {
+                return;
+            }
+            if (plateNumberInDb(edit_plateNumberTextbox))
+            {
+                MessageBox.Show("PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED");
+                return;
+            }
+            // valid details from here on
             String year = edit_yearTextbox.Text;
             String brand = edit_brandCombobox.Text;
             String model = edit_modelTextbox.Text;
@@ -365,8 +381,9 @@ namespace _291CarRental
 
         }
 
-        private bool plateNumberInDb(String plateNumber)
+        private bool plateNumberInDb(TextBox plateNumberTextbox)
         {
+            String plateNumber = plateNumberTextbox.Text;
             String query = "SELECT plate_number" +
                 "\nFROM Vehicle" +
                 "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
