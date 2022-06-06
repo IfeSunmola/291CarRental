@@ -69,9 +69,11 @@ namespace _291CarRental
                         currentMileage, color, plateNumber))
                     {
                         MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
+                        this.Close();
+                        previousPage.Visible = true;
                     }
                     else
-                    {
+                    {// shouldn't happen but shit happens yuno
                         MessageBox.Show("INTERNAL ERROR OCCURED.");
                     }
                 }
@@ -82,24 +84,15 @@ namespace _291CarRental
             }
         }
 
-        private String addQuotes(String stringToAdd)
-        {
-            String temp1 = stringToAdd.Insert(0, "'");
-            String temp2 = temp1.Insert(temp1.Length, "'");
-            return temp2;
-        }
-
         private bool addVehicleToDb(String year, String brand, String model, String transmissionType, String numOfSeats, 
             String currentMileage, String color, String plateNumber)
-        {
-            //plateNumberInDb(plateNumber);
+        {   
             String branchId = (add_branchCombobox.SelectedIndex + 1).ToString();
             String vehicleClassId = (add_vehicleClassCombobox.SelectedIndex + 1).ToString();
             String query = "INSERT INTO Vehicle VALUES" +
                 "( " + addQuotes(plateNumber) + ", " + year + ", " + addQuotes(brand) + ", "
                 + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", " 
                 + currentMileage + ", " + addQuotes(color) + ", " + branchId + ", " + vehicleClassId + ");";
-            //MessageBox.Show(query);
 
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
@@ -192,24 +185,6 @@ namespace _291CarRental
         }
 
 
-        private bool plateNumberInDb(String plateNumber)
-        {
-            String query = "SELECT plate_number" +
-                "\nFROM Vehicle" +
-                "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
-
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                if (command.ExecuteScalar() != null)
-                {// not null means the plate number is in the db
-                    return true;
-                }
-            }
-            return false;
-        }
-
         // update
         private void startUpdatingButton_Click(object sender, EventArgs e)
         {
@@ -272,6 +247,32 @@ namespace _291CarRental
             }
 
         }
+
+        private bool plateNumberInDb(String plateNumber)
+        {
+            String query = "SELECT plate_number" +
+                "\nFROM Vehicle" +
+                "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                if (command.ExecuteScalar() != null)
+                {// not null means the plate number is in the db
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private String addQuotes(String stringToAdd)
+        {
+            String temp1 = stringToAdd.Insert(0, "'");
+            String temp2 = temp1.Insert(temp1.Length, "'");
+            return temp2;
+        }
+
 
         private void fillComboBoxes()
         {
