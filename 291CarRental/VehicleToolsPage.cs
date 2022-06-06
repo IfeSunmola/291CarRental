@@ -32,97 +32,6 @@ namespace _291CarRental
         }
 
         // add 
-        private void addVehicleButton_Click2(object sender, EventArgs e)
-        {
-            String year = add_yearTextbox.Text.ToString();
-            String? brand;
-            var temp = add_brandCombobox.SelectedItem;
-            if (temp == null)
-            {
-                MessageBox.Show("SELECT A BRAND");
-                return;
-            }
-            else
-            {
-                brand = temp.ToString();
-            }
-            String model = add_modelTextbox.Text;
-
-            temp = add_transmissionTypeCombobox.SelectedItem;
-            String? transmissionType;
-            if (temp == null)
-            {
-                MessageBox.Show("SELECT A TRASMISSION TYPE");
-                return;
-            }
-            else
-            {
-                transmissionType = temp.ToString();
-            }
-
-            
-            String numOfSeats = add_numOfSeatsTextbox.Text.ToString();
-            String currentMileage = add_currentMileageTextbox.TextAlign.ToString();
-            
-            temp = add_colorCombobox.SelectedItem;
-            String? color;
-            if (temp == null)
-            {
-                MessageBox.Show("SELECT A COLOR");
-                return;
-            }
-            else
-            {
-                color = temp.ToString();
-            }
-
-            
-            String plateNumber = add_plateNumberTextbox.Text;
-
-            temp = add_branchCombobox.SelectedItem;
-            String? branch;
-            if (temp == null)
-            {
-                MessageBox.Show("SELECT A BRANCH");
-                return;
-            }
-            else
-            {
-                branch = temp.ToString();
-            }
-
-            temp = add_vehicleClassCombobox.SelectedItem;
-            String? vehicleClass;
-            if (temp == null)
-            {
-                MessageBox.Show("SELECT A VEHICLE CLASS");
-                return;
-            }
-            else
-            {
-                vehicleClass = temp.ToString();
-            }
-
-
-            MessageBox.Show(year + "\n" + brand + "\n" + model + "\n" + transmissionType + "\n"
-                + numOfSeats + "\n" + currentMileage + "\n" + color + "\n" + plateNumber + "\n"
-                + branch + "\n" + vehicleClass);
-
-            DialogResult confirmAdding = MessageBox.Show(
-               "Confirm adding of (vehicle details?)",
-               "CONFIRM ADDING VEHICLE",
-               MessageBoxButtons.YesNo);
-
-            if (confirmAdding == DialogResult.Yes)
-            {
-                MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
-            }
-            else if (confirmAdding == DialogResult.No)
-            {
-                MessageBox.Show("VEHICLE NOT ADDED");
-            }
-        }
-
         private void addVehicleButton_Click(object sender, EventArgs e)
         {
             bool validated = doValidation(add_yearTextbox, add_brandCombobox, add_modelTextbox, add_transmissionTypeCombobox,
@@ -183,13 +92,14 @@ namespace _291CarRental
         private bool addVehicleToDb(String year, String brand, String model, String transmissionType, String numOfSeats, 
             String currentMileage, String color, String plateNumber)
         {
+            //plateNumberInDb(plateNumber);
             String branchId = (add_branchCombobox.SelectedIndex + 1).ToString();
             String vehicleClassId = (add_vehicleClassCombobox.SelectedIndex + 1).ToString();
             String query = "INSERT INTO Vehicle VALUES" +
                 "( " + addQuotes(plateNumber) + ", " + year + ", " + addQuotes(brand) + ", "
                 + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", " 
                 + currentMileage + ", " + addQuotes(color) + ", " + branchId + ", " + vehicleClassId + ");";
-            MessageBox.Show(query);
+            //MessageBox.Show(query);
 
             using (connection = new SqlConnection(connectionString))
             using (command = new SqlCommand(query, connection))
@@ -260,8 +170,12 @@ namespace _291CarRental
                     MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
                     return false;
                 }
+                if (plateNumberInDb(plateNumber.Text))
+                {
+                    MessageBox.Show("PLATE NUMBER " + plateNumber.Text + " ALREADY EXISTS IN THE SYSTEM");
+                    return false;
+                }
             }
-
 
             if (branchCombobox.SelectedItem == null)
             {
@@ -275,6 +189,25 @@ namespace _291CarRental
                 return false;
             }
             return true;
+        }
+
+
+        private bool plateNumberInDb(String plateNumber)
+        {
+            String query = "SELECT plate_number" +
+                "\nFROM Vehicle" +
+                "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
+
+            using (connection = new SqlConnection(connectionString))
+            using (command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                if (command.ExecuteScalar() != null)
+                {// not null means the plate number is in the db
+                    return true;
+                }
+            }
+            return false;
         }
 
         // update
