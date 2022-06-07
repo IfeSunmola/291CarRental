@@ -13,11 +13,6 @@ namespace _291CarRental
 {
     public partial class EmployeeLandingPage : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
-
         private LandingPage previousPage;
         private String empId;
 
@@ -40,16 +35,13 @@ namespace _291CarRental
             String query = "SELECT trim(first_name) + ' ' + trim(last_name)" +
                 "\nFROM Employee" +
                 "\nWHERE emp_id = " + empId + ";";
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+
+            var empName = DatabaseConnection.getCommand(query).ExecuteScalar();
+            if (empName != null)
             {
-                connection.Open();
-                var empName = command.ExecuteScalar();  
-                if (empName != null)
-                {
-                    result = empName.ToString();
-                }
+                result = empName.ToString();
             }
+            DatabaseConnection.kThanksBye();
             return result;
         }
 
