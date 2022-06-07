@@ -67,7 +67,6 @@ AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id
 AND vehicle_id IN 
 (	SELECT vehicle_id
 	FROM Vehicle 
-	WHERE branch_id = " + branchId + @"
 	EXCEPT 
 	(
 		(SELECT [vehicle_id]
