@@ -79,16 +79,16 @@
             this.plateNumberSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label12 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.process1 = new System.Diagnostics.Process();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.add_yearTextbox)).BeginInit();
@@ -100,8 +100,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.edit_numOfSeatsTextbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edit_yearTextbox)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -669,25 +669,6 @@
             this.tabPage3.Text = "DELETE VEHICLE";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(26, 116);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 33;
-            this.dataGridView1.Size = new System.Drawing.Size(705, 173);
-            this.dataGridView1.TabIndex = 21;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(342, 70);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(37, 25);
-            this.label12.TabIndex = 20;
-            this.label12.Text = "OR";
-            // 
             // button3
             // 
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -698,23 +679,6 @@
             this.button3.Text = "DELETE THIS VEHICLE";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.deleteVehicleButton_Click);
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(363, 26);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.PlaceholderText = "ADD PLACE HOLDER TEXT\\";
-            this.textBox8.Size = new System.Drawing.Size(150, 31);
-            this.textBox8.TabIndex = 1;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(217, 26);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(136, 25);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "PLATE NUMBER";
             // 
             // button2
             // 
@@ -766,6 +730,42 @@
             this.panel1.Size = new System.Drawing.Size(1030, 526);
             this.panel1.TabIndex = 29;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(217, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(136, 25);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "PLATE NUMBER";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(363, 26);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.PlaceholderText = "ADD PLACE HOLDER TEXT\\";
+            this.textBox8.Size = new System.Drawing.Size(150, 31);
+            this.textBox8.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(342, 70);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(37, 25);
+            this.label12.TabIndex = 20;
+            this.label12.Text = "OR";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(26, 116);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 33;
+            this.dataGridView1.Size = new System.Drawing.Size(705, 173);
+            this.dataGridView1.TabIndex = 21;
+            // 
             // VehicleToolsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -791,8 +791,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.edit_yearTextbox)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -814,8 +814,6 @@
         private Label label4;
         private TextBox add_modelTextbox;
         private Label label3;
-        private Label label9;
-        private TextBox textBox8;
         private ContextMenuStrip contextMenuStrip1;
         private TextBox edit_plateNumberTextbox;
         private Label plateNumberLabel;
@@ -843,8 +841,6 @@
         private ComboBox add_colorCombobox;
         private ComboBox add_brandCombobox;
         private Label label2;
-        private DataGridView dataGridView1;
-        private Label label12;
         private NumericUpDown edit_currentMileageTextbox;
         private NumericUpDown edit_numOfSeatsTextbox;
         private ComboBox edit_brandCombobox;
@@ -859,5 +855,9 @@
         private ComboBox edit_colorCombobox;
         private ComboBox edit_vehicleClassCombobox;
         private Label label15;
+        private DataGridView dataGridView1;
+        private Label label12;
+        private TextBox textBox8;
+        private Label label9;
     }
 }
