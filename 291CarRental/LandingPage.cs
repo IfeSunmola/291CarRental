@@ -39,9 +39,7 @@ namespace _291CarRental
             else
             {
                 String query = "SELECT emp_id FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
-
-                SqlCommand cmd = DatabaseConnection.getCommand(query);
-                var empId = cmd.ExecuteScalar();
+                var empId = DatabaseConnection.getCommand(query).ExecuteScalar();
                 if (empId != null)
                 {// not null means a value was returned, value will only be returned if the emp_id was found
                     MessageBox.Show("LOGIN SUCCESSFULL", "ID FOUND");
