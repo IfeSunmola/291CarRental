@@ -13,11 +13,6 @@ namespace _291CarRental
 {
     public partial class CustViewVehiclePage : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
-
         private CustSelectVehicleFilters previousPage;
         private DateTimePicker fromDate;
         private DateTimePicker toDate;
@@ -36,7 +31,6 @@ namespace _291CarRental
             this.branchId = branchId;
 
             vehicleDataGridView.Columns.Clear();
-            //vehicleDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
 
             String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text += stringToAppend;
@@ -58,7 +52,7 @@ namespace _291CarRental
             DataTable cars = new DataTable();
             String from = fromDate.Value.Date.ToString("d");
             String to = toDate.Value.Date.ToString("d");
-            
+
             String query = @"
 SELECT vehicle_id, branch_name as 'Location', vehicle_class AS 'Class', [year] AS 'Year', brand AS 'Brand', model AS 'Model'
 FROM Vehicle, Branch, Vehicle_Class 
@@ -75,7 +69,7 @@ AND vehicle_id IN
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE  "  + addQuotes(from) + @" >= start_date_of_booking and " + addQuotes(from) + @" <= expected_dropoff_date)
+			WHERE  " + addQuotes(from) + @" >= start_date_of_booking and " + addQuotes(from) + @" <= expected_dropoff_date)
 		)
 		UNION(
 			(SELECT [vehicle_id]
@@ -85,7 +79,7 @@ AND vehicle_id IN
 	) 
 )
 ";
-           
+
             if (branchId != 0)// a specific branch was selected, add filters
             {
                 query += "\nAND Vehicle.branch_id = " + branchId + "";
@@ -94,15 +88,11 @@ AND vehicle_id IN
             {
                 query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
             }
-           // MessageBox.Show(query);
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
-                cars.Load(reader);
-                reader.Close();
-            }
+            // MessageBox.Show(query);
+            SqlDataReader reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            cars.Load(reader);
+            reader.Close();
+            DatabaseConnection.kThanksBye();
             return cars;
         }
 
@@ -169,29 +159,24 @@ AND vehicle_id IN
                   "\nAND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id;";
 
             Decimal dailyRate = 0.0m, weeklyRate = 0.0m, monthlyRate = 0.0m;
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+            SqlDataReader reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            while (reader.Read())
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                while (reader.Read())
+                if (reader.GetName(0).Equals("daily_rate"))
                 {
-                    if (reader.GetName(0).Equals("daily_rate"))
-                    {
-                        dailyRate = reader.GetDecimal(0);
-                    }
-                    if (reader.GetName(1).Equals("weekly_rate"))
-                    {
-                        weeklyRate = reader.GetDecimal(1);
-                    }
-                    if (reader.GetName(2).Equals("monthly_rate"))
-                    {
-                        monthlyRate = reader.GetDecimal(2);
-                    }
-
+                    dailyRate = reader.GetDecimal(0);
                 }
-                reader.Close();
+                if (reader.GetName(1).Equals("weekly_rate"))
+                {
+                    weeklyRate = reader.GetDecimal(1);
+                }
+                if (reader.GetName(2).Equals("monthly_rate"))
+                {
+                    monthlyRate = reader.GetDecimal(2);
+                }
             }
+            reader.Close();
+            DatabaseConnection.kThanksBye();
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
     }
