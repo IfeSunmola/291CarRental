@@ -15,7 +15,10 @@ namespace _291CarRental
 
         internal static SqlCommand getCommand(String query)
         {
-            connection.Open();
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
             command.CommandText = query;
             return command;
         }
