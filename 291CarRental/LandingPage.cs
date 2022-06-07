@@ -10,12 +10,10 @@ namespace _291CarRental
         private SqlCommand? command;
         private SqlDataReader? reader;
 
-        private DatabaseConnection conn;
         public LandingPage()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            conn = new DatabaseConnection();
 
             empIdLabel.Visible = false;
             empIdTextbox.Visible = false;
@@ -46,8 +44,10 @@ namespace _291CarRental
             else
             {
                 String query = "SELECT emp_id FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
-                using (SqlCommand cmd = conn.getCommand(query, conn.getConnection()))
+                //using (SqlCommand cmd = DatabaseConnection.getCommand(query))
+                //using (SqlCommand cmd = conn.getCommand(query))
                 {
+                    SqlCommand cmd = DatabaseConnection.getCommand(query);
                     var empId = cmd.ExecuteScalar();
                     if (empId != null)
                     {// not null means a value was returned, value will only be returned if the emp_id was found
@@ -60,6 +60,7 @@ namespace _291CarRental
                     {
                         MessageBox.Show("Employee not found, try again", "INCORRECT ID");
                     }
+                    DatabaseConnection.kThanksBye();
                 }
             }
         }

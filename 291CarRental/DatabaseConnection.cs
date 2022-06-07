@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace _291CarRental
 {
-  
-    internal class DatabaseConnection
+    internal static class DatabaseConnection
     {
         private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
+        private static readonly SqlConnection connection = new SqlConnection(connectionString);
+        private static readonly SqlCommand command = connection.CreateCommand();
 
-        internal SqlConnection getConnection()
+        internal static SqlCommand getCommand(String query)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            return connection;
+            connection.Open();
+            command.CommandText = query;
+            return command;
         }
 
-        internal SqlCommand getCommand(String query, SqlConnection connection)
+        internal static void kThanksBye()
         {
-            connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand(query, connection);
-            return command;
+            connection.Close();
+            command.Dispose();
         }
     }
 }
