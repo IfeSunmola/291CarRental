@@ -12,9 +12,11 @@ namespace _291CarRental
         private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         private static readonly SqlConnection connection = new SqlConnection(connectionString);
         private static readonly SqlCommand command = connection.CreateCommand();
+        private static SqlDataReader reader = null;
 
         internal static SqlCommand getCommand(String query)
         {
+            
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
@@ -27,6 +29,16 @@ namespace _291CarRental
         {
             connection.Close();
             command.Dispose();
+            if (reader != null)
+            {
+                reader.Close();
+            }
+        }
+
+        internal static SqlDataReader executeReader(String query)
+        {
+            reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            return reader;
         }
     }
 }

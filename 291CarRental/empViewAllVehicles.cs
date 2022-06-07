@@ -13,10 +13,6 @@ namespace _291CarRental
 {
     public partial class EmpViewAllVehicles : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
         private EmployeeLandingPage previousPage;
         private String empId;
         private String currentCustName;
@@ -85,15 +81,12 @@ AND vehicle_id IN
                 query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
             }
 
-          // MessageBox.Show(query);
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
-                cars.Load(reader);
-                reader.Close();
-            }
+            // MessageBox.Show(query);
+            //SqlDataReader reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            SqlDataReader reader = DatabaseConnection.executeReader(query);
+            cars.Load(reader);
+            //reader.Close();
+            DatabaseConnection.kThanksBye();
             return cars;
         }
 
@@ -128,27 +121,26 @@ AND vehicle_id IN
                             "\nFROM Customer " +
                             "\nWHERE customer_id = " + customerId;
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+
+            //SqlDataReader reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            SqlDataReader reader = DatabaseConnection.executeReader(query);
+            while (reader.Read())
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                while (reader.Read())
+                currentCustName = reader.GetString(0);
+                customerNameLabel.Text = "CUSTOMER NAME: " + currentCustName;
+                if (reader.GetString(1).Equals("Gold"))
                 {
-                    currentCustName = reader.GetString(0);
-                    customerNameLabel.Text = "CUSTOMER NAME: " + currentCustName;
-                    if (reader.GetString(1).Equals("Gold"))
-                    {
-                        goldMemberLabel.Text = "GOLD MEMBER: YES";
-                    }
-                    else
-                    {
-                        goldMemberLabel.Text = "GOLD MEMBER: NO";
-                    }
+                    goldMemberLabel.Text = "GOLD MEMBER: YES";
                 }
-                customerDetailsPanel.Visible = true;    
-                reader.Close();
+                else
+                {
+                    goldMemberLabel.Text = "GOLD MEMBER: NO";
+                }
             }
+            customerDetailsPanel.Visible = true;
+            //reader.Close();
+            DatabaseConnection.kThanksBye();
+
         }
 
         private bool validateSearchDetails()
@@ -221,26 +213,22 @@ AND vehicle_id IN
                 "\n(start_date_of_booking, expected_dropoff_date, amount_due_now, emp_id_booking, " +
                 "pickup_branch_id, vehicle_id, vehicle_class_requested, customer_id)" +
                 "\nVALUES" +
-                "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " + 
-                empId + ", " + branchId + ", " + vehicleId + ", " + classRequested + 
+                "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " +
+                empId + ", " + branchId + ", " + vehicleId + ", " + classRequested +
                 ", " + customerIdTextbox.Text + ");";
 
             MessageBox.Show(query);
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+            int rowsAffected = DatabaseConnection.getCommand(query).ExecuteNonQuery();
+            if (rowsAffected > 0)
             {
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
-                if (rowsAffected > 0)
-                {
-                    MessageBox.Show("VEHICLE RENTED SUCCESSFULLY.");
-                }
-                else
-                {
-                    MessageBox.Show("AN ERROR OCCURED, TRY AGAIN");
-                }
+                MessageBox.Show("VEHICLE RENTED SUCCESSFULLY.");
             }
+            else
+            {
+                MessageBox.Show("AN ERROR OCCURED, TRY AGAIN");
+            }
+            DatabaseConnection.kThanksBye();
         }
 
         private void fillComboBoxes()
@@ -255,28 +243,26 @@ AND vehicle_id IN
                 "\nSELECT Employee.branch_id" +
                 "\nFROM Employee, Branch " +
                 "\nWHERE Employee.branch_id = Branch.branch_id" +
-                "\nAND emp_id = " + empId ;
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+                "\nAND emp_id = " + empId;
+
+            //SqlDataReader reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            SqlDataReader reader = DatabaseConnection.executeReader(query);
+            while (reader.Read())
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
-                }
-                reader.NextResult();
-                while (reader.Read())
-                {
-                    branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
-                }
-                reader.NextResult();
-                if (reader.Read())
-                {
-                    branchComboBox.SelectedIndex = reader.GetInt32("branch_id");
-                }
-                reader.Close();
+                vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
             }
+            reader.NextResult();
+            while (reader.Read())
+            {
+                branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
+            }
+            reader.NextResult();
+            if (reader.Read())
+            {
+                branchComboBox.SelectedIndex = reader.GetInt32("branch_id");
+            }
+            //reader.Close();
+            DatabaseConnection.kThanksBye();
             vehicleClassCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             branchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -307,18 +293,13 @@ AND vehicle_id IN
                 @"SELECT trim(street_number + ' ' + street_name + ', ' + city)
                         FROM Branch 
                     WHERE  branch_id = " + branchId + ";";
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+            // null checking is not needed here because of the earlier validations but... why not
+            var rawBranchAddress = DatabaseConnection.getCommand(query).ExecuteScalar();
+            if (rawBranchAddress != null)
             {
-
-                connection.Open();
-                // null checking is not needed here because of the earlier validations but... why not
-                var rawBranchAddress = command.ExecuteScalar();
-                if (rawBranchAddress != null)
-                {
-                    branchAddress = (String)rawBranchAddress;
-                }
+                branchAddress = (String)rawBranchAddress;
             }
+            DatabaseConnection.kThanksBye();
             return branchAddress;
         }
 
@@ -364,29 +345,27 @@ AND vehicle_id IN
                   "\nAND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id;";
 
             Decimal dailyRate = 0.0m, weeklyRate = 0.0m, monthlyRate = 0.0m;
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    if (reader.GetName(0).Equals("daily_rate"))
-                    {
-                        dailyRate = reader.GetDecimal(0);
-                    }
-                    if (reader.GetName(1).Equals("weekly_rate"))
-                    {
-                        weeklyRate = reader.GetDecimal(1);
-                    }
-                    if (reader.GetName(2).Equals("monthly_rate"))
-                    {
-                        monthlyRate = reader.GetDecimal(2);
-                    }
 
+            //SqlDataReader reader = DatabaseConnection.getCommand(query).ExecuteReader();
+            SqlDataReader reader = DatabaseConnection.executeReader(query);
+            while (reader.Read())
+            {
+                if (reader.GetName(0).Equals("daily_rate"))
+                {
+                    dailyRate = reader.GetDecimal(0);
                 }
-                reader.Close();
+                if (reader.GetName(1).Equals("weekly_rate"))
+                {
+                    weeklyRate = reader.GetDecimal(1);
+                }
+                if (reader.GetName(2).Equals("monthly_rate"))
+                {
+                    monthlyRate = reader.GetDecimal(2);
+                }
+
             }
+            //reader.Close();
+            DatabaseConnection.kThanksBye();
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
 
