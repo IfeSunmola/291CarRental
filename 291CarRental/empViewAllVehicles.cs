@@ -21,9 +21,12 @@ namespace _291CarRental
         private String empId;
         private String currentCustName;
 
-        public EmpViewAllVehicles(EmployeeLandingPage previousPage, String empId)
+        DbConnection conn;
+
+        public EmpViewAllVehicles(EmployeeLandingPage previousPage, String empId, DbConnection conn)
         {
             InitializeComponent();
+            this.conn = conn;
 
             this.previousPage = previousPage;
             this.empId = empId;
@@ -84,16 +87,7 @@ AND vehicle_id IN
             {
                 query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
             }
-
-          // MessageBox.Show(query);
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
-                cars.Load(reader);
-                reader.Close();
-            }
+            cars.Load(conn.executeReader(query));
             return cars;
         }
 
@@ -128,16 +122,15 @@ AND vehicle_id IN
                             "\nFROM Customer " +
                             "\nWHERE customer_id = " + customerId;
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+            conn.executeReader(query);
+            using (SqlDataReader reader2 = conn.executeReader(query))
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                while (reader.Read())
+                while (reader2.Read())
                 {
-                    currentCustName = reader.GetString(0);
+                    currentCustName = reader2.GetString(0);
                     customerNameLabel.Text = "CUSTOMER NAME: " + currentCustName;
-                    if (reader.GetString(1).Equals("Gold"))
+                    MessageBox.Show(reader2.GetString(0));
+                    if (reader2.GetString(1).Equals("Gold"))
                     {
                         goldMemberLabel.Text = "GOLD MEMBER: YES";
                     }
@@ -146,9 +139,9 @@ AND vehicle_id IN
                         goldMemberLabel.Text = "GOLD MEMBER: NO";
                     }
                 }
-                customerDetailsPanel.Visible = true;    
-                reader.Close();
             }
+                customerDetailsPanel.Visible = true;    
+            
         }
 
         private bool validateSearchDetails()
