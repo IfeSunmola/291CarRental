@@ -12,6 +12,7 @@ namespace _291CarRental
         internal SqlConnection connection;
         internal SqlCommand command;
         internal SqlDataReader reader;
+        internal const string ConnectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
 
         internal DbConnection()
         {
