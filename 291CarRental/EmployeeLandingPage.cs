@@ -13,19 +13,16 @@ namespace _291CarRental
 {
     public partial class EmployeeLandingPage : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
-
         private LandingPage previousPage;
         private String empId;
+        private DbConnection connection;
 
-        public EmployeeLandingPage(LandingPage previousPage, String empId)
+        public EmployeeLandingPage(LandingPage previousPage, String empId, DbConnection connection)
         {
             InitializeComponent();
             this.previousPage = previousPage;
             this.empId = empId;
+            this.connection = connection;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
@@ -36,21 +33,17 @@ namespace _291CarRental
 
         private String getEmpName()
         {
-            String? result = "";
             String query = "SELECT trim(first_name) + ' ' + trim(last_name)" +
                 "\nFROM Employee" +
                 "\nWHERE emp_id = " + empId + ";";
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+
+            String? empName = connection.executeScalar(query);
+            if (empName == null)
             {
-                connection.Open();
-                var empName = command.ExecuteScalar();  
-                if (empName != null)
-                {
-                    result = empName.ToString();
-                }
+                empName = "DATABASE ERROR OCCURED IN EmployeeLandingPage";
             }
-            return result;
+
+            return empName;
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -62,25 +55,25 @@ namespace _291CarRental
         private void viewAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new EmpViewAllVehicles(this, empId).Show();
+            new EmpViewAllVehicles(this, empId, connection).ShowDialog();
         }
 
         private void returnAVehicleButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new ReturnAVehiclePage(this).Show();
+            new ReturnAVehiclePage(this).ShowDialog();
         }
 
         private void vehicleToolsButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new VehicleToolsPage(this, empId).Show();
+            new VehicleToolsPage(this, empId).ShowDialog();
         }
 
         private void runCustomReportsButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new RunCustomReportPage(this).Show();
+            new RunCustomReportPage(this).ShowDialog();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
