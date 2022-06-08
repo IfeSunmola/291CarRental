@@ -13,10 +13,7 @@ namespace _291CarRental
 {
     public partial class CustViewVehiclePage : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
+        private DbConnection connection;
 
         private CustSelectVehicleFilters previousPage;
         private DateTimePicker fromDate;
@@ -25,7 +22,7 @@ namespace _291CarRental
         private int branchId;
 
         
-        public CustViewVehiclePage(CustSelectVehicleFilters previousPage, DateTimePicker fromDate, DateTimePicker toDate, int vehicleClassId, int branchId)
+        public CustViewVehiclePage(CustSelectVehicleFilters previousPage, DateTimePicker fromDate, DateTimePicker toDate, int vehicleClassId, int branchId, DbConnection connection)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -34,9 +31,9 @@ namespace _291CarRental
             this.previousPage = previousPage;
             this.vehicleClassId = vehicleClassId;
             this.branchId = branchId;
+            this.connection = connection;   
 
             vehicleDataGridView.Columns.Clear();
-            //vehicleDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
 
             String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text += stringToAppend;
@@ -95,14 +92,11 @@ AND vehicle_id IN
                 query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
             }
            // MessageBox.Show(query);
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
+            
+               SqlDataReader reader = connection.executeReader(query);
                 cars.Load(reader);
-                reader.Close();
-            }
+                
+            
             return cars;
         }
 
@@ -169,11 +163,8 @@ AND vehicle_id IN
                   "\nAND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id;";
 
             Decimal dailyRate = 0.0m, weeklyRate = 0.0m, monthlyRate = 0.0m;
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
+            
+                SqlDataReader reader = connection.executeReader(query);
                 while (reader.Read())
                 {
                     if (reader.GetName(0).Equals("daily_rate"))
@@ -190,8 +181,8 @@ AND vehicle_id IN
                     }
 
                 }
-                reader.Close();
-            }
+                
+            
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
     }

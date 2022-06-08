@@ -33,7 +33,7 @@ namespace _291CarRental
             {
                 this.Visible = false;
                 new CustViewVehiclePage(this, fromDatePicker, toDatePicker, (int)vehicleClassCombobox.SelectedIndex,
-                    (int)branchComboBox.SelectedIndex).Show();
+                    (int)branchComboBox.SelectedIndex, connection).ShowDialog();
             }
         }
 
