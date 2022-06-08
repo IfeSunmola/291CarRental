@@ -6,14 +6,13 @@ namespace _291CarRental
 {
     public partial class CustSelectVehicleFilters : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
+        private DbConnection connection;
         private LandingPage previousPage;
-        public CustSelectVehicleFilters(LandingPage previousPage)
+
+        public CustSelectVehicleFilters(LandingPage previousPage, DbConnection connection)
         {
             InitializeComponent();
+            this.connection = connection;
             this.previousPage = previousPage;
             this.StartPosition = FormStartPosition.CenterScreen;
             fromDatePicker.Value = DateTime.Now.AddDays(1);
@@ -45,23 +44,19 @@ namespace _291CarRental
             {
                 return "";
             }
-            String branchAddress = "";
+
             String query =
                 @"SELECT trim(street_number + ' ' + street_name + ', ' + city)
                         FROM Branch 
                     WHERE  branch_id = " + branchId + ";";
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
 
-                connection.Open();
-                // null checking is not needed here because of the earlier validations but... why not
-                var rawBranchAddress = command.ExecuteScalar();
-                if (rawBranchAddress != null)
-                {
-                    branchAddress = "Address: " + (String)rawBranchAddress;
-                }
+            // null checking is not needed here because of the earlier validations but... why not
+            String? branchAddress = connection.executeScalar(query);
+            if (branchAddress == null)
+            {
+                branchAddress = "DATABASE ERROR OCCURED IN CustSelectVehicleFilters";
             }
+
             return branchAddress;
         }
 
@@ -92,7 +87,7 @@ namespace _291CarRental
             }
             return result;
         }
-        
+
         private void fillComboBoxes()
         {
             vehicleClassCombobox.Items.Add("ALL CLASSES");
@@ -101,22 +96,19 @@ namespace _291CarRental
             branchComboBox.SelectedIndex = 0;
 
             String query = "SELECT vehicle_class FROM Vehicle_Class; SELECT branch_name FROM Branch;";
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
+
+            SqlDataReader reader = connection.executeReader(query);
+            while (reader.Read())
             {
-                connection.Open();
-                reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
-                }
-                reader.NextResult();
-                while (reader.Read())
-                {
-                    branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
-                }
-                reader.Close();
+                vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
             }
+            reader.NextResult();
+            while (reader.Read())
+            {
+                branchComboBox.Items.Add(reader.GetString("branch_name").ToUpper());
+            }
+
+
             vehicleClassCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             branchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -134,7 +126,7 @@ namespace _291CarRental
             }
 
         }
-        
+
         // update the address field as the customer selects different branches
         private void branchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

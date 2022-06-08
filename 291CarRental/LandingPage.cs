@@ -6,7 +6,7 @@ namespace _291CarRental
     public partial class LandingPage : Form
     {
         private DbConnection connection;
-        
+
         public LandingPage()
         {
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace _291CarRental
         private void custButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new CustSelectVehicleFilters(this).ShowDialog();
+            new CustSelectVehicleFilters(this, connection).ShowDialog();
         }
 
         private void empButton_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace _291CarRental
             else
             {
                 String query = "SELECT emp_id FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
-                String? empId= connection.executeScalar(query);
+                String? empId = connection.executeScalar(query);
 
                 if (empId != null)
                 {// not null means a value was returned, value will only be returned if the emp_id was found
