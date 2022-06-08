@@ -205,7 +205,7 @@ AND vehicle_id IN
             String branchId = branchComboBox.SelectedIndex.ToString();
             String classRequested = vehicleClassCombobox.SelectedIndex.ToString();
             String query = "INSERT INTO Rental" +
-                "\n(start_date_of_booking, expected_dropoff_date, amount_due_now, emp_id_booking, " +
+                "\n(start_date_of_booking, expected_dropoff_date, initial_amount_paid, emp_id_booking, " +
                 "pickup_branch_id, vehicle_id, vehicle_class_requested, customer_id)" +
                 "\nVALUES" +
                 "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " +
