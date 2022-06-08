@@ -51,20 +51,20 @@
             this.customerRentalsDataGripView.AllowUserToResizeColumns = false;
             this.customerRentalsDataGripView.AllowUserToResizeRows = false;
             this.customerRentalsDataGripView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customerRentalsDataGripView.Location = new System.Drawing.Point(64, 211);
+            this.customerRentalsDataGripView.Location = new System.Drawing.Point(53, 211);
             this.customerRentalsDataGripView.MultiSelect = false;
             this.customerRentalsDataGripView.Name = "customerRentalsDataGripView";
             this.customerRentalsDataGripView.ReadOnly = true;
             this.customerRentalsDataGripView.RowHeadersWidth = 62;
             this.customerRentalsDataGripView.RowTemplate.Height = 33;
             this.customerRentalsDataGripView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.customerRentalsDataGripView.Size = new System.Drawing.Size(904, 324);
+            this.customerRentalsDataGripView.Size = new System.Drawing.Size(904, 140);
             this.customerRentalsDataGripView.TabIndex = 4;
             // 
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(396, 563);
+            this.button1.Location = new System.Drawing.Point(418, 389);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(216, 62);
             this.button1.TabIndex = 8;
@@ -136,7 +136,7 @@
             // button3
             // 
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Location = new System.Drawing.Point(396, 143);
+            this.button3.Location = new System.Drawing.Point(396, 132);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(216, 62);
             this.button3.TabIndex = 16;
@@ -182,14 +182,14 @@
             this.panel1.Controls.Add(this.customerIDRadio);
             this.panel1.Location = new System.Drawing.Point(29, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1032, 636);
+            this.panel1.Size = new System.Drawing.Size(1032, 476);
             this.panel1.TabIndex = 26;
             // 
             // ReturnAVehiclePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1090, 660);
+            this.ClientSize = new System.Drawing.Size(1090, 514);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
