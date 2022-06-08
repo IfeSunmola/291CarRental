@@ -17,7 +17,7 @@ namespace _291CarRental
         private String empId;
         private String currentCustName;
 
-        DbConnection connection;
+        private DbConnection connection;
 
         public EmpViewAllVehicles(EmployeeLandingPage previousPage, String empId, DbConnection connection)
         {
