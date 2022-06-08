@@ -74,7 +74,7 @@ namespace _291CarRental
         {
             connection = new SqlConnection(connectionString);
             command = new SqlCommand();
-            try
+            try// add using 
             {
                 connection.Open();
                 command.Connection = connection;
@@ -87,16 +87,14 @@ namespace _291CarRental
 
         internal int executeNonQuery(String query)
         {
+            closeReader();
             command.CommandText = query;
             return command.ExecuteNonQuery();
         }
 
         internal SqlDataReader executeReader(String query)
         {
-            if (reader != null)
-            {
-                reader.Close();
-            }
+            closeReader();
             command.CommandText = query;
             reader = command.ExecuteReader();
             return reader;
@@ -106,12 +104,21 @@ namespace _291CarRental
         internal String? executeScalar(String query)
         {
             command.CommandText = query;
+            closeReader();
             var result = command.ExecuteScalar();
             if (result == null)
             {
                 return null;
             }
             return result.ToString();
+        }
+
+        private void closeReader()
+        {
+            if (reader != null)
+            {
+                reader.Close();
+            }
         }
     }
 }
