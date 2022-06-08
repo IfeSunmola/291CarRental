@@ -17,7 +17,7 @@ namespace _291CarRental
         private DbConnection connection;
         private EmployeeLandingPage previousPage;
         private String empId;
-        
+
         public VehicleToolsPage(EmployeeLandingPage previousPage, String empId, DbConnection connection)
         {
             InitializeComponent();
@@ -26,6 +26,7 @@ namespace _291CarRental
             this.empId = empId;
             this.StartPosition = FormStartPosition.CenterScreen;
             updatePanel.Visible = false;
+            deletePanel.Visible = false;
             fillComboBoxes();
         }
 
@@ -48,7 +49,7 @@ namespace _291CarRental
                 String vehicleClass = add_vehicleClassCombobox.Text;
 
                 DialogResult confirmAdding = MessageBox.Show(
-                    "CONFIRM ADDING THIS VEHICLE TO BRANCH " + branch + 
+                    "CONFIRM ADDING THIS VEHICLE TO BRANCH " + branch +
                     "\nYear: " + year +
                     "\nBrand: " + brand +
                     "\nModel: " + model +
@@ -63,7 +64,7 @@ namespace _291CarRental
                     );
                 if (confirmAdding == DialogResult.Yes)
                 {
-                    if (addVehicleToDb(year, brand, model, transmissionType, numOfSeats, 
+                    if (addVehicleToDb(year, brand, model, transmissionType, numOfSeats,
                         currentMileage, color, plateNumber))
                     {
                         MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
@@ -82,23 +83,23 @@ namespace _291CarRental
             }
         }
 
-        private bool addVehicleToDb(String year, String brand, String model, String transmissionType, String numOfSeats, 
+        private bool addVehicleToDb(String year, String brand, String model, String transmissionType, String numOfSeats,
             String currentMileage, String color, String plateNumber)
-        {   
+        {
             String branchId = (add_branchCombobox.SelectedIndex + 1).ToString();
             String vehicleClassId = (add_vehicleClassCombobox.SelectedIndex + 1).ToString();
             String query = "INSERT INTO Vehicle VALUES" +
                 "( " + addQuotes(plateNumber) + ", " + year + ", " + addQuotes(brand) + ", "
-                + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", " 
+                + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", "
                 + currentMileage + ", " + addQuotes(color) + ", " + branchId + ", " + vehicleClassId + ");";
 
-            
-                if (connection.executeNonQuery(query) == 1)// 1 row was modified
-                {
-                    return true;
-                }
-            
-                return false;
+
+            if (connection.executeNonQuery(query) == 1)// 1 row was modified
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool doValidation(NumericUpDown year, ComboBox brandCombobox, TextBox model, ComboBox transmissionCombobox,
@@ -154,7 +155,8 @@ namespace _291CarRental
             }
             else
             {
-                if (!Regex.IsMatch(plateNumber.Text.ToString(), "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$")){
+                if (!Regex.IsMatch(plateNumber.Text.ToString(), "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
+                {
                     MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
                     return false;
                 }
@@ -183,64 +185,68 @@ namespace _291CarRental
         // update
         private void startUpdatingButton_Click(object sender, EventArgs e)
         {
-            
-            if (isValidPlateNumber(plateNumberSearch))
+
+            if (isValidPlateNumber(edit_plateNumberSearch))
             {
-                if (plateNumberInDb(plateNumberSearch))
+                if (plateNumberInDb(edit_plateNumberSearch))
                 {
                     MessageBox.Show("PLATE NUMBER FOUND. CURRENT VALUES HAS BEEN PRE FILLED");
-                    prefillEditDetails(plateNumberSearch);
+                    prefillEditDetails(edit_plateNumberSearch, edit_yearTextbox, edit_brandCombobox, edit_modelTextbox,
+                        edit_transmissionComobox, edit_numOfSeatsTextbox, edit_currentMileageTextbox, edit_colorCombobox,
+                        edit_plateNumberTextbox, edit_branchCombobox, edit_vehicleClassCombobox);
                     updatePanel.Visible = true;
                 }
                 else
                 {
                     MessageBox.Show("PLATE NUMBER NOT FOUND");
                 }
-            }  
+            }
         }
 
-        private void prefillEditDetails(TextBox plateNumberTextbox)
+        private void prefillEditDetails(TextBox search_plateNumberTextbox, NumericUpDown year, ComboBox brand, TextBox model,
+            ComboBox transmissionType, NumericUpDown numOfSeats, NumericUpDown currentMileage, ComboBox color, TextBox plateNumber,
+            ComboBox branch, ComboBox vehicleClass)
         {
-            String plateNumber = plateNumberTextbox.Text;
             String query = "SELECT year, brand, model, transmission_type, num_seats, current_mileage, " +
                 "color, plate_number, branch_id, vehicle_class_id " +
                 "\nFROM Vehicle " +
-                "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
+                "\nWHERE plate_number = " + addQuotes(search_plateNumberTextbox.Text) + ";";
 
 
-          
-               SqlDataReader  reader = connection.executeReader(query);
 
-                while (reader.Read())
-                {
-                    edit_yearTextbox.Text = reader.GetInt16("year").ToString();
-                    edit_brandCombobox.SelectedItem = reader.GetString("brand");
-                    edit_modelTextbox.Text = reader.GetString("model");
-                    edit_transmissionComobox.SelectedItem = reader.GetString("transmission_type");
-                    edit_numOfSeatsTextbox.Text = reader.GetInt16("num_seats").ToString();
-                    edit_currentMileageTextbox.Text = reader.GetInt32("current_mileage").ToString();
-                    edit_colorCombobox.SelectedItem = reader.GetString("color");
-                    edit_plateNumberTextbox.Text = reader.GetString("plate_number");
-                    edit_branchCombobox.SelectedIndex = reader.GetInt32("branch_id") - 1;// - 1 because index starts from 0
-                    edit_vehicleClassCombobox.SelectedIndex = reader.GetInt32("vehicle_class_id") - 1;
-                }
-            
-            
+            SqlDataReader reader = connection.executeReader(query);
+
+            while (reader.Read())
+            {
+                year.Text = reader.GetInt16("year").ToString();
+                brand.SelectedItem = reader.GetString("brand");
+                model.Text = reader.GetString("model");
+                transmissionType.SelectedItem = reader.GetString("transmission_type");
+                numOfSeats.Text = reader.GetInt16("num_seats").ToString();
+                currentMileage.Text = reader.GetInt32("current_mileage").ToString();
+                color.SelectedItem = reader.GetString("color");
+                plateNumber.Text = reader.GetString("plate_number");
+                MessageBox.Show(reader.GetInt32("branch_id").ToString());
+                branch.SelectedIndex = reader.GetInt32("branch_id") - 1;// - 1 because index starts from 0
+                vehicleClass.SelectedIndex = reader.GetInt32("vehicle_class_id") - 1;
+            }
         }
+
+
 
         private bool validateEditPlateNumber()
         {
-            if (String.IsNullOrEmpty(plateNumberSearch.Text))
+            if (String.IsNullOrEmpty(edit_plateNumberSearch.Text))
             {
                 MessageBox.Show("ENTER THE PLATE NUMBER");
                 return false;
             }
-            if (!Regex.IsMatch(plateNumberSearch.Text, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
+            if (!Regex.IsMatch(edit_plateNumberSearch.Text, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
             {
                 MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
                 return false;
             }
-            if (!plateNumberInDb(plateNumberSearch))
+            if (!plateNumberInDb(edit_plateNumberSearch))
             {
                 MessageBox.Show("PLATE NUMBER NOT FOUND");
                 return false;
@@ -263,23 +269,23 @@ namespace _291CarRental
 
 
             String query = "UPDATE Vehicle" +
-                "\nSET year = " + year + ", brand = " + addQuotes(brand) + ", model = " + addQuotes(model) + 
-                ", transmission_type = " + addQuotes(transmissionType) + ", num_seats = " + numSeats + 
-                ", current_mileage = " + currentMileage + ", color = " + addQuotes(color) + 
-                ", plate_number = " + addQuotes(plateNumber) + ", branch_id = " + branchId + 
-                ", vehicle_class_id = " + vehicleClassID + 
-                "\nWHERE plate_number = " + addQuotes(plateNumberSearch.Text);
+                "\nSET year = " + year + ", brand = " + addQuotes(brand) + ", model = " + addQuotes(model) +
+                ", transmission_type = " + addQuotes(transmissionType) + ", num_seats = " + numSeats +
+                ", current_mileage = " + currentMileage + ", color = " + addQuotes(color) +
+                ", plate_number = " + addQuotes(plateNumber) + ", branch_id = " + branchId +
+                ", vehicle_class_id = " + vehicleClassID +
+                "\nWHERE plate_number = " + addQuotes(edit_plateNumberSearch.Text);
 
 
-            
-                int rowsAffected = connection.executeNonQuery(query);
-                if (rowsAffected >= 1)
-                {
-                    MessageBox.Show(rowsAffected + " vehicle has been updated");
-                }
-            
+
+            int rowsAffected = connection.executeNonQuery(query);
+            if (rowsAffected >= 1)
+            {
+                MessageBox.Show(rowsAffected + " vehicle has been updated");
+            }
+
         }
-        
+
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
             if (!isValidPlateNumber(edit_plateNumberTextbox))
@@ -306,15 +312,15 @@ namespace _291CarRental
 
             DialogResult confirmUpdate = MessageBox.Show(
                 "CONFIRM NEW VEHICLE DETAILS BELOW" +
-                "\nYear: " + year + 
-                "\nBrand: " + brand + 
-                "\nModel: " + model + 
-                "\nTransmission Type: " + transmissionType + 
-                "\nNumber of Seats: " + numSeats + 
-                "\nCurrent Mileage: " + currentMileage + 
-                "\nColor: " + color + 
-                "\nPlate Number: " + plateNumber + 
-                "\nBranch: " + edit_branchCombobox.SelectedItem + 
+                "\nYear: " + year +
+                "\nBrand: " + brand +
+                "\nModel: " + model +
+                "\nTransmission Type: " + transmissionType +
+                "\nNumber of Seats: " + numSeats +
+                "\nCurrent Mileage: " + currentMileage +
+                "\nColor: " + color +
+                "\nPlate Number: " + plateNumber +
+                "\nBranch: " + edit_branchCombobox.SelectedItem +
                 "\nVehicle Class: " + edit_vehicleClassCombobox.SelectedItem,
                 "CONFIRM EDITING",
                 MessageBoxButtons.YesNo
@@ -335,21 +341,128 @@ namespace _291CarRental
         {
             // don't delete vehicle if it is has been rented out
             DialogResult confirmDelete = MessageBox.Show(
-                "Are you sure you want to delete (vehicle details)?" +
+                "Are you sure you want to delete this vehicle?" +
                 "\nThis process is IRREVERSIBLE.",
                 "CONFORM VEHICLE DELETE",
                 MessageBoxButtons.YesNo);
 
             if (confirmDelete == DialogResult.Yes)
             {
-                MessageBox.Show("Vehicle deleted");
+
+                if (vehicleIsRented(delete_plateNumberTextbox.Text))
+                {
+                    MessageBox.Show("THIS VEHICLE IS CURRENTLY RENTED OUT\nVEHICLE NOT DELETED");
+                }
+                else
+                {
+                    if (vehicleWasDeleted(delete_plateNumberTextbox.Text))
+                    {
+                        MessageBox.Show("Vehicle deleted");
+                    }
+                    else
+                    {
+                        MessageBox.Show("INTERNAL ERROR IN VehicleToolsPage.cs: deleteVehicleButton_Click");
+                    }
+                }
+
             }
             else
             {
-                MessageBox.Show("Deletion cancelled");
+                MessageBox.Show("VEHICLE NOT DELETED");
             }
         }
-        
+
+        private void startDeletingButton_Click(object sender, EventArgs e)
+        {
+            if (isValidPlateNumber(delete_plateNumberSearch))
+            {
+                if (plateNumberInDb(delete_plateNumberSearch))
+                {
+                    MessageBox.Show("PLATE NUMBER FOUND");
+                    prefillDeleteDetails(delete_plateNumberSearch, delete_yearTextbox, delete_brandCombobox, delete_modelTextbox,
+                       delete_transmissionComobox, delete_numOfSeatsTextbox, delete_currentMileageTextbox, delete_colorCombobox,
+                       delete_plateNumberTextbox, delete_branchCombobox, delete_vehicleClassCombobox);
+                    deletePanel.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("PLATE NUMBER NOT FOUND");
+                    deletePanel.Visible = false;
+                }
+            }
+        }
+
+        private void prefillDeleteDetails(TextBox search_plateNumberTextbox, NumericUpDown year, ComboBox brand, TextBox model,
+           ComboBox transmissionType, NumericUpDown numOfSeats, NumericUpDown currentMileage, ComboBox color, TextBox plateNumber,
+           ComboBox branch, ComboBox vehicleClass)
+        {
+            String query = @"SELECT year, brand, model, transmission_type, num_seats, current_mileage, color, plate_number, 
+(SELECT branch_name FROM Branch
+WHERE Branch.branch_id = Vehicle.branch_id) branch_id,
+(SELECT vehicle_class FROM Vehicle_Class
+WHERE Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id)
+vehicle_class_id
+FROM Vehicle
+WHERE plate_number = " + addQuotes(search_plateNumberTextbox.Text) + @";";
+
+
+
+            SqlDataReader reader = connection.executeReader(query);
+
+            while (reader.Read())
+            {
+                year.Text = reader.GetInt16("year").ToString();
+                //brand.SelectedItem = reader.GetString("brand");
+                String brandText = reader.GetString("brand");
+                brand.Items.Add(brandText);
+                brand.SelectedItem = brandText;
+
+                model.Text = reader.GetString("model");
+                //transmissionType.SelectedItem = reader.GetString("transmission_type");
+                String transmissionTypeText = reader.GetString("transmission_type");
+                transmissionType.Items.Add(transmissionTypeText);
+                transmissionType.SelectedItem = transmissionTypeText;
+                //----------------------------
+                numOfSeats.Text = reader.GetInt16("num_seats").ToString();
+                currentMileage.Text = reader.GetInt32("current_mileage").ToString();
+                //color.SelectedItem = reader.GetString("color");
+                String colorText = reader.GetString("color");
+                color.Items.Add(colorText);
+                color.SelectedItem = colorText;
+                plateNumber.Text = reader.GetString("plate_number");
+                //branch.SelectedIndex = reader.GetInt32("branch_id") - 1;// - 1 because index starts from 0
+                String branchText = reader.GetString("branch_id");
+                branch.Items.Add(branchText);
+                branch.SelectedItem = branchText;
+
+                //vehicleClass.SelectedIndex = reader.GetInt32("vehicle_class_id") - 1;
+                String vehicleClassText = reader.GetString("vehicle_class_id");
+                vehicleClass.Items.Add(vehicleClassText);
+                vehicleClass.SelectedItem = vehicleClassText;
+            }
+        }
+
+
+        private bool vehicleWasDeleted(String plateNumber)
+        {
+            String query = "DELETE FROM Vehicle WHERE plate_number = " + addQuotes(plateNumber) + ";";
+            int rowsAffected = connection.executeNonQuery(query);
+            return rowsAffected > 0;
+        }
+
+        private bool vehicleIsRented(String plateNumber)
+        {
+            String query = @"SELECT plate_number
+FROM Vehicle
+WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELECT vehicle_id FROM Rental WHERE actual_dropoff_date IS NOT NULL)";
+
+            if (connection.executeScalar(query) == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -377,12 +490,12 @@ namespace _291CarRental
                 "\nFROM Vehicle" +
                 "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
 
-            
-                if (connection.executeScalar(query) != null)
-                {// not null means the plate number is in the db
-                    return true;
-                }
-            
+
+            if (connection.executeScalar(query) != null)
+            {// not null means the plate number is in the db
+                return true;
+            }
+
             return false;
         }
 
@@ -419,32 +532,32 @@ namespace _291CarRental
                 "\nWHERE Employee.branch_id = Branch.branch_id" +
                 "\nAND emp_id = " + empId + ";" + // get the employee branch
                 "\nSELECT DISTINCT brand FROM Vehicle;"; // get the brandS
-                
-                SqlDataReader reader = connection.executeReader(query);
-                while (reader.Read())
-                {// fill vehicle class combo box
-                    add_vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
-                }
-                reader.NextResult();
-                while (reader.Read())
-                {// fill branch combo box
-                    add_branchCombobox.Items.Add(reader.GetString("branch_name").ToUpper());
-                }
-                reader.NextResult();
-                if (reader.Read())
-                {// set the employeee branch as the default branch selected in branch combo box
-                    add_branchCombobox.SelectedIndex = (reader.GetInt32("branch_id") - 1);
-                }
-                reader.NextResult();
-                while (reader.Read())
-                {// fill brand combo box
-                    add_brandCombobox.Items.Add(reader.GetString("brand"));
-                }
-            
+
+            SqlDataReader reader = connection.executeReader(query);
+            while (reader.Read())
+            {// fill vehicle class combo box
+                add_vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
+            }
+            reader.NextResult();
+            while (reader.Read())
+            {// fill branch combo box
+                add_branchCombobox.Items.Add(reader.GetString("branch_name").ToUpper());
+            }
+            reader.NextResult();
+            if (reader.Read())
+            {// set the employeee branch as the default branch selected in branch combo box
+                add_branchCombobox.SelectedIndex = (reader.GetInt32("branch_id") - 1);
+            }
+            reader.NextResult();
+            while (reader.Read())
+            {// fill brand combo box
+                add_brandCombobox.Items.Add(reader.GetString("brand"));
+            }
+
             // transmission
             add_transmissionTypeCombobox.Items.Add("Automatic");
             add_transmissionTypeCombobox.Items.Add("Hybrid");
-            add_transmissionTypeCombobox.Items.Add("Manual");         
+            add_transmissionTypeCombobox.Items.Add("Manual");
             // color
             add_colorCombobox.Items.Add("Black");
             add_colorCombobox.Items.Add("Blue");
@@ -467,5 +580,7 @@ namespace _291CarRental
         {
             updatePanel.Visible = false;
         }
+
+
     }
 }

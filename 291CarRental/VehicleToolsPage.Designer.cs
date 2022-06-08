@@ -76,19 +76,39 @@
             this.currentMileageLabel = new System.Windows.Forms.Label();
             this.numOfSeatsLabel = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
-            this.plateNumberSearch = new System.Windows.Forms.TextBox();
+            this.edit_plateNumberSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
+            this.deletePanel = new System.Windows.Forms.Panel();
+            this.delete_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.delete_colorCombobox = new System.Windows.Forms.ComboBox();
+            this.delete_branchCombobox = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.delete_currentMileageTextbox = new System.Windows.Forms.NumericUpDown();
+            this.delete_numOfSeatsTextbox = new System.Windows.Forms.NumericUpDown();
+            this.delete_brandCombobox = new System.Windows.Forms.ComboBox();
+            this.delete_yearTextbox = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.delete_plateNumberTextbox = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.delete_modelTextbox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.delete_transmissionComobox = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.delete_plateNumberSearch = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.process1 = new System.Diagnostics.Process();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.add_yearTextbox)).BeginInit();
@@ -100,8 +120,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.edit_numOfSeatsTextbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edit_yearTextbox)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.deletePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delete_currentMileageTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delete_numOfSeatsTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delete_yearTextbox)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -369,7 +392,7 @@
             // 
             this.tabPage2.Controls.Add(this.updatePanel);
             this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.plateNumberSearch);
+            this.tabPage2.Controls.Add(this.edit_plateNumberSearch);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
@@ -628,7 +651,7 @@
             // button5
             // 
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.Location = new System.Drawing.Point(440, 8);
+            this.button5.Location = new System.Drawing.Point(440, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(235, 40);
             this.button5.TabIndex = 37;
@@ -636,20 +659,20 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.startUpdatingButton_Click);
             // 
-            // plateNumberSearch
+            // edit_plateNumberSearch
             // 
-            this.plateNumberSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.plateNumberSearch.Location = new System.Drawing.Point(184, 17);
-            this.plateNumberSearch.MaxLength = 8;
-            this.plateNumberSearch.Name = "plateNumberSearch";
-            this.plateNumberSearch.Size = new System.Drawing.Size(150, 31);
-            this.plateNumberSearch.TabIndex = 3;
-            this.plateNumberSearch.TextChanged += new System.EventHandler(this.plateNumberSearch_TextChanged);
+            this.edit_plateNumberSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.edit_plateNumberSearch.Location = new System.Drawing.Point(184, 13);
+            this.edit_plateNumberSearch.MaxLength = 8;
+            this.edit_plateNumberSearch.Name = "edit_plateNumberSearch";
+            this.edit_plateNumberSearch.Size = new System.Drawing.Size(150, 31);
+            this.edit_plateNumberSearch.TabIndex = 3;
+            this.edit_plateNumberSearch.TextChanged += new System.EventHandler(this.plateNumberSearch_TextChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(23, 20);
+            this.label10.Location = new System.Drawing.Point(23, 16);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(136, 25);
             this.label10.TabIndex = 2;
@@ -657,10 +680,9 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.dataGridView1);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.button3);
-            this.tabPage3.Controls.Add(this.textBox8);
+            this.tabPage3.Controls.Add(this.button6);
+            this.tabPage3.Controls.Add(this.deletePanel);
+            this.tabPage3.Controls.Add(this.delete_plateNumberSearch);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
@@ -669,16 +691,290 @@
             this.tabPage3.Text = "DELETE VEHICLE";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button6
+            // 
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.Location = new System.Drawing.Point(440, 4);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(235, 40);
+            this.button6.TabIndex = 48;
+            this.button6.Text = "START DELETING";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.startDeletingButton_Click);
+            // 
+            // deletePanel
+            // 
+            this.deletePanel.Controls.Add(this.delete_vehicleClassCombobox);
+            this.deletePanel.Controls.Add(this.label12);
+            this.deletePanel.Controls.Add(this.button3);
+            this.deletePanel.Controls.Add(this.delete_colorCombobox);
+            this.deletePanel.Controls.Add(this.delete_branchCombobox);
+            this.deletePanel.Controls.Add(this.label16);
+            this.deletePanel.Controls.Add(this.delete_currentMileageTextbox);
+            this.deletePanel.Controls.Add(this.delete_numOfSeatsTextbox);
+            this.deletePanel.Controls.Add(this.delete_brandCombobox);
+            this.deletePanel.Controls.Add(this.delete_yearTextbox);
+            this.deletePanel.Controls.Add(this.label17);
+            this.deletePanel.Controls.Add(this.label18);
+            this.deletePanel.Controls.Add(this.delete_plateNumberTextbox);
+            this.deletePanel.Controls.Add(this.label19);
+            this.deletePanel.Controls.Add(this.label20);
+            this.deletePanel.Controls.Add(this.delete_modelTextbox);
+            this.deletePanel.Controls.Add(this.label21);
+            this.deletePanel.Controls.Add(this.label22);
+            this.deletePanel.Controls.Add(this.delete_transmissionComobox);
+            this.deletePanel.Controls.Add(this.label23);
+            this.deletePanel.Controls.Add(this.label24);
+            this.deletePanel.Location = new System.Drawing.Point(23, 50);
+            this.deletePanel.Name = "deletePanel";
+            this.deletePanel.Size = new System.Drawing.Size(721, 422);
+            this.deletePanel.TabIndex = 39;
+            // 
+            // delete_vehicleClassCombobox
+            // 
+            this.delete_vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.delete_vehicleClassCombobox.Enabled = false;
+            this.delete_vehicleClassCombobox.FormattingEnabled = true;
+            this.delete_vehicleClassCombobox.Location = new System.Drawing.Point(3, 354);
+            this.delete_vehicleClassCombobox.Name = "delete_vehicleClassCombobox";
+            this.delete_vehicleClassCombobox.Size = new System.Drawing.Size(165, 33);
+            this.delete_vehicleClassCombobox.TabIndex = 45;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 316);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(135, 25);
+            this.label12.TabIndex = 44;
+            this.label12.Text = "VEHICLE CLASS";
+            // 
             // button3
             // 
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Location = new System.Drawing.Point(281, 315);
+            this.button3.Location = new System.Drawing.Point(277, 341);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(196, 56);
             this.button3.TabIndex = 19;
             this.button3.Text = "DELETE THIS VEHICLE";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.deleteVehicleButton_Click);
+            // 
+            // delete_colorCombobox
+            // 
+            this.delete_colorCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.delete_colorCombobox.Enabled = false;
+            this.delete_colorCombobox.FormattingEnabled = true;
+            this.delete_colorCombobox.Location = new System.Drawing.Point(0, 269);
+            this.delete_colorCombobox.Name = "delete_colorCombobox";
+            this.delete_colorCombobox.Size = new System.Drawing.Size(165, 33);
+            this.delete_colorCombobox.TabIndex = 43;
+            // 
+            // delete_branchCombobox
+            // 
+            this.delete_branchCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.delete_branchCombobox.Enabled = false;
+            this.delete_branchCombobox.FormattingEnabled = true;
+            this.delete_branchCombobox.Location = new System.Drawing.Point(460, 269);
+            this.delete_branchCombobox.Name = "delete_branchCombobox";
+            this.delete_branchCombobox.Size = new System.Drawing.Size(165, 33);
+            this.delete_branchCombobox.TabIndex = 42;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(460, 231);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(82, 25);
+            this.label16.TabIndex = 41;
+            this.label16.Text = "BRANCH";
+            // 
+            // delete_currentMileageTextbox
+            // 
+            this.delete_currentMileageTextbox.Enabled = false;
+            this.delete_currentMileageTextbox.Location = new System.Drawing.Point(460, 169);
+            this.delete_currentMileageTextbox.Maximum = new decimal(new int[] {
+            500000,
+            0,
+            0,
+            0});
+            this.delete_currentMileageTextbox.Name = "delete_currentMileageTextbox";
+            this.delete_currentMileageTextbox.Size = new System.Drawing.Size(150, 31);
+            this.delete_currentMileageTextbox.TabIndex = 40;
+            // 
+            // delete_numOfSeatsTextbox
+            // 
+            this.delete_numOfSeatsTextbox.Enabled = false;
+            this.delete_numOfSeatsTextbox.Location = new System.Drawing.Point(231, 167);
+            this.delete_numOfSeatsTextbox.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.delete_numOfSeatsTextbox.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.delete_numOfSeatsTextbox.Name = "delete_numOfSeatsTextbox";
+            this.delete_numOfSeatsTextbox.Size = new System.Drawing.Size(150, 31);
+            this.delete_numOfSeatsTextbox.TabIndex = 39;
+            this.delete_numOfSeatsTextbox.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // delete_brandCombobox
+            // 
+            this.delete_brandCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.delete_brandCombobox.Enabled = false;
+            this.delete_brandCombobox.FormattingEnabled = true;
+            this.delete_brandCombobox.Location = new System.Drawing.Point(231, 56);
+            this.delete_brandCombobox.Name = "delete_brandCombobox";
+            this.delete_brandCombobox.Size = new System.Drawing.Size(165, 33);
+            this.delete_brandCombobox.TabIndex = 38;
+            // 
+            // delete_yearTextbox
+            // 
+            this.delete_yearTextbox.Enabled = false;
+            this.delete_yearTextbox.Location = new System.Drawing.Point(3, 56);
+            this.delete_yearTextbox.Maximum = new decimal(new int[] {
+            2022,
+            0,
+            0,
+            0});
+            this.delete_yearTextbox.Minimum = new decimal(new int[] {
+            1970,
+            0,
+            0,
+            0});
+            this.delete_yearTextbox.Name = "delete_yearTextbox";
+            this.delete_yearTextbox.Size = new System.Drawing.Size(150, 31);
+            this.delete_yearTextbox.TabIndex = 37;
+            this.delete_yearTextbox.Value = new decimal(new int[] {
+            1970,
+            0,
+            0,
+            0});
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(0, 18);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(54, 25);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "YEAR";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(231, 18);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(71, 25);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "BRAND";
+            // 
+            // delete_plateNumberTextbox
+            // 
+            this.delete_plateNumberTextbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.delete_plateNumberTextbox.Enabled = false;
+            this.delete_plateNumberTextbox.Location = new System.Drawing.Point(231, 269);
+            this.delete_plateNumberTextbox.MaxLength = 8;
+            this.delete_plateNumberTextbox.Name = "delete_plateNumberTextbox";
+            this.delete_plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
+            this.delete_plateNumberTextbox.TabIndex = 35;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(231, 231);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(136, 25);
+            this.label19.TabIndex = 34;
+            this.label19.Text = "PLATE NUMBER";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(460, 18);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(72, 25);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "MODEL";
+            // 
+            // delete_modelTextbox
+            // 
+            this.delete_modelTextbox.Enabled = false;
+            this.delete_modelTextbox.Location = new System.Drawing.Point(460, 56);
+            this.delete_modelTextbox.Name = "delete_modelTextbox";
+            this.delete_modelTextbox.Size = new System.Drawing.Size(150, 31);
+            this.delete_modelTextbox.TabIndex = 25;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(0, 231);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(69, 25);
+            this.label21.TabIndex = 32;
+            this.label21.Text = "COLOR";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(0, 130);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(183, 25);
+            this.label22.TabIndex = 26;
+            this.label22.Text = "TRANSMISSION TYPE";
+            // 
+            // delete_transmissionComobox
+            // 
+            this.delete_transmissionComobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.delete_transmissionComobox.Enabled = false;
+            this.delete_transmissionComobox.FormattingEnabled = true;
+            this.delete_transmissionComobox.Location = new System.Drawing.Point(0, 167);
+            this.delete_transmissionComobox.Name = "delete_transmissionComobox";
+            this.delete_transmissionComobox.Size = new System.Drawing.Size(182, 33);
+            this.delete_transmissionComobox.TabIndex = 27;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(460, 131);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(164, 25);
+            this.label23.TabIndex = 30;
+            this.label23.Text = "CURRENT MILEAGE";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(231, 131);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(165, 25);
+            this.label24.TabIndex = 28;
+            this.label24.Text = "NUMBER OF SEATS";
+            // 
+            // delete_plateNumberSearch
+            // 
+            this.delete_plateNumberSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.delete_plateNumberSearch.Location = new System.Drawing.Point(184, 13);
+            this.delete_plateNumberSearch.MaxLength = 8;
+            this.delete_plateNumberSearch.Name = "delete_plateNumberSearch";
+            this.delete_plateNumberSearch.Size = new System.Drawing.Size(150, 31);
+            this.delete_plateNumberSearch.TabIndex = 47;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(23, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(136, 25);
+            this.label9.TabIndex = 46;
+            this.label9.Text = "PLATE NUMBER";
             // 
             // button2
             // 
@@ -730,42 +1026,6 @@
             this.panel1.Size = new System.Drawing.Size(1030, 526);
             this.panel1.TabIndex = 29;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(217, 26);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(136, 25);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "PLATE NUMBER";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(363, 26);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.PlaceholderText = "ADD PLACE HOLDER TEXT\\";
-            this.textBox8.Size = new System.Drawing.Size(150, 31);
-            this.textBox8.TabIndex = 1;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(342, 70);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(37, 25);
-            this.label12.TabIndex = 20;
-            this.label12.Text = "OR";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(26, 116);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 33;
-            this.dataGridView1.Size = new System.Drawing.Size(705, 173);
-            this.dataGridView1.TabIndex = 21;
-            // 
             // VehicleToolsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -791,8 +1051,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.edit_yearTextbox)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.deletePanel.ResumeLayout(false);
+            this.deletePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.delete_currentMileageTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delete_numOfSeatsTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.delete_yearTextbox)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -826,7 +1090,7 @@
         private Label modelLabel;
         private Label brandLabel;
         private Label yearLabel;
-        private TextBox plateNumberSearch;
+        private TextBox edit_plateNumberSearch;
         private Label label10;
         private Button button1;
         private Button button5;
@@ -855,9 +1119,29 @@
         private ComboBox edit_colorCombobox;
         private ComboBox edit_vehicleClassCombobox;
         private Label label15;
-        private DataGridView dataGridView1;
+        private Panel deletePanel;
+        private ComboBox delete_vehicleClassCombobox;
         private Label label12;
-        private TextBox textBox8;
+        private ComboBox delete_colorCombobox;
+        private ComboBox delete_branchCombobox;
+        private Label label16;
+        private NumericUpDown delete_currentMileageTextbox;
+        private NumericUpDown delete_numOfSeatsTextbox;
+        private ComboBox delete_brandCombobox;
+        private NumericUpDown delete_yearTextbox;
+        private Label label17;
+        private Label label18;
+        private TextBox delete_plateNumberTextbox;
+        private Label label19;
+        private Label label20;
+        private TextBox delete_modelTextbox;
+        private Label label21;
+        private Label label22;
+        private ComboBox delete_transmissionComobox;
+        private Label label23;
+        private Label label24;
+        private Button button6;
+        private TextBox delete_plateNumberSearch;
         private Label label9;
     }
 }
