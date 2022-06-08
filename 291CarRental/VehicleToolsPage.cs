@@ -14,16 +14,14 @@ namespace _291CarRental
 {
     public partial class VehicleToolsPage : Form
     {
-        private const String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-        private SqlConnection? connection;
-        private SqlCommand? command;
-        private SqlDataReader? reader;
+        private DbConnection connection;
         private EmployeeLandingPage previousPage;
         private String empId;
         
-        public VehicleToolsPage(EmployeeLandingPage previousPage, String empId)
+        public VehicleToolsPage(EmployeeLandingPage previousPage, String empId, DbConnection connection)
         {
             InitializeComponent();
+            this.connection = connection;
             this.previousPage = previousPage;
             this.empId = empId;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -94,15 +92,12 @@ namespace _291CarRental
                 + addQuotes(model) + ", " + addQuotes(transmissionType) + ", " + numOfSeats + ", " 
                 + currentMileage + ", " + addQuotes(color) + ", " + branchId + ", " + vehicleClassId + ");";
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                if (command.ExecuteNonQuery() == 1)// 1 row was modified
+            
+                if (connection.executeNonQuery(query) == 1)// 1 row was modified
                 {
                     return true;
                 }
-            }
+            
                 return false;
         }
 
@@ -213,11 +208,8 @@ namespace _291CarRental
                 "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
 
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
+          
+               SqlDataReader  reader = connection.executeReader(query);
 
                 while (reader.Read())
                 {
@@ -232,8 +224,8 @@ namespace _291CarRental
                     edit_branchCombobox.SelectedIndex = reader.GetInt32("branch_id") - 1;// - 1 because index starts from 0
                     edit_vehicleClassCombobox.SelectedIndex = reader.GetInt32("vehicle_class_id") - 1;
                 }
-                reader.Close();
-            }
+            
+            
         }
 
         private bool validateEditPlateNumber()
@@ -279,16 +271,13 @@ namespace _291CarRental
                 "\nWHERE plate_number = " + addQuotes(plateNumberSearch.Text);
 
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
+            
+                int rowsAffected = connection.executeNonQuery(query);
                 if (rowsAffected >= 1)
                 {
                     MessageBox.Show(rowsAffected + " vehicle has been updated");
                 }
-            }
+            
         }
         
         private void saveChangesButton_Click(object sender, EventArgs e)
@@ -388,15 +377,12 @@ namespace _291CarRental
                 "\nFROM Vehicle" +
                 "\nWHERE plate_number = " + addQuotes(plateNumber) + ";";
 
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                if (command.ExecuteScalar() != null)
+            
+                if (connection.executeScalar(query) != null)
                 {// not null means the plate number is in the db
                     return true;
                 }
-            }
+            
             return false;
         }
 
@@ -433,12 +419,8 @@ namespace _291CarRental
                 "\nWHERE Employee.branch_id = Branch.branch_id" +
                 "\nAND emp_id = " + empId + ";" + // get the employee branch
                 "\nSELECT DISTINCT brand FROM Vehicle;"; // get the brandS
-
-            using (connection = new SqlConnection(connectionString))
-            using (command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                reader = command.ExecuteReader();
+                
+                SqlDataReader reader = connection.executeReader(query);
                 while (reader.Read())
                 {// fill vehicle class combo box
                     add_vehicleClassCombobox.Items.Add(reader.GetString("vehicle_class").ToUpper());
@@ -458,8 +440,7 @@ namespace _291CarRental
                 {// fill brand combo box
                     add_brandCombobox.Items.Add(reader.GetString("brand"));
                 }
-                reader.Close();
-            }
+            
             // transmission
             add_transmissionTypeCombobox.Items.Add("Automatic");
             add_transmissionTypeCombobox.Items.Add("Hybrid");
