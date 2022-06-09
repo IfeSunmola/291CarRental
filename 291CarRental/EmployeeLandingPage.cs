@@ -61,7 +61,7 @@ namespace _291CarRental
         private void returnAVehicleButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new ReturnAVehiclePage(this).ShowDialog();
+            new ReturnAVehiclePage(this, connection).ShowDialog();
         }
 
         private void vehicleToolsButton_Click(object sender, EventArgs e)
