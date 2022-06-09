@@ -120,6 +120,7 @@
             this.custIdOrPhoneOrPlateNumber.Name = "custIdOrPhoneOrPlateNumber";
             this.custIdOrPhoneOrPlateNumber.Size = new System.Drawing.Size(150, 31);
             this.custIdOrPhoneOrPlateNumber.TabIndex = 14;
+            this.custIdOrPhoneOrPlateNumber.TextChanged += new System.EventHandler(this.custIdOrPhoneOrPlateNumber_TextChanged);
             // 
             // button3
             // 
@@ -357,6 +358,7 @@
             this.branchCombobox.Name = "branchCombobox";
             this.branchCombobox.Size = new System.Drawing.Size(182, 33);
             this.branchCombobox.TabIndex = 40;
+            this.branchCombobox.SelectedIndexChanged += new System.EventHandler(this.branchCombobox_SelectedIndexChanged);
             // 
             // returnDateTimePicker
             // 
@@ -364,6 +366,7 @@
             this.returnDateTimePicker.Name = "returnDateTimePicker";
             this.returnDateTimePicker.Size = new System.Drawing.Size(210, 31);
             this.returnDateTimePicker.TabIndex = 35;
+            this.returnDateTimePicker.ValueChanged += new System.EventHandler(this.returnDateTimePicker_ValueChanged);
             // 
             // returnLabelText
             // 
@@ -414,6 +417,7 @@
             this.onlyUnreturnedVehicles.TabIndex = 26;
             this.onlyUnreturnedVehicles.Text = "ONLY SHOW UNRETURNED VEHICLES";
             this.onlyUnreturnedVehicles.UseVisualStyleBackColor = true;
+            this.onlyUnreturnedVehicles.CheckedChanged += new System.EventHandler(this.onlyUnreturnedVehicles_CheckedChanged);
             // 
             // ReturnAVehiclePage
             // 

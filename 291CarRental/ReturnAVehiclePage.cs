@@ -35,7 +35,6 @@ namespace _291CarRental
             findByCombobox.SelectedIndex = 0;
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            fillBranchCombobox();
         }
 
         private String addQuotes(String stringToAdd)
@@ -107,6 +106,8 @@ FROM Rental";
 
         private void startAReturnButton_Click(object sender, EventArgs e)
         {
+            branchCombobox.Items.Clear();
+            fillBranchCombobox();
             String? name = customerRentalsDataGripView.CurrentRow.Cells["Name"].Value.ToString();
             String? vehicleRented = customerRentalsDataGripView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
 
@@ -219,7 +220,7 @@ FROM Rental";
                 {
                     feeWaiverLabel.Visible = false;
                 }
-                if (expectedDropoffDate.AddDays(1) <= returnDateTimePicker.Value) 
+                if (expectedDropoffDate.AddDays(1) <= returnDateTimePicker.Value)
                 //if (expectedDropoffDate.Value.AddDays(1) <= returnDateTimePicker.Value)
                 {// drop off is late
                     lateFee = getReturnDetails().Item2;
@@ -278,7 +279,7 @@ MessageBoxButtons.YesNo);
                     this.Close();
                     previousPage.Visible = true;
                 }
-                else
+                else// shouldn't execute
                 {
                     MessageBox.Show("DATABASE ERROR OCCURED AT StartAReturnPage");
                 }
@@ -290,17 +291,51 @@ MessageBoxButtons.YesNo);
                 MessageBox.Show("VEHICLE RETURN CANCELLED");
             }
         }
+        
         private bool returnSuccess(String extraCharge, String rentalId)
         {
             String actualDropoffDate = returnDateTimePicker.Value.Date.ToString("d");
+            // do the return
             String query = @"UPDATE Rental
                             SET actual_dropoff_date = " + addQuotes(actualDropoffDate) + @", 
 total_mileage_used = " + mileageUsedTextbox.Text + @", extra_charges = " + extraCharge + ", emp_id_return = " + empId + ", " +
 "dropoff_branch_id = " + (branchCombobox.SelectedIndex + 1) +
 @"WHERE rental_id = " + rentalId;
+            int vehicleReturn = connection.executeNonQuery(query);
+            // update branch of returned vehicle
+            query = @"UPDATE Vehicle
+SET branch_id = (SELECT dropoff_branch_id FROM Rental WHERE rental_id = " + rentalId + @")
+WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalId + @");";
+            int vehicleBranchUpdate = connection.executeNonQuery(query);
+            return vehicleReturn == 1 && vehicleBranchUpdate == 1;
+        }
 
-            MessageBox.Show(query);
-            return connection.executeNonQuery(query) > 0;
+        // if the customer id, phone number or plate number is changed, hide the screen below
+        private void custIdOrPhoneOrPlateNumber_TextChanged(object sender, EventArgs e)
+        {
+            findRentalsPanel.Visible = false;
+            this.Size = new Size(1288, 600);
+            this.CenterToScreen();
+        }
+
+        private void onlyUnreturnedVehicles_CheckedChanged(object sender, EventArgs e)
+        {
+            findRentalsPanel.Visible = false;
+            this.Size = new Size(1288, 600);
+            this.CenterToScreen();
+        }
+
+        // if return date, return branch, mileage is changed, hide the screen
+        private void returnDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            this.Size = new(1288, 830);
+            this.CenterToScreen();
+        }
+
+        private void branchCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Size = new(1288, 830);
+            this.CenterToScreen();
         }
     }
 }
