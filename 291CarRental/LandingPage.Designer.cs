@@ -35,6 +35,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.errorMessageLabel = new System.Windows.Forms.Label();
             this.empIdTextbox = new System.Windows.Forms.TextBox();
+            this.loginMessageLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -71,7 +72,7 @@
             // empLoginButton
             // 
             this.empLoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.empLoginButton.Location = new System.Drawing.Point(302, 378);
+            this.empLoginButton.Location = new System.Drawing.Point(287, 391);
             this.empLoginButton.Name = "empLoginButton";
             this.empLoginButton.Size = new System.Drawing.Size(168, 47);
             this.empLoginButton.TabIndex = 4;
@@ -113,11 +114,24 @@
             this.empIdTextbox.Text = "1";
             this.empIdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.empIdTextbox_KeyPress);
             // 
+            // loginMessageLabel
+            // 
+            this.loginMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.loginMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.loginMessageLabel.Location = new System.Drawing.Point(212, 363);
+            this.loginMessageLabel.Name = "loginMessageLabel";
+            this.loginMessageLabel.Size = new System.Drawing.Size(353, 25);
+            this.loginMessageLabel.TabIndex = 28;
+            this.loginMessageLabel.Text = "LOGIN SUCCESSFUL";
+            this.loginMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.loginMessageLabel.Visible = false;
+            // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.loginMessageLabel);
             this.Controls.Add(this.empIdTextbox);
             this.Controls.Add(this.errorMessageLabel);
             this.Controls.Add(this.button3);
@@ -143,5 +157,6 @@
         private Button button3;
         private Label errorMessageLabel;
         private TextBox empIdTextbox;
+        private Label loginMessageLabel;
     }
 }

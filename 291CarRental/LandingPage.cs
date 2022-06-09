@@ -42,19 +42,28 @@ namespace _291CarRental
             }
             else
             {
+                errorMessageLabel.Visible = false;
                 String query = "SELECT emp_id FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
                 String? empId = connection.executeScalar(query);
 
                 if (empId != null)
                 {// not null means a value was returned, value will only be returned if the emp_id was found
-                    MessageBox.Show("LOGIN SUCCESSFULL", "ID FOUND");
+                    loginMessageLabel.Text = "LOGIN SUCCESSFUL";
+                    loginMessageLabel.Visible = true;
+                    loginMessageLabel.ForeColor = Color.Green;
+
+                    Task.Delay(500).Wait();
                     this.Visible = false;
                     errorMessageLabel.Visible = false;
                     new EmployeeLandingPage(this, empId.ToString(), connection).ShowDialog();
+                    loginMessageLabel.Visible = false;
                 }
                 else
                 {
-                    MessageBox.Show("Employee not found, try again", "INCORRECT ID");
+                    //MessageBox.Show("Employee not found, try again", "INCORRECT ID");
+                    loginMessageLabel.Text = "EMPLOYEE ID NOT FOUND";
+                    loginMessageLabel.ForeColor= Color.Red;
+                    loginMessageLabel.Visible = true;
                 }
 
             }
