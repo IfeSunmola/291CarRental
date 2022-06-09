@@ -52,7 +52,7 @@ namespace _291CarRental
 
         private DataTable getAvailableVehicleList()
         {
-            DataTable cars = new DataTable();
+            DataTable vehicles = new DataTable();
             String from = fromDate.Value.Date.ToString("d");
             String to = toDate.Value.Date.ToString("d");
 
@@ -94,10 +94,8 @@ AND vehicle_id IN
             // MessageBox.Show(query);
 
             SqlDataReader reader = connection.executeReader(query);
-            cars.Load(reader);
-
-
-            return cars;
+            vehicles.Load(reader);
+            return vehicles;
         }
 
         private void backButton_Click(object sender, EventArgs e)
