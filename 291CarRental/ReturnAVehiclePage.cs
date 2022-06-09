@@ -13,44 +13,66 @@ namespace _291CarRental
 {
     public partial class ReturnAVehiclePage : Form
     {
-        private String connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
         private EmployeeLandingPage previousPage;
-        public ReturnAVehiclePage(EmployeeLandingPage previousPage)
+        private DbConnection connection;
+
+        public ReturnAVehiclePage(EmployeeLandingPage previousPage, DbConnection connection)
         {
             InitializeComponent();
             this.previousPage = previousPage;
+            this.connection = connection;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
             customerIDRadio.Checked = true;
+            onlyUnreturnedVehicles.Checked = true;
         }
+
+        private String addQuotes(String stringToAdd)
+        {
+            String temp1 = stringToAdd.Insert(0, "'");
+            String temp2 = temp1.Insert(temp1.Length, "'");
+            return temp2;
+        }
+
 
         private DataTable getCustomerRentals()
         {
-            DataTable cars = new DataTable();
-            String query = @"SELECT branch_name Location, vehicle_class Class, [year] Year, brand Brand, model Model
-                                 FROM Vehicle, Branch, Vehicle_Class
-                                 WHERE Vehicle.branch_id = Branch.branch_id
-                                 AND Vehicle.vehicle_class_id = vehicle_class.vehicle_class_id;
-                                ";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, connection))
+            DataTable customerRentals = new DataTable();
+            String query = @"SELECT 
+    (SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name FROM Customer WHERE customer_id = Rental.customer_id) [Name],
+	start_date_of_booking [Booking start date],
+	expected_dropoff_date [Expected drop off date],
+	FORMAT(initial_amount_paid, 'C') [Amount paid],
+	(SELECT branch_name FROM Branch WHERE Branch.branch_id = Rental.pickup_branch_id) [Expected dropoff location],
+	(SELECT CAST ([year] AS VARCHAR) + ', ' + brand + ' ' + model FROM Vehicle WHERE Rental.vehicle_id = Vehicle.vehicle_id) [Vehicle Rented]
+FROM Rental";
+
+            String custInput = custIdOrPhoneOrPlateNumber.Text;
+            if (customerIDRadio.Checked)
             {
-                connection.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    try
-                    {
-                        //connection.Open();
-                        cars.Load(reader);
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
+                query += "\nWHERE customer_id = " + custInput;
             }
-            return cars;
+            else if (phoneNumberRadio.Checked)
+            {
+                query += "\nWHERE Rental.customer_id IN (SELECT customer_id FROM Customer WHERE area_code + '' + phone_number = " + addQuotes(custInput) + @")";
+            }
+            else if (plateNumberRadio.Checked)
+            {
+                query += "\nWHERE Rental.vehicle_id IN (SELECT vehicle_id FROM Vehicle WHERE plate_number = " + addQuotes(custInput) + @")";
+            }
+            else
+            {
+                MessageBox.Show("INTERNAL ERROR OCCURED IN ReturnAVehiclePage");
+            }
+
+            if (onlyUnreturnedVehicles.Checked)
+            {
+                query += "\nAND actual_dropoff_date IS NULL";
+            }
+            MessageBox.Show(query);
+            customerRentals.Load(connection.executeReader(query));
+            return customerRentals;
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -67,7 +89,14 @@ namespace _291CarRental
             foreach (DataGridViewColumn dataGridViewColumn in customerRentalsDataGripView.Columns)
             {
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                dataGridViewColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
+            //customerRentalsDataGripView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //customerRentalsDataGripView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //customerRentalsDataGripView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //customerRentalsDataGripView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //customerRentalsDataGripView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //customerRentalsDataGripView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void startAReturnButton_Click(object sender, EventArgs e)
