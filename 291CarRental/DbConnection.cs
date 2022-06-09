@@ -98,7 +98,6 @@ namespace _291CarRental
             command.CommandText = query;
             reader = command.ExecuteReader();
             return reader;
-            
         }
 
         internal String? executeScalar(String query)
