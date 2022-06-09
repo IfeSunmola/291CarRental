@@ -42,8 +42,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.viewFullDetails = new System.Windows.Forms.Button();
             this.onlyUnreturnedVehicles = new System.Windows.Forms.CheckBox();
+            this.findRentalsPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).BeginInit();
             this.panel1.SuspendLayout();
+            this.findRentalsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // customerRentalsDataGripView
@@ -53,7 +55,7 @@
             this.customerRentalsDataGripView.AllowUserToResizeColumns = false;
             this.customerRentalsDataGripView.AllowUserToResizeRows = false;
             this.customerRentalsDataGripView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.customerRentalsDataGripView.Location = new System.Drawing.Point(141, 249);
+            this.customerRentalsDataGripView.Location = new System.Drawing.Point(41, 19);
             this.customerRentalsDataGripView.MultiSelect = false;
             this.customerRentalsDataGripView.Name = "customerRentalsDataGripView";
             this.customerRentalsDataGripView.ReadOnly = true;
@@ -66,7 +68,7 @@
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(179, 495);
+            this.button1.Location = new System.Drawing.Point(78, 246);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(216, 62);
             this.button1.TabIndex = 8;
@@ -76,10 +78,9 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(141, 19);
+            this.label1.Location = new System.Drawing.Point(179, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 25);
+            this.label1.Size = new System.Drawing.Size(82, 29);
             this.label1.TabIndex = 9;
             this.label1.Text = "FIND BY";
             // 
@@ -171,7 +172,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.viewFullDetails);
+            this.panel1.Controls.Add(this.findRentalsPanel);
             this.panel1.Controls.Add(this.onlyUnreturnedVehicles);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
@@ -179,35 +180,44 @@
             this.panel1.Controls.Add(this.custIdOrPhoneOrPlateNumber);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.radioButtonLabel);
-            this.panel1.Controls.Add(this.customerRentalsDataGripView);
             this.panel1.Controls.Add(this.plateNumberRadio);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.phoneNumberRadio);
             this.panel1.Controls.Add(this.customerIDRadio);
             this.panel1.Location = new System.Drawing.Point(29, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1204, 560);
+            this.panel1.Size = new System.Drawing.Size(1204, 580);
             this.panel1.TabIndex = 26;
             // 
             // viewFullDetails
             // 
             this.viewFullDetails.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.viewFullDetails.Location = new System.Drawing.Point(810, 495);
+            this.viewFullDetails.Location = new System.Drawing.Point(731, 246);
             this.viewFullDetails.Name = "viewFullDetails";
             this.viewFullDetails.Size = new System.Drawing.Size(216, 62);
             this.viewFullDetails.TabIndex = 27;
             this.viewFullDetails.Text = "VIEW RENTAL DETAILS";
             this.viewFullDetails.UseVisualStyleBackColor = true;
             // 
-            // includeReturnedCheckBox
+            // onlyUnreturnedVehicles
             // 
             this.onlyUnreturnedVehicles.AutoSize = true;
             this.onlyUnreturnedVehicles.Location = new System.Drawing.Point(455, 136);
-            this.onlyUnreturnedVehicles.Name = "includeReturnedCheckBox";
+            this.onlyUnreturnedVehicles.Name = "onlyUnreturnedVehicles";
             this.onlyUnreturnedVehicles.Size = new System.Drawing.Size(339, 29);
             this.onlyUnreturnedVehicles.TabIndex = 26;
             this.onlyUnreturnedVehicles.Text = "ONLY SHOW UNRETURNED VEHICLES";
             this.onlyUnreturnedVehicles.UseVisualStyleBackColor = true;
+            // 
+            // findRentalsPanel
+            // 
+            this.findRentalsPanel.Controls.Add(this.customerRentalsDataGripView);
+            this.findRentalsPanel.Controls.Add(this.viewFullDetails);
+            this.findRentalsPanel.Controls.Add(this.button1);
+            this.findRentalsPanel.Location = new System.Drawing.Point(122, 249);
+            this.findRentalsPanel.Name = "findRentalsPanel";
+            this.findRentalsPanel.Size = new System.Drawing.Size(998, 328);
+            this.findRentalsPanel.TabIndex = 28;
+            this.findRentalsPanel.Visible = false;
             // 
             // ReturnAVehiclePage
             // 
@@ -222,6 +232,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.findRentalsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -242,5 +253,6 @@
         private Panel panel1;
         private CheckBox onlyUnreturnedVehicles;
         private Button viewFullDetails;
+        private Panel findRentalsPanel;
     }
 }

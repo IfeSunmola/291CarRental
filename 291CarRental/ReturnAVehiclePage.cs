@@ -15,13 +15,14 @@ namespace _291CarRental
     {
         private EmployeeLandingPage previousPage;
         private DbConnection connection;
+        private String empId;
 
-        public ReturnAVehiclePage(EmployeeLandingPage previousPage, DbConnection connection)
+        public ReturnAVehiclePage(EmployeeLandingPage previousPage, String empId, DbConnection connection)
         {
             InitializeComponent();
             this.previousPage = previousPage;
             this.connection = connection;
-
+            this.empId = empId;
             this.StartPosition = FormStartPosition.CenterScreen;
 
             customerIDRadio.Checked = true;
@@ -35,11 +36,11 @@ namespace _291CarRental
             return temp2;
         }
 
-
         private DataTable getCustomerRentals()
         {
             DataTable customerRentals = new DataTable();
             String query = @"SELECT 
+    rental_id,
     (SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name FROM Customer WHERE customer_id = Rental.customer_id) [Name],
 	start_date_of_booking [Booking start date],
 	expected_dropoff_date [Expected drop off date],
@@ -70,7 +71,7 @@ FROM Rental";
             {
                 query += "\nAND actual_dropoff_date IS NULL";
             }
-            MessageBox.Show(query);
+            //MessageBox.Show(query);
             customerRentals.Load(connection.executeReader(query));
             return customerRentals;
         }
@@ -91,18 +92,26 @@ FROM Rental";
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                 dataGridViewColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-            //customerRentalsDataGripView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //customerRentalsDataGripView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //customerRentalsDataGripView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //customerRentalsDataGripView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //customerRentalsDataGripView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //customerRentalsDataGripView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            customerRentalsDataGripView.Columns["rental_id"].Visible = false;
+            findRentalsPanel.Show();
         }
 
         private void startAReturnButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new StartAReturnPage(this).Show();
+            String? rentalId = customerRentalsDataGripView.CurrentRow.Cells["rental_id"].Value.ToString();
+            String? name = customerRentalsDataGripView.CurrentRow.Cells["Name"].Value.ToString();
+            String? startDate = customerRentalsDataGripView.CurrentRow.Cells["Booking start date"].Value.ToString();
+            String? expectedDropoffDate= customerRentalsDataGripView.CurrentRow.Cells["Expected drop off date"].Value.ToString();
+            String? amountPaid = customerRentalsDataGripView.CurrentRow.Cells["Amount paid"].Value.ToString();
+            String? expectedDropoffLocation = customerRentalsDataGripView.CurrentRow.Cells["Expected dropoff location"].Value.ToString();
+            String? vehicleRented = customerRentalsDataGripView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
+            
+            
+            //MessageBox.Show(name + "\n" + startDate + "\n" + expectedDropoffDate + "\n" + expectedDropoffLocation +
+            //    "\n" + amountPaid + "\n" + expectedDropoffLocation + "\n" + vehicleRented);
+            new StartAReturnPage(this, empId, connection, rentalId, name, startDate, expectedDropoffDate,
+                amountPaid, expectedDropoffLocation, vehicleRented).ShowDialog();
         }
 
         private void customerIDRadio_CheckedChanged(object sender, EventArgs e)
