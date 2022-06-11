@@ -57,9 +57,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.customerDetailsPanel = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.customerNameLabel = new System.Windows.Forms.Label();
             this.goldMemberLabel = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -354,30 +356,32 @@
             // 
             // customerDetailsPanel
             // 
-            this.customerDetailsPanel.Controls.Add(this.customerNameLabel);
             this.customerDetailsPanel.Controls.Add(this.goldMemberLabel);
+            this.customerDetailsPanel.Controls.Add(this.customerNameLabel);
+            this.customerDetailsPanel.Controls.Add(this.label8);
+            this.customerDetailsPanel.Controls.Add(this.label9);
             this.customerDetailsPanel.Location = new System.Drawing.Point(13, 182);
             this.customerDetailsPanel.Name = "customerDetailsPanel";
             this.customerDetailsPanel.Size = new System.Drawing.Size(300, 83);
             this.customerDetailsPanel.TabIndex = 21;
             // 
-            // customerNameLabel
+            // label8
             // 
-            this.customerNameLabel.AutoSize = true;
-            this.customerNameLabel.Location = new System.Drawing.Point(0, 0);
-            this.customerNameLabel.Name = "customerNameLabel";
-            this.customerNameLabel.Size = new System.Drawing.Size(162, 25);
-            this.customerNameLabel.TabIndex = 19;
-            this.customerNameLabel.Text = "CUSTOMER NAME:";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(162, 25);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "CUSTOMER NAME:";
             // 
-            // goldMemberLabel
+            // label9
             // 
-            this.goldMemberLabel.AutoSize = true;
-            this.goldMemberLabel.Location = new System.Drawing.Point(0, 40);
-            this.goldMemberLabel.Name = "goldMemberLabel";
-            this.goldMemberLabel.Size = new System.Drawing.Size(139, 25);
-            this.goldMemberLabel.TabIndex = 20;
-            this.goldMemberLabel.Text = "GOLD MEMBER:";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(0, 40);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(139, 25);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "GOLD MEMBER:";
             // 
             // panel2
             // 
@@ -388,6 +392,24 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1154, 868);
             this.panel2.TabIndex = 24;
+            // 
+            // customerNameLabel
+            // 
+            this.customerNameLabel.AutoSize = true;
+            this.customerNameLabel.Location = new System.Drawing.Point(161, 0);
+            this.customerNameLabel.Name = "customerNameLabel";
+            this.customerNameLabel.Size = new System.Drawing.Size(86, 25);
+            this.customerNameLabel.TabIndex = 21;
+            this.customerNameLabel.Text = "T.Beifong";
+            // 
+            // goldMemberLabel
+            // 
+            this.goldMemberLabel.AutoSize = true;
+            this.goldMemberLabel.Location = new System.Drawing.Point(135, 40);
+            this.goldMemberLabel.Name = "goldMemberLabel";
+            this.goldMemberLabel.Size = new System.Drawing.Size(41, 25);
+            this.goldMemberLabel.TabIndex = 23;
+            this.goldMemberLabel.Text = "YES";
             // 
             // EmpViewAllVehicles
             // 
@@ -440,10 +462,12 @@
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
-        private Label goldMemberLabel;
-        private Label customerNameLabel;
+        private Label label9;
+        private Label label8;
         private Panel customerDetailsPanel;
         private Label estimatedCostLabel;
         private Label label3;
+        private Label goldMemberLabel;
+        private Label customerNameLabel;
     }
 }

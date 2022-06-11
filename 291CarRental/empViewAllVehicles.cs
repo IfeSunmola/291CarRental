@@ -95,6 +95,7 @@ AND vehicle_id IN
 
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
+            //isEligibleForGold();
             if (validateSearchDetails())
             {
                 getCustomerDetails();
@@ -111,6 +112,17 @@ AND vehicle_id IN
             }
         }
 
+        private bool isGoldMember()
+        {
+            //String query = @"SELECT membership_type 
+            //    FROM Customer
+            //    WHERE customer_id = " + customerIdTextbox.Text + ";";
+
+            //String? status = connection.executeScalar(query);
+            //return String.Equals(status, "GOLD", StringComparison.OrdinalIgnoreCase);
+            return String.Equals(goldMemberLabel.Text, "GOLD", StringComparison.OrdinalIgnoreCase);
+        }
+        
         private void getCustomerDetails()
         {
             String customerId = customerIdTextbox.Text;
@@ -123,17 +135,16 @@ AND vehicle_id IN
             while (reader.Read())
             {
                 currentCustName = reader.GetString(0);
-                customerNameLabel.Text = "CUSTOMER NAME: " + currentCustName;
+                customerNameLabel.Text = currentCustName;
                 if (reader.GetString(1).Equals("Gold"))
                 {
-                    goldMemberLabel.Text = "GOLD MEMBER: YES";
+                    goldMemberLabel.Text = "YES";
                 }
                 else
                 {
-                    goldMemberLabel.Text = "GOLD MEMBER: NO";
+                    goldMemberLabel.Text = "NO";
                 }
             }
-
             customerDetailsPanel.Visible = true;
 
         }
@@ -194,6 +205,20 @@ AND vehicle_id IN
             if (confirmRenting == DialogResult.Yes)
             {
                 doRentInDb();
+                // upgrading to gold if eligible
+                String query = @"SELECT count(*)
+FROM Rental, Customer
+WHERE Rental.customer_id = Customer.customer_id AND Rental.customer_id = " + customerIdTextbox.Text + @" AND (SELECT YEAR(start_date_of_booking)) = YEAR(GETDATE())
+GROUP BY Rental.customer_id;";
+
+                if ((Convert.ToInt16(connection.executeScalar(query)) == 3))
+                { // they have 3 rentals, upgrade to gold
+                    query = @"UPDATE Customer
+SET membership_type = 'Gold'
+WHERE customer_id = " + customerIdTextbox.Text + ";";
+                    connection.executeNonQuery(query);
+                    MessageBox.Show(customerNameLabel.Text + " is now a gold boy hehe");
+                }
             }
         }
 
@@ -212,7 +237,7 @@ AND vehicle_id IN
                 empId + ", " + branchId + ", " + vehicleId + ", " + classRequested +
                 ", " + customerIdTextbox.Text + ");";
 
-            MessageBox.Show(query);
+            //MessageBox.Show(query);
 
 
 
@@ -223,7 +248,7 @@ AND vehicle_id IN
             }
             else
             {
-                MessageBox.Show("AN ERROR OCCURED, TRY AGAIN");
+                MessageBox.Show("DATABASE ERROR IN empViewAllVehicles: doRentInDb");
             }
 
         }
