@@ -126,7 +126,7 @@ AND vehicle_id IN
         private void getCustomerDetails()
         {
             String customerId = customerIdTextbox.Text;
-            String query = "SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name AS name, membership_type" +
+            String query = "SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name AS name, membership_type, gold_membership_date" +
                             "\nFROM Customer " +
                             "\nWHERE customer_id = " + customerId;
 
@@ -139,10 +139,15 @@ AND vehicle_id IN
                 if (reader.GetString(1).Equals("Gold"))
                 {
                     goldMemberLabel.Text = "YES";
+                    expiryDate.Text = reader.GetDateTime(2).AddYears(1).ToString("yyyy-MM-dd");
+                    expiresLabel.Visible = true;
+                    expiryDate.Visible = true;
                 }
                 else
                 {
                     goldMemberLabel.Text = "NO";
+                    expiresLabel.Visible = false;
+                    expiryDate.Visible = false;
                 }
             }
             customerDetailsPanel.Visible = true;
@@ -214,7 +219,7 @@ GROUP BY Rental.customer_id;";
                 if ((Convert.ToInt16(connection.executeScalar(query)) == 3))
                 { // they have 3 rentals, upgrade to gold
                     query = @"UPDATE Customer
-SET membership_type = 'Gold'
+SET membership_type = 'Gold', gold_membership_date = CAST(GETDATE() AS DATE)
 WHERE customer_id = " + customerIdTextbox.Text + ";";
                     connection.executeNonQuery(query);
                     MessageBox.Show(customerNameLabel.Text + " is now a gold boy hehe");

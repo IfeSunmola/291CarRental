@@ -57,11 +57,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.customerDetailsPanel = new System.Windows.Forms.Panel();
+            this.expiryDate = new System.Windows.Forms.Label();
+            this.expiresLabel = new System.Windows.Forms.Label();
+            this.goldMemberLabel = new System.Windows.Forms.Label();
+            this.customerNameLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.customerNameLabel = new System.Windows.Forms.Label();
-            this.goldMemberLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -239,7 +241,7 @@
             this.showVehicleDataGripViewPanel.Controls.Add(this.vehicleDataGridView);
             this.showVehicleDataGripViewPanel.Controls.Add(this.label7);
             this.showVehicleDataGripViewPanel.Controls.Add(this.rentVehicleButton);
-            this.showVehicleDataGripViewPanel.Location = new System.Drawing.Point(19, 271);
+            this.showVehicleDataGripViewPanel.Location = new System.Drawing.Point(19, 308);
             this.showVehicleDataGripViewPanel.Name = "showVehicleDataGripViewPanel";
             this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(887, 557);
             this.showVehicleDataGripViewPanel.TabIndex = 17;
@@ -342,7 +344,7 @@
             this.panel1.Controls.Add(this.fromDatePicker);
             this.panel1.Location = new System.Drawing.Point(121, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(906, 831);
+            this.panel1.Size = new System.Drawing.Size(906, 882);
             this.panel1.TabIndex = 23;
             // 
             // label3
@@ -356,14 +358,54 @@
             // 
             // customerDetailsPanel
             // 
+            this.customerDetailsPanel.Controls.Add(this.expiryDate);
+            this.customerDetailsPanel.Controls.Add(this.expiresLabel);
             this.customerDetailsPanel.Controls.Add(this.goldMemberLabel);
             this.customerDetailsPanel.Controls.Add(this.customerNameLabel);
             this.customerDetailsPanel.Controls.Add(this.label8);
             this.customerDetailsPanel.Controls.Add(this.label9);
             this.customerDetailsPanel.Location = new System.Drawing.Point(13, 182);
             this.customerDetailsPanel.Name = "customerDetailsPanel";
-            this.customerDetailsPanel.Size = new System.Drawing.Size(300, 83);
+            this.customerDetailsPanel.Size = new System.Drawing.Size(300, 99);
             this.customerDetailsPanel.TabIndex = 21;
+            // 
+            // expiryDate
+            // 
+            this.expiryDate.AutoSize = true;
+            this.expiryDate.Location = new System.Drawing.Point(75, 74);
+            this.expiryDate.Name = "expiryDate";
+            this.expiryDate.Size = new System.Drawing.Size(106, 25);
+            this.expiryDate.TabIndex = 25;
+            this.expiryDate.Text = "2022-11-24";
+            this.expiryDate.Visible = false;
+            // 
+            // expiresLabel
+            // 
+            this.expiresLabel.AutoSize = true;
+            this.expiresLabel.Location = new System.Drawing.Point(0, 74);
+            this.expiresLabel.Name = "expiresLabel";
+            this.expiresLabel.Size = new System.Drawing.Size(81, 25);
+            this.expiresLabel.TabIndex = 24;
+            this.expiresLabel.Text = "EXPIRES:";
+            this.expiresLabel.Visible = false;
+            // 
+            // goldMemberLabel
+            // 
+            this.goldMemberLabel.AutoSize = true;
+            this.goldMemberLabel.Location = new System.Drawing.Point(135, 40);
+            this.goldMemberLabel.Name = "goldMemberLabel";
+            this.goldMemberLabel.Size = new System.Drawing.Size(41, 25);
+            this.goldMemberLabel.TabIndex = 23;
+            this.goldMemberLabel.Text = "YES";
+            // 
+            // customerNameLabel
+            // 
+            this.customerNameLabel.AutoSize = true;
+            this.customerNameLabel.Location = new System.Drawing.Point(161, 0);
+            this.customerNameLabel.Name = "customerNameLabel";
+            this.customerNameLabel.Size = new System.Drawing.Size(86, 25);
+            this.customerNameLabel.TabIndex = 21;
+            this.customerNameLabel.Text = "T.Beifong";
             // 
             // label8
             // 
@@ -390,32 +432,14 @@
             this.panel2.Controls.Add(this.button3);
             this.panel2.Location = new System.Drawing.Point(6, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1154, 868);
+            this.panel2.Size = new System.Drawing.Size(1154, 907);
             this.panel2.TabIndex = 24;
-            // 
-            // customerNameLabel
-            // 
-            this.customerNameLabel.AutoSize = true;
-            this.customerNameLabel.Location = new System.Drawing.Point(161, 0);
-            this.customerNameLabel.Name = "customerNameLabel";
-            this.customerNameLabel.Size = new System.Drawing.Size(86, 25);
-            this.customerNameLabel.TabIndex = 21;
-            this.customerNameLabel.Text = "T.Beifong";
-            // 
-            // goldMemberLabel
-            // 
-            this.goldMemberLabel.AutoSize = true;
-            this.goldMemberLabel.Location = new System.Drawing.Point(135, 40);
-            this.goldMemberLabel.Name = "goldMemberLabel";
-            this.goldMemberLabel.Size = new System.Drawing.Size(41, 25);
-            this.goldMemberLabel.TabIndex = 23;
-            this.goldMemberLabel.Text = "YES";
             // 
             // EmpViewAllVehicles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 889);
+            this.ClientSize = new System.Drawing.Size(1172, 931);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -469,5 +493,7 @@
         private Label label3;
         private Label goldMemberLabel;
         private Label customerNameLabel;
+        private Label expiresLabel;
+        private Label expiryDate;
     }
 }
