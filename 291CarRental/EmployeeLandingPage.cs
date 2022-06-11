@@ -73,7 +73,7 @@ namespace _291CarRental
         private void runCustomReportsButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            new RunCustomReportPage(this).ShowDialog();
+            new RunCustomReportPage(this, connection).ShowDialog();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
