@@ -33,9 +33,11 @@
             this.empIdLabel = new System.Windows.Forms.Label();
             this.empLoginButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.errorMessageLabel = new System.Windows.Forms.Label();
+            this.emptyTextboxLabel = new System.Windows.Forms.Label();
             this.empIdTextbox = new System.Windows.Forms.TextBox();
             this.loginMessageLabel = new System.Windows.Forms.Label();
+            this.empLoginPanel = new System.Windows.Forms.Panel();
+            this.empLoginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -63,16 +65,16 @@
             // empIdLabel
             // 
             this.empIdLabel.AutoSize = true;
-            this.empIdLabel.Location = new System.Drawing.Point(180, 293);
+            this.empIdLabel.Location = new System.Drawing.Point(3, 0);
             this.empIdLabel.Name = "empIdLabel";
-            this.empIdLabel.Size = new System.Drawing.Size(113, 25);
+            this.empIdLabel.Size = new System.Drawing.Size(119, 25);
             this.empIdLabel.TabIndex = 2;
-            this.empIdLabel.Text = "Employee ID";
+            this.empIdLabel.Text = "EMPLOYEE ID";
             // 
             // empLoginButton
             // 
             this.empLoginButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.empLoginButton.Location = new System.Drawing.Point(287, 391);
+            this.empLoginButton.Location = new System.Drawing.Point(123, 95);
             this.empLoginButton.Name = "empLoginButton";
             this.empLoginButton.Size = new System.Drawing.Size(168, 47);
             this.empLoginButton.TabIndex = 4;
@@ -92,21 +94,21 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // errorMessageLabel
+            // emptyTextboxLabel
             // 
-            this.errorMessageLabel.AutoSize = true;
-            this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorMessageLabel.Location = new System.Drawing.Point(382, 325);
-            this.errorMessageLabel.Name = "errorMessageLabel";
-            this.errorMessageLabel.Size = new System.Drawing.Size(160, 25);
-            this.errorMessageLabel.TabIndex = 25;
-            this.errorMessageLabel.Text = "ERROR MESSAGE";
-            this.errorMessageLabel.Visible = false;
+            this.emptyTextboxLabel.AutoSize = true;
+            this.emptyTextboxLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.emptyTextboxLabel.ForeColor = System.Drawing.Color.Red;
+            this.emptyTextboxLabel.Location = new System.Drawing.Point(212, 35);
+            this.emptyTextboxLabel.Name = "emptyTextboxLabel";
+            this.emptyTextboxLabel.Size = new System.Drawing.Size(160, 25);
+            this.emptyTextboxLabel.TabIndex = 25;
+            this.emptyTextboxLabel.Text = "ERROR MESSAGE";
+            this.emptyTextboxLabel.Visible = false;
             // 
             // empIdTextbox
             // 
-            this.empIdTextbox.Location = new System.Drawing.Point(382, 290);
+            this.empIdTextbox.Location = new System.Drawing.Point(212, 0);
             this.empIdTextbox.Name = "empIdTextbox";
             this.empIdTextbox.ShortcutsEnabled = false;
             this.empIdTextbox.Size = new System.Drawing.Size(150, 31);
@@ -118,7 +120,7 @@
             // 
             this.loginMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.loginMessageLabel.ForeColor = System.Drawing.Color.Red;
-            this.loginMessageLabel.Location = new System.Drawing.Point(212, 363);
+            this.loginMessageLabel.Location = new System.Drawing.Point(32, 67);
             this.loginMessageLabel.Name = "loginMessageLabel";
             this.loginMessageLabel.Size = new System.Drawing.Size(353, 25);
             this.loginMessageLabel.TabIndex = 28;
@@ -126,25 +128,35 @@
             this.loginMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.loginMessageLabel.Visible = false;
             // 
+            // empLoginPanel
+            // 
+            this.empLoginPanel.Controls.Add(this.empIdLabel);
+            this.empLoginPanel.Controls.Add(this.loginMessageLabel);
+            this.empLoginPanel.Controls.Add(this.empLoginButton);
+            this.empLoginPanel.Controls.Add(this.empIdTextbox);
+            this.empLoginPanel.Controls.Add(this.emptyTextboxLabel);
+            this.empLoginPanel.Location = new System.Drawing.Point(180, 291);
+            this.empLoginPanel.Name = "empLoginPanel";
+            this.empLoginPanel.Size = new System.Drawing.Size(423, 147);
+            this.empLoginPanel.TabIndex = 29;
+            this.empLoginPanel.Visible = false;
+            // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.loginMessageLabel);
-            this.Controls.Add(this.empIdTextbox);
-            this.Controls.Add(this.errorMessageLabel);
+            this.Controls.Add(this.empLoginPanel);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.empLoginButton);
-            this.Controls.Add(this.empIdLabel);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "LandingPage";
             this.Text = "LANDING PAGE";
+            this.empLoginPanel.ResumeLayout(false);
+            this.empLoginPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -155,8 +167,9 @@
         private Label empIdLabel;
         private Button empLoginButton;
         private Button button3;
-        private Label errorMessageLabel;
+        private Label emptyTextboxLabel;
         private TextBox empIdTextbox;
         private Label loginMessageLabel;
+        private Panel empLoginPanel;
     }
 }

@@ -12,41 +12,40 @@ namespace _291CarRental
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            empIdLabel.Visible = false;
-            empIdTextbox.Visible = false;
-            empLoginButton.Visible = false;
-
             connection = new DbConnection();
         }
 
         private void custButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+            empLoginPanel.Visible = false;
             new CustSelectVehicleFilters(this, connection).ShowDialog();
         }
 
         private void empButton_Click(object sender, EventArgs e)
         {
-            empIdLabel.Visible = true;
-            empIdTextbox.Visible = true;
-            empLoginButton.Visible = true;
+            empLoginPanel.Visible = true;
+            emptyTextboxLabel.Visible = false;
+            loginMessageLabel.Visible = false;
         }
 
         private void empLoginButton_Click(object sender, EventArgs e)
         {
 
             if (String.IsNullOrEmpty(empIdTextbox.Text))// empty text box
-            {
-                errorMessageLabel.Text = "ID CANNOT BE EMPTY";
-                errorMessageLabel.Visible = true;
+            {// empty text box, hide loginMessageLabel and show emptyTextboxLabel
+                loginMessageLabel.Visible = false;
+
+                emptyTextboxLabel.Text = "ID CANNOT BE EMPTY";
+                emptyTextboxLabel.Visible = true;
             }
             else
-            {
-                errorMessageLabel.Visible = false;
+            {// textbox is not empty, hide the emptyTextboxLabel
+                emptyTextboxLabel.Visible = false;
                 String query = "SELECT emp_id FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
                 String? empId = connection.executeScalar(query);
 
-                if (empId != null)
+                if (empId != null)// id was found, show sucess message and hide error messages
                 {// not null means a value was returned, value will only be returned if the emp_id was found
                     loginMessageLabel.Text = "LOGIN SUCCESSFUL";
                     loginMessageLabel.Visible = true;
@@ -54,18 +53,18 @@ namespace _291CarRental
 
                     Task.Delay(500).Wait();
                     this.Visible = false;
-                    errorMessageLabel.Visible = false;
                     new EmployeeLandingPage(this, empId.ToString(), connection).ShowDialog();
+
+                    emptyTextboxLabel.Visible = false;
                     loginMessageLabel.Visible = false;
                 }
-                else
+                else// id was not found
                 {
-                    //MessageBox.Show("Employee not found, try again", "INCORRECT ID");
                     loginMessageLabel.Text = "EMPLOYEE ID NOT FOUND";
-                    loginMessageLabel.ForeColor= Color.Red;
+                    loginMessageLabel.ForeColor = Color.Red;
                     loginMessageLabel.Visible = true;
+                    emptyTextboxLabel.Visible = false;
                 }
-
             }
         }
 
