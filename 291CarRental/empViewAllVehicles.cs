@@ -480,9 +480,9 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 Decimal weekly = (daysBetween % 14) * weeklyRate;
                 estimatedCostLabel.Text = (monthly + weekly).ToString("C");
             }
-            estimatedCostLabel.Text += " (" + daysBetween + ") day";
+            estimatedCostLabel.Text += " (" + daysBetween + ") DAY";
             if (daysBetween > 1) {
-                estimatedCostLabel.Text += "s";
+                estimatedCostLabel.Text += "S";
             }
         }
 
@@ -574,5 +574,14 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             }
             estimatedCostLabel.Text = "";
         }
+
+        private void vehicleClassCombobox_DropDownClosed(object sender, EventArgs e)
+        {
+            if (!String.Equals(vehicleClassCombobox.SelectedItem, "SELECT ONE") || vehicleClassCombobox.SelectedIndex == -1)
+            {
+                vehicleClassCombobox.Items.Remove("SELECT ONE");
+            }
+        }
+
     }
 }

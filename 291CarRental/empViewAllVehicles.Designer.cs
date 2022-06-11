@@ -120,6 +120,7 @@
             this.vehicleClassCombobox.TabIndex = 4;
             this.vehicleClassCombobox.Text = "SELECT ONE";
             this.vehicleClassCombobox.SelectedIndexChanged += new System.EventHandler(this.filtersValueChanged);
+            this.vehicleClassCombobox.DropDownClosed += new System.EventHandler(this.vehicleClassCombobox_DropDownClosed);
             // 
             // branchComboBox
             // 
@@ -209,9 +210,10 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(14, 438);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(161, 25);
+            this.label7.Size = new System.Drawing.Size(173, 25);
             this.label7.TabIndex = 11;
             this.label7.Text = "ESTIMATED COST: ";
             // 
@@ -242,9 +244,10 @@
             // estimatedCostLabel
             // 
             this.estimatedCostLabel.AutoSize = true;
-            this.estimatedCostLabel.Location = new System.Drawing.Point(161, 438);
+            this.estimatedCostLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.estimatedCostLabel.Location = new System.Drawing.Point(179, 438);
             this.estimatedCostLabel.Name = "estimatedCostLabel";
-            this.estimatedCostLabel.Size = new System.Drawing.Size(46, 25);
+            this.estimatedCostLabel.Size = new System.Drawing.Size(47, 25);
             this.estimatedCostLabel.TabIndex = 17;
             this.estimatedCostLabel.Text = "0.00";
             // 
