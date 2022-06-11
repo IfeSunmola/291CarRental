@@ -39,7 +39,7 @@ namespace _291CarRental
             findByCombobox.Items.Add("CUSTOMER ID");
             findByCombobox.SelectedIndex = 1;
             findByCombobox.Items.Add("PHONE NUMBER");
-            
+
 
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -100,49 +100,50 @@ AND vehicle_id IN
             previousPage.Visible = true;
         }
 
+        private void fillVehicleDataView()
+        {
+            vehicleDataGridView.DataSource = getAvailableVehicleList();
+            vehicleDataGridView.Columns["vehicle_id"].Visible = false;
+
+            foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
+            {//disable sorting the columns
+                dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+            showVehicleDataGripViewPanel.Visible = true;
+            if (vehicleDataGridView.CurrentCell != null)
+            {
+                vehicleDataGridView.CurrentCell.Selected = false;
+            }
+            String fromToDate = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
+            showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + fromToDate;
+        }
+
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
-            if (validateSearchDetails())
-            {
-                if (customerIsRenting())
-                {
-
-                }
+            if (findByCombobox.SelectedIndex == 0 && validateSearchDetails())
+            {// not applicable was selected and the search filters are good. Employee is only viewing
+                //customerDetailsPanel.Visible = false;
+                errorMessageLabel.Visible = false;
+                fillVehicleDataView();
+                rentVehicleButton.Visible = false;
+            }
+            else if (findByCombobox.SelectedIndex > 0 &&  validateSearchDetails() && validateCustomerInfo())
+            {// id/phone number was selected, filters and customer details are good. Customer is renting
                 errorMessageLabel.Visible = false;
                 getCustomerDetails();
                 customerDetailsPanel.Visible = true;
-                vehicleDataGridView.DataSource = getAvailableVehicleList();
-                vehicleDataGridView.Columns["vehicle_id"].Visible = false;
-                //disable sorting the columns
-                foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
-                {
-                    dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                }
-                showVehicleDataGripViewPanel.Visible = true;
-                if (vehicleDataGridView.CurrentCell != null)
-                {
-                    vehicleDataGridView.CurrentCell.Selected = false;
-                }
-                String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
-                showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
+                rentVehicleButton.Visible = true;
+                fillVehicleDataView();
             }
             else
             {
-                customerDetailsPanel.Visible = false;
-            }
-            if (findByCombobox.SelectedIndex == 0)
-            {// not applicable is selected, don't show customer details
-                customerDetailsPanel.Visible = false;
+                //customerDetailsPanel.Visible = false;
             }
         }
 
-        private bool customerIsRenting()
+        private bool validateCustomerInfo()
         {
             bool result = false;
-            if (findByCombobox.SelectedIndex == 0)
-            {// n/a was selected, employee is viewing
-                return false;
-            }
             if (findByCombobox.SelectedIndex == 1)
             {// customer id validations
                 if (String.IsNullOrEmpty(customerInfoTextbox.Text))
@@ -176,12 +177,9 @@ AND vehicle_id IN
                 {
                     result = true;
                 }
-
             }
             return result;
         }
-
-
         private bool isGoldMember()
         {
             //String query = @"SELECT membership_type 
@@ -192,7 +190,7 @@ AND vehicle_id IN
             //return String.Equals(status, "GOLD", StringComparison.OrdinalIgnoreCase);
             return String.Equals(goldMemberLabel.Text, "GOLD", StringComparison.OrdinalIgnoreCase);
         }
-        
+
         private void getCustomerDetails()
         {
             if (findByCombobox.SelectedIndex == 0)
@@ -207,7 +205,7 @@ AND vehicle_id IN
             {// CUSTOMER ID WAS SELECTED
                 query += "\nWHERE customer_id = " + idOrPhoneNumber;
             }
-            else  if (findByCombobox.SelectedIndex == 2)
+            else if (findByCombobox.SelectedIndex == 2)
             {// PHONE NUMBER WAS SELECTED
                 query += "\nWHERE CAST(area_code + phone_number AS BIGINT) = " + idOrPhoneNumber;
             }
@@ -279,40 +277,6 @@ AND vehicle_id IN
             {// not really needed but it is what it is
                 errorMessageLabel.Text = "SELECT A BRANCH";
             }
-            //else if (findByCombobox.SelectedIndex == 1)
-            //{// customer id validations
-            //    if (String.IsNullOrEmpty(customerInfoTextbox.Text))
-            //    {// empty text box
-            //        errorMessageLabel.Text = "CUSTOMER ID REQUIRED";
-            //    }
-            //    else if (!idOrPhoneNumberInDb("ID", customerInfoTextbox.Text))
-            //    {
-            //        errorMessageLabel.Text = "CUSTOMER ID NOT FOUND";
-            //    }
-            //    else
-            //    {
-            //        result = true;
-            //    }
-            //}
-            //else if (findByCombobox.SelectedIndex == 2)
-            //{// phone number validations
-            //    if (String.IsNullOrEmpty(customerInfoTextbox.Text))
-            //    {// empty text box
-            //        errorMessageLabel.Text = "PHONE NUMBER REQUIRED";
-            //    }
-            //    else if (customerInfoTextbox.Text.Length != 10)
-            //    {
-            //        errorMessageLabel.Text = "PHONE NUMBER MUST BE 10 DIGITS";
-            //    }
-            //    else if (!idOrPhoneNumberInDb("NUMBER", customerInfoTextbox.Text))
-            //    {
-            //        errorMessageLabel.Text = "PHONE NUMBER NOT FOUND";
-            //    }
-            //    else
-            //    {
-            //        result = true;
-            //    }
-            //}
             else
             {
                 result = true;
@@ -333,7 +297,7 @@ AND vehicle_id IN
             }
             return connection.executeScalar(query) != null;// not null: data was found
         }
-        
+
         private String addQuotes(String stringToAdd)
         {
             String temp1 = stringToAdd.Insert(0, "'");
@@ -567,10 +531,10 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
         private void findByCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             errorMessageLabel.Visible = false;
+            customerDetailsPanel.Visible = false;
             if (findByCombobox.SelectedIndex == 0)
             {// not applicable was selected, hide text box
                 customerInfoPanel.Visible = false;
-                customerDetailsPanel.Visible = false;
                 return;
             }
             else if (findByCombobox.SelectedIndex == 1)
@@ -601,7 +565,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
 
         private void customerInfoTextbox_TextChanged(object sender, EventArgs e)
         {
-            customerDetailsPanel.Visible = false;
+         // customerDetailsPanel.Visible = false;
         }
     }
 }
