@@ -189,26 +189,28 @@ AND vehicle_id IN
             bool result = false;
             String vehicleClassSelected = (String)vehicleClassCombobox.SelectedItem;
             String branchSelected = (String)branchComboBox.SelectedItem;
+            errorMessageLabel.Visible = true;
             if (fromDatePicker.Value.Date <= DateTime.Now.Date)
             {
-                MessageBox.Show("Vehicles must be booked one day before");
+                errorMessageLabel.Text = "Vehicles must be booked one day before".ToUpper();
             }
             else if (fromDatePicker.Value.Date >= toDatePicker.Value.Date)
             {
-                MessageBox.Show("FROM DATE HAS TO BE BEFORE TO DATE");
+                errorMessageLabel.Text = "FROM DATE HAS TO BE BEFORE TO DATE";
             }
-            // below are redundant but that's okay because hehehehe
-            else if (String.IsNullOrEmpty(vehicleClassSelected))
+            
+            else if (String.Equals(vehicleClassSelected, "SELECT ONE"))
             {
-                MessageBox.Show("SELECT A VEHICLE CLASS");
+                errorMessageLabel.Text = "SELECT A VEHICLE CLASS";
             }
             else if (String.IsNullOrEmpty(branchSelected))
-            {
-                MessageBox.Show("SELECT A BRANCH");
+            {// not really needed but it is what it is
+                errorMessageLabel.Text = "SELECT A BRANCH";
             }
             else
             {
                 result = true;
+                errorMessageLabel.Visible = false;
             }
             return result;
         }

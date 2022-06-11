@@ -50,6 +50,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errorMessageLabel = new System.Windows.Forms.Label();
             this.customerInfoPanel = new System.Windows.Forms.Panel();
             this.findByLabel = new System.Windows.Forms.Label();
             this.customerInfoTextbox = new System.Windows.Forms.TextBox();
@@ -131,7 +132,7 @@
             // findAvailableVehiclesButton
             // 
             this.findAvailableVehiclesButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.findAvailableVehiclesButton.Location = new System.Drawing.Point(362, 300);
+            this.findAvailableVehiclesButton.Location = new System.Drawing.Point(326, 297);
             this.findAvailableVehiclesButton.Name = "findAvailableVehiclesButton";
             this.findAvailableVehiclesButton.Size = new System.Drawing.Size(263, 62);
             this.findAvailableVehiclesButton.TabIndex = 6;
@@ -288,6 +289,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.errorMessageLabel);
             this.panel1.Controls.Add(this.customerInfoPanel);
             this.panel1.Controls.Add(this.addressPanel);
             this.panel1.Controls.Add(this.label5);
@@ -307,6 +309,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(938, 990);
             this.panel1.TabIndex = 23;
+            // 
+            // errorMessageLabel
+            // 
+            this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorMessageLabel.Location = new System.Drawing.Point(19, 269);
+            this.errorMessageLabel.Name = "errorMessageLabel";
+            this.errorMessageLabel.Size = new System.Drawing.Size(858, 25);
+            this.errorMessageLabel.TabIndex = 48;
+            this.errorMessageLabel.Text = "ERROR MESSAGE";
+            this.errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.errorMessageLabel.Visible = false;
             // 
             // customerInfoPanel
             // 
@@ -538,5 +552,6 @@
         private Label findByLabel;
         private Panel addressPanel;
         private Panel customerInfoPanel;
+        private Label errorMessageLabel;
     }
 }
