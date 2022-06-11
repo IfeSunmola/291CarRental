@@ -346,6 +346,8 @@
             this.customerInfoTextbox.Name = "customerInfoTextbox";
             this.customerInfoTextbox.Size = new System.Drawing.Size(150, 31);
             this.customerInfoTextbox.TabIndex = 43;
+            this.customerInfoTextbox.TextChanged += new System.EventHandler(this.customerInfoTextbox_TextChanged);
+            this.customerInfoTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customerInfoTextbox_KeyPress);
             // 
             // addressPanel
             // 

@@ -102,10 +102,15 @@ AND vehicle_id IN
 
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
-            //isEligibleForGold();
             if (validateSearchDetails())
             {
+                if (customerIsRenting())
+                {
+
+                }
+                errorMessageLabel.Visible = false;
                 getCustomerDetails();
+                customerDetailsPanel.Visible = true;
                 vehicleDataGridView.DataSource = getAvailableVehicleList();
                 vehicleDataGridView.Columns["vehicle_id"].Visible = false;
                 //disable sorting the columns
@@ -114,11 +119,68 @@ AND vehicle_id IN
                     dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
                 showVehicleDataGripViewPanel.Visible = true;
-                vehicleDataGridView.CurrentCell.Selected = false;
+                if (vehicleDataGridView.CurrentCell != null)
+                {
+                    vehicleDataGridView.CurrentCell.Selected = false;
+                }
                 String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
                 showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
             }
+            else
+            {
+                customerDetailsPanel.Visible = false;
+            }
+            if (findByCombobox.SelectedIndex == 0)
+            {// not applicable is selected, don't show customer details
+                customerDetailsPanel.Visible = false;
+            }
         }
+
+        private bool customerIsRenting()
+        {
+            bool result = false;
+            if (findByCombobox.SelectedIndex == 0)
+            {// n/a was selected, employee is viewing
+                return false;
+            }
+            if (findByCombobox.SelectedIndex == 1)
+            {// customer id validations
+                if (String.IsNullOrEmpty(customerInfoTextbox.Text))
+                {// empty text box
+                    errorMessageLabel.Text = "CUSTOMER ID REQUIRED";
+                }
+                else if (!idOrPhoneNumberInDb("ID", customerInfoTextbox.Text))
+                {
+                    errorMessageLabel.Text = "CUSTOMER ID NOT FOUND";
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            else if (findByCombobox.SelectedIndex == 2)
+            {// phone number validations
+                if (String.IsNullOrEmpty(customerInfoTextbox.Text))
+                {// empty text box
+                    errorMessageLabel.Text = "PHONE NUMBER REQUIRED";
+                }
+                else if (customerInfoTextbox.Text.Length != 10)
+                {
+                    errorMessageLabel.Text = "PHONE NUMBER MUST BE 10 DIGITS";
+                }
+                else if (!idOrPhoneNumberInDb("NUMBER", customerInfoTextbox.Text))
+                {
+                    errorMessageLabel.Text = "PHONE NUMBER NOT FOUND";
+                }
+                else
+                {
+                    result = true;
+                }
+
+            }
+            return result;
+        }
+
 
         private bool isGoldMember()
         {
@@ -133,10 +195,22 @@ AND vehicle_id IN
         
         private void getCustomerDetails()
         {
-            String customerId = customerInfoTextbox.Text;
-            String query = "SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name AS name, membership_type, gold_membership_date" +
-                            "\nFROM Customer " +
-                            "\nWHERE customer_id = " + customerId;
+            if (findByCombobox.SelectedIndex == 0)
+            {// NOT APPLICABLE WAS SELECTED
+                return;
+            }
+            String idOrPhoneNumber = customerInfoTextbox.Text;
+            String query = @"SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name AS name, membership_type, gold_membership_date
+                            FROM Customer";
+
+            if (findByCombobox.SelectedIndex == 1)
+            {// CUSTOMER ID WAS SELECTED
+                query += "\nWHERE customer_id = " + idOrPhoneNumber;
+            }
+            else  if (findByCombobox.SelectedIndex == 2)
+            {// PHONE NUMBER WAS SELECTED
+                query += "\nWHERE CAST(area_code + phone_number AS BIGINT) = " + idOrPhoneNumber;
+            }
 
             SqlDataReader reader = connection.executeReader(query);
 
@@ -181,7 +255,6 @@ AND vehicle_id IN
                     expiryDate.Visible = false;
                 }
             }
-            customerDetailsPanel.Visible = true;
         }
 
         private bool validateSearchDetails()
@@ -198,7 +271,6 @@ AND vehicle_id IN
             {
                 errorMessageLabel.Text = "FROM DATE HAS TO BE BEFORE TO DATE";
             }
-            
             else if (String.Equals(vehicleClassSelected, "SELECT ONE"))
             {
                 errorMessageLabel.Text = "SELECT A VEHICLE CLASS";
@@ -207,14 +279,61 @@ AND vehicle_id IN
             {// not really needed but it is what it is
                 errorMessageLabel.Text = "SELECT A BRANCH";
             }
+            //else if (findByCombobox.SelectedIndex == 1)
+            //{// customer id validations
+            //    if (String.IsNullOrEmpty(customerInfoTextbox.Text))
+            //    {// empty text box
+            //        errorMessageLabel.Text = "CUSTOMER ID REQUIRED";
+            //    }
+            //    else if (!idOrPhoneNumberInDb("ID", customerInfoTextbox.Text))
+            //    {
+            //        errorMessageLabel.Text = "CUSTOMER ID NOT FOUND";
+            //    }
+            //    else
+            //    {
+            //        result = true;
+            //    }
+            //}
+            //else if (findByCombobox.SelectedIndex == 2)
+            //{// phone number validations
+            //    if (String.IsNullOrEmpty(customerInfoTextbox.Text))
+            //    {// empty text box
+            //        errorMessageLabel.Text = "PHONE NUMBER REQUIRED";
+            //    }
+            //    else if (customerInfoTextbox.Text.Length != 10)
+            //    {
+            //        errorMessageLabel.Text = "PHONE NUMBER MUST BE 10 DIGITS";
+            //    }
+            //    else if (!idOrPhoneNumberInDb("NUMBER", customerInfoTextbox.Text))
+            //    {
+            //        errorMessageLabel.Text = "PHONE NUMBER NOT FOUND";
+            //    }
+            //    else
+            //    {
+            //        result = true;
+            //    }
+            //}
             else
             {
                 result = true;
-                errorMessageLabel.Visible = false;
             }
             return result;
         }
 
+        private bool idOrPhoneNumberInDb(String flag, String idOrPhoneNumber)
+        {
+            String query = "SELECT customer_id FROM Customer WHERE ";
+            if (String.Equals(flag, "ID"))
+            {// find id
+                query += "customer_id  = " + idOrPhoneNumber;
+            }
+            else if (String.Equals(flag, "NUMBER"))
+            {// find phone number
+                query += "CAST (area_code + phone_number AS VARCHAR) = " + idOrPhoneNumber;
+            }
+            return connection.executeScalar(query) != null;// not null: data was found
+        }
+        
         private String addQuotes(String stringToAdd)
         {
             String temp1 = stringToAdd.Insert(0, "'");
@@ -447,11 +566,22 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
 
         private void findByCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            errorMessageLabel.Visible = false;
             if (findByCombobox.SelectedIndex == 0)
             {// not applicable was selected, hide text box
                 customerInfoPanel.Visible = false;
+                customerDetailsPanel.Visible = false;
                 return;
             }
+            else if (findByCombobox.SelectedIndex == 1)
+            {// customer id was selected
+                customerInfoTextbox.MaxLength = 5;
+            }
+            else if (findByCombobox.SelectedIndex == 2)
+            {// phone number was selected
+                customerInfoTextbox.MaxLength = 10;
+            }
+            customerInfoTextbox.Clear();
             customerInfoPanel.Visible = true;
             findByLabel.Text = findByCombobox.SelectedItem.ToString();
         }
@@ -462,6 +592,16 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             {
                 vehicleClassCombobox.Items.Remove("SELECT ONE");
             }
+        }
+
+        private void customerInfoTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void customerInfoTextbox_TextChanged(object sender, EventArgs e)
+        {
+            customerDetailsPanel.Visible = false;
         }
     }
 }
