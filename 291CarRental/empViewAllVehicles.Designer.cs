@@ -83,6 +83,7 @@
             this.fromDatePicker.Name = "fromDatePicker";
             this.fromDatePicker.Size = new System.Drawing.Size(300, 31);
             this.fromDatePicker.TabIndex = 0;
+            this.fromDatePicker.ValueChanged += new System.EventHandler(this.filtersValueChanged);
             // 
             // toDatePicker
             // 
@@ -90,6 +91,7 @@
             this.toDatePicker.Name = "toDatePicker";
             this.toDatePicker.Size = new System.Drawing.Size(300, 31);
             this.toDatePicker.TabIndex = 1;
+            this.toDatePicker.ValueChanged += new System.EventHandler(this.filtersValueChanged);
             // 
             // label1
             // 
@@ -117,7 +119,7 @@
             this.vehicleClassCombobox.Size = new System.Drawing.Size(182, 33);
             this.vehicleClassCombobox.TabIndex = 4;
             this.vehicleClassCombobox.Text = "SELECT ONE";
-            this.vehicleClassCombobox.DropDownClosed += new System.EventHandler(this.vehicleClassCombobox_DropDownClosed);
+            this.vehicleClassCombobox.SelectedIndexChanged += new System.EventHandler(this.filtersValueChanged);
             // 
             // branchComboBox
             // 
@@ -216,7 +218,7 @@
             // rentVehicleButton
             // 
             this.rentVehicleButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rentVehicleButton.Location = new System.Drawing.Point(343, 493);
+            this.rentVehicleButton.Location = new System.Drawing.Point(318, 477);
             this.rentVehicleButton.Name = "rentVehicleButton";
             this.rentVehicleButton.Size = new System.Drawing.Size(199, 64);
             this.rentVehicleButton.TabIndex = 12;
@@ -248,7 +250,8 @@
             // 
             // showingVehiclesLabel
             // 
-            this.showingVehiclesLabel.Location = new System.Drawing.Point(14, 9);
+            this.showingVehiclesLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.showingVehiclesLabel.Location = new System.Drawing.Point(12, 0);
             this.showingVehiclesLabel.Name = "showingVehiclesLabel";
             this.showingVehiclesLabel.Size = new System.Drawing.Size(844, 25);
             this.showingVehiclesLabel.TabIndex = 16;
@@ -305,9 +308,9 @@
             this.panel1.Controls.Add(this.showVehicleDataGripViewPanel);
             this.panel1.Controls.Add(this.toDatePicker);
             this.panel1.Controls.Add(this.fromDatePicker);
-            this.panel1.Location = new System.Drawing.Point(108, 12);
+            this.panel1.Location = new System.Drawing.Point(129, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(938, 990);
+            this.panel1.Size = new System.Drawing.Size(917, 990);
             this.panel1.TabIndex = 23;
             // 
             // errorMessageLabel
@@ -318,7 +321,7 @@
             this.errorMessageLabel.Name = "errorMessageLabel";
             this.errorMessageLabel.Size = new System.Drawing.Size(858, 25);
             this.errorMessageLabel.TabIndex = 48;
-            this.errorMessageLabel.Text = "ERROR MESSAGE";
+            this.errorMessageLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
             this.errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.errorMessageLabel.Visible = false;
             // 
@@ -344,9 +347,10 @@
             // 
             this.customerInfoTextbox.Location = new System.Drawing.Point(153, 0);
             this.customerInfoTextbox.Name = "customerInfoTextbox";
+            this.customerInfoTextbox.ShortcutsEnabled = false;
             this.customerInfoTextbox.Size = new System.Drawing.Size(150, 31);
             this.customerInfoTextbox.TabIndex = 43;
-            this.customerInfoTextbox.TextChanged += new System.EventHandler(this.customerInfoTextbox_TextChanged);
+            this.customerInfoTextbox.TextChanged += new System.EventHandler(this.filtersValueChanged);
             this.customerInfoTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customerInfoTextbox_KeyPress);
             // 
             // addressPanel
@@ -412,7 +416,7 @@
             this.customerDetailsPanel.Controls.Add(this.customerNameLabel);
             this.customerDetailsPanel.Controls.Add(this.label8);
             this.customerDetailsPanel.Controls.Add(this.label9);
-            this.customerDetailsPanel.Location = new System.Drawing.Point(15, 276);
+            this.customerDetailsPanel.Location = new System.Drawing.Point(20, 297);
             this.customerDetailsPanel.Name = "customerDetailsPanel";
             this.customerDetailsPanel.Size = new System.Drawing.Size(300, 99);
             this.customerDetailsPanel.TabIndex = 21;

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//1194, 1082
 namespace _291CarRental
 {
     public partial class EmpViewAllVehicles : Form
@@ -28,6 +29,7 @@ namespace _291CarRental
             this.empId = empId;
             this.currentCustName = "";
 
+            this.Size = new Size(1194, 450);
             this.StartPosition = FormStartPosition.CenterScreen;
             vehicleDataGridView.Columns.Clear();
 
@@ -44,6 +46,7 @@ namespace _291CarRental
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             customerDetailsPanel.Visible = false;
+            
         }
 
         private DataTable getAvailableVehicleList()
@@ -126,6 +129,7 @@ AND vehicle_id IN
                 errorMessageLabel.Visible = false;
                 fillVehicleDataView();
                 rentVehicleButton.Visible = false;
+                enlarge(990); // not showing rent this vehicle button
             }
             else if (findByCombobox.SelectedIndex > 0 &&  validateSearchDetails() && validateCustomerInfo())
             {// id/phone number was selected, filters and customer details are good. Customer is renting
@@ -134,10 +138,7 @@ AND vehicle_id IN
                 customerDetailsPanel.Visible = true;
                 rentVehicleButton.Visible = true;
                 fillVehicleDataView();
-            }
-            else
-            {
-                //customerDetailsPanel.Visible = false;
+                enlarge(1043);
             }
         }
 
@@ -179,16 +180,6 @@ AND vehicle_id IN
                 }
             }
             return result;
-        }
-        private bool isGoldMember()
-        {
-            //String query = @"SELECT membership_type 
-            //    FROM Customer
-            //    WHERE customer_id = " + customerIdTextbox.Text + ";";
-
-            //String? status = connection.executeScalar(query);
-            //return String.Equals(status, "GOLD", StringComparison.OrdinalIgnoreCase);
-            return String.Equals(goldMemberLabel.Text, "GOLD", StringComparison.OrdinalIgnoreCase);
         }
 
         private void getCustomerDetails()
@@ -456,12 +447,17 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             }
             addressLabel.Text = getBranchAddress().ToUpper();
             addressPanel.Visible = true;
+            filtersValueChanged(sender, e);
         }
 
         private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (vehicleDataGridView.CurrentCell == null)
+            {// exceptoin without this
+                return;
+            }
             int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
-            int daysBetween = (toDatePicker.Value - fromDatePicker.Value).Days + 1;
+            int daysBetween = ((toDatePicker.Value.Day - fromDatePicker.Value.Day));
             Decimal dailyRate = getRates(currentVehicleId).Item1;
             Decimal weeklyRate = getRates(currentVehicleId).Item2;
             Decimal monthlyRate = getRates(currentVehicleId).Item3;
@@ -483,6 +479,10 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 Decimal monthly = (daysBetween / 14) * monthlyRate;
                 Decimal weekly = (daysBetween % 14) * weeklyRate;
                 estimatedCostLabel.Text = (monthly + weekly).ToString("C");
+            }
+            estimatedCostLabel.Text += " (" + daysBetween + ") day";
+            if (daysBetween > 1) {
+                estimatedCostLabel.Text += "s";
             }
         }
 
@@ -516,18 +516,6 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
 
-        // this method make the employee id textbox only accept numbers
-        // copy and paste won't work because Shortcuts are disabled
-        private void customerIdTextbox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void phoneNumberTextbox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
         private void findByCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             errorMessageLabel.Visible = false;
@@ -535,6 +523,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             if (findByCombobox.SelectedIndex == 0)
             {// not applicable was selected, hide text box
                 customerInfoPanel.Visible = false;
+                filtersValueChanged(sender, e);
                 return;
             }
             else if (findByCombobox.SelectedIndex == 1)
@@ -548,24 +537,42 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             customerInfoTextbox.Clear();
             customerInfoPanel.Visible = true;
             findByLabel.Text = findByCombobox.SelectedItem.ToString();
+            filtersValueChanged(sender, e);
         }
 
-        private void vehicleClassCombobox_DropDownClosed(object sender, EventArgs e)
-        {
-            if (!String.Equals(vehicleClassCombobox.SelectedItem, "SELECT ONE") || vehicleClassCombobox.SelectedIndex == -1)
-            {
-                vehicleClassCombobox.Items.Remove("SELECT ONE");
-            }
-        }
-
+        // ignore anything that isn't numbers
         private void customerInfoTextbox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
-
-        private void customerInfoTextbox_TextChanged(object sender, EventArgs e)
+        
+        // resize to filters screen when the employee changes either booking start date, end date
+        // class requested, branch name, find by combo box and id/phone number textbox
+        private void filtersValueChanged(object sender, EventArgs e)
         {
-         // customerDetailsPanel.Visible = false;
+            reduce(450);
+            customerDetailsPanel.Visible = false;
+        }
+
+        private void reduce(int newHeight)
+        {
+            while (this.Height >= newHeight)
+            {
+                this.Height -= 13;
+                this.CenterToScreen();
+                Application.DoEvents();
+            }
+        }
+
+        private void enlarge(int newHeight)
+        {
+            while (this.Height <= newHeight)
+            {
+                this.Height += 50;
+                this.CenterToScreen();
+                Application.DoEvents();
+            }
+            estimatedCostLabel.Text = "";
         }
     }
 }
