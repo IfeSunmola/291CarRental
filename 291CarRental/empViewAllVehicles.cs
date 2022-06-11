@@ -33,8 +33,15 @@ namespace _291CarRental
 
             fromDatePicker.Value = DateTime.Now.AddDays(1);
             toDatePicker.Value = DateTime.Now.AddDays(2);
-            addressLabel.Visible = false;
             fillComboBoxes();
+
+            findByCombobox.Items.Add("NOT APPLICABLE");
+            findByCombobox.Items.Add("CUSTOMER ID");
+            findByCombobox.SelectedIndex = 1;
+            findByCombobox.Items.Add("PHONE NUMBER");
+            
+
+            findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             customerDetailsPanel.Visible = false;
         }
@@ -42,7 +49,7 @@ namespace _291CarRental
         private DataTable getAvailableVehicleList()
         {
             int branchId = (int)branchComboBox.SelectedIndex;
-            int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex;
+            int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 1;
 
             String from = fromDatePicker.Value.Date.ToString("d");
             String to = toDatePicker.Value.Date.ToString("d");
@@ -107,6 +114,7 @@ AND vehicle_id IN
                     dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
                 showVehicleDataGripViewPanel.Visible = true;
+                vehicleDataGridView.CurrentCell.Selected = false;
                 String toAppend = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
                 showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + toAppend;
             }
@@ -125,7 +133,7 @@ AND vehicle_id IN
         
         private void getCustomerDetails()
         {
-            String customerId = customerIdTextbox.Text;
+            String customerId = customerInfoTextbox.Text;
             String query = "SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name AS name, membership_type, gold_membership_date" +
                             "\nFROM Customer " +
                             "\nWHERE customer_id = " + customerId;
@@ -235,14 +243,14 @@ AND vehicle_id IN
                 // upgrading to gold if eligible
                 String query = @"SELECT count(*)
 FROM Rental, Customer
-WHERE Rental.customer_id = Customer.customer_id AND Rental.customer_id = " + customerIdTextbox.Text + @" AND (SELECT YEAR(start_date_of_booking)) = YEAR(GETDATE())
+WHERE Rental.customer_id = Customer.customer_id AND Rental.customer_id = " + customerInfoTextbox.Text + @" AND (SELECT YEAR(start_date_of_booking)) = YEAR(GETDATE())
 GROUP BY Rental.customer_id;";
 
                 if ((Convert.ToInt16(connection.executeScalar(query)) == 3))
                 { // they have 3 rentals, upgrade to gold
                     query = @"UPDATE Customer
 SET membership_type = 'Gold', gold_membership_date = CAST(GETDATE() AS DATE)
-WHERE customer_id = " + customerIdTextbox.Text + ";";
+WHERE customer_id = " + customerInfoTextbox.Text + ";";
                     connection.executeNonQuery(query);
                     MessageBox.Show(customerNameLabel.Text + " is now a gold boy hehe");
                 }
@@ -262,7 +270,7 @@ WHERE customer_id = " + customerIdTextbox.Text + ";";
                 "\nVALUES" +
                 "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " +
                 empId + ", " + branchId + ", " + vehicleId + ", " + classRequested +
-                ", " + customerIdTextbox.Text + ");";
+                ", " + customerInfoTextbox.Text + ");";
 
             //MessageBox.Show(query);
 
@@ -282,10 +290,11 @@ WHERE customer_id = " + customerIdTextbox.Text + ";";
 
         private void fillComboBoxes()
         {
-            vehicleClassCombobox.Items.Add("ALL CLASSES");
-            branchComboBox.Items.Add("ALL BRANCHES");
+            // will be removed in vehicleClassCombobox_DropDownClosed when the user selects an option
+            vehicleClassCombobox.Items.Add("SELECT ONE");
             vehicleClassCombobox.SelectedIndex = 0;
-            //branchComboBox.SelectedIndex = 0;
+
+            branchComboBox.Items.Add("ALL BRANCHES");
 
             String query = "SELECT vehicle_class FROM Vehicle_Class;" +
                 "\nSELECT branch_name FROM Branch;" +
@@ -332,7 +341,8 @@ WHERE customer_id = " + customerIdTextbox.Text + ";";
         {
             int branchId = (int)branchComboBox.SelectedIndex;// not adding +1 because of "ALL BRANCHES"
             if (branchId == 0)
-            {
+            {// all branches selected, no address
+                addressPanel.Visible = false;
                 return "";
             }
             String query =
@@ -354,8 +364,13 @@ WHERE customer_id = " + customerIdTextbox.Text + ";";
 
         private void branchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            addressLabel.Text = getBranchAddress();
-            addressLabel.Visible = true;
+            if (branchComboBox.SelectedIndex == 0)
+            {// all branches selected
+                addressPanel.Visible = false;
+                return;
+            }
+            addressLabel.Text = getBranchAddress().ToUpper();
+            addressPanel.Visible = true;
         }
 
         private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -426,6 +441,25 @@ WHERE customer_id = " + customerIdTextbox.Text + ";";
         private void phoneNumberTextbox_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void findByCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (findByCombobox.SelectedIndex == 0)
+            {// not applicable was selected, hide text box
+                customerInfoPanel.Visible = false;
+                return;
+            }
+            customerInfoPanel.Visible = true;
+            findByLabel.Text = findByCombobox.SelectedItem.ToString();
+        }
+
+        private void vehicleClassCombobox_DropDownClosed(object sender, EventArgs e)
+        {
+            if (!String.Equals(vehicleClassCombobox.SelectedItem, "SELECT ONE") || vehicleClassCombobox.SelectedIndex == -1)
+            {
+                vehicleClassCombobox.Items.Remove("SELECT ONE");
+            }
         }
     }
 }
