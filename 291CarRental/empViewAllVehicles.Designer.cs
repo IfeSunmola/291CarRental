@@ -217,7 +217,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(0, 438);
+            this.label7.Location = new System.Drawing.Point(14, 438);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(161, 25);
             this.label7.TabIndex = 11;
@@ -372,7 +372,9 @@
             // expiryDate
             // 
             this.expiryDate.AutoSize = true;
-            this.expiryDate.Location = new System.Drawing.Point(75, 74);
+            this.expiryDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.expiryDate.ForeColor = System.Drawing.Color.Green;
+            this.expiryDate.Location = new System.Drawing.Point(81, 74);
             this.expiryDate.Name = "expiryDate";
             this.expiryDate.Size = new System.Drawing.Size(106, 25);
             this.expiryDate.TabIndex = 25;
@@ -382,9 +384,11 @@
             // expiresLabel
             // 
             this.expiresLabel.AutoSize = true;
+            this.expiresLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.expiresLabel.ForeColor = System.Drawing.Color.Green;
             this.expiresLabel.Location = new System.Drawing.Point(0, 74);
             this.expiresLabel.Name = "expiresLabel";
-            this.expiresLabel.Size = new System.Drawing.Size(81, 25);
+            this.expiresLabel.Size = new System.Drawing.Size(88, 25);
             this.expiresLabel.TabIndex = 24;
             this.expiresLabel.Text = "EXPIRES:";
             this.expiresLabel.Visible = false;

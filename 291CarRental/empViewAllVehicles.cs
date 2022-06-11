@@ -137,21 +137,43 @@ AND vehicle_id IN
                 currentCustName = reader.GetString(0);
                 customerNameLabel.Text = currentCustName;
                 if (reader.GetString(1).Equals("Gold"))
-                {
-                    goldMemberLabel.Text = "YES";
-                    expiryDate.Text = reader.GetDateTime(2).AddYears(1).ToString("yyyy-MM-dd");
-                    expiresLabel.Visible = true;
-                    expiryDate.Visible = true;
+                {// a gold customer
+                    DateTime goldMemberDate = reader.GetDateTime(2);
+                    DateTime goldMemberExpiryDate = goldMemberDate.AddYears(1);
+                    if (goldMemberExpiryDate <= DateTime.Now)
+                    {// membership has expired for gold customer
+                        goldMemberLabel.Text = "NO";
+
+                        expiresLabel.Text = "EXPIRED:";
+                        expiryDate.Text = goldMemberExpiryDate.ToString("yyyy-MM-dd");
+
+                        expiresLabel.Visible = true;
+                        expiryDate.Visible = true;
+
+                        expiresLabel.ForeColor = Color.Red;
+                        expiryDate.ForeColor = Color.Red;
+                    }
+                    else
+                    {// membership has NOT EXPIRED for gold customer
+                        expiresLabel.Text = "EXPIRES:";
+                        goldMemberLabel.Text = "YES";
+                        expiryDate.Text = reader.GetDateTime(2).AddYears(1).ToString("yyyy-MM-dd");
+
+                        expiresLabel.Visible = true;
+                        expiryDate.Visible = true;
+
+                        expiresLabel.ForeColor = Color.Green;
+                        expiryDate.ForeColor = Color.Green;
+                    }
                 }
                 else
-                {
+                {// not a gold customer/never been a gold customer
                     goldMemberLabel.Text = "NO";
                     expiresLabel.Visible = false;
                     expiryDate.Visible = false;
                 }
             }
             customerDetailsPanel.Visible = true;
-
         }
 
         private bool validateSearchDetails()
