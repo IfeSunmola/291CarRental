@@ -33,7 +33,7 @@ namespace _291CarRental
             this.previousPage = previousPage;
             this.connection = connection;
             this.empId = empId;
-            this.Size = new Size(1288, 600);
+            this.Size = new Size(1288, 300);
             this.StartPosition = FormStartPosition.CenterScreen;
 
             onlyUnreturnedVehicles.Checked = true;
@@ -209,6 +209,8 @@ FROM Rental";
                     rentalsDataView.CurrentCell.Selected = false;
                 }
                 findRentalsPanel.Show();
+                this.Size = new Size(1288, 500);
+                this.CenterToScreen();
             }
         }
 
@@ -224,9 +226,6 @@ FROM Rental";
             {
                 returnLabelText.Text += " (GOLD MEMBER)";
             }
-            this.Size = new(1288, 830);
-            this.CenterToScreen();
-
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -342,8 +341,6 @@ FROM Rental";
             differentBranchFeeLabel.Text = changeBranchFee.ToString("C");
             amountDueNowLabel.Text = (lateFee + changeBranchFee).ToString("C");
             finishReturnPanel.Visible = true;
-            this.Size = new(1288, 1167);
-            this.CenterToScreen();
         }
 
         private void fillBranchCombobox()
@@ -420,33 +417,6 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
             return vehicleReturn == 1 && vehicleBranchUpdate == 1;
         }
 
-        // if the customer id, phone number or plate number is changed, hide the screen below
-        private void custIdOrPhoneOrPlateNumber_TextChanged(object sender, EventArgs e)
-        {
-            findRentalsPanel.Visible = false;
-            this.Size = new Size(1288, 600);
-            this.CenterToScreen();
-        }
-
-        private void onlyUnreturnedVehicles_CheckedChanged(object sender, EventArgs e)
-        {
-            findRentalsPanel.Visible = false;
-            this.Size = new Size(1288, 600);
-            this.CenterToScreen();
-        }
-
-        // if return date, return branch, mileage is changed, hide the screen
-        private void returnDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            this.Size = new(1288, 830);
-            this.CenterToScreen();
-        }
-
-        private void branchCombobox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Size = new(1288, 830);
-            this.CenterToScreen();
-        }
 
         private void viewFullDetails_Click(object sender, EventArgs e)
         {
