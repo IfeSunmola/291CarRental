@@ -32,7 +32,7 @@ namespace _291CarRental
         private String bookingEmployee = "";
         private String returnEmployee = "";
         private String pickupBranch_expectedDropoffLocation = "";
-        private String actualDropoffBranch = "";
+        private String dropoffBranch = "";
         private String classRequested = "";
         private String classGotten = "";
         private String vehicleRented = "";
@@ -292,16 +292,17 @@ FROM Rental";
         private Tuple<Decimal, Decimal, bool> getFees_goldStatus()
         {
             String? rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString();
-            String query = @"SELECT change_branch_fee, late_fee
-                FROM Vehicle_Class
-                WHERE vehicle_class_id in (SELECT vehicle_class_requested FROM Rental WHERE rental_id = " + rentalId + @");
-                SELECT membership_type 
-                FROM Customer
-                WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rentalId + @") ";
+            String query = @"
+SELECT change_branch_fee, late_fee
+FROM Vehicle_Class                
+WHERE vehicle_class_id in (SELECT vehicle_class_requested FROM Rental WHERE rental_id = " + rentalId + @");
+SELECT membership_type 
+FROM Customer
+WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rentalId + @") ";
             SqlDataReader reader = connection.executeReader(query);
             Decimal changeBranchFee = 0.00m, lateFee = 0.00m;
             bool isGoldMember = false;
-            while (reader.Read())
+            if (reader.Read())
             {
                 changeBranchFee = reader.GetDecimal("change_branch_fee");
                 lateFee = reader.GetDecimal("late_fee");
@@ -326,20 +327,20 @@ FROM Rental";
 
             Decimal changeBranchFee = 0.00m;
             Decimal lateFee = 0.00m;
-            bool isGoldMember = getFees_goldStatus().Item3;
-            String actualDropoffLocation = (String)branchCombobox.SelectedItem;
+            String actualDropoffLocation = (String)branchCombobox.SelectedItem; 
+
             if (!String.Equals(actualDropoffLocation, pickupBranch_expectedDropoffLocation, StringComparison.OrdinalIgnoreCase))
             {// returning to the different location, might need to pay a fee
-                if (isGoldMember)
-                {
+                if (getFees_goldStatus().Item3)
+                {// gold member, no fee needed
                     feeWaiverLabel.Text = "DIFFERENT BRANCH RETURN FEE OF " + getFees_goldStatus().Item1.ToString("C") +
                         " HAS BEEN  WAIVED FOR THIS GOLD CUSTOMER HEHEHE";
                     feeWaiverLabel.Visible = true;
                 }
                 else
-                {
+                {// not gold, paying a fee
+                    feeWaiverLabel.Visible = false;
                     changeBranchFee = getFees_goldStatus().Item1;
-                    MessageBox.Show("Returning to different location");
                 }
             }
             else
@@ -471,7 +472,7 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
              "\nBooking employee: " + bookingEmployee +
              "\nReturning employee: " + returnEmployee +
              "\nPickup branch/Expected dropoff branch: " + pickupBranch_expectedDropoffLocation +
-             "\nActual dropoff branch: " + actualDropoffBranch +
+             "\nActual dropoff branch: " + dropoffBranch +
              "\nClass requested: " + classRequested +
              "\nVehicle rented: " + vehicleRented + " (" + classGotten + ")", 
              
@@ -504,9 +505,9 @@ SELECT
 		FROM Employee WHERE emp_id = emp_id_booking) AS [emp_who_booked],
 	(SELECT ISNULL ((SELECT last_name + ' ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
 		FROM Employee WHERE emp_id = emp_id_return), 'N/A')) AS [emp_who_returned],
-	(SELECT branch_name + ' (' + CAST (branch_id AS VARCHAR) + ')' 
+	(SELECT branch_name 
 		FROM Branch WHERE branch_id = pickup_branch_id) AS [pickup_branch],
-	(SELECT ISNULL((SELECT branch_name + ' (' + CAST (branch_id AS VARCHAR) + ')' 
+	(SELECT ISNULL((SELECT branch_name 
 		FROM Branch WHERE branch_id = dropoff_branch_id), 'N/A')) AS [dropoff_branch],
 	(SELECT vehicle_class 
 		FROM Vehicle_Class WHERE vehicle_class_id = vehicle_class_requested) AS [class_requested], 
@@ -533,7 +534,7 @@ WHERE rental_id = " + rentalId + ";";
                 bookingEmployee = reader.GetString("emp_who_booked");
                 returnEmployee = reader.GetString("emp_who_returned");
                 pickupBranch_expectedDropoffLocation = reader.GetString("pickup_branch");
-                actualDropoffBranch = reader.GetString("dropoff_branch");
+                dropoffBranch = reader.GetString("dropoff_branch");
                 classRequested = reader.GetString("class_requested");
                 classGotten = reader.GetString("class_gotten");
                 vehicleRented = reader.GetString("vehicle_gotten");
