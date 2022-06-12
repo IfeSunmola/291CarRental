@@ -168,7 +168,6 @@
             this.vehicleDataGridView.Size = new System.Drawing.Size(844, 398);
             this.vehicleDataGridView.TabIndex = 10;
             this.vehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleDataGridView_CellMouseClick);
-            this.vehicleDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.vehicleDataGridView_DataBindingComplete);
             // 
             // Column1
             // 

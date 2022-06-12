@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rentalsDataView = new System.Windows.Forms.DataGridView();
+            this.customerRentalsDataGripView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.findByText = new System.Windows.Forms.Label();
@@ -60,10 +60,10 @@
             this.returnLabelText = new System.Windows.Forms.Label();
             this.findByCombobox = new System.Windows.Forms.ComboBox();
             this.findRentalsPanel = new System.Windows.Forms.Panel();
-            this.selectAVehicleLabel = new System.Windows.Forms.Label();
             this.viewFullDetails = new System.Windows.Forms.Button();
             this.onlyUnreturnedVehicles = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.rentalsDataView)).BeginInit();
+            this.selectAVehicleLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).BeginInit();
             this.panel1.SuspendLayout();
             this.finishReturnPanel.SuspendLayout();
             this.calculateAmountDuePanel.SuspendLayout();
@@ -71,24 +71,22 @@
             this.findRentalsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // rentalsDataView
+            // customerRentalsDataGripView
             // 
-            this.rentalsDataView.AllowUserToAddRows = false;
-            this.rentalsDataView.AllowUserToDeleteRows = false;
-            this.rentalsDataView.AllowUserToResizeColumns = false;
-            this.rentalsDataView.AllowUserToResizeRows = false;
-            this.rentalsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rentalsDataView.Location = new System.Drawing.Point(41, 19);
-            this.rentalsDataView.MultiSelect = false;
-            this.rentalsDataView.Name = "rentalsDataView";
-            this.rentalsDataView.ReadOnly = true;
-            this.rentalsDataView.RowHeadersWidth = 62;
-            this.rentalsDataView.RowTemplate.Height = 33;
-            this.rentalsDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rentalsDataView.Size = new System.Drawing.Size(939, 192);
-            this.rentalsDataView.TabIndex = 4;
-            this.rentalsDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.customerRentalsDataGripView_CellMouseClick);
-            this.rentalsDataView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.rentalsDataView_DataBindingComplete);
+            this.customerRentalsDataGripView.AllowUserToAddRows = false;
+            this.customerRentalsDataGripView.AllowUserToDeleteRows = false;
+            this.customerRentalsDataGripView.AllowUserToResizeColumns = false;
+            this.customerRentalsDataGripView.AllowUserToResizeRows = false;
+            this.customerRentalsDataGripView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.customerRentalsDataGripView.Location = new System.Drawing.Point(41, 19);
+            this.customerRentalsDataGripView.MultiSelect = false;
+            this.customerRentalsDataGripView.Name = "customerRentalsDataGripView";
+            this.customerRentalsDataGripView.ReadOnly = true;
+            this.customerRentalsDataGripView.RowHeadersWidth = 62;
+            this.customerRentalsDataGripView.RowTemplate.Height = 33;
+            this.customerRentalsDataGripView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.customerRentalsDataGripView.Size = new System.Drawing.Size(939, 192);
+            this.customerRentalsDataGripView.TabIndex = 4;
             // 
             // button1
             // 
@@ -407,7 +405,7 @@
             // findRentalsPanel
             // 
             this.findRentalsPanel.Controls.Add(this.selectAVehicleLabel);
-            this.findRentalsPanel.Controls.Add(this.rentalsDataView);
+            this.findRentalsPanel.Controls.Add(this.customerRentalsDataGripView);
             this.findRentalsPanel.Controls.Add(this.viewFullDetails);
             this.findRentalsPanel.Controls.Add(this.button1);
             this.findRentalsPanel.Location = new System.Drawing.Point(104, 193);
@@ -415,18 +413,6 @@
             this.findRentalsPanel.Size = new System.Drawing.Size(998, 328);
             this.findRentalsPanel.TabIndex = 28;
             this.findRentalsPanel.Visible = false;
-            // 
-            // selectAVehicleLabel
-            // 
-            this.selectAVehicleLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.selectAVehicleLabel.ForeColor = System.Drawing.Color.Red;
-            this.selectAVehicleLabel.Location = new System.Drawing.Point(-3, 218);
-            this.selectAVehicleLabel.Name = "selectAVehicleLabel";
-            this.selectAVehicleLabel.Size = new System.Drawing.Size(998, 25);
-            this.selectAVehicleLabel.TabIndex = 44;
-            this.selectAVehicleLabel.Text = "SELECT A VEHICLE";
-            this.selectAVehicleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.selectAVehicleLabel.Visible = false;
             // 
             // viewFullDetails
             // 
@@ -450,6 +436,18 @@
             this.onlyUnreturnedVehicles.UseVisualStyleBackColor = true;
             this.onlyUnreturnedVehicles.CheckedChanged += new System.EventHandler(this.onlyUnreturnedVehicles_CheckedChanged);
             // 
+            // selectAVehicleLabel
+            // 
+            this.selectAVehicleLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.selectAVehicleLabel.ForeColor = System.Drawing.Color.Red;
+            this.selectAVehicleLabel.Location = new System.Drawing.Point(-3, 218);
+            this.selectAVehicleLabel.Name = "selectAVehicleLabel";
+            this.selectAVehicleLabel.Size = new System.Drawing.Size(998, 25);
+            this.selectAVehicleLabel.TabIndex = 44;
+            this.selectAVehicleLabel.Text = "SELECT A VEHICLE";
+            this.selectAVehicleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.selectAVehicleLabel.Visible = false;
+            // 
             // ReturnAVehiclePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -460,7 +458,7 @@
             this.MaximizeBox = false;
             this.Name = "ReturnAVehiclePage";
             this.Text = "RETURNING A VEHICLE";
-            ((System.ComponentModel.ISupportInitialize)(this.rentalsDataView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.finishReturnPanel.ResumeLayout(false);
@@ -475,7 +473,7 @@
 
         #endregion
 
-        private DataGridView rentalsDataView;
+        private DataGridView customerRentalsDataGripView;
         private Button button1;
         private Label label1;
         private Label findByText;

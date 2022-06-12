@@ -46,13 +46,13 @@ namespace _291CarRental
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             customerDetailsPanel.Visible = false;
-
+            
         }
 
         private DataTable getAvailableVehicleList(int vehicleClassId)
         {
             int branchId = (int)branchComboBox.SelectedIndex;
-            //  int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 1;
+          //  int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 1;
 
             String from = fromDatePicker.Value.Date.ToString("d");
             String to = toDatePicker.Value.Date.ToString("d");
@@ -113,6 +113,10 @@ AND vehicle_id IN
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             showVehicleDataGripViewPanel.Visible = true;
+            if (vehicleDataGridView.CurrentCell != null)
+            {
+                vehicleDataGridView.CurrentCell.Selected = false;
+            }
             String fromToDate = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + fromToDate;
         }
@@ -136,9 +140,9 @@ AND vehicle_id IN
                 {
                     MessageBox.Show(noVehiclesMessage);
                 }
-
+                
             }
-            else if (findByCombobox.SelectedIndex > 0 && validateSearchDetails() && validateCustomerInfo())
+            else if (findByCombobox.SelectedIndex > 0 &&  validateSearchDetails() && validateCustomerInfo())
             {// id/phone number was selected, filters and customer details are good. Customer is renting
                 errorMessageLabel.Visible = false;
                 getCustomerDetails();
@@ -147,14 +151,14 @@ AND vehicle_id IN
                 fillVehicleDataView((int)vehicleClassCombobox.SelectedIndex + 1);
                 if (vehicleDataGridView.Rows.Count > 0)
                 {// there are vehicles available
-                    enlarge(1043);
+                    enlarge(1043); 
                 }
                 else
                 {
                     if (String.Equals("YES", goldMemberLabel.Text))
                     {// a gold member
                         DialogResult confirmVehicleUpgrade = MessageBox.Show(
-                            noVehiclesMessage + ".\n" +
+                            noVehiclesMessage + ".\n" + 
                             "WOULD THE GOLD MEMBER LIKE A FREE UPGRADE TO THE NEXT AVAILABLE CLASS?",
                             "CONFIRM UPGRADE",
                             MessageBoxButtons.YesNo);
@@ -189,7 +193,7 @@ AND vehicle_id IN
                         MessageBox.Show(noVehiclesMessage);
                     }
                 }
-
+                
             }
         }
 
@@ -398,7 +402,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             String? tempBranchName = vehicleDataGridView.CurrentRow.Cells["Location"].Value.ToString().ToUpper();
             String branchId = branchComboBox.Items.IndexOf(tempBranchName).ToString();
             String classRequested = (vehicleClassCombobox.SelectedIndex + 1).ToString();
-
+            
             String query = "INSERT INTO Rental" +
                 "\n(start_date_of_booking, expected_dropoff_date, initial_amount_paid, emp_id_booking, " +
                 "pickup_branch_id, vehicle_id, vehicle_class_requested, customer_id)" +
@@ -518,9 +522,9 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             //int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
             //int vehicleClassClicked = (vehicleClassCombobox.Items.IndexOf(tempVehicleClass) + 1);
             String tempVehicleClass = vehicleDataGridView.CurrentRow.Cells["Class"].Value.ToString().ToUpper();
-            int vehicleClassRequested = (vehicleClassCombobox.SelectedIndex + 1);
+            int vehicleClassRequested= (vehicleClassCombobox.SelectedIndex + 1);
 
-
+            
             int daysBetween = ((toDatePicker.Value.Day - fromDatePicker.Value.Day));
             Decimal dailyRate = getRates(vehicleClassRequested).Item1;
             Decimal weeklyRate = getRates(vehicleClassRequested).Item2;
@@ -543,10 +547,9 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 Decimal weekly = (daysBetween % 14) * weeklyRate;
                 estimatedCostLabel.Text = (monthly + weekly).ToString("C");
             }
-
+            
             amountOfDaysLabel.Text = daysBetween + " DAY";
-            if (daysBetween > 1)
-            {
+            if (daysBetween > 1) {
                 amountOfDaysLabel.Text += "S";
             }
         }
@@ -614,7 +617,7 @@ WHERE vehicle_class_id = " + currentVehicleId;
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
-
+        
         // resize to filters screen when the employee changes either booking start date, end date
         // class requested, branch name, find by combo box and id/phone number textbox
         private void filtersValueChanged(object sender, EventArgs e)
@@ -653,10 +656,5 @@ WHERE vehicle_class_id = " + currentVehicleId;
             }
         }
 
-        private void vehicleDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            // disable selecting the first vehicle
-            vehicleDataGridView.ClearSelection();
-        }
     }
 }
