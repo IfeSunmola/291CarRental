@@ -656,5 +656,9 @@ WHERE vehicle_class_id = " + currentVehicleId;
             }
         }
 
+        private void vehicleDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            vehicleDataGridView.ClearSelection();
+        }
     }
 }
