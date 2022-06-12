@@ -68,8 +68,11 @@ namespace _291CarRental
         internal SqlConnection connection;
         internal SqlCommand command;
         internal SqlDataReader? reader;
-        internal const string connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
-
+        // internal const string connectionString = "Server = INCOMINGVIRUSPC\\SQLEXPRESS; Database = CarRental; Trusted_Connection = yes;";
+        internal const string connectionString = "Data Source = car-rentaldb-server.database.windows.net;" +
+  "Initial Catalog = CloudCarRental;" +
+  "User id = IfeSunmola;" +
+  "Password = D8gDGJ3grz9H4PK;";
         internal DbConnection()
         {
             connection = new SqlConnection(connectionString);
