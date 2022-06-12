@@ -171,7 +171,7 @@ AND vehicle_id IN
                             }
                             else
                             {
-                                for (int i = nextVehicleClassId; i < vehicleClassCombobox.Items.Count; i++)
+                                for (int i = nextVehicleClassId; i <= vehicleClassCombobox.Items.Count; i++)
                                 {
                                     fillVehicleDataView(i);
                                     if (vehicleDataGridView.Rows.Count > 0)
@@ -185,7 +185,6 @@ AND vehicle_id IN
                                     String errorMessage = "WE CURRENTLY DON'T HAVE ANY AVAILABLE VEHICLES IN THIS BRANCH. CHECK BACK LATER";
                                     MessageBox.Show(errorMessage);
                                 }
-                                
                             }
                         }
                     }
@@ -521,9 +520,8 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 return;
             }
             //int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
-
-            String tempVehicleClass = vehicleDataGridView.CurrentRow.Cells["Class"].Value.ToString().ToUpper();
             //int vehicleClassClicked = (vehicleClassCombobox.Items.IndexOf(tempVehicleClass) + 1);
+            String tempVehicleClass = vehicleDataGridView.CurrentRow.Cells["Class"].Value.ToString().ToUpper();
             int vehicleClassRequested= (vehicleClassCombobox.SelectedIndex + 1);
 
             
