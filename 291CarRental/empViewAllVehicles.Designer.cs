@@ -44,6 +44,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.rentVehicleButton = new System.Windows.Forms.Button();
             this.showVehicleDataGripViewPanel = new System.Windows.Forms.Panel();
+            this.selectAVehicleLabel = new System.Windows.Forms.Label();
+            this.amountOfDaysLabel = new System.Windows.Forms.Label();
             this.estimatedCostLabel = new System.Windows.Forms.Label();
             this.showingVehiclesLabel = new System.Windows.Forms.Label();
             this.addressLabel = new System.Windows.Forms.Label();
@@ -230,6 +232,8 @@
             // 
             // showVehicleDataGripViewPanel
             // 
+            this.showVehicleDataGripViewPanel.Controls.Add(this.selectAVehicleLabel);
+            this.showVehicleDataGripViewPanel.Controls.Add(this.amountOfDaysLabel);
             this.showVehicleDataGripViewPanel.Controls.Add(this.estimatedCostLabel);
             this.showVehicleDataGripViewPanel.Controls.Add(this.showingVehiclesLabel);
             this.showVehicleDataGripViewPanel.Controls.Add(this.vehicleDataGridView);
@@ -240,6 +244,28 @@
             this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(859, 557);
             this.showVehicleDataGripViewPanel.TabIndex = 17;
             this.showVehicleDataGripViewPanel.Visible = false;
+            // 
+            // selectAVehicleLabel
+            // 
+            this.selectAVehicleLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.selectAVehicleLabel.ForeColor = System.Drawing.Color.Red;
+            this.selectAVehicleLabel.Location = new System.Drawing.Point(318, 449);
+            this.selectAVehicleLabel.Name = "selectAVehicleLabel";
+            this.selectAVehicleLabel.Size = new System.Drawing.Size(199, 25);
+            this.selectAVehicleLabel.TabIndex = 49;
+            this.selectAVehicleLabel.Text = "SELECT A VEHICLE";
+            this.selectAVehicleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.selectAVehicleLabel.Visible = false;
+            // 
+            // amountOfDaysLabel
+            // 
+            this.amountOfDaysLabel.AutoSize = true;
+            this.amountOfDaysLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.amountOfDaysLabel.Location = new System.Drawing.Point(179, 463);
+            this.amountOfDaysLabel.Name = "amountOfDaysLabel";
+            this.amountOfDaysLabel.Size = new System.Drawing.Size(111, 25);
+            this.amountOfDaysLabel.TabIndex = 18;
+            this.amountOfDaysLabel.Text = "HEHE DAYS";
             // 
             // estimatedCostLabel
             // 
@@ -320,7 +346,7 @@
             // 
             this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorMessageLabel.Location = new System.Drawing.Point(19, 269);
+            this.errorMessageLabel.Location = new System.Drawing.Point(19, 261);
             this.errorMessageLabel.Name = "errorMessageLabel";
             this.errorMessageLabel.Size = new System.Drawing.Size(858, 25);
             this.errorMessageLabel.TabIndex = 48;
@@ -419,9 +445,9 @@
             this.customerDetailsPanel.Controls.Add(this.customerNameLabel);
             this.customerDetailsPanel.Controls.Add(this.label8);
             this.customerDetailsPanel.Controls.Add(this.label9);
-            this.customerDetailsPanel.Location = new System.Drawing.Point(20, 297);
+            this.customerDetailsPanel.Location = new System.Drawing.Point(15, 287);
             this.customerDetailsPanel.Name = "customerDetailsPanel";
-            this.customerDetailsPanel.Size = new System.Drawing.Size(300, 99);
+            this.customerDetailsPanel.Size = new System.Drawing.Size(300, 75);
             this.customerDetailsPanel.TabIndex = 21;
             // 
             // expiryDate
@@ -429,7 +455,7 @@
             this.expiryDate.AutoSize = true;
             this.expiryDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.expiryDate.ForeColor = System.Drawing.Color.Green;
-            this.expiryDate.Location = new System.Drawing.Point(81, 74);
+            this.expiryDate.Location = new System.Drawing.Point(81, 50);
             this.expiryDate.Name = "expiryDate";
             this.expiryDate.Size = new System.Drawing.Size(106, 25);
             this.expiryDate.TabIndex = 25;
@@ -441,7 +467,7 @@
             this.expiresLabel.AutoSize = true;
             this.expiresLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.expiresLabel.ForeColor = System.Drawing.Color.Green;
-            this.expiresLabel.Location = new System.Drawing.Point(0, 74);
+            this.expiresLabel.Location = new System.Drawing.Point(0, 50);
             this.expiresLabel.Name = "expiresLabel";
             this.expiresLabel.Size = new System.Drawing.Size(88, 25);
             this.expiresLabel.TabIndex = 24;
@@ -451,7 +477,7 @@
             // goldMemberLabel
             // 
             this.goldMemberLabel.AutoSize = true;
-            this.goldMemberLabel.Location = new System.Drawing.Point(135, 40);
+            this.goldMemberLabel.Location = new System.Drawing.Point(135, 25);
             this.goldMemberLabel.Name = "goldMemberLabel";
             this.goldMemberLabel.Size = new System.Drawing.Size(41, 25);
             this.goldMemberLabel.TabIndex = 23;
@@ -478,7 +504,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(0, 40);
+            this.label9.Location = new System.Drawing.Point(0, 25);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(139, 25);
             this.label9.TabIndex = 20;
@@ -562,5 +588,7 @@
         private Panel addressPanel;
         private Panel customerInfoPanel;
         private Label errorMessageLabel;
+        private Label amountOfDaysLabel;
+        private Label selectAVehicleLabel;
     }
 }

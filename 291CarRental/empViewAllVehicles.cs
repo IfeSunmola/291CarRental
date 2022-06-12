@@ -49,10 +49,10 @@ namespace _291CarRental
             
         }
 
-        private DataTable getAvailableVehicleList()
+        private DataTable getAvailableVehicleList(int vehicleClassId)
         {
             int branchId = (int)branchComboBox.SelectedIndex;
-            int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 1;
+          //  int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 1;
 
             String from = fromDatePicker.Value.Date.ToString("d");
             String to = toDatePicker.Value.Date.ToString("d");
@@ -103,9 +103,9 @@ AND vehicle_id IN
             previousPage.Visible = true;
         }
 
-        private void fillVehicleDataView()
+        private void fillVehicleDataView(int vehicleClassId)
         {
-            vehicleDataGridView.DataSource = getAvailableVehicleList();
+            vehicleDataGridView.DataSource = getAvailableVehicleList(vehicleClassId);
             vehicleDataGridView.Columns["vehicle_id"].Visible = false;
 
             foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
@@ -123,13 +123,24 @@ AND vehicle_id IN
 
         private void findAvailableVehiclesButton_Click(object sender, EventArgs e)
         {
+            String noVehiclesMessage = "THERE ARE NO " + vehicleClassCombobox.SelectedItem + " VEHICLES AVAILABLE ";
+            noVehiclesMessage += "IN " + branchComboBox.SelectedItem;
+
             if (findByCombobox.SelectedIndex == 0 && validateSearchDetails())
             {// not applicable was selected and the search filters are good. Employee is only viewing
                 //customerDetailsPanel.Visible = false;
                 errorMessageLabel.Visible = false;
-                fillVehicleDataView();
-                rentVehicleButton.Visible = false;
-                enlarge(990); // not showing rent this vehicle button
+                fillVehicleDataView((int)vehicleClassCombobox.SelectedIndex + 1);
+                if (vehicleDataGridView.Rows.Count > 0)
+                {// there are vehicles available
+                    rentVehicleButton.Visible = false;
+                    enlarge(990); // not showing rent this vehicle button
+                }
+                else
+                {
+                    MessageBox.Show(noVehiclesMessage);
+                }
+                
             }
             else if (findByCombobox.SelectedIndex > 0 &&  validateSearchDetails() && validateCustomerInfo())
             {// id/phone number was selected, filters and customer details are good. Customer is renting
@@ -137,8 +148,53 @@ AND vehicle_id IN
                 getCustomerDetails();
                 customerDetailsPanel.Visible = true;
                 rentVehicleButton.Visible = true;
-                fillVehicleDataView();
-                enlarge(1043);
+                fillVehicleDataView((int)vehicleClassCombobox.SelectedIndex + 1);
+                if (vehicleDataGridView.Rows.Count > 0)
+                {// there are vehicles available
+                    enlarge(1043); 
+                }
+                else
+                {
+                    if (String.Equals("YES", goldMemberLabel.Text))
+                    {// a gold member
+                        DialogResult confirmVehicleUpgrade = MessageBox.Show(
+                            noVehiclesMessage + ".\n" + 
+                            "WOULD THE GOLD MEMBER LIKE A FREE UPGRADE TO THE NEXT AVAILABLE CLASS?",
+                            "CONFIRM UPGRADE",
+                            MessageBoxButtons.YesNo);
+                        if (confirmVehicleUpgrade == DialogResult.Yes)
+                        {
+                            int nextVehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 2;
+                            if (nextVehicleClassId > vehicleClassCombobox.Items.Count)
+                            {// customer requested the highest vehicle class, there's no next
+                                MessageBox.Show(vehicleClassCombobox.SelectedItem + " CLASS IS THE HIGHEST CLASS WE CURRENTLY HAVE.");
+                            }
+                            else
+                            {
+                                for (int i = nextVehicleClassId; i < vehicleClassCombobox.Items.Count; i++)
+                                {
+                                    fillVehicleDataView(i);
+                                    if (vehicleDataGridView.Rows.Count > 0)
+                                    {
+                                        enlarge(1043);
+                                        break;
+                                    }
+                                }
+                                if (vehicleDataGridView.Rows.Count <= 0)
+                                {
+                                    String errorMessage = "WE CURRENTLY DON'T HAVE ANY AVAILABLE VEHICLES IN THIS BRANCH. CHECK BACK LATER";
+                                    MessageBox.Show(errorMessage);
+                                }
+                                
+                            }
+                        }
+                    }
+                    else
+                    {// not gold member
+                        MessageBox.Show(noVehiclesMessage);
+                    }
+                }
+                
             }
         }
 
@@ -298,6 +354,12 @@ AND vehicle_id IN
 
         private void rentThisVehicleButton_Click(object sender, EventArgs e)
         {
+            //if (vehicleDataGridView.CurrentCell == null)
+            if (vehicleDataGridView.SelectedRows.Count == 0)
+            {// no vehicle has been selected
+                selectAVehicleLabel.Visible = true;
+                return;
+            }
             Int16 year = (Int16)vehicleDataGridView.CurrentRow.Cells["year"].Value;
             String brand = (String)vehicleDataGridView.CurrentRow.Cells["brand"].Value;
             String model = (String)vehicleDataGridView.CurrentRow.Cells["model"].Value;
@@ -338,8 +400,12 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             String from = fromDatePicker.Value.Date.ToString("d");
             String to = toDatePicker.Value.Date.ToString("d");
             String? vehicleId = vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value.ToString();
-            String branchId = branchComboBox.SelectedIndex.ToString();
-            String classRequested = vehicleClassCombobox.SelectedIndex.ToString();
+            String? tempBranchName = vehicleDataGridView.CurrentRow.Cells["Location"].Value.ToString().ToUpper();
+
+            String branchId = branchComboBox.Items.IndexOf(tempBranchName).ToString();
+            
+            String classRequested = (vehicleClassCombobox.SelectedIndex + 1).ToString();
+            
             String query = "INSERT INTO Rental" +
                 "\n(start_date_of_booking, expected_dropoff_date, initial_amount_paid, emp_id_booking, " +
                 "pickup_branch_id, vehicle_id, vehicle_class_requested, customer_id)" +
@@ -348,7 +414,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 empId + ", " + branchId + ", " + vehicleId + ", " + classRequested +
                 ", " + customerInfoTextbox.Text + ");";
 
-            //MessageBox.Show(query);
+            MessageBox.Show(query);
 
 
 
@@ -413,9 +479,9 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
 
         }
 
-        private String getBranchAddress()
+        private String getBranchAddress(int branchId)
         {
-            int branchId = (int)branchComboBox.SelectedIndex;// not adding +1 because of "ALL BRANCHES"
+            //int branchId = (int)branchComboBox.SelectedIndex;// not adding +1 because of "ALL BRANCHES"
             if (branchId == 0)
             {// all branches selected, no address
                 addressPanel.Visible = false;
@@ -443,17 +509,19 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             if (branchComboBox.SelectedIndex == 0)
             {// all branches selected
                 addressPanel.Visible = false;
+                filtersValueChanged(sender, e);
                 return;
             }
-            addressLabel.Text = getBranchAddress().ToUpper();
+            addressLabel.Text = getBranchAddress((int)branchComboBox.SelectedIndex).ToUpper();
             addressPanel.Visible = true;
             filtersValueChanged(sender, e);
         }
 
         private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            selectAVehicleLabel.Visible = false;
             if (vehicleDataGridView.CurrentCell == null)
-            {// exceptoin without this
+            {// exception without this
                 return;
             }
             int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
@@ -480,9 +548,10 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 Decimal weekly = (daysBetween % 14) * weeklyRate;
                 estimatedCostLabel.Text = (monthly + weekly).ToString("C");
             }
-            estimatedCostLabel.Text += " (" + daysBetween + ") DAY";
+            
+            amountOfDaysLabel.Text = daysBetween + " DAY";
             if (daysBetween > 1) {
-                estimatedCostLabel.Text += "S";
+                amountOfDaysLabel.Text += "S";
             }
         }
 
@@ -573,6 +642,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 Application.DoEvents();
             }
             estimatedCostLabel.Text = "";
+            amountOfDaysLabel.Text = "";
         }
 
         private void vehicleClassCombobox_DropDownClosed(object sender, EventArgs e)
