@@ -520,12 +520,17 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             {// exception without this
                 return;
             }
-            int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
+            //int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
+
+            String tempVehicleClass = vehicleDataGridView.CurrentRow.Cells["Class"].Value.ToString().ToUpper();
+            //int vehicleClassClicked = (vehicleClassCombobox.Items.IndexOf(tempVehicleClass) + 1);
+            int vehicleClassRequested= (vehicleClassCombobox.SelectedIndex + 1);
+
             
             int daysBetween = ((toDatePicker.Value.Day - fromDatePicker.Value.Day));
-            Decimal dailyRate = getRates(currentVehicleId).Item1;
-            Decimal weeklyRate = getRates(currentVehicleId).Item2;
-            Decimal monthlyRate = getRates(currentVehicleId).Item3;
+            Decimal dailyRate = getRates(vehicleClassRequested).Item1;
+            Decimal weeklyRate = getRates(vehicleClassRequested).Item2;
+            Decimal monthlyRate = getRates(vehicleClassRequested).Item3;
 
             estimatedCostLabel.Text = "$0.00";
             if (daysBetween <= 7)
@@ -534,7 +539,6 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             }
             else if (daysBetween > 7 && daysBetween < 30)
             {
-
                 Decimal weekly = (daysBetween / 7) * weeklyRate;
                 Decimal daily = (daysBetween % 7) * dailyRate;
                 estimatedCostLabel.Text = (weekly + daily).ToString("C");
@@ -553,11 +557,15 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
         }
 
         private Tuple<Decimal, Decimal, Decimal> getRates(int currentVehicleId)
-        {
+        {// change currentVehicleId to vehicleClassRequested
             String query = "SELECT daily_rate, weekly_rate, monthly_rate" +
                   "\nFROM Vehicle_Class, Vehicle " +
                   "\nWHERE vehicle.vehicle_id = " + currentVehicleId +
                   "\nAND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id;";
+
+            query = @"SELECT daily_rate, weekly_rate, monthly_rate
+FROM Vehicle_Class
+WHERE vehicle_class_id = " + currentVehicleId;
 
             Decimal dailyRate = 0.0m, weeklyRate = 0.0m, monthlyRate = 0.0m;
             SqlDataReader reader = connection.executeReader(query);
