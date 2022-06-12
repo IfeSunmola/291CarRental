@@ -401,9 +401,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             String to = toDatePicker.Value.Date.ToString("d");
             String? vehicleId = vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value.ToString();
             String? tempBranchName = vehicleDataGridView.CurrentRow.Cells["Location"].Value.ToString().ToUpper();
-
             String branchId = branchComboBox.Items.IndexOf(tempBranchName).ToString();
-            
             String classRequested = (vehicleClassCombobox.SelectedIndex + 1).ToString();
             
             String query = "INSERT INTO Rental" +
@@ -413,8 +411,6 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " +
                 empId + ", " + branchId + ", " + vehicleId + ", " + classRequested +
                 ", " + customerInfoTextbox.Text + ");";
-
-            MessageBox.Show(query);
 
 
 
@@ -525,6 +521,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                 return;
             }
             int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
+            
             int daysBetween = ((toDatePicker.Value.Day - fromDatePicker.Value.Day));
             Decimal dailyRate = getRates(currentVehicleId).Item1;
             Decimal weeklyRate = getRates(currentVehicleId).Item2;
