@@ -31,12 +31,13 @@
             this.customerRentalsDataGripView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButtonLabel = new System.Windows.Forms.Label();
-            this.custIdOrPhoneOrPlateNumber = new System.Windows.Forms.TextBox();
+            this.findByText = new System.Windows.Forms.Label();
+            this.searchInfoTextbox = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errorMessageLabel = new System.Windows.Forms.Label();
             this.finishReturnPanel = new System.Windows.Forms.Panel();
             this.feeWaiverLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,6 +62,7 @@
             this.findRentalsPanel = new System.Windows.Forms.Panel();
             this.viewFullDetails = new System.Windows.Forms.Button();
             this.onlyUnreturnedVehicles = new System.Windows.Forms.CheckBox();
+            this.selectAVehicleLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.customerRentalsDataGripView)).BeginInit();
             this.panel1.SuspendLayout();
             this.finishReturnPanel.SuspendLayout();
@@ -105,27 +107,27 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "FIND BY";
             // 
-            // radioButtonLabel
+            // findByText
             // 
-            this.radioButtonLabel.AutoSize = true;
-            this.radioButtonLabel.Location = new System.Drawing.Point(608, 13);
-            this.radioButtonLabel.Name = "radioButtonLabel";
-            this.radioButtonLabel.Size = new System.Drawing.Size(147, 25);
-            this.radioButtonLabel.TabIndex = 13;
-            this.radioButtonLabel.Text = "PHONE NUMBER";
+            this.findByText.AutoSize = true;
+            this.findByText.Location = new System.Drawing.Point(608, 13);
+            this.findByText.Name = "findByText";
+            this.findByText.Size = new System.Drawing.Size(147, 25);
+            this.findByText.TabIndex = 13;
+            this.findByText.Text = "PHONE NUMBER";
             // 
-            // custIdOrPhoneOrPlateNumber
+            // searchInfoTextbox
             // 
-            this.custIdOrPhoneOrPlateNumber.Location = new System.Drawing.Point(761, 13);
-            this.custIdOrPhoneOrPlateNumber.Name = "custIdOrPhoneOrPlateNumber";
-            this.custIdOrPhoneOrPlateNumber.Size = new System.Drawing.Size(150, 31);
-            this.custIdOrPhoneOrPlateNumber.TabIndex = 14;
-            this.custIdOrPhoneOrPlateNumber.TextChanged += new System.EventHandler(this.custIdOrPhoneOrPlateNumber_TextChanged);
+            this.searchInfoTextbox.Location = new System.Drawing.Point(761, 13);
+            this.searchInfoTextbox.Name = "searchInfoTextbox";
+            this.searchInfoTextbox.Size = new System.Drawing.Size(150, 31);
+            this.searchInfoTextbox.TabIndex = 14;
+            this.searchInfoTextbox.TextChanged += new System.EventHandler(this.custIdOrPhoneOrPlateNumber_TextChanged);
             // 
             // button3
             // 
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Location = new System.Drawing.Point(487, 112);
+            this.button3.Location = new System.Drawing.Point(487, 125);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(216, 62);
             this.button3.TabIndex = 16;
@@ -158,6 +160,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.errorMessageLabel);
             this.panel1.Controls.Add(this.finishReturnPanel);
             this.panel1.Controls.Add(this.calculateAmountDuePanel);
             this.panel1.Controls.Add(this.findByCombobox);
@@ -166,13 +169,25 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.custIdOrPhoneOrPlateNumber);
+            this.panel1.Controls.Add(this.searchInfoTextbox);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.radioButtonLabel);
+            this.panel1.Controls.Add(this.findByText);
             this.panel1.Location = new System.Drawing.Point(29, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1204, 1090);
+            this.panel1.Size = new System.Drawing.Size(1204, 1158);
             this.panel1.TabIndex = 26;
+            // 
+            // errorMessageLabel
+            // 
+            this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorMessageLabel.Location = new System.Drawing.Point(104, 99);
+            this.errorMessageLabel.Name = "errorMessageLabel";
+            this.errorMessageLabel.Size = new System.Drawing.Size(998, 25);
+            this.errorMessageLabel.TabIndex = 43;
+            this.errorMessageLabel.Text = "ERROR MESSAGE HEHE HEHE HEHE";
+            this.errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.errorMessageLabel.Visible = false;
             // 
             // finishReturnPanel
             // 
@@ -186,7 +201,7 @@
             this.finishReturnPanel.Controls.Add(this.lateFeeLabel);
             this.finishReturnPanel.Controls.Add(this.differentBranchFeeLabel);
             this.finishReturnPanel.Controls.Add(this.label9);
-            this.finishReturnPanel.Location = new System.Drawing.Point(104, 785);
+            this.finishReturnPanel.Location = new System.Drawing.Point(104, 823);
             this.finishReturnPanel.Name = "finishReturnPanel";
             this.finishReturnPanel.Size = new System.Drawing.Size(998, 300);
             this.finishReturnPanel.TabIndex = 38;
@@ -296,7 +311,7 @@
             this.calculateAmountDuePanel.Controls.Add(this.branchCombobox);
             this.calculateAmountDuePanel.Controls.Add(this.returnDateTimePicker);
             this.calculateAmountDuePanel.Controls.Add(this.returnLabelText);
-            this.calculateAmountDuePanel.Location = new System.Drawing.Point(104, 514);
+            this.calculateAmountDuePanel.Location = new System.Drawing.Point(104, 552);
             this.calculateAmountDuePanel.Name = "calculateAmountDuePanel";
             this.calculateAmountDuePanel.Size = new System.Drawing.Size(998, 245);
             this.calculateAmountDuePanel.TabIndex = 42;
@@ -389,10 +404,11 @@
             // 
             // findRentalsPanel
             // 
+            this.findRentalsPanel.Controls.Add(this.selectAVehicleLabel);
             this.findRentalsPanel.Controls.Add(this.customerRentalsDataGripView);
             this.findRentalsPanel.Controls.Add(this.viewFullDetails);
             this.findRentalsPanel.Controls.Add(this.button1);
-            this.findRentalsPanel.Location = new System.Drawing.Point(104, 180);
+            this.findRentalsPanel.Location = new System.Drawing.Point(104, 193);
             this.findRentalsPanel.Name = "findRentalsPanel";
             this.findRentalsPanel.Size = new System.Drawing.Size(998, 328);
             this.findRentalsPanel.TabIndex = 28;
@@ -407,11 +423,12 @@
             this.viewFullDetails.TabIndex = 27;
             this.viewFullDetails.Text = "VIEW FULL DETAILS";
             this.viewFullDetails.UseVisualStyleBackColor = true;
+            this.viewFullDetails.Click += new System.EventHandler(this.viewFullDetails_Click);
             // 
             // onlyUnreturnedVehicles
             // 
             this.onlyUnreturnedVehicles.AutoSize = true;
-            this.onlyUnreturnedVehicles.Location = new System.Drawing.Point(459, 67);
+            this.onlyUnreturnedVehicles.Location = new System.Drawing.Point(448, 67);
             this.onlyUnreturnedVehicles.Name = "onlyUnreturnedVehicles";
             this.onlyUnreturnedVehicles.Size = new System.Drawing.Size(339, 29);
             this.onlyUnreturnedVehicles.TabIndex = 26;
@@ -419,11 +436,23 @@
             this.onlyUnreturnedVehicles.UseVisualStyleBackColor = true;
             this.onlyUnreturnedVehicles.CheckedChanged += new System.EventHandler(this.onlyUnreturnedVehicles_CheckedChanged);
             // 
+            // selectAVehicleLabel
+            // 
+            this.selectAVehicleLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.selectAVehicleLabel.ForeColor = System.Drawing.Color.Red;
+            this.selectAVehicleLabel.Location = new System.Drawing.Point(-3, 218);
+            this.selectAVehicleLabel.Name = "selectAVehicleLabel";
+            this.selectAVehicleLabel.Size = new System.Drawing.Size(998, 25);
+            this.selectAVehicleLabel.TabIndex = 44;
+            this.selectAVehicleLabel.Text = "SELECT A VEHICLE";
+            this.selectAVehicleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.selectAVehicleLabel.Visible = false;
+            // 
             // ReturnAVehiclePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1266, 1111);
+            this.ClientSize = new System.Drawing.Size(1266, 1201);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -447,8 +476,8 @@
         private DataGridView customerRentalsDataGripView;
         private Button button1;
         private Label label1;
-        private Label radioButtonLabel;
-        private TextBox custIdOrPhoneOrPlateNumber;
+        private Label findByText;
+        private TextBox searchInfoTextbox;
         private Button button3;
         private Button button2;
         private Button button4;
@@ -477,5 +506,7 @@
         private DateTimePicker returnDateTimePicker;
         private ComboBox findByCombobox;
         private Panel calculateAmountDuePanel;
+        private Label errorMessageLabel;
+        private Label selectAVehicleLabel;
     }
 }

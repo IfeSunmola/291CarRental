@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -57,14 +58,14 @@ namespace _291CarRental
 	(SELECT CAST ([year] AS VARCHAR) + ', ' + brand + ' ' + model FROM Vehicle WHERE Rental.vehicle_id = Vehicle.vehicle_id) [Vehicle Rented]
 FROM Rental";
 
-            String custInput = custIdOrPhoneOrPlateNumber.Text;
+            String custInput = searchInfoTextbox.Text;
             if (findByCombobox.SelectedIndex == 0)
             {
                 query += "\nWHERE customer_id = " + custInput;
             }
             else if (findByCombobox.SelectedIndex == 1)
             {
-                query += "\nWHERE Rental.customer_id IN (SELECT customer_id FROM Customer WHERE area_code + '' + phone_number = " + addQuotes(custInput) + @")";
+                query += "\nWHERE Rental.customer_id IN (SELECT customer_id FROM Customer WHERE CAST (area_code + phone_number AS VARCHAR) = " + addQuotes(custInput) + @")";
             }
             else if (findByCombobox.SelectedIndex == 2)
             {
@@ -84,6 +85,95 @@ FROM Rental";
             return customerRentals;
         }
 
+        private bool validateSearchTextbox()
+        {
+            bool result = false;
+            if (string.IsNullOrEmpty(searchInfoTextbox.Text))
+            {
+                errorMessageLabel.Text = findByText.Text + " IS REQUIRED";
+                errorMessageLabel.Visible = true;
+                return result;
+            }
+
+            if (findByCombobox.SelectedIndex == 0)
+            {// customer id validations
+                if (searchInfoTextbox.Text.Any(char.IsLetter))
+                {
+                    errorMessageLabel.Text = "CUSTOMER ID CAN'T HAVE LETTERS";
+                }
+                else if (!idOrPhoneNumOrPlateNumInDb("ID", searchInfoTextbox.Text))
+                {
+                    errorMessageLabel.Text = "CUSTOMER ID NOT FOUND";
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            else if (findByCombobox.SelectedIndex == 1)
+            {// phone number validations
+                if (searchInfoTextbox.Text.Length != 10)
+                {
+                    errorMessageLabel.Text = "PHONE NUMBER MUST BE 10 DIGITS";
+                }
+                else if (searchInfoTextbox.Text.Any(char.IsLetter))
+                {
+                    errorMessageLabel.Text = "PHONE NUMBERS CAN'T HAVE LETTERS";
+                }
+                else if (!idOrPhoneNumOrPlateNumInDb("NUMBER", searchInfoTextbox.Text))
+                {
+                    errorMessageLabel.Text = "PHONE NUMBER NOT FOUND";
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            else if (findByCombobox.SelectedIndex == 2)
+            {// plate number validations
+                if (searchInfoTextbox.Text.Length != 8)
+                {
+                    errorMessageLabel.Text = "PLATE NUMBER MUST BE 8 CHARACTERS";
+                }
+                else if (!Regex.IsMatch(searchInfoTextbox.Text, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$")){
+                    errorMessageLabel.Text = "PLATE NUMBER MUST BE IN THE FORM A1B-C2D3";
+                }
+                else if (!idOrPhoneNumOrPlateNumInDb("PLATE", searchInfoTextbox.Text))
+                {
+                    errorMessageLabel.Text = "PLATE NUMBER NOT FOUND";
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+
+
+            if (!result)
+            {
+                errorMessageLabel.Visible = true;
+            }
+            return result;
+        }
+
+        private bool idOrPhoneNumOrPlateNumInDb(String flag, String idOrPhoneNumOrPlateNum)
+        {
+            String query = "SELECT customer_id FROM Customer WHERE ";
+            if (String.Equals(flag, "ID"))
+            {// find id
+                query += "customer_id  = " + idOrPhoneNumOrPlateNum;
+            }
+            else if (String.Equals(flag, "NUMBER"))
+            {// find phone number
+                query += "CAST (area_code + phone_number AS VARCHAR) = " + idOrPhoneNumOrPlateNum;
+            }
+            else if (String.Equals(flag, "PLATE"))
+            {
+                query = "SELECT plate_number FROM Vehicle WHERE plate_number = " + addQuotes(idOrPhoneNumOrPlateNum);
+            }
+            return connection.executeScalar(query) != null;// not null: data was found
+        }
+
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -92,16 +182,23 @@ FROM Rental";
 
         private void findAllRentalsButton_Click(object sender, EventArgs e)
         {
-            // load data into the DataGripView
-            customerRentalsDataGripView.DataSource = getCustomerRentals();
-            //disable sorting the columns
-            foreach (DataGridViewColumn dataGridViewColumn in customerRentalsDataGripView.Columns)
+            if (validateSearchTextbox())
             {
-                dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                dataGridViewColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                // load data into the DataGripView
+                customerRentalsDataGripView.DataSource = getCustomerRentals();
+                //disable sorting the columns
+                foreach (DataGridViewColumn dataGridViewColumn in customerRentalsDataGripView.Columns)
+                {
+                    dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dataGridViewColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+                customerRentalsDataGripView.Columns["rental_id"].Visible = false;
+                if (customerRentalsDataGripView.CurrentCell != null)
+                {
+                    customerRentalsDataGripView.CurrentCell.Selected = false;
+                }
+                findRentalsPanel.Show();
             }
-            customerRentalsDataGripView.Columns["rental_id"].Visible = false;
-            findRentalsPanel.Show();
         }
 
         private void startAReturnButton_Click(object sender, EventArgs e)
@@ -121,22 +218,6 @@ FROM Rental";
 
         }
 
-        //private void customerIDRadio_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    radioButtonLabel.Text = customerIDRadio.Text;
-        //}
-
-        //private void phoneNumberRadio_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    radioButtonLabel.Text = phoneNumberRadio.Text;
-        //}
-
-        //private void plateNumberRadio_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    radioButtonLabel.Text = plateNumberRadio.Text;
-        //}
-
-
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -153,7 +234,25 @@ FROM Rental";
 
         private void findByCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            radioButtonLabel.Text = findByCombobox.SelectedItem.ToString();
+            searchInfoTextbox.Clear();
+            errorMessageLabel.Text = "";
+            findByText.Text = findByCombobox.SelectedItem.ToString();
+            if (findByCombobox.SelectedIndex == 0)
+            {// customer id
+                searchInfoTextbox.MaxLength = 5;
+                onlyUnreturnedVehicles.Visible = true;
+            }
+            if (findByCombobox.SelectedIndex == 1)
+            {// phone number
+                searchInfoTextbox.MaxLength = 10;
+                onlyUnreturnedVehicles.Visible = true;
+            }
+            if (findByCombobox.SelectedIndex == 2)
+            {// plate number
+                searchInfoTextbox.MaxLength = 8;
+                searchInfoTextbox.CharacterCasing = CharacterCasing.Upper;
+                onlyUnreturnedVehicles.Visible = false;
+            }
         }
 
         private Tuple<Decimal, Decimal, bool> getReturnDetails()
@@ -336,6 +435,15 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
         {
             this.Size = new(1288, 830);
             this.CenterToScreen();
+        }
+
+        private void viewFullDetails_Click(object sender, EventArgs e)
+        {
+            if (customerRentalsDataGripView.SelectedRows.Count == 0)
+            {// no vehicle has been selected
+                selectAVehicleLabel.Visible = true;
+                return;
+            }
         }
     }
 }
