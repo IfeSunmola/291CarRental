@@ -19,12 +19,21 @@ namespace _291CarRental
         private DbConnection connection;
         private String empId;
 
-        private String currentRentalId;
-        //private DateTime startDateOfBooking;
-        //private DateTime expectedDropoffDate;
-        //private int totalMileageUsed;
-        //private Decimal initialAmountPaid;
-        //private Decimal extraCharges;
+        // for current rental that is selected, will be updated in rentalsDataView_CellMouseClick
+        private String rentalId = "";
+        private String customerName = "";
+        private DateTime startDate;
+        private DateTime expectedDropoffDate;
+        private DateTime actualDropoffDate;
+        private int totalMileageUsed = -1;
+        private Decimal initialAmountPaid = -1.0m;
+        private Decimal extraCharges = -1.0m;
+        private String bookingEmployee = "";
+        private String returnEmployee = "";
+        private String pickupBranch = "";
+        private String dropOffBranch = "";
+        private String classRequested = "";
+        private String vehicleRented = "";
         
 
         public ReturnAVehiclePage(EmployeeLandingPage previousPage, String empId, DbConnection connection)
@@ -43,9 +52,6 @@ namespace _291CarRental
             findByCombobox.Items.Add("PLATE NUMBER");
             findByCombobox.SelectedIndex = 0;
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            // this would be changed so if it shows somewhere along the program, it wasn't changed properly
-            this.currentRentalId = "ERROR IN ReturnAVehiclePage constructor";
         }
 
         private String addQuotes(String stringToAdd)
@@ -209,7 +215,7 @@ FROM Rental";
                     rentalsDataView.CurrentCell.Selected = false;
                 }
                 findRentalsPanel.Show();
-                this.Size = new Size(1288, 500);
+                this.Size = new Size(1288, 600);
                 this.CenterToScreen();
             }
         }
@@ -425,79 +431,19 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
                 selectAVehicleLabel.Visible = true;
                 return;
             }
-            String query = @"
-SELECT
-	(SELECT last_name + ' ' + first_name + ' (' + CAST (customer_id AS VARCHAR) + ')'
-		FROM Customer WHERE customer_id = Rental.customer_id) AS [customer_name],
-	[start_date],
-	expected_dropoff_date,
-	(SELECT ISNULL (actual_dropoff_date, '')) AS [actual_dropoff_date],
-	(SELECT ISNULL (total_mileage_used, -1)) AS [total_mileage_used],
-	initial_amount_paid,
-	(SELECT ISNULL(extra_charges, -1)) AS [extra_charges], 
-	(SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
-		FROM Employee WHERE emp_id = emp_id_booking) AS [emp_who_booked],
-	(SELECT ISNULL ((SELECT SUBSTRING (last_name, 1, 1) + '. ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
-		FROM Employee WHERE emp_id = emp_id_return), 'N/A')) AS [emp_who_returned],
-	(SELECT branch_name + ' (' + CAST (branch_id AS VARCHAR) + ')' 
-		FROM Branch WHERE branch_id = pickup_branch_id) AS [pickup_branch],
-	(SELECT ISNULL((SELECT branch_name + ' (' + CAST (branch_id AS VARCHAR) + ')' 
-		FROM Branch WHERE branch_id = dropoff_branch_id), 'N/A')) AS [dropoff_branch],
-
-	(SELECT vehicle_class 
-		FROM Vehicle_Class WHERE vehicle_class_id = vehicle_class_requested) AS [class_requested], 
-	(SELECT CAST ([year] AS VARCHAR) + ' ' + brand + ' ' + model + ' (' + 
-			(SELECT vehicle_class FROM Vehicle_Class WHERE Vehicle.vehicle_class_id = Vehicle_Class.vehicle_class_id) + ')'
-		FROM Vehicle WHERE Vehicle.vehicle_id = Rental.vehicle_id) AS [vehicle_gotten]
-FROM Rental
-WHERE rental_id = " + currentRentalId + ";";
-
-            String customerName = "";
-            String startDate = "";
-            String expectedDropoffDate = "";
-            String? actualDropoffDate = "";
-            int totalMileageUsed = 0;
-            Decimal initialAmountPaid = 0.00m;
-            Decimal extraCharges = 0.00m;
-            String empBooked = "";
-            String empReturned = "";
-            String pickupBranch = "";
-            String dropOffBranch = "";
-            String classRequested = "";
-            String vehicleGotten = "";
-
-            SqlDataReader reader = connection.executeReader(query);
-            if (reader.Read())
-            {
-                customerName = reader.GetString("customer_name");
-                startDate = reader.GetDateTime("start_date").ToString("D");
-                expectedDropoffDate = reader.GetDateTime("expected_dropoff_date").ToString("D");
-                actualDropoffDate = reader.GetDateTime("actual_dropoff_date").ToString("D");
-                totalMileageUsed = reader.GetInt32("total_mileage_used");
-                initialAmountPaid = reader.GetDecimal("initial_amount_paid");
-                extraCharges = reader.GetDecimal("extra_charges");
-                empBooked = reader.GetString("emp_who_booked");
-                empReturned = reader.GetString("emp_who_returned");
-                pickupBranch = reader.GetString("pickup_branch");
-                dropOffBranch = reader.GetString("dropoff_branch");
-                classRequested = reader.GetString("class_requested");
-                vehicleGotten = reader.GetString("vehicle_gotten");
-            }
-            String fullDetails = "Customer Name: " + customerName +
-                "\nBooking start date: " + startDate +
-                "\nExpected drop off date: " + expectedDropoffDate +
-                "\nActual Drop off date: " + (String.Equals(actualDropoffDate, "January 1, 1900") ? "N/A" : actualDropoffDate) + 
-                "\nTotal mileage used: " + (totalMileageUsed == -1 ? "N/A" : totalMileageUsed) +
-                "\nInitial amount paid: " + initialAmountPaid +
-                "\nExtra charges: " + (Decimal.Equals(extraCharges, -1.00m) ? "N/A" : extraCharges) +
-                "\nBooking Employee: " + empBooked +
-                "\nReturning Employee: " + empReturned +
-                "\nPickup branch: " + pickupBranch +
-                "\nDropoff branch: " + dropOffBranch +
-                "\nClass Requested: " + classRequested + 
-                "\nVehicle Rented: " + vehicleGotten;
-
-            MessageBox.Show(fullDetails,"FULL RENTAL DETAILS");
+            MessageBox.Show("Customer Name: " + customerName +
+             "\nBooking start date: " + startDate.ToString("D") +
+             "\nExpected drop off date: " + expectedDropoffDate.ToString("D") +
+             "\nActual drop off date: " + (actualDropoffDate == new DateTime(1900, 01, 01) ? "N/A" : actualDropoffDate.ToString("D")) +
+             "\nTotal mileage used: " + (totalMileageUsed == -1 ? "N/A" : totalMileageUsed) +
+             "\nInitial amount paid: " + initialAmountPaid.ToString("C") +
+             "\nExtra charges: " + (Decimal.Equals(extraCharges, -1.00m) ? "N/A" : extraCharges.ToString("C")) +
+             "\nBooking employee: " + bookingEmployee +
+             "\nReturning employee: " + returnEmployee +
+             "\nPickup branch: " + pickupBranch +
+             "\nDropoff branch: " + dropOffBranch +
+             "\nClass requested: " + classRequested +
+             "\nVehicle rented: " + vehicleRented, "FULL RENTAL DETAILS");
         }
 
         private void rentalsDataView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -508,8 +454,52 @@ WHERE rental_id = " + currentRentalId + ";";
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             selectAVehicleLabel.Visible = false;
-            currentRentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
-            
+            rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
+
+            String query = @"
+SELECT
+	(SELECT last_name + ' ' + first_name + ' (' + CAST (customer_id AS VARCHAR) + ')'
+		FROM Customer WHERE customer_id = Rental.customer_id) AS [customer_name],
+	[start_date],
+	expected_dropoff_date,
+	(SELECT ISNULL (actual_dropoff_date, '')) AS [actual_dropoff_date],
+	(SELECT ISNULL (total_mileage_used, -1)) AS [total_mileage_used],
+	initial_amount_paid,
+	(SELECT ISNULL(extra_charges, -1)) AS [extra_charges], 
+	(SELECT last_name + ', ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
+		FROM Employee WHERE emp_id = emp_id_booking) AS [emp_who_booked],
+	(SELECT ISNULL ((SELECT last_name + ' ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
+		FROM Employee WHERE emp_id = emp_id_return), 'N/A')) AS [emp_who_returned],
+	(SELECT branch_name + ' (' + CAST (branch_id AS VARCHAR) + ')' 
+		FROM Branch WHERE branch_id = pickup_branch_id) AS [pickup_branch],
+	(SELECT ISNULL((SELECT branch_name + ' (' + CAST (branch_id AS VARCHAR) + ')' 
+		FROM Branch WHERE branch_id = dropoff_branch_id), 'N/A')) AS [dropoff_branch],
+	(SELECT vehicle_class 
+		FROM Vehicle_Class WHERE vehicle_class_id = vehicle_class_requested) AS [class_requested], 
+	(SELECT CAST ([year] AS VARCHAR) + ' ' + brand + ' ' + model + ' (' + 
+			(SELECT vehicle_class FROM Vehicle_Class WHERE Vehicle.vehicle_class_id = Vehicle_Class.vehicle_class_id) + ')'
+		FROM Vehicle WHERE Vehicle.vehicle_id = Rental.vehicle_id) AS [vehicle_gotten]
+FROM Rental
+WHERE rental_id = " + rentalId + ";";
+
+            SqlDataReader reader = connection.executeReader(query);
+            if (reader.Read())
+            {
+                customerName = reader.GetString("customer_name");
+                startDate = reader.GetDateTime("start_date");
+                expectedDropoffDate = reader.GetDateTime("expected_dropoff_date");
+                actualDropoffDate = reader.GetDateTime("actual_dropoff_date");
+                totalMileageUsed = reader.GetInt32("total_mileage_used");
+                initialAmountPaid = reader.GetDecimal("initial_amount_paid");
+                extraCharges = reader.GetDecimal("extra_charges");
+                bookingEmployee = reader.GetString("emp_who_booked");
+                returnEmployee = reader.GetString("emp_who_returned");
+                pickupBranch = reader.GetString("pickup_branch");
+                dropOffBranch = reader.GetString("dropoff_branch");
+                classRequested = reader.GetString("class_requested");
+                vehicleRented = reader.GetString("vehicle_gotten");
+            }
+            reader.Close();
         }
     }
 }
