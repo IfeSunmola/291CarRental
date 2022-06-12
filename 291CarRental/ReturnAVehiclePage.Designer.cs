@@ -50,6 +50,7 @@
             this.differentBranchFeeLabel = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.calculateAmountDuePanel = new System.Windows.Forms.Panel();
+            this.mileageErrorLabel = new System.Windows.Forms.Label();
             this.mileageUsedTextbox = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -209,7 +210,8 @@
             // 
             // feeWaiverLabel
             // 
-            this.feeWaiverLabel.Location = new System.Drawing.Point(720, 47);
+            this.feeWaiverLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.feeWaiverLabel.Location = new System.Drawing.Point(696, 47);
             this.feeWaiverLabel.Name = "feeWaiverLabel";
             this.feeWaiverLabel.Size = new System.Drawing.Size(219, 172);
             this.feeWaiverLabel.TabIndex = 29;
@@ -247,7 +249,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Red;
+            this.label11.BackColor = System.Drawing.SystemColors.Control;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label11.Location = new System.Drawing.Point(0, 181);
             this.label11.Name = "label11";
@@ -304,6 +306,7 @@
             // 
             // calculateAmountDuePanel
             // 
+            this.calculateAmountDuePanel.Controls.Add(this.mileageErrorLabel);
             this.calculateAmountDuePanel.Controls.Add(this.mileageUsedTextbox);
             this.calculateAmountDuePanel.Controls.Add(this.label13);
             this.calculateAmountDuePanel.Controls.Add(this.label3);
@@ -317,6 +320,18 @@
             this.calculateAmountDuePanel.Size = new System.Drawing.Size(998, 245);
             this.calculateAmountDuePanel.TabIndex = 42;
             // 
+            // mileageErrorLabel
+            // 
+            this.mileageErrorLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.mileageErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.mileageErrorLabel.Location = new System.Drawing.Point(-3, 156);
+            this.mileageErrorLabel.Name = "mileageErrorLabel";
+            this.mileageErrorLabel.Size = new System.Drawing.Size(998, 25);
+            this.mileageErrorLabel.TabIndex = 44;
+            this.mileageErrorLabel.Text = "ERROR MESSAGE HEHE HEHE HEHE";
+            this.mileageErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mileageErrorLabel.Visible = false;
+            // 
             // mileageUsedTextbox
             // 
             this.mileageUsedTextbox.Location = new System.Drawing.Point(720, 122);
@@ -328,6 +343,7 @@
             this.mileageUsedTextbox.Name = "mileageUsedTextbox";
             this.mileageUsedTextbox.Size = new System.Drawing.Size(180, 31);
             this.mileageUsedTextbox.TabIndex = 39;
+            this.mileageUsedTextbox.ValueChanged += new System.EventHandler(this.mileageUsedTextbox_ValueChanged);
             // 
             // label13
             // 
@@ -384,7 +400,7 @@
             // 
             // returnLabelText
             // 
-            this.returnLabelText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.returnLabelText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.returnLabelText.Location = new System.Drawing.Point(21, 18);
             this.returnLabelText.Name = "returnLabelText";
             this.returnLabelText.Size = new System.Drawing.Size(926, 38);
@@ -506,5 +522,6 @@
         private Panel calculateAmountDuePanel;
         private Label errorMessageLabel;
         private Label selectAVehicleLabel;
+        private Label mileageErrorLabel;
     }
 }

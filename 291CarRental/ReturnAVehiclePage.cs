@@ -21,6 +21,7 @@ namespace _291CarRental
 
         // for current rental that is selected, will be updated in rentalsDataView_CellMouseClick
         private String rentalId = "";
+        private int customerId = 0;
         private String customerName = "";
         private DateTime startDate;
         private DateTime expectedDropoffDate;
@@ -30,9 +31,10 @@ namespace _291CarRental
         private Decimal extraCharges = -1.0m;
         private String bookingEmployee = "";
         private String returnEmployee = "";
-        private String pickupBranch = "";
-        private String dropOffBranch = "";
+        private String pickupBranch_expectedDropoffLocation = "";
+        private String actualDropoffBranch = "";
         private String classRequested = "";
+        private String classGotten = "";
         private String vehicleRented = "";
         
 
@@ -52,6 +54,9 @@ namespace _291CarRental
             findByCombobox.Items.Add("PLATE NUMBER");
             findByCombobox.SelectedIndex = 0;
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            returnDateTimePicker.Value = DateTime.Now;
+            returnDateTimePicker.Enabled = false;
         }
 
         private String addQuotes(String stringToAdd)
@@ -222,16 +227,29 @@ FROM Rental";
 
         private void startAReturnButton_Click(object sender, EventArgs e)
         {
+            if (rentalsDataView.SelectedRows.Count == 0)
+            {// no vehicle has been selected
+                selectAVehicleLabel.Text = "SELECT A VEHICLE";
+                selectAVehicleLabel.Visible = true;
+                return;
+            }
+            if (totalMileageUsed > -1)
+            {
+                selectAVehicleLabel.Text = "That vehicle has been returned";
+                selectAVehicleLabel.Visible = true;
+                return;
+            }
+
             branchCombobox.Items.Clear();
             fillBranchCombobox();
-            String? name = rentalsDataView.CurrentRow.Cells["Name"].Value.ToString();
-            String? vehicleRented = rentalsDataView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
 
-            returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + name.ToUpper();
-            if (getReturnDetails().Item3)// customer is a gold member
+            returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
+            if (getFees_goldStatus().Item3)// customer is a gold member
             {
-                returnLabelText.Text += " (GOLD MEMBER)";
+                //returnLabelText.Text += " (GOLD MEMBER)";
             }
+            this.Size = new Size(1288, 900);
+            this.CenterToScreen();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -271,7 +289,7 @@ FROM Rental";
             }
         }
 
-        private Tuple<Decimal, Decimal, bool> getReturnDetails()
+        private Tuple<Decimal, Decimal, bool> getFees_goldStatus()
         {
             String? rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString();
             String query = @"SELECT change_branch_fee, late_fee
@@ -299,54 +317,66 @@ FROM Rental";
 
         private void calculateAmountDue_Click(object sender, EventArgs e)
         {
-            String? expectedDropoffLocation = rentalsDataView.CurrentRow.Cells["Expected dropoff location"].Value.ToString();
-            String? tempDate = rentalsDataView.CurrentRow.Cells["Expected drop off date"].Value.ToString();
-            String? amountPaid = rentalsDataView.CurrentRow.Cells["Amount paid"].Value.ToString();
-
-            DateTime expectedDropoffDate = Convert.ToDateTime(tempDate);
-            Decimal changeBranchFee = 0.00m;
-            Decimal lateFee = 0.00m;
-            bool isGoldMember = getReturnDetails().Item3;
-            // is late fee a flat fee or is it based on how many days late the customer was?
-
             if ((int)mileageUsedTextbox.Value <= 0)
             {
-                MessageBox.Show("Enter a valid mileage");
+                mileageErrorLabel.Text = "MILEAGE SHOULD BE GREATER THAN 0";
+                mileageErrorLabel.Visible = true;
                 return;
             }
-            else
-            {
-                String actualDropoffLocation = (String)branchCombobox.SelectedItem;
-                if (!String.Equals(actualDropoffLocation, expectedDropoffLocation, StringComparison.OrdinalIgnoreCase))
-                {// returning to the different location
-                    if (!isGoldMember)
-                    {
-                        changeBranchFee = getReturnDetails().Item1;
-                        MessageBox.Show("Returning to different location");
-                    }
-                    else
-                    {
-                        feeWaiverLabel.Text = "DIFFERENT BRANCH RETURN FEE OF " + getReturnDetails().Item1.ToString("C") + " HAS BEEN " +
-                 " WAIVED FOR THIS GOLD CUSTOMER HEHEHE";
-                        feeWaiverLabel.Visible = true;
-                    }
+
+            Decimal changeBranchFee = 0.00m;
+            Decimal lateFee = 0.00m;
+            bool isGoldMember = getFees_goldStatus().Item3;
+            String actualDropoffLocation = (String)branchCombobox.SelectedItem;
+            if (!String.Equals(actualDropoffLocation, pickupBranch_expectedDropoffLocation, StringComparison.OrdinalIgnoreCase))
+            {// returning to the different location, might need to pay a fee
+                if (isGoldMember)
+                {
+                    feeWaiverLabel.Text = "DIFFERENT BRANCH RETURN FEE OF " + getFees_goldStatus().Item1.ToString("C") +
+                        " HAS BEEN  WAIVED FOR THIS GOLD CUSTOMER HEHEHE";
+                    feeWaiverLabel.Visible = true;
                 }
                 else
                 {
-                    feeWaiverLabel.Visible = false;
-                }
-                if (expectedDropoffDate.AddDays(1) <= returnDateTimePicker.Value)
-                //if (expectedDropoffDate.Value.AddDays(1) <= returnDateTimePicker.Value)
-                {// drop off is late
-                    lateFee = getReturnDetails().Item2;
-                    MessageBox.Show("Late Returns");
+                    changeBranchFee = getFees_goldStatus().Item1;
+                    MessageBox.Show("Returning to different location");
                 }
             }
-            amountPaidLabel.Text = amountPaid;
+            else
+            {// not returning to a different location
+                feeWaiverLabel.Visible = false;
+            }
+
+            if (expectedDropoffDate.AddDays(1) <= returnDateTimePicker.Value)
+            {// drop off is late
+                lateFee = getFees_goldStatus().Item2;
+                MessageBox.Show("Late Returns");
+            }
+
+            Decimal amountDueNow = (lateFee + changeBranchFee);
+            amountPaidLabel.Text = initialAmountPaid.ToString("C");
             lateFeeLabel.Text = lateFee.ToString("C");
             differentBranchFeeLabel.Text = changeBranchFee.ToString("C");
-            amountDueNowLabel.Text = (lateFee + changeBranchFee).ToString("C");
+
+            amountDueNowLabel.Text = amountDueNow.ToString("C");
+            if (amountDueNow == 0)
+            {
+                amountDueNowLabel.BackColor = Color.Green;
+            }
+            else if (amountDueNow > 0)
+            {
+                amountDueNowLabel.BackColor = Color.Red;
+            }
+            else
+            {
+                amountDueNowLabel.BackColor = Color.Yellow;
+                amountDueNowLabel.Text = "ERROR in calculateAmountDue_Click";
+            }
+
             finishReturnPanel.Visible = true;
+
+            this.Size = new Size(1288, 1200);
+            this.CenterToScreen();
         }
 
         private void fillBranchCombobox()
@@ -431,19 +461,21 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
                 selectAVehicleLabel.Visible = true;
                 return;
             }
-            MessageBox.Show("Customer Name: " + customerName +
+            MessageBox.Show("Customer Name: " + customerName + " (" + customerId + ")" +
              "\nBooking start date: " + startDate.ToString("D") +
              "\nExpected drop off date: " + expectedDropoffDate.ToString("D") +
-             "\nActual drop off date: " + (actualDropoffDate == new DateTime(1900, 01, 01) ? "N/A" : actualDropoffDate.ToString("D")) +
+             "\nActual drop off date: " + (actualDropoffDate == DateTime.MinValue ? "N/A" : actualDropoffDate.ToString("D")) +
              "\nTotal mileage used: " + (totalMileageUsed == -1 ? "N/A" : totalMileageUsed) +
              "\nInitial amount paid: " + initialAmountPaid.ToString("C") +
              "\nExtra charges: " + (Decimal.Equals(extraCharges, -1.00m) ? "N/A" : extraCharges.ToString("C")) +
              "\nBooking employee: " + bookingEmployee +
              "\nReturning employee: " + returnEmployee +
-             "\nPickup branch: " + pickupBranch +
-             "\nDropoff branch: " + dropOffBranch +
+             "\nPickup branch/Expected dropoff branch: " + pickupBranch_expectedDropoffLocation +
+             "\nActual dropoff branch: " + actualDropoffBranch +
              "\nClass requested: " + classRequested +
-             "\nVehicle rented: " + vehicleRented, "FULL RENTAL DETAILS");
+             "\nVehicle rented: " + vehicleRented + " (" + classGotten + ")", 
+             
+             "FULL RENTAL DETAILS");
         }
 
         private void rentalsDataView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -458,11 +490,13 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
 
             String query = @"
 SELECT
-	(SELECT last_name + ' ' + first_name + ' (' + CAST (customer_id AS VARCHAR) + ')'
+	(SELECT customer_id FROM Customer WHERE customer_id = Rental.customer_id) AS [customer_id],
+	(SELECT last_name + ' ' + first_name
 		FROM Customer WHERE customer_id = Rental.customer_id) AS [customer_name],
 	[start_date],
 	expected_dropoff_date,
-	(SELECT ISNULL (actual_dropoff_date, '')) AS [actual_dropoff_date],
+    -- using 0001-01-01 because c# DateTime.MinValue returns it
+	(SELECT ISNULL (actual_dropoff_date, '0001-01-01')) AS [actual_dropoff_date], 
 	(SELECT ISNULL (total_mileage_used, -1)) AS [total_mileage_used],
 	initial_amount_paid,
 	(SELECT ISNULL(extra_charges, -1)) AS [extra_charges], 
@@ -476,8 +510,11 @@ SELECT
 		FROM Branch WHERE branch_id = dropoff_branch_id), 'N/A')) AS [dropoff_branch],
 	(SELECT vehicle_class 
 		FROM Vehicle_Class WHERE vehicle_class_id = vehicle_class_requested) AS [class_requested], 
-	(SELECT CAST ([year] AS VARCHAR) + ' ' + brand + ' ' + model + ' (' + 
-			(SELECT vehicle_class FROM Vehicle_Class WHERE Vehicle.vehicle_class_id = Vehicle_Class.vehicle_class_id) + ')'
+	(SELECT vehicle_class		
+		FROM Vehicle, Vehicle_Class
+		WHERE Vehicle.vehicle_id = Rental.vehicle_id 
+			AND Vehicle_Class.vehicle_class_id = Vehicle.vehicle_class_id) AS [class_gotten],
+	(SELECT CAST ([year] AS VARCHAR) + ' ' + brand + ' ' + model
 		FROM Vehicle WHERE Vehicle.vehicle_id = Rental.vehicle_id) AS [vehicle_gotten]
 FROM Rental
 WHERE rental_id = " + rentalId + ";";
@@ -485,6 +522,7 @@ WHERE rental_id = " + rentalId + ";";
             SqlDataReader reader = connection.executeReader(query);
             if (reader.Read())
             {
+                customerId = reader.GetInt32("customer_id");
                 customerName = reader.GetString("customer_name");
                 startDate = reader.GetDateTime("start_date");
                 expectedDropoffDate = reader.GetDateTime("expected_dropoff_date");
@@ -494,12 +532,18 @@ WHERE rental_id = " + rentalId + ";";
                 extraCharges = reader.GetDecimal("extra_charges");
                 bookingEmployee = reader.GetString("emp_who_booked");
                 returnEmployee = reader.GetString("emp_who_returned");
-                pickupBranch = reader.GetString("pickup_branch");
-                dropOffBranch = reader.GetString("dropoff_branch");
+                pickupBranch_expectedDropoffLocation = reader.GetString("pickup_branch");
+                actualDropoffBranch = reader.GetString("dropoff_branch");
                 classRequested = reader.GetString("class_requested");
+                classGotten = reader.GetString("class_gotten");
                 vehicleRented = reader.GetString("vehicle_gotten");
             }
             reader.Close();
+        }
+
+        private void mileageUsedTextbox_ValueChanged(object sender, EventArgs e)
+        {
+            mileageErrorLabel.Visible = false;
         }
     }
 }
