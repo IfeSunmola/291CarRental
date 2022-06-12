@@ -184,20 +184,17 @@ FROM Rental";
         {
             if (validateSearchTextbox())
             {
-                // load data into the DataGripView
-                customerRentalsDataGripView.DataSource = getCustomerRentals();
-                //disable sorting the columns
-                foreach (DataGridViewColumn dataGridViewColumn in customerRentalsDataGripView.Columns)
+                errorMessageLabel.Visible = false;
+                // load data into the DataGridView
+                rentalsDataView.DataSource = getCustomerRentals();
+                foreach (DataGridViewColumn dataGridViewColumn in rentalsDataView.Columns)
                 {
                     dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                     dataGridViewColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 }
-                customerRentalsDataGripView.Columns["rental_id"].Visible = false;
-                if (customerRentalsDataGripView.CurrentCell != null)
-                {
-                    customerRentalsDataGripView.CurrentCell.Selected = false;
-                }
-                findRentalsPanel.Show();
+                rentalsDataView.Columns["rental_id"].Visible = false;
+
+                findRentalsPanel.Visible = true;
             }
         }
 
@@ -205,8 +202,8 @@ FROM Rental";
         {
             branchCombobox.Items.Clear();
             fillBranchCombobox();
-            String? name = customerRentalsDataGripView.CurrentRow.Cells["Name"].Value.ToString();
-            String? vehicleRented = customerRentalsDataGripView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
+            String? name = rentalsDataView.CurrentRow.Cells["Name"].Value.ToString();
+            String? vehicleRented = rentalsDataView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
 
             returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + name.ToUpper();
             if (getReturnDetails().Item3)// customer is a gold member
@@ -257,7 +254,7 @@ FROM Rental";
 
         private Tuple<Decimal, Decimal, bool> getReturnDetails()
         {
-            String? rentalId = customerRentalsDataGripView.CurrentRow.Cells["rental_id"].Value.ToString();
+            String? rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString();
             String query = @"SELECT change_branch_fee, late_fee
                 FROM Vehicle_Class
                 WHERE vehicle_class_id in (SELECT vehicle_class_requested FROM Rental WHERE rental_id = " + rentalId + @");
@@ -283,9 +280,9 @@ FROM Rental";
 
         private void calculateAmountDue_Click(object sender, EventArgs e)
         {
-            String? expectedDropoffLocation = customerRentalsDataGripView.CurrentRow.Cells["Expected dropoff location"].Value.ToString();
-            String? tempDate = customerRentalsDataGripView.CurrentRow.Cells["Expected drop off date"].Value.ToString();
-            String? amountPaid = customerRentalsDataGripView.CurrentRow.Cells["Amount paid"].Value.ToString();
+            String? expectedDropoffLocation = rentalsDataView.CurrentRow.Cells["Expected dropoff location"].Value.ToString();
+            String? tempDate = rentalsDataView.CurrentRow.Cells["Expected drop off date"].Value.ToString();
+            String? amountPaid = rentalsDataView.CurrentRow.Cells["Amount paid"].Value.ToString();
 
             DateTime expectedDropoffDate = Convert.ToDateTime(tempDate);
             Decimal changeBranchFee = 0.00m;
@@ -360,9 +357,9 @@ FROM Rental";
 
         private void finishReturnButton_Click(object sender, EventArgs e)
         {
-            String? name = customerRentalsDataGripView.CurrentRow.Cells["Name"].Value.ToString();
-            String? vehicleRented = customerRentalsDataGripView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
-            String? rentalId = customerRentalsDataGripView.CurrentRow.Cells["rental_id"].Value.ToString();
+            String? name = rentalsDataView.CurrentRow.Cells["Name"].Value.ToString();
+            String? vehicleRented = rentalsDataView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
+            String? rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString();
 
             DialogResult confirmReturn = MessageBox.Show(
 ("Confirm returning of " + vehicleRented + " FOR " + name).ToUpper(),
@@ -439,11 +436,22 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
 
         private void viewFullDetails_Click(object sender, EventArgs e)
         {
-            if (customerRentalsDataGripView.SelectedRows.Count == 0)
+            if (rentalsDataView.SelectedRows.Count == 0)
             {// no vehicle has been selected
                 selectAVehicleLabel.Visible = true;
                 return;
             }
+        }
+
+        private void customerRentalsDataGripView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            selectAVehicleLabel.Visible = false;
+        }
+
+        private void rentalsDataView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // disable selecting the first vehicle
+            rentalsDataView.ClearSelection();
         }
     }
 }
