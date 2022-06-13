@@ -242,10 +242,6 @@ FROM Rental";
             fillBranchCombobox();
 
             returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
-            if (getFees_goldStatus().Item3)// customer is a gold member
-            {
-                //returnLabelText.Text += " (GOLD MEMBER)";
-            }
             startAReturnSize();
         }
 
@@ -481,7 +477,9 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
 
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            findAllRentalsSize();
+            //findAllRentalsSize();
+            returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
+            
             selectAVehicleLabel.Visible = false;
             rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
 
