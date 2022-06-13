@@ -52,7 +52,6 @@ namespace _291CarRental
         private DataTable getAvailableVehicleList(int vehicleClassId)
         {
             int branchId = (int)branchComboBox.SelectedIndex;
-          //  int vehicleClassId = (int)vehicleClassCombobox.SelectedIndex + 1;
 
             String from = fromDatePicker.Value.Date.ToString("d");
             String to = toDatePicker.Value.Date.ToString("d");
@@ -70,16 +69,16 @@ AND vehicle_id IN
 	(
 		(SELECT [vehicle_id]
 		FROM Rental
-		WHERE start_date_of_booking >= " + addQuotes(from) + @" and expected_dropoff_date <= " + addQuotes(to) + @")
+		WHERE [start_date] >= " + addQuotes(from) + @" and expected_dropoff_date <= " + addQuotes(to) + @")
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE  " + addQuotes(from) + @" >= start_date_of_booking and " + addQuotes(from) + @" <= expected_dropoff_date)
+			WHERE  " + addQuotes(from) + @" >= [start_date] and " + addQuotes(from) + @" <= expected_dropoff_date)
 		)
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE expected_dropoff_date >= " + addQuotes(to) + @" and start_date_of_booking <= " + addQuotes(to) + @")
+			WHERE expected_dropoff_date >= " + addQuotes(to) + @" and [start_date] <= " + addQuotes(to) + @")
 		)
 	) 
 )
