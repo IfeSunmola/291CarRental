@@ -79,14 +79,14 @@
             this.rentalsDataView.AllowUserToResizeColumns = false;
             this.rentalsDataView.AllowUserToResizeRows = false;
             this.rentalsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rentalsDataView.Location = new System.Drawing.Point(41, 19);
+            this.rentalsDataView.Location = new System.Drawing.Point(3, 3);
             this.rentalsDataView.MultiSelect = false;
             this.rentalsDataView.Name = "rentalsDataView";
             this.rentalsDataView.ReadOnly = true;
             this.rentalsDataView.RowHeadersWidth = 62;
             this.rentalsDataView.RowTemplate.Height = 33;
             this.rentalsDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rentalsDataView.Size = new System.Drawing.Size(939, 192);
+            this.rentalsDataView.Size = new System.Drawing.Size(995, 229);
             this.rentalsDataView.TabIndex = 4;
             this.rentalsDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.rentalsDataView_CellMouseClick);
             this.rentalsDataView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.rentalsDataView_DataBindingComplete);
@@ -94,7 +94,7 @@
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(78, 246);
+            this.button1.Location = new System.Drawing.Point(0, 263);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(216, 62);
             this.button1.TabIndex = 8;
@@ -125,6 +125,7 @@
             this.searchInfoTextbox.Name = "searchInfoTextbox";
             this.searchInfoTextbox.Size = new System.Drawing.Size(150, 31);
             this.searchInfoTextbox.TabIndex = 14;
+            this.searchInfoTextbox.TextChanged += new System.EventHandler(this.searchInfoChanged);
             // 
             // button3
             // 
@@ -176,7 +177,7 @@
             this.panel1.Controls.Add(this.findByText);
             this.panel1.Location = new System.Drawing.Point(29, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1204, 1158);
+            this.panel1.Size = new System.Drawing.Size(1204, 1088);
             this.panel1.TabIndex = 26;
             // 
             // errorMessageLabel
@@ -203,7 +204,7 @@
             this.finishReturnPanel.Controls.Add(this.lateFeeLabel);
             this.finishReturnPanel.Controls.Add(this.differentBranchFeeLabel);
             this.finishReturnPanel.Controls.Add(this.label9);
-            this.finishReturnPanel.Location = new System.Drawing.Point(104, 823);
+            this.finishReturnPanel.Location = new System.Drawing.Point(104, 778);
             this.finishReturnPanel.Name = "finishReturnPanel";
             this.finishReturnPanel.Size = new System.Drawing.Size(998, 300);
             this.finishReturnPanel.TabIndex = 38;
@@ -315,7 +316,7 @@
             this.calculateAmountDuePanel.Controls.Add(this.branchCombobox);
             this.calculateAmountDuePanel.Controls.Add(this.returnDateTimePicker);
             this.calculateAmountDuePanel.Controls.Add(this.returnLabelText);
-            this.calculateAmountDuePanel.Location = new System.Drawing.Point(104, 552);
+            this.calculateAmountDuePanel.Location = new System.Drawing.Point(104, 527);
             this.calculateAmountDuePanel.Name = "calculateAmountDuePanel";
             this.calculateAmountDuePanel.Size = new System.Drawing.Size(998, 245);
             this.calculateAmountDuePanel.TabIndex = 42;
@@ -390,6 +391,7 @@
             this.branchCombobox.Name = "branchCombobox";
             this.branchCombobox.Size = new System.Drawing.Size(182, 33);
             this.branchCombobox.TabIndex = 40;
+            this.branchCombobox.SelectedValueChanged += new System.EventHandler(this.branchCombobox_SelectedValueChanged);
             // 
             // returnDateTimePicker
             // 
@@ -433,7 +435,7 @@
             // 
             this.selectAVehicleLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.selectAVehicleLabel.ForeColor = System.Drawing.Color.Red;
-            this.selectAVehicleLabel.Location = new System.Drawing.Point(-3, 218);
+            this.selectAVehicleLabel.Location = new System.Drawing.Point(-3, 235);
             this.selectAVehicleLabel.Name = "selectAVehicleLabel";
             this.selectAVehicleLabel.Size = new System.Drawing.Size(998, 25);
             this.selectAVehicleLabel.TabIndex = 44;
@@ -444,7 +446,7 @@
             // viewFullDetails
             // 
             this.viewFullDetails.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.viewFullDetails.Location = new System.Drawing.Point(731, 246);
+            this.viewFullDetails.Location = new System.Drawing.Point(779, 266);
             this.viewFullDetails.Name = "viewFullDetails";
             this.viewFullDetails.Size = new System.Drawing.Size(216, 62);
             this.viewFullDetails.TabIndex = 27;
@@ -461,12 +463,13 @@
             this.onlyUnreturnedVehicles.TabIndex = 26;
             this.onlyUnreturnedVehicles.Text = "ONLY SHOW UNRETURNED VEHICLES";
             this.onlyUnreturnedVehicles.UseVisualStyleBackColor = true;
+            this.onlyUnreturnedVehicles.CheckedChanged += new System.EventHandler(this.searchInfoChanged);
             // 
             // ReturnAVehiclePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1266, 1201);
+            this.ClientSize = new System.Drawing.Size(1266, 1092);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

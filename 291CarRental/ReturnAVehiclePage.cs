@@ -12,7 +12,6 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
-    //Starting: 1288, 660
     public partial class ReturnAVehiclePage : Form
     {
         private EmployeeLandingPage previousPage;
@@ -36,7 +35,7 @@ namespace _291CarRental
         private String classRequested = "";
         private String classGotten = "";
         private String vehicleRented = "";
-        
+
 
         public ReturnAVehiclePage(EmployeeLandingPage previousPage, String empId, DbConnection connection)
         {
@@ -44,8 +43,8 @@ namespace _291CarRental
             this.previousPage = previousPage;
             this.connection = connection;
             this.empId = empId;
-            this.Size = new Size(1288, 300);
-            this.StartPosition = FormStartPosition.CenterScreen;
+
+            startingSize();
 
             onlyUnreturnedVehicles.Checked = true;
 
@@ -102,7 +101,6 @@ FROM Rental";
             {
                 query += "\nAND actual_dropoff_date IS NULL";
             }
-            //MessageBox.Show(query);
             customerRentals.Load(connection.executeReader(query));
             return customerRentals;
         }
@@ -157,7 +155,8 @@ FROM Rental";
                 {
                     errorMessageLabel.Text = "PLATE NUMBER MUST BE 8 CHARACTERS";
                 }
-                else if (!Regex.IsMatch(searchInfoTextbox.Text, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$")){
+                else if (!Regex.IsMatch(searchInfoTextbox.Text, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
+                {
                     errorMessageLabel.Text = "PLATE NUMBER MUST BE IN THE FORM A1B-C2D3";
                 }
                 else if (!idOrPhoneNumOrPlateNumInDb("PLATE", searchInfoTextbox.Text))
@@ -187,7 +186,7 @@ FROM Rental";
             }
             else if (String.Equals(flag, "NUMBER"))
             {// find phone number
-                query += "CAST (area_code + phone_number AS VARCHAR) = " + idOrPhoneNumOrPlateNum;
+                query += "CAST (area_code + phone_number AS BIGINT) = " + idOrPhoneNumOrPlateNum;
             }
             else if (String.Equals(flag, "PLATE"))
             {
@@ -220,8 +219,7 @@ FROM Rental";
                     rentalsDataView.CurrentCell.Selected = false;
                 }
                 findRentalsPanel.Show();
-                this.Size = new Size(1288, 600);
-                this.CenterToScreen();
+                findAllRentalsSize();
             }
         }
 
@@ -248,8 +246,7 @@ FROM Rental";
             {
                 //returnLabelText.Text += " (GOLD MEMBER)";
             }
-            this.Size = new Size(1288, 900);
-            this.CenterToScreen();
+            startAReturnSize();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -327,7 +324,7 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
 
             Decimal changeBranchFee = 0.00m;
             Decimal lateFee = 0.00m;
-            String actualDropoffLocation = (String)branchCombobox.SelectedItem; 
+            String actualDropoffLocation = (String)branchCombobox.SelectedItem;
 
             if (!String.Equals(actualDropoffLocation, pickupBranch_expectedDropoffLocation, StringComparison.OrdinalIgnoreCase))
             {// returning to the different location, might need to pay a fee
@@ -375,9 +372,7 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
             }
 
             finishReturnPanel.Visible = true;
-
-            this.Size = new Size(1288, 1200);
-            this.CenterToScreen();
+            calculateAmountDueSize();
         }
 
         private void fillBranchCombobox()
@@ -387,7 +382,7 @@ SELECT branch_name FROM Branch;
 SELECT Employee.branch_id
 FROM Employee, Branch
 WHERE Employee.branch_id = Branch.branch_id
-AND emp_id = " +empId + @";";
+AND emp_id = " + empId + @";";
             SqlDataReader reader = connection.executeReader(query);
 
             while (reader.Read())
@@ -424,7 +419,7 @@ MessageBoxButtons.YesNo);
                 }
             }
         }
-        
+
         private bool returnSuccess(String extraCharge)
         {
             String actualDropoffDate = returnDateTimePicker.Value.Date.ToString("d");
@@ -447,10 +442,10 @@ SET branch_id = (SELECT dropoff_branch_id FROM Rental WHERE rental_id = " + rent
     current_mileage = ( (SELECT total_mileage_used FROM Rental WHERE rental_id =  " + rentalId + @") + current_mileage)
     
 WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalId + @");";
-            
+
             MessageBox.Show(query);
             int vehicleBranchUpdate = connection.executeNonQuery(query);
-           // int vehicleBranchUpdate = 0;
+            // int vehicleBranchUpdate = 0;
             return vehicleReturn == 1 && vehicleBranchUpdate == 1;
         }
 
@@ -474,8 +469,8 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
              "\nPickup branch/Expected dropoff branch: " + pickupBranch_expectedDropoffLocation +
              "\nActual dropoff branch: " + dropoffBranch +
              "\nClass requested: " + classRequested +
-             "\nVehicle rented: " + vehicleRented + " (" + classGotten + ")", 
-             
+             "\nVehicle rented: " + vehicleRented + " (" + classGotten + ")",
+
              "FULL RENTAL DETAILS");
         }
 
@@ -486,6 +481,7 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
 
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            findAllRentalsSize();
             selectAVehicleLabel.Visible = false;
             rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
 
@@ -546,5 +542,41 @@ WHERE rental_id = " + rentalId + ";";
         {
             mileageErrorLabel.Visible = false;
         }
+
+        private void startingSize()
+        {
+            this.Size = new Size(1288, 300);
+            this.CenterToScreen();
+        }
+
+        private void findAllRentalsSize()
+        {
+            this.Size = new Size(1288, 600);
+            this.CenterToScreen();
+        }
+
+        private void startAReturnSize()
+        {
+            this.Size = new Size(1288, 850);
+            this.CenterToScreen();
+        }
+
+        private void calculateAmountDueSize()
+        {
+            this.Size = new Size(1288, 1148);
+            this.CenterToScreen();
+        }
+
+        private void searchInfoChanged(object sender, EventArgs e)
+        {
+            startingSize();
+            findRentalsPanel.Visible = false;
+        }
+
+        private void branchCombobox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            startAReturnSize();
+        }
     }
+
 }
