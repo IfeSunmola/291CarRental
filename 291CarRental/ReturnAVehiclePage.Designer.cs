@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.rentalsDataView = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.findByText = new System.Windows.Forms.Label();
             this.searchInfoTextbox = new System.Windows.Forms.TextBox();
@@ -90,17 +89,6 @@
             this.rentalsDataView.TabIndex = 4;
             this.rentalsDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.rentalsDataView_CellMouseClick);
             this.rentalsDataView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.rentalsDataView_DataBindingComplete);
-            // 
-            // button1
-            // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(0, 263);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(216, 62);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "START A RETURN";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.startAReturnButton_Click);
             // 
             // label1
             // 
@@ -424,7 +412,6 @@
             this.findRentalsPanel.Controls.Add(this.selectAVehicleLabel);
             this.findRentalsPanel.Controls.Add(this.rentalsDataView);
             this.findRentalsPanel.Controls.Add(this.viewFullDetails);
-            this.findRentalsPanel.Controls.Add(this.button1);
             this.findRentalsPanel.Location = new System.Drawing.Point(104, 193);
             this.findRentalsPanel.Name = "findRentalsPanel";
             this.findRentalsPanel.Size = new System.Drawing.Size(998, 328);
@@ -446,7 +433,7 @@
             // viewFullDetails
             // 
             this.viewFullDetails.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.viewFullDetails.Location = new System.Drawing.Point(779, 266);
+            this.viewFullDetails.Location = new System.Drawing.Point(383, 266);
             this.viewFullDetails.Name = "viewFullDetails";
             this.viewFullDetails.Size = new System.Drawing.Size(216, 62);
             this.viewFullDetails.TabIndex = 27;
@@ -491,7 +478,6 @@
         #endregion
 
         private DataGridView rentalsDataView;
-        private Button button1;
         private Label label1;
         private Label findByText;
         private TextBox searchInfoTextbox;

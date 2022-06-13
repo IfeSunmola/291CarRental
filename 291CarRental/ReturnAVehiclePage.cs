@@ -477,9 +477,6 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
 
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //findAllRentalsSize();
-            returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
-            
             selectAVehicleLabel.Visible = false;
             rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
 
@@ -534,6 +531,20 @@ WHERE rental_id = " + rentalId + ";";
                 vehicleRented = reader.GetString("vehicle_gotten");
             }
             reader.Close();
+            returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
+
+            
+
+            if (totalMileageUsed > -1)
+            {
+                selectAVehicleLabel.Text = "THAT VEHICLE HAS BEEN RETURNED";
+                selectAVehicleLabel.Visible = true;
+                return;
+            }
+            // showing the actual return part
+            branchCombobox.Items.Clear();
+            fillBranchCombobox();
+            startAReturnSize();
         }
 
         private void mileageUsedTextbox_ValueChanged(object sender, EventArgs e)
