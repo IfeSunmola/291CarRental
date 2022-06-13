@@ -56,7 +56,7 @@ namespace _291CarRental
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             returnDateTimePicker.Value = DateTime.Now;
-            returnDateTimePicker.Enabled = false;
+            returnDateTimePicker.Enabled = true;
         }
 
         private String addQuotes(String stringToAdd)
@@ -416,7 +416,7 @@ MessageBoxButtons.YesNo);
                 {
                     MessageBox.Show("DATABASE ERROR OCCURED AT StartAReturnPage");
                 }
-               
+
             }
         }
 
@@ -442,7 +442,7 @@ SET branch_id = (SELECT dropoff_branch_id FROM Rental WHERE rental_id = " + rent
     current_mileage = ( (SELECT total_mileage_used FROM Rental WHERE rental_id =  " + rentalId + @") + current_mileage)
     
 WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalId + @");";
-           
+
             int vehicleBranchUpdate = connection.executeNonQuery(query);
             return vehicleReturn == 1 && vehicleBranchUpdate == 1;
         }
@@ -541,7 +541,7 @@ WHERE rental_id = " + rentalId + ";";
             reader.Close();
             returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
 
-            
+
 
             if (totalMileageUsed > -1)
             {
