@@ -390,6 +390,10 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
                     connection.executeNonQuery(query);
                     MessageBox.Show(customerNameLabel.Text + " is now a gold boy hehe");
                 }
+                this.Hide();
+                new EmpViewAllVehicles(previousPage, empId, connection).ShowDialog();
+                this.Close();
+
             }
         }
 

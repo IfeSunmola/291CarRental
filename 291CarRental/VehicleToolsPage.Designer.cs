@@ -182,7 +182,7 @@
             this.add_errorMessageLabel.Name = "add_errorMessageLabel";
             this.add_errorMessageLabel.Size = new System.Drawing.Size(762, 25);
             this.add_errorMessageLabel.TabIndex = 49;
-            this.add_errorMessageLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
+            this.add_errorMessageLabel.Text = "HEHE SHEESH BIG FOREHEAD HEHE";
             this.add_errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.add_errorMessageLabel.Visible = false;
             // 
@@ -213,7 +213,7 @@
             0,
             0});
             this.add_yearTextbox.Minimum = new decimal(new int[] {
-            1970,
+            2020,
             0,
             0,
             0});
@@ -221,7 +221,7 @@
             this.add_yearTextbox.Size = new System.Drawing.Size(150, 31);
             this.add_yearTextbox.TabIndex = 26;
             this.add_yearTextbox.Value = new decimal(new int[] {
-            1970,
+            2020,
             0,
             0,
             0});
@@ -570,7 +570,7 @@
             0,
             0});
             this.edit_yearTextbox.Minimum = new decimal(new int[] {
-            1970,
+            2020,
             0,
             0,
             0});
@@ -578,7 +578,7 @@
             this.edit_yearTextbox.Size = new System.Drawing.Size(150, 31);
             this.edit_yearTextbox.TabIndex = 37;
             this.edit_yearTextbox.Value = new decimal(new int[] {
-            1970,
+            2020,
             0,
             0,
             0});

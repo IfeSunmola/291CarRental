@@ -68,8 +68,18 @@ namespace _291CarRental
                         currentMileage, color, plateNumber))
                     {
                         MessageBox.Show("VEHICLE ADDED SUCCESSFULLY");
-                        this.Close();
-                        previousPage.Visible = true;
+                        // clear all the boxes if they want to add another vehicle
+                        add_yearTextbox.Value = add_yearTextbox.Minimum;
+                        add_brandCombobox.SelectedIndex = -1;
+                        add_modelTextbox.Clear();
+                        add_transmissionTypeCombobox.SelectedIndex = -1;
+                        add_numOfSeatsTextbox.Value = add_numOfSeatsTextbox.Minimum;
+                        add_currentMileageTextbox.Value = add_currentMileageTextbox.Minimum;
+                        add_colorCombobox.SelectedIndex = -1;
+                        add_plateNumberTextbox.Clear();
+                        add_branchCombobox.SelectedIndex = -1;
+                        add_vehicleClassCombobox.SelectedIndex = -1;
+                        
                     }
                     else
                     {// shouldn't happen but shit happens yuno
@@ -335,6 +345,7 @@ namespace _291CarRental
             if (confirmUpdate == DialogResult.Yes)
             {
                 saveEdits();
+                updatePanel.Visible = false;
             }
             else
             {
@@ -363,9 +374,11 @@ namespace _291CarRental
                 {
                     String query = "DELETE FROM Vehicle WHERE plate_number = " + addQuotes(delete_plateNumberTextbox.Text) + ";";
                     int rowsAffected = connection.executeNonQuery(query);
-                    String message = rowsAffected > 0 ? "VEHICLE DELETED" : "VEHICLE NOT DELETED";
+                    // vehicle not deleted shouldn't be shown
+                    String message = rowsAffected > 0 ? "VEHICLE DELETED" : "VEHICLE NOT DELETED. DATABASE ERROR IN deleteVehicleButton_Clikc";
                     MessageBox.Show(message);
                 }
+                deletePanel.Visible = false;
             }
             else
             {

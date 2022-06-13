@@ -406,13 +406,17 @@ MessageBoxButtons.YesNo);
                 if (returnSuccess(lateFeeLabel.Text, differentBranchFeeLabel.Text))
                 {
                     MessageBox.Show("VEHICLE RETURNED SUCCESSFULLY");
+                    //this.Close();
+                    //previousPage.Visible = true;
+                    this.Hide();
+                    new ReturnAVehiclePage(previousPage, empId, connection).ShowDialog();
                     this.Close();
-                    previousPage.Visible = true;
                 }
                 else// shouldn't execute
                 {
                     MessageBox.Show("DATABASE ERROR OCCURED AT StartAReturnPage");
                 }
+               
             }
         }
 
@@ -543,6 +547,7 @@ WHERE rental_id = " + rentalId + ";";
             {
                 selectAVehicleLabel.Text = "THAT VEHICLE HAS BEEN RETURNED";
                 selectAVehicleLabel.Visible = true;
+                findAllRentalsSize();
                 return;
             }
             // showing the actual return part
