@@ -346,12 +346,22 @@ namespace _291CarRental
         private void deleteVehicleButton_Click(object sender, EventArgs e)
         {
             // don't delete vehicle if it is has been rented out
+            if (vehicleIsRented(delete_plateNumberTextbox.Text))
+            {
+                MessageBox.Show("RENTED OUT");
+            }
+            else
+            {
+                MessageBox.Show("NOT RENTED OUT");
+            }
+            /*
             DialogResult confirmDelete = MessageBox.Show(
                 "Are you sure you want to delete this vehicle?" +
                 "\nThis process is IRREVERSIBLE.",
                 "CONFORM VEHICLE DELETE",
                 MessageBoxButtons.YesNo);
 
+           
             if (confirmDelete == DialogResult.Yes)
             {
 
@@ -375,7 +385,7 @@ namespace _291CarRental
             else
             {
                 MessageBox.Show("VEHICLE NOT DELETED");
-            }
+            }*/
         }
 
         private void startDeletingButton_Click(object sender, EventArgs e)
@@ -461,7 +471,8 @@ WHERE plate_number = " + addQuotes(search_plateNumberTextbox.Text) + @";";
 
         private bool vehicleIsRented(String plateNumber)
         {
-            String query = @"SELECT plate_number
+            String query = @"
+SELECT plate_number
 FROM Vehicle
 WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELECT vehicle_id FROM Rental WHERE actual_dropoff_date IS NOT NULL)";
 
@@ -588,9 +599,12 @@ WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELE
             edit_vehicleClassCombobox.Items.AddRange(add_vehicleClassCombobox.Items.Cast<Object>().ToArray());
         }
 
-        private void plateNumberSearch_TextChanged(object sender, EventArgs e)
+        private void search_TextChanged(object sender, EventArgs e)
         {
             updatePanel.Visible = false;
+            deletePanel.Visible = false;
+            delete_errorMessageLabel.Visible = false;
+            edit_ErrorMessageLabel.Visible = false;
         }
     }
 }

@@ -56,6 +56,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.edit_ErrorMessageLabel = new System.Windows.Forms.Label();
             this.updatePanel = new System.Windows.Forms.Panel();
+            this.edit_plateNumErrorLabel = new System.Windows.Forms.Label();
             this.edit_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.edit_colorCombobox = new System.Windows.Forms.ComboBox();
@@ -112,7 +113,6 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.edit_plateNumErrorLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.add_yearTextbox)).BeginInit();
@@ -461,6 +461,18 @@
             this.updatePanel.Size = new System.Drawing.Size(721, 422);
             this.updatePanel.TabIndex = 38;
             // 
+            // edit_plateNumErrorLabel
+            // 
+            this.edit_plateNumErrorLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.edit_plateNumErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.edit_plateNumErrorLabel.Location = new System.Drawing.Point(200, 339);
+            this.edit_plateNumErrorLabel.Name = "edit_plateNumErrorLabel";
+            this.edit_plateNumErrorLabel.Size = new System.Drawing.Size(374, 25);
+            this.edit_plateNumErrorLabel.TabIndex = 51;
+            this.edit_plateNumErrorLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
+            this.edit_plateNumErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.edit_plateNumErrorLabel.Visible = false;
+            // 
             // edit_vehicleClassCombobox
             // 
             this.edit_vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -698,7 +710,7 @@
             this.edit_plateNumberSearch.Name = "edit_plateNumberSearch";
             this.edit_plateNumberSearch.Size = new System.Drawing.Size(150, 31);
             this.edit_plateNumberSearch.TabIndex = 3;
-            this.edit_plateNumberSearch.TextChanged += new System.EventHandler(this.plateNumberSearch_TextChanged);
+            this.edit_plateNumberSearch.TextChanged += new System.EventHandler(this.search_TextChanged);
             // 
             // label10
             // 
@@ -1010,6 +1022,7 @@
             this.delete_plateNumberSearch.Name = "delete_plateNumberSearch";
             this.delete_plateNumberSearch.Size = new System.Drawing.Size(150, 31);
             this.delete_plateNumberSearch.TabIndex = 47;
+            this.delete_plateNumberSearch.TextChanged += new System.EventHandler(this.search_TextChanged);
             // 
             // label9
             // 
@@ -1069,18 +1082,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1030, 547);
             this.panel1.TabIndex = 29;
-            // 
-            // edit_plateNumErrorLabel
-            // 
-            this.edit_plateNumErrorLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.edit_plateNumErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.edit_plateNumErrorLabel.Location = new System.Drawing.Point(200, 339);
-            this.edit_plateNumErrorLabel.Name = "edit_plateNumErrorLabel";
-            this.edit_plateNumErrorLabel.Size = new System.Drawing.Size(374, 25);
-            this.edit_plateNumErrorLabel.TabIndex = 51;
-            this.edit_plateNumErrorLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
-            this.edit_plateNumErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.edit_plateNumErrorLabel.Visible = false;
             // 
             // VehicleToolsPage
             // 
