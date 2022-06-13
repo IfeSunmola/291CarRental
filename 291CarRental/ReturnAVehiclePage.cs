@@ -477,8 +477,11 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             selectAVehicleLabel.Visible = false;
+            if (rentalsDataView.Rows.Count <= 0)
+            {// if cell mouse click happens when the data grid view is empty
+                return;
+            }
             rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
-
             String query = @"
 SELECT
 	(SELECT customer_id FROM Customer WHERE customer_id = Rental.customer_id) AS [customer_id],
