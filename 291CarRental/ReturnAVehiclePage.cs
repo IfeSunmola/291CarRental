@@ -235,7 +235,7 @@ FROM Rental";
             }
             if (totalMileageUsed > -1)
             {
-                selectAVehicleLabel.Text = "That vehicle has been returned";
+                selectAVehicleLabel.Text = "THAT VEHICLE HAS BEEN RETURNED";
                 selectAVehicleLabel.Visible = true;
                 return;
             }
@@ -405,19 +405,14 @@ AND emp_id = " +empId + @";";
 
         private void finishReturnButton_Click(object sender, EventArgs e)
         {
-            String? name = rentalsDataView.CurrentRow.Cells["Name"].Value.ToString();
-            String? vehicleRented = rentalsDataView.CurrentRow.Cells["Vehicle Rented"].Value.ToString();
-            String? rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString();
-
             DialogResult confirmReturn = MessageBox.Show(
-("Confirm returning of " + vehicleRented + " FOR " + name).ToUpper(),
+("Confirm returning of " + vehicleRented + " FOR " + customerName).ToUpper(),
 "CONFIRM RETURN VEHICLE",
 MessageBoxButtons.YesNo);
 
             if (confirmReturn == DialogResult.Yes)
             {
-
-                if (returnSuccess(amountDueNowLabel.Text, rentalId))
+                if (returnSuccess(amountDueNowLabel.Text))
                 {
                     MessageBox.Show("VEHICLE RETURNED SUCCESSFULLY");
                     this.Close();
@@ -427,30 +422,35 @@ MessageBoxButtons.YesNo);
                 {
                     MessageBox.Show("DATABASE ERROR OCCURED AT StartAReturnPage");
                 }
-
-
-            }
-            else if (confirmReturn == DialogResult.No)
-            {
-                MessageBox.Show("VEHICLE RETURN CANCELLED");
             }
         }
         
-        private bool returnSuccess(String extraCharge, String rentalId)
+        private bool returnSuccess(String extraCharge)
         {
             String actualDropoffDate = returnDateTimePicker.Value.Date.ToString("d");
             // do the return
-            String query = @"UPDATE Rental
-                            SET actual_dropoff_date = " + addQuotes(actualDropoffDate) + @", 
-total_mileage_used = " + mileageUsedTextbox.Text + @", extra_charges = " + extraCharge + ", emp_id_return = " + empId + ", " +
-"dropoff_branch_id = " + (branchCombobox.SelectedIndex + 1) +
-@"WHERE rental_id = " + rentalId;
+            String query = @"
+UPDATE Rental
+SET actual_dropoff_date = " + addQuotes(actualDropoffDate) + @", 
+    total_mileage_used = " + mileageUsedTextbox.Text + @", 
+    extra_charges = " + extraCharge + @", 
+    emp_id_return = " + empId + @",
+    dropoff_branch_id = " + (branchCombobox.SelectedIndex + 1) + @"
+WHERE rental_id = " + rentalId;
+
             int vehicleReturn = connection.executeNonQuery(query);
+            //int vehicleReturn = 0;
             // update branch of returned vehicle
-            query = @"UPDATE Vehicle
-SET branch_id = (SELECT dropoff_branch_id FROM Rental WHERE rental_id = " + rentalId + @")
+            query = @"
+UPDATE Vehicle
+SET branch_id = (SELECT dropoff_branch_id FROM Rental WHERE rental_id = " + rentalId + @"),
+    current_mileage = ( (SELECT total_mileage_used FROM Rental WHERE rental_id =  " + rentalId + @") + current_mileage)
+    
 WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalId + @");";
+            
+            MessageBox.Show(query);
             int vehicleBranchUpdate = connection.executeNonQuery(query);
+           // int vehicleBranchUpdate = 0;
             return vehicleReturn == 1 && vehicleBranchUpdate == 1;
         }
 
