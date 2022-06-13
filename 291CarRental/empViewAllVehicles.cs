@@ -379,7 +379,7 @@ AND vehicle_id IN
                 // upgrading to gold if eligible
                 String query = @"SELECT count(*)
 FROM Rental, Customer
-WHERE Rental.customer_id = Customer.customer_id AND Rental.customer_id = " + customerInfoTextbox.Text + @" AND (SELECT YEAR(start_date_of_booking)) = YEAR(GETDATE())
+WHERE Rental.customer_id = Customer.customer_id AND Rental.customer_id = " + customerInfoTextbox.Text + @" AND (SELECT YEAR([start_date])) = YEAR(GETDATE())
 GROUP BY Rental.customer_id;";
 
                 if ((Convert.ToInt16(connection.executeScalar(query)) == 3))
@@ -403,7 +403,7 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             String classRequested = (vehicleClassCombobox.SelectedIndex + 1).ToString();
             
             String query = "INSERT INTO Rental" +
-                "\n(start_date_of_booking, expected_dropoff_date, initial_amount_paid, emp_id_booking, " +
+                "\n([start_date], expected_dropoff_date, initial_amount_paid, emp_id_booking, " +
                 "pickup_branch_id, vehicle_id, vehicle_class_requested, customer_id)" +
                 "\nVALUES" +
                 "\n( " + addQuotes(from) + ", " + addQuotes(to) + ", " + estimatedCostLabel.Text + ", " +

@@ -345,47 +345,32 @@ namespace _291CarRental
 
         private void deleteVehicleButton_Click(object sender, EventArgs e)
         {
-            // don't delete vehicle if it is has been rented out
-            if (vehicleIsRented(delete_plateNumberTextbox.Text))
-            {
-                MessageBox.Show("RENTED OUT");
-            }
-            else
-            {
-                MessageBox.Show("NOT RENTED OUT");
-            }
-            /*
             DialogResult confirmDelete = MessageBox.Show(
                 "Are you sure you want to delete this vehicle?" +
                 "\nThis process is IRREVERSIBLE.",
                 "CONFORM VEHICLE DELETE",
                 MessageBoxButtons.YesNo);
 
-           
+
             if (confirmDelete == DialogResult.Yes)
             {
-
+                // don't delete vehicle if it is has been rented out
                 if (vehicleIsRented(delete_plateNumberTextbox.Text))
                 {
                     MessageBox.Show("THIS VEHICLE IS CURRENTLY RENTED OUT\nVEHICLE NOT DELETED");
                 }
                 else
                 {
-                    if (vehicleWasDeleted(delete_plateNumberTextbox.Text))
-                    {
-                        MessageBox.Show("Vehicle deleted");
-                    }
-                    else
-                    {
-                        MessageBox.Show("INTERNAL ERROR IN VehicleToolsPage.cs: deleteVehicleButton_Click");
-                    }
+                    String query = "DELETE FROM Vehicle WHERE plate_number = " + addQuotes(delete_plateNumberTextbox.Text) + ";";
+                    int rowsAffected = connection.executeNonQuery(query);
+                    String message = rowsAffected > 0 ? "VEHICLE DELETED" : "VEHICLE NOT DELETED";
+                    MessageBox.Show(message);
                 }
-
             }
             else
             {
                 MessageBox.Show("VEHICLE NOT DELETED");
-            }*/
+            }
         }
 
         private void startDeletingButton_Click(object sender, EventArgs e)
@@ -461,26 +446,14 @@ WHERE plate_number = " + addQuotes(search_plateNumberTextbox.Text) + @";";
             }
         }
 
-
-        private bool vehicleWasDeleted(String plateNumber)
-        {
-            String query = "DELETE FROM Vehicle WHERE plate_number = " + addQuotes(plateNumber) + ";";
-            int rowsAffected = connection.executeNonQuery(query);
-            return rowsAffected > 0;
-        }
-
         private bool vehicleIsRented(String plateNumber)
         {
             String query = @"
 SELECT plate_number
 FROM Vehicle
-WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELECT vehicle_id FROM Rental WHERE actual_dropoff_date IS NOT NULL)";
+WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id IN (SELECT vehicle_id FROM Rental WHERE actual_dropoff_date IS NULL)";
 
-            if (connection.executeScalar(query) == null)
-            {
-                return false;
-            }
-            return true;
+            return connection.executeScalar(query) != null;
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -531,7 +504,7 @@ WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELE
             }
             if (!Regex.IsMatch(plateNumber, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
             {
-               errorMessageLabel.Text = "PLATE NUMBER MUST BE IN THE FORM A1B-C2D3";
+                errorMessageLabel.Text = "PLATE NUMBER MUST BE IN THE FORM A1B-C2D3";
                 return false;
             }
             errorMessageLabel.Visible = false;
