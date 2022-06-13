@@ -339,7 +339,7 @@ AND vehicle_id IN
             }
             else if (String.Equals(flag, "NUMBER"))
             {// find phone number
-                query += "CAST (area_code + phone_number AS VARCHAR) = " + idOrPhoneNumber;
+                query += "CAST (area_code + phone_number AS BIGINT) = " + idOrPhoneNumber;
             }
             return connection.executeScalar(query) != null;// not null: data was found
         }
