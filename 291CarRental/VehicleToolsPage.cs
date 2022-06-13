@@ -301,7 +301,6 @@ namespace _291CarRental
             {
                 edit_plateNumErrorLabel.Visible = true;
                 edit_plateNumErrorLabel.Text = "PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED";
-                //MessageBox.Show("PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED");
                 return;
             }
             // valid details from here on
