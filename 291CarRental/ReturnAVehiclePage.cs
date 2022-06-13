@@ -278,7 +278,6 @@ FROM Rental";
             {// plate number
                 searchInfoTextbox.MaxLength = 8;
                 searchInfoTextbox.CharacterCasing = CharacterCasing.Upper;
-                onlyUnreturnedVehicles.Visible = false;
             }
         }
 
