@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.add_errorMessageLabel = new System.Windows.Forms.Label();
             this.add_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.add_yearTextbox = new System.Windows.Forms.NumericUpDown();
@@ -53,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.edit_ErrorMessageLabel = new System.Windows.Forms.Label();
             this.updatePanel = new System.Windows.Forms.Panel();
             this.edit_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -79,6 +81,7 @@
             this.edit_plateNumberSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.delete_errorMessageLabel = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.deletePanel = new System.Windows.Forms.Panel();
             this.delete_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
@@ -109,6 +112,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.edit_plateNumErrorLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.add_yearTextbox)).BeginInit();
@@ -135,11 +139,12 @@
             this.tabControl1.Location = new System.Drawing.Point(123, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 520);
+            this.tabControl1.Size = new System.Drawing.Size(776, 529);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.add_errorMessageLabel);
             this.tabPage1.Controls.Add(this.add_vehicleClassCombobox);
             this.tabPage1.Controls.Add(this.label14);
             this.tabPage1.Controls.Add(this.add_yearTextbox);
@@ -164,10 +169,22 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 482);
+            this.tabPage1.Size = new System.Drawing.Size(768, 491);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ADD VEHICLE";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // add_errorMessageLabel
+            // 
+            this.add_errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.add_errorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.add_errorMessageLabel.Location = new System.Drawing.Point(3, 400);
+            this.add_errorMessageLabel.Name = "add_errorMessageLabel";
+            this.add_errorMessageLabel.Size = new System.Drawing.Size(762, 25);
+            this.add_errorMessageLabel.TabIndex = 49;
+            this.add_errorMessageLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
+            this.add_errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.add_errorMessageLabel.Visible = false;
             // 
             // add_vehicleClassCombobox
             // 
@@ -282,9 +299,9 @@
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Location = new System.Drawing.Point(300, 425);
+            this.button1.Location = new System.Drawing.Point(263, 428);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 41);
+            this.button1.Size = new System.Drawing.Size(210, 42);
             this.button1.TabIndex = 18;
             this.button1.Text = "ADD VEHICLE";
             this.button1.UseVisualStyleBackColor = true;
@@ -390,6 +407,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.edit_ErrorMessageLabel);
             this.tabPage2.Controls.Add(this.updatePanel);
             this.tabPage2.Controls.Add(this.button5);
             this.tabPage2.Controls.Add(this.edit_plateNumberSearch);
@@ -397,13 +415,26 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 482);
+            this.tabPage2.Size = new System.Drawing.Size(768, 491);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "EDIT VEHICLE";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // edit_ErrorMessageLabel
+            // 
+            this.edit_ErrorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.edit_ErrorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.edit_ErrorMessageLabel.Location = new System.Drawing.Point(23, 51);
+            this.edit_ErrorMessageLabel.Name = "edit_ErrorMessageLabel";
+            this.edit_ErrorMessageLabel.Size = new System.Drawing.Size(739, 25);
+            this.edit_ErrorMessageLabel.TabIndex = 50;
+            this.edit_ErrorMessageLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
+            this.edit_ErrorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.edit_ErrorMessageLabel.Visible = false;
+            // 
             // updatePanel
             // 
+            this.updatePanel.Controls.Add(this.edit_plateNumErrorLabel);
             this.updatePanel.Controls.Add(this.edit_vehicleClassCombobox);
             this.updatePanel.Controls.Add(this.label15);
             this.updatePanel.Controls.Add(this.edit_colorCombobox);
@@ -425,7 +456,7 @@
             this.updatePanel.Controls.Add(this.edit_transmissionComobox);
             this.updatePanel.Controls.Add(this.currentMileageLabel);
             this.updatePanel.Controls.Add(this.numOfSeatsLabel);
-            this.updatePanel.Location = new System.Drawing.Point(23, 54);
+            this.updatePanel.Location = new System.Drawing.Point(23, 58);
             this.updatePanel.Name = "updatePanel";
             this.updatePanel.Size = new System.Drawing.Size(721, 422);
             this.updatePanel.TabIndex = 38;
@@ -680,16 +711,29 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.delete_errorMessageLabel);
             this.tabPage3.Controls.Add(this.button6);
             this.tabPage3.Controls.Add(this.deletePanel);
             this.tabPage3.Controls.Add(this.delete_plateNumberSearch);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(768, 482);
+            this.tabPage3.Size = new System.Drawing.Size(768, 491);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "DELETE VEHICLE";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // delete_errorMessageLabel
+            // 
+            this.delete_errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.delete_errorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.delete_errorMessageLabel.Location = new System.Drawing.Point(23, 46);
+            this.delete_errorMessageLabel.Name = "delete_errorMessageLabel";
+            this.delete_errorMessageLabel.Size = new System.Drawing.Size(739, 25);
+            this.delete_errorMessageLabel.TabIndex = 51;
+            this.delete_errorMessageLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
+            this.delete_errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.delete_errorMessageLabel.Visible = false;
             // 
             // button6
             // 
@@ -725,7 +769,7 @@
             this.deletePanel.Controls.Add(this.delete_transmissionComobox);
             this.deletePanel.Controls.Add(this.label23);
             this.deletePanel.Controls.Add(this.label24);
-            this.deletePanel.Location = new System.Drawing.Point(23, 50);
+            this.deletePanel.Location = new System.Drawing.Point(23, 62);
             this.deletePanel.Name = "deletePanel";
             this.deletePanel.Size = new System.Drawing.Size(721, 422);
             this.deletePanel.TabIndex = 39;
@@ -1023,14 +1067,26 @@
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Location = new System.Drawing.Point(21, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1030, 526);
+            this.panel1.Size = new System.Drawing.Size(1030, 547);
             this.panel1.TabIndex = 29;
+            // 
+            // edit_plateNumErrorLabel
+            // 
+            this.edit_plateNumErrorLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.edit_plateNumErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.edit_plateNumErrorLabel.Location = new System.Drawing.Point(200, 339);
+            this.edit_plateNumErrorLabel.Name = "edit_plateNumErrorLabel";
+            this.edit_plateNumErrorLabel.Size = new System.Drawing.Size(374, 25);
+            this.edit_plateNumErrorLabel.TabIndex = 51;
+            this.edit_plateNumErrorLabel.Text = "HEHE HEHE SHEE UP SD SHEESH SS HEHE";
+            this.edit_plateNumErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.edit_plateNumErrorLabel.Visible = false;
             // 
             // VehicleToolsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 550);
+            this.ClientSize = new System.Drawing.Size(1072, 526);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1143,5 +1199,9 @@
         private Button button6;
         private TextBox delete_plateNumberSearch;
         private Label label9;
+        private Label add_errorMessageLabel;
+        private Label edit_ErrorMessageLabel;
+        private Label delete_errorMessageLabel;
+        private Label edit_plateNumErrorLabel;
     }
 }

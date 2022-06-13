@@ -106,78 +106,80 @@ namespace _291CarRental
             NumericUpDown numOfSeats, NumericUpDown currentMileage, ComboBox colorCombobox, TextBox plateNumber,
             ComboBox branchCombobox, ComboBox vehicleClassCombobox)
         {
+            add_errorMessageLabel.Visible = true; ;
             if (String.IsNullOrEmpty(year.Text.ToString()))
             {
-                MessageBox.Show("ENTER THE YEAR");
+                add_errorMessageLabel.Text = "YEAR CANNOT BE EMPTY";
                 return false;
             }
 
             if (brandCombobox.SelectedItem == null)
             {
-                MessageBox.Show("SELECT A BRAND");
+                add_errorMessageLabel.Text = "BRAND IS REQUIRED";
                 return false;
             }
 
             if (String.IsNullOrEmpty(model.Text.ToString()))
             {
-                MessageBox.Show("ENTER THE MODEL");
+                add_errorMessageLabel.Text = "MODEL IS REQURIED";
                 return false;
             }
 
             if (transmissionCombobox.SelectedItem == null)
             {
-                MessageBox.Show("SELECT A TRANSMISSION TYPE");
+                add_errorMessageLabel.Text = "TRANSMISSION TYPE IS REQUIRED";
                 return false;
             }
 
             if (String.IsNullOrEmpty(numOfSeats.Text.ToString()))
             {
-                MessageBox.Show("ENTER THE NUMBER OF SEATS");
+                add_errorMessageLabel.Text = "ENTER THE NUMBER OF SEATS";
                 return false;
             }
 
             if (String.IsNullOrEmpty(currentMileage.Text.ToString()))
             {
-                MessageBox.Show("ENTER THE MILEAGE");
+                add_errorMessageLabel.Text = "ENTER THE MILEAGE";
                 return false;
             }
 
             if (colorCombobox.SelectedItem == null)
             {
-                MessageBox.Show("SELECT A COLOR");
+                add_errorMessageLabel.Text = "SELECT A COLOR";
                 return false;
             }
 
             if (String.IsNullOrEmpty(plateNumber.Text.ToString()))
             {
-                MessageBox.Show("ENTER THE PLATE NUMBER");
+                add_errorMessageLabel.Text = "ENTER THE PLATE NUMBER";
                 return false;
             }
             else
             {
                 if (!Regex.IsMatch(plateNumber.Text.ToString(), "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
                 {
-                    MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
+                    add_errorMessageLabel.Text = "PLATE NUMBER MUST BE IN THE FORM A1B-C2D3";
                     return false;
                 }
                 if (plateNumberInDb(plateNumber))
                 {
-                    MessageBox.Show("PLATE NUMBER " + plateNumber.Text + " ALREADY EXISTS IN THE SYSTEM");
+                    add_errorMessageLabel.Text = "PLATE NUMBER " + plateNumber.Text + " ALREADY EXISTS IN THE SYSTEM";
                     return false;
                 }
             }
 
             if (branchCombobox.SelectedItem == null)
             {
-                MessageBox.Show("SELECT A BRANCH");
+                add_errorMessageLabel.Text = "SELECT A BRANCH";
                 return false;
             }
 
             if (vehicleClassCombobox.SelectedItem == null)
             {
-                MessageBox.Show("SELECT A VEHICLE CLASS");
+                add_errorMessageLabel.Text = "SELECT A VEHICLE CLASS";
                 return false;
             }
+            add_errorMessageLabel.Visible = false;
             return true;
         }
 
@@ -186,11 +188,14 @@ namespace _291CarRental
         private void startUpdatingButton_Click(object sender, EventArgs e)
         {
 
-            if (isValidPlateNumber(edit_plateNumberSearch))
+            if (isValidPlateNumber(edit_plateNumberSearch, edit_ErrorMessageLabel))
             {
+                edit_ErrorMessageLabel.Visible = true;
+                edit_ErrorMessageLabel.ForeColor = Color.Red;
                 if (plateNumberInDb(edit_plateNumberSearch))
                 {
-                    MessageBox.Show("PLATE NUMBER FOUND. CURRENT VALUES HAS BEEN PRE FILLED");
+                    edit_ErrorMessageLabel.ForeColor = Color.Green;
+                    edit_ErrorMessageLabel.Text = "PLATE NUMBER FOUND. CURRENT VALUES HAS BEEN PRE FILLED";
                     prefillEditDetails(edit_plateNumberSearch, edit_yearTextbox, edit_brandCombobox, edit_modelTextbox,
                         edit_transmissionComobox, edit_numOfSeatsTextbox, edit_currentMileageTextbox, edit_colorCombobox,
                         edit_plateNumberTextbox, edit_branchCombobox, edit_vehicleClassCombobox);
@@ -198,7 +203,7 @@ namespace _291CarRental
                 }
                 else
                 {
-                    MessageBox.Show("PLATE NUMBER NOT FOUND");
+                    edit_ErrorMessageLabel.Text = "PLATE NUMBER NOT FOUND";
                 }
             }
         }
@@ -226,7 +231,6 @@ namespace _291CarRental
                 currentMileage.Text = reader.GetInt32("current_mileage").ToString();
                 color.SelectedItem = reader.GetString("color");
                 plateNumber.Text = reader.GetString("plate_number");
-                MessageBox.Show(reader.GetInt32("branch_id").ToString());
                 branch.SelectedIndex = reader.GetInt32("branch_id") - 1;// - 1 because index starts from 0
                 vehicleClass.SelectedIndex = reader.GetInt32("vehicle_class_id") - 1;
             }
@@ -288,13 +292,16 @@ namespace _291CarRental
 
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
-            if (!isValidPlateNumber(edit_plateNumberTextbox))
+            edit_plateNumErrorLabel.Visible = false;
+            if (!isValidPlateNumber(edit_plateNumberTextbox, edit_ErrorMessageLabel))
             {
                 return;
             }
             if (plateNumberInDb(edit_plateNumberTextbox))
             {
-                MessageBox.Show("PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED");
+                edit_plateNumErrorLabel.Visible = true;
+                edit_plateNumErrorLabel.Text = "PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED";
+                //MessageBox.Show("PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED");
                 return;
             }
             // valid details from here on
@@ -374,11 +381,14 @@ namespace _291CarRental
 
         private void startDeletingButton_Click(object sender, EventArgs e)
         {
-            if (isValidPlateNumber(delete_plateNumberSearch))
+            if (isValidPlateNumber(delete_plateNumberSearch, delete_errorMessageLabel))
             {
+                delete_errorMessageLabel.Visible = true;
+                delete_errorMessageLabel.ForeColor = Color.Red;
                 if (plateNumberInDb(delete_plateNumberSearch))
                 {
-                    MessageBox.Show("PLATE NUMBER FOUND");
+                    delete_errorMessageLabel.ForeColor = Color.Green;
+                    delete_errorMessageLabel.Text = "PLATE NUMBER FOUND";
                     prefillDeleteDetails(delete_plateNumberSearch, delete_yearTextbox, delete_brandCombobox, delete_modelTextbox,
                        delete_transmissionComobox, delete_numOfSeatsTextbox, delete_currentMileageTextbox, delete_colorCombobox,
                        delete_plateNumberTextbox, delete_branchCombobox, delete_vehicleClassCombobox);
@@ -386,7 +396,7 @@ namespace _291CarRental
                 }
                 else
                 {
-                    MessageBox.Show("PLATE NUMBER NOT FOUND");
+                    delete_errorMessageLabel.Text = "PLATE NUMBER NOT FOUND";
                     deletePanel.Visible = false;
                 }
             }
@@ -499,19 +509,22 @@ WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELE
             return false;
         }
 
-        private bool isValidPlateNumber(TextBox plateNumberTextbox)
+        private bool isValidPlateNumber(TextBox plateNumberTextbox, Label errorMessageLabel)
         {// returns true if the plate number is valid, false if not
             String plateNumber = plateNumberTextbox.Text;
+            errorMessageLabel.ForeColor = Color.Red;
+            errorMessageLabel.Visible = true;
             if (String.IsNullOrEmpty(plateNumber))
             {
-                MessageBox.Show("ENTER THE PLATE NUMBER");
+                errorMessageLabel.Text = "ENTER THE PLATE NUMBER";
                 return false;
             }
             if (!Regex.IsMatch(plateNumber, "^[A-Z][0-9][A-Z]-[A-Z][0-9][A-Z][0-9]$"))
             {
-                MessageBox.Show("PLATE NUMBER MUST BE IN THE FORM A1B-C2D3");
+               errorMessageLabel.Text = "PLATE NUMBER MUST BE IN THE FORM A1B-C2D3";
                 return false;
             }
+            errorMessageLabel.Visible = false;
             return true;
         }
 
@@ -580,7 +593,5 @@ WHERE plate_number = " + addQuotes(plateNumber) + @" AND vehicle_id NOT IN (SELE
         {
             updatePanel.Visible = false;
         }
-
-
     }
 }
