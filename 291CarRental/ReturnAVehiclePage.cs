@@ -27,7 +27,8 @@ namespace _291CarRental
         private DateTime actualDropoffDate;
         private int totalMileageUsed = -1;
         private Decimal initialAmountPaid = -1.0m;
-        private Decimal extraCharges = -1.0m;
+        private Decimal lateFee = -1.0m;
+        private Decimal differentBranchFee = -1.0m;
         private String bookingEmployee = "";
         private String returnEmployee = "";
         private String pickupBranch_expectedDropoffLocation = "";
@@ -402,7 +403,7 @@ MessageBoxButtons.YesNo);
 
             if (confirmReturn == DialogResult.Yes)
             {
-                if (returnSuccess(amountDueNowLabel.Text))
+                if (returnSuccess(lateFeeLabel.Text, differentBranchFeeLabel.Text))
                 {
                     MessageBox.Show("VEHICLE RETURNED SUCCESSFULLY");
                     this.Close();
@@ -415,7 +416,7 @@ MessageBoxButtons.YesNo);
             }
         }
 
-        private bool returnSuccess(String extraCharge)
+        private bool returnSuccess(String calculatedLateFee, String calculatedDifferentBranchFee)
         {
             String actualDropoffDate = returnDateTimePicker.Value.Date.ToString("d");
             // do the return
@@ -423,13 +424,13 @@ MessageBoxButtons.YesNo);
 UPDATE Rental
 SET actual_dropoff_date = " + addQuotes(actualDropoffDate) + @", 
     total_mileage_used = " + mileageUsedTextbox.Text + @", 
-    extra_charges = " + extraCharge + @", 
+    late_fee = " + lateFee + @", 
+    different_branch_fee = " + calculatedDifferentBranchFee + @", 
     emp_id_return = " + empId + @",
     dropoff_branch_id = " + (branchCombobox.SelectedIndex + 1) + @"
 WHERE rental_id = " + rentalId;
 
             int vehicleReturn = connection.executeNonQuery(query);
-            //int vehicleReturn = 0;
             // update branch of returned vehicle
             query = @"
 UPDATE Vehicle
@@ -437,10 +438,8 @@ SET branch_id = (SELECT dropoff_branch_id FROM Rental WHERE rental_id = " + rent
     current_mileage = ( (SELECT total_mileage_used FROM Rental WHERE rental_id =  " + rentalId + @") + current_mileage)
     
 WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalId + @");";
-
-            MessageBox.Show(query);
+           
             int vehicleBranchUpdate = connection.executeNonQuery(query);
-            // int vehicleBranchUpdate = 0;
             return vehicleReturn == 1 && vehicleBranchUpdate == 1;
         }
 
@@ -458,7 +457,8 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
              "\nActual drop off date: " + (actualDropoffDate == DateTime.MinValue ? "N/A" : actualDropoffDate.ToString("D")) +
              "\nTotal mileage used: " + (totalMileageUsed == -1 ? "N/A" : totalMileageUsed) +
              "\nInitial amount paid: " + initialAmountPaid.ToString("C") +
-             "\nExtra charges: " + (Decimal.Equals(extraCharges, -1.00m) ? "N/A" : extraCharges.ToString("C")) +
+             "\nLate fee: " + (Decimal.Equals(lateFee, -1.00m) ? "N/A" : lateFee.ToString("C")) +
+             "\nDifferent branch fee: " + (Decimal.Equals(differentBranchFee, -1.00m) ? "N/A" : differentBranchFee.ToString("C")) +
              "\nBooking employee: " + bookingEmployee +
              "\nReturning employee: " + returnEmployee +
              "\nPickup branch/Expected dropoff branch: " + pickupBranch_expectedDropoffLocation +
@@ -493,7 +493,8 @@ SELECT
 	(SELECT ISNULL (actual_dropoff_date, '0001-01-01')) AS [actual_dropoff_date], 
 	(SELECT ISNULL (total_mileage_used, -1)) AS [total_mileage_used],
 	initial_amount_paid,
-	(SELECT ISNULL(extra_charges, -1)) AS [extra_charges], 
+    (SELECT ISNULL(late_fee, -1)) AS [late_fee], 
+    (SELECT ISNULL(different_branch_fee, -1)) AS [different_branch_fee], 
 	(SELECT last_name + ', ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
 		FROM Employee WHERE emp_id = emp_id_booking) AS [emp_who_booked],
 	(SELECT ISNULL ((SELECT last_name + ' ' + first_name + ' (' + CAST (emp_id AS VARCHAR) + ')'
@@ -523,7 +524,8 @@ WHERE rental_id = " + rentalId + ";";
                 actualDropoffDate = reader.GetDateTime("actual_dropoff_date");
                 totalMileageUsed = reader.GetInt32("total_mileage_used");
                 initialAmountPaid = reader.GetDecimal("initial_amount_paid");
-                extraCharges = reader.GetDecimal("extra_charges");
+                lateFee = reader.GetDecimal("late_fee");
+                differentBranchFee = reader.GetDecimal("different_branch_fee");
                 bookingEmployee = reader.GetString("emp_who_booked");
                 returnEmployee = reader.GetString("emp_who_returned");
                 pickupBranch_expectedDropoffLocation = reader.GetString("pickup_branch");
