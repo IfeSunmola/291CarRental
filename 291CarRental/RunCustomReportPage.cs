@@ -15,16 +15,17 @@ namespace _291CarRental
     {
         private EmployeeLandingPage previousPage;
         private DbConnection connection;
+        
         public RunCustomReportPage(EmployeeLandingPage previousPage, DbConnection connection)
         {
             InitializeComponent();
             this.previousPage = previousPage;
 
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Size = new Size(1479, 550);
+            this.CenterToScreen();
             this.connection = connection;
             fillReportComboBox();
             fillBranchCombobox();
-            
         }
 
         private void fillBranchCombobox()
@@ -38,6 +39,8 @@ namespace _291CarRental
                 topBranchCombobox.Items.Add(reader.GetString("branch_name").ToUpper());
                 bottomBranchCombobox.Items.Add(reader.GetString("branch_name").ToUpper());
             }
+            topBranchCombobox.SelectedIndex = 0;
+            bottomBranchCombobox.SelectedIndex = 0;
         }
         
         private void backButton_Click(object sender, EventArgs e)
@@ -64,6 +67,7 @@ namespace _291CarRental
 
         private DataTable generateEmployeeStats(String flag, NumericUpDown numOfEmployees, DateTimePicker fromDate, DateTimePicker toDate, ComboBox branch)
         {
+            //int currentBranchid = branch.SelectedIndex + 1;
             DataTable result = new DataTable();
             String query = @"
 SELECT 
@@ -138,6 +142,8 @@ FROM
             {
 
             }
+            this.Size = new Size(1478, 820);
+            this.CenterToScreen();
         }
     }
 }

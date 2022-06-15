@@ -35,6 +35,19 @@
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.employeeStatsPanel = new System.Windows.Forms.Panel();
             this.bottomRadioButton = new System.Windows.Forms.RadioButton();
             this.bottomBranchCombobox = new System.Windows.Forms.ComboBox();
             this.topBranchCombobox = new System.Windows.Forms.ComboBox();
@@ -54,6 +67,9 @@
             this.reportsDataView = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.employeeStatsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bottomNumericUpdown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.topNumericUpdown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataView)).BeginInit();
@@ -114,6 +130,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.employeeStatsPanel);
             this.panel1.Controls.Add(this.reportsDataView);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button4);
@@ -122,31 +139,170 @@
             this.panel1.Controls.Add(this.reportCombobox);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1433, 854);
+            this.panel1.Size = new System.Drawing.Size(1433, 1146);
             this.panel1.TabIndex = 28;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.bottomRadioButton);
-            this.panel2.Controls.Add(this.bottomBranchCombobox);
-            this.panel2.Controls.Add(this.topBranchCombobox);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.bottomToDatePicker);
-            this.panel2.Controls.Add(this.topToDatePicker);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.bottomNumericUpdown);
-            this.panel2.Controls.Add(this.topNumericUpdown);
-            this.panel2.Controls.Add(this.bottomFromDatePicker);
-            this.panel2.Controls.Add(this.topFromDatePicker);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.topRadioButton);
-            this.panel2.Location = new System.Drawing.Point(68, 77);
+            this.panel2.Controls.Add(this.dateTimePicker5);
+            this.panel2.Controls.Add(this.label13);
+            this.panel2.Controls.Add(this.dateTimePicker6);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.numericUpDown3);
+            this.panel2.Controls.Add(this.radioButton3);
+            this.panel2.Controls.Add(this.dateTimePicker2);
+            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.dateTimePicker4);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.numericUpDown2);
+            this.panel2.Controls.Add(this.radioButton2);
+            this.panel2.Location = new System.Drawing.Point(68, 775);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1278, 232);
-            this.panel2.TabIndex = 31;
+            this.panel2.TabIndex = 32;
+            // 
+            // dateTimePicker5
+            // 
+            this.dateTimePicker5.Location = new System.Drawing.Point(894, 137);
+            this.dateTimePicker5.Name = "dateTimePicker5";
+            this.dateTimePicker5.Size = new System.Drawing.Size(235, 31);
+            this.dateTimePicker5.TabIndex = 45;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(827, 143);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(50, 25);
+            this.label13.TabIndex = 46;
+            this.label13.Text = "AND";
+            // 
+            // dateTimePicker6
+            // 
+            this.dateTimePicker6.Location = new System.Drawing.Point(575, 137);
+            this.dateTimePicker6.Name = "dateTimePicker6";
+            this.dateTimePicker6.Size = new System.Drawing.Size(235, 31);
+            this.dateTimePicker6.TabIndex = 44;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(394, 143);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(164, 25);
+            this.label14.TabIndex = 43;
+            this.label14.Text = "RENTALS BETWEEN";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(331, 135);
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(53, 31);
+            this.numericUpDown3.TabIndex = 42;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Location = new System.Drawing.Point(0, 137);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(325, 29);
+            this.radioButton3.TabIndex = 41;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "BRANCHES THAT MADE LESS THAN";
+            this.radioButton3.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(894, 38);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(235, 31);
+            this.dateTimePicker2.TabIndex = 39;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(827, 44);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(50, 25);
+            this.label11.TabIndex = 40;
+            this.label11.Text = "AND";
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Location = new System.Drawing.Point(575, 38);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(235, 31);
+            this.dateTimePicker4.TabIndex = 38;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(394, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(164, 25);
+            this.label5.TabIndex = 37;
+            this.label5.Text = "RENTALS BETWEEN";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(316, 38);
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(53, 31);
+            this.numericUpDown2.TabIndex = 36;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Location = new System.Drawing.Point(0, 38);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(325, 29);
+            this.radioButton2.TabIndex = 29;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "BRANCHES THAT MADE AT LEAST";
+            this.radioButton2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // employeeStatsPanel
+            // 
+            this.employeeStatsPanel.Controls.Add(this.bottomRadioButton);
+            this.employeeStatsPanel.Controls.Add(this.bottomBranchCombobox);
+            this.employeeStatsPanel.Controls.Add(this.topBranchCombobox);
+            this.employeeStatsPanel.Controls.Add(this.label8);
+            this.employeeStatsPanel.Controls.Add(this.label6);
+            this.employeeStatsPanel.Controls.Add(this.bottomToDatePicker);
+            this.employeeStatsPanel.Controls.Add(this.topToDatePicker);
+            this.employeeStatsPanel.Controls.Add(this.label9);
+            this.employeeStatsPanel.Controls.Add(this.label3);
+            this.employeeStatsPanel.Controls.Add(this.bottomNumericUpdown);
+            this.employeeStatsPanel.Controls.Add(this.topNumericUpdown);
+            this.employeeStatsPanel.Controls.Add(this.bottomFromDatePicker);
+            this.employeeStatsPanel.Controls.Add(this.topFromDatePicker);
+            this.employeeStatsPanel.Controls.Add(this.label10);
+            this.employeeStatsPanel.Controls.Add(this.label2);
+            this.employeeStatsPanel.Controls.Add(this.topRadioButton);
+            this.employeeStatsPanel.Location = new System.Drawing.Point(68, 77);
+            this.employeeStatsPanel.Name = "employeeStatsPanel";
+            this.employeeStatsPanel.Size = new System.Drawing.Size(1278, 232);
+            this.employeeStatsPanel.TabIndex = 31;
             // 
             // bottomRadioButton
             // 
@@ -166,7 +322,6 @@
             this.bottomBranchCombobox.Name = "bottomBranchCombobox";
             this.bottomBranchCombobox.Size = new System.Drawing.Size(182, 33);
             this.bottomBranchCombobox.TabIndex = 33;
-            this.bottomBranchCombobox.Text = "SELECT A BRANCH";
             // 
             // topBranchCombobox
             // 
@@ -175,7 +330,6 @@
             this.topBranchCombobox.Name = "topBranchCombobox";
             this.topBranchCombobox.Size = new System.Drawing.Size(182, 33);
             this.topBranchCombobox.TabIndex = 33;
-            this.topBranchCombobox.Text = "SELECT A BRANCH";
             // 
             // label8
             // 
@@ -311,7 +465,7 @@
             this.reportsDataView.AllowUserToResizeColumns = false;
             this.reportsDataView.AllowUserToResizeRows = false;
             this.reportsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.reportsDataView.Location = new System.Drawing.Point(428, 583);
+            this.reportsDataView.Location = new System.Drawing.Point(428, 527);
             this.reportsDataView.MultiSelect = false;
             this.reportsDataView.Name = "reportsDataView";
             this.reportsDataView.ReadOnly = true;
@@ -325,7 +479,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1457, 878);
+            this.ClientSize = new System.Drawing.Size(1457, 1170);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -335,6 +489,10 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            this.employeeStatsPanel.ResumeLayout(false);
+            this.employeeStatsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bottomNumericUpdown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.topNumericUpdown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataView)).EndInit();
@@ -351,7 +509,7 @@
         private Button button2;
         private Panel panel1;
         private DataGridView reportsDataView;
-        private Panel panel2;
+        private Panel employeeStatsPanel;
         private Label label2;
         private RadioButton topRadioButton;
         private NumericUpDown topNumericUpdown;
@@ -368,5 +526,18 @@
         private ComboBox topBranchCombobox;
         private Label label6;
         private RadioButton bottomRadioButton;
+        private Panel panel2;
+        private DateTimePicker dateTimePicker5;
+        private Label label13;
+        private DateTimePicker dateTimePicker6;
+        private Label label14;
+        private NumericUpDown numericUpDown3;
+        private RadioButton radioButton3;
+        private DateTimePicker dateTimePicker2;
+        private Label label11;
+        private DateTimePicker dateTimePicker4;
+        private Label label5;
+        private NumericUpDown numericUpDown2;
+        private RadioButton radioButton2;
     }
 }
