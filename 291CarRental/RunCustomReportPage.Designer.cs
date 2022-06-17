@@ -34,6 +34,11 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.vehicleStatsPanel = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.classAvailableRadio = new System.Windows.Forms.RadioButton();
+            this.classNotAvailableRadio = new System.Windows.Forms.RadioButton();
             this.branchStatsPanel = new System.Windows.Forms.Panel();
             this.branchDownToDate = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
@@ -66,6 +71,7 @@
             this.topRadioButton = new System.Windows.Forms.RadioButton();
             this.reportsDataView = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
+            this.vehicleStatsPanel.SuspendLayout();
             this.branchStatsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown1)).BeginInit();
@@ -129,6 +135,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.vehicleStatsPanel);
             this.panel1.Controls.Add(this.branchStatsPanel);
             this.panel1.Controls.Add(this.employeeStatsPanel);
             this.panel1.Controls.Add(this.reportsDataView);
@@ -139,8 +146,61 @@
             this.panel1.Controls.Add(this.reportCombobox);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1433, 1146);
+            this.panel1.Size = new System.Drawing.Size(1433, 1482);
             this.panel1.TabIndex = 28;
+            // 
+            // vehicleStatsPanel
+            // 
+            this.vehicleStatsPanel.Controls.Add(this.label7);
+            this.vehicleStatsPanel.Controls.Add(this.label4);
+            this.vehicleStatsPanel.Controls.Add(this.classAvailableRadio);
+            this.vehicleStatsPanel.Controls.Add(this.classNotAvailableRadio);
+            this.vehicleStatsPanel.Location = new System.Drawing.Point(68, 1111);
+            this.vehicleStatsPanel.Name = "vehicleStatsPanel";
+            this.vehicleStatsPanel.Size = new System.Drawing.Size(1278, 182);
+            this.vehicleStatsPanel.TabIndex = 33;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(561, 103);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(152, 25);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "WAS AVAILABLE";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(603, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(150, 25);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "NOT AVAILABLE";
+            // 
+            // classAvailableRadio
+            // 
+            this.classAvailableRadio.AutoSize = true;
+            this.classAvailableRadio.Location = new System.Drawing.Point(0, 101);
+            this.classAvailableRadio.Name = "classAvailableRadio";
+            this.classAvailableRadio.Size = new System.Drawing.Size(570, 29);
+            this.classAvailableRadio.TabIndex = 1;
+            this.classAvailableRadio.TabStop = true;
+            this.classAvailableRadio.Text = "SHOW VEHICLE CLASSES THAT WERE REQUESTED THE MOST AND";
+            this.classAvailableRadio.UseVisualStyleBackColor = true;
+            // 
+            // classNotAvailableRadio
+            // 
+            this.classNotAvailableRadio.AutoSize = true;
+            this.classNotAvailableRadio.Location = new System.Drawing.Point(0, 38);
+            this.classNotAvailableRadio.Name = "classNotAvailableRadio";
+            this.classNotAvailableRadio.Size = new System.Drawing.Size(613, 29);
+            this.classNotAvailableRadio.TabIndex = 0;
+            this.classNotAvailableRadio.TabStop = true;
+            this.classNotAvailableRadio.Text = "SHOW VEHICLE CLASSES THAT WERE REQUESTED THE MOST AND WAS";
+            this.classNotAvailableRadio.UseVisualStyleBackColor = true;
             // 
             // branchStatsPanel
             // 
@@ -479,7 +539,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1457, 1170);
+            this.ClientSize = new System.Drawing.Size(1457, 1506);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -487,6 +547,8 @@
             this.Text = "RunCustomScript";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.vehicleStatsPanel.ResumeLayout(false);
+            this.vehicleStatsPanel.PerformLayout();
             this.branchStatsPanel.ResumeLayout(false);
             this.branchStatsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).EndInit();
@@ -539,5 +601,10 @@
         private Label label5;
         private NumericUpDown branchNumericUpdown1;
         private RadioButton branchTopRadio;
+        private Panel vehicleStatsPanel;
+        private Label label7;
+        private Label label4;
+        private RadioButton classAvailableRadio;
+        private RadioButton classNotAvailableRadio;
     }
 }

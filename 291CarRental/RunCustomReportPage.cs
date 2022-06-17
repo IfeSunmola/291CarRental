@@ -110,6 +110,14 @@ FROM
             MessageBox.Show(query);
             return result;
         }
+        
+        private DataTable vehicleClassRequested()
+        {
+            DataTable result = new DataTable();
+            String query = "";
+            result.Load(connection.executeReader(query));
+            return result;
+        }
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -130,11 +138,19 @@ FROM
             {// emp stats selected
                 employeeStatsPanel.Location = new Point(68, 77);
                 branchStatsPanel.Location = new Point(68, 768);
+                vehicleStatsPanel.Location = new Point(68, 1111);
             }
             if (reportCombobox.SelectedIndex == 1)
             {// branch stats selected
-                employeeStatsPanel.Location = new Point(68, 768);
                 branchStatsPanel.Location = new Point(68, 77);
+                employeeStatsPanel.Location = new Point(68, 768);
+                vehicleStatsPanel.Location = new Point(68, 1111);
+            }
+            if (reportCombobox.SelectedIndex == 2)
+            {// vehicle class stats selected
+                vehicleStatsPanel.Location = new Point(68, 77);
+                employeeStatsPanel.Location = new Point(68, 768);
+                branchStatsPanel.Location = new Point(68, 1111);
             }
             this.Size = new Size(1479, 550);
         }
