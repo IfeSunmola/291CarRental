@@ -89,6 +89,27 @@ FROM
             return result;
         }
 
+        private DataTable generateBranchStats(String flag, NumericUpDown number, DateTimePicker fromDate, DateTimePicker toDate)
+        {
+            DataTable result = new DataTable();
+            String query = @"
+SELECT
+	(SELECT branch_name FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch Name],
+    (SELECT '(' + area_code + ')' + ' ' + phone_number FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch phone number],
+	T1.[Number of Rentals]
+FROM 
+	(SELECT pickup_branch_id, COUNT(*) AS [Number of Rentals]
+	FROM Branch, Rental
+	WHERE Branch.branch_id = Rental.pickup_branch_id  
+		AND [start_date] BETWEEN " + addQuotes(fromDate.Value.ToString("d")) + @" AND " + addQuotes(toDate.Value.ToString("d")) +  @"
+	GROUP BY pickup_branch_id
+	HAVING COUNT (*) " + flag + number.Value.ToString() + @") AS T1
+";
+
+            result.Load(connection.executeReader(query));
+            MessageBox.Show(query);
+            return result;
+        }
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -105,6 +126,17 @@ FROM
 
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (reportCombobox.SelectedIndex == 0)
+            {// emp stats selected
+                employeeStatsPanel.Location = new Point(68, 77);
+                branchStatsPanel.Location = new Point(68, 768);
+            }
+            if (reportCombobox.SelectedIndex == 1)
+            {// branch stats selected
+                employeeStatsPanel.Location = new Point(68, 768);
+                branchStatsPanel.Location = new Point(68, 77);
+            }
+            this.Size = new Size(1479, 550);
         }
 
         private void sizeDGV(DataGridView dgv)
@@ -125,7 +157,7 @@ FROM
                 if (topRadioButton.Checked)
                 {
                     reportsDataView.DataSource = generateEmployeeStats("DESC", topNumericUpdown, topFromDatePicker, topToDatePicker, topBranchCombobox);
-                    reportsDataView.AutoResizeColumns();
+                    //reportsDataView.AutoResizeColumns();
                     //reportsDataView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     //sizeDGV(reportsDataView);
 
@@ -133,15 +165,23 @@ FROM
                 if (bottomRadioButton.Checked)
                 {
                     reportsDataView.DataSource = generateEmployeeStats("ASC", bottomNumericUpdown, bottomFromDatePicker, bottomToDatePicker, bottomBranchCombobox);
-                    reportsDataView.AutoResizeColumns();
+                    //reportsDataView.AutoResizeColumns();
                     //reportsDataView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     //sizeDGV(reportsDataView);
                 }
             }
             else if (reportCombobox.SelectedIndex == 1)// branch stats
             {
-
+                if (branchTopRadio.Checked)
+                {
+                    reportsDataView.DataSource = generateBranchStats(">=", branchNumericUpdown1, branchUpFromDate, branchUpToDate);
+                }
+                if (branchBottomRadio.Checked)
+                {
+                    reportsDataView.DataSource = generateBranchStats("<", branchNumericUpdown2, branchDownFromDate, branchDownToDate);
+                }
             }
+            reportsDataView.AutoResizeColumns();
             this.Size = new Size(1478, 820);
             this.CenterToScreen();
         }
