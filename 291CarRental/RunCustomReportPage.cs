@@ -21,9 +21,8 @@ namespace _291CarRental
             InitializeComponent();
             this.previousPage = previousPage;
 
-            this.Size = new Size(this.Width, 640);
+            this.Size = new Size(this.Width, 650);
             this.StartPosition = FormStartPosition.CenterScreen;
-            //this.CenterToScreen();
             this.connection = connection;
 
             fillComboboxes();
@@ -43,14 +42,14 @@ namespace _291CarRental
             branchCombobox.Items.Add("ALL BRANCHES");
             colorCombobox.Items.Add("ALL COLORS");
             brandCombobox.Items.Add("ALL BRANDS");
-            transmissionCombobox.Items.Add("ALL TYPES");
+            yearCombobox.Items.Add("ALL YEARS");
             //////////////////////////////////////////////////////////
             branchCombobox.SelectedIndex = 0;
             colorCombobox.SelectedIndex = 0;
             brandCombobox.SelectedIndex = 0;
-            transmissionCombobox.SelectedIndex = 0;
+            yearCombobox.SelectedIndex = 0;
             String query = "SELECT branch_name FROM Branch; SELECT DISTINCT color FROM Vehicle; " +
-                "SELECT DISTINCT brand FROM Vehicle; SELECT DISTINCT transmission_type FROM Vehicle;";
+                "SELECT DISTINCT brand FROM Vehicle;";
             SqlDataReader reader = connection.executeReader(query);
             while (reader.Read())
             {
@@ -66,10 +65,10 @@ namespace _291CarRental
             {
                 brandCombobox.Items.Add(reader.GetString("brand").ToUpper());
             }
-            reader.NextResult();
-            while(reader.Read())
+            
+            for (int i = 2019; i <= DateTime.Now.Year; i++)
             {
-                transmissionCombobox.Items.Add(reader.GetString("transmission_type").ToUpper());
+                yearCombobox.Items.Add(i);
             }
         }
        
@@ -102,8 +101,46 @@ FROM
 
         private DataTable mileageReport()
         {
+            DataTable result = new DataTable();
+            String branch = (branchCombobox.SelectedIndex > 0 ?
+               "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
+            String color = (colorCombobox.SelectedIndex > 0 ?
+               "\nAND color = " + addQuotes(colorCombobox.SelectedItem.ToString()) : "");
+            String brand = (brandCombobox.SelectedIndex > 0 ?
+               "\nAND brand = " + addQuotes(brandCombobox.SelectedItem.ToString()) : "");
+            String year = (yearCombobox.SelectedIndex > 0 ?
+               "\nAND year = " + yearCombobox.SelectedItem.ToString(): "");
+            String query = @"
+SELECT plate_number [Plate Number], current_mileage [Current Mileage], [year] [Year], brand [Brand], model [Model], color [Color]
+FROM Vehicle
+WHERE current_mileage >= " + mileageNumericUpdown.Value + branch + color + brand + year;
+            result.Load(connection.executeReader(query));
+            return result;
+        }
+        
+        private DataTable classRentedMostLeast(String flag)
+        {
+            DataTable result = new DataTable();
+            flag = (flag.Equals("MOST") ? "DESC" : "ASC");
+            String branch = (branchCombobox.SelectedIndex > 0 ?
+             "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
+
+            String query = @"
+SELECT TOP (1)
+	vehicle_class [Vehicle Class],
+	COUNT(*) [Number of times rented]
+FROM Rental, Vehicle, Vehicle_Class
+WHERE Rental.vehicle_id = Vehicle.vehicle_id AND Vehicle_Class.vehicle_class_id 
+					IN(SELECT Vehicle.vehicle_class_id FROM Vehicle WHERE vehicle_id = Rental.vehicle_id )
+        AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + branch +         @" 
+GROUP BY vehicle_class
+ORDER BY [Number of times rented] " + flag;
+
+            result.Load(connection.executeReader(query));
+            return result;
 
         }
+       
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -112,15 +149,49 @@ FROM
         private void generateButton_Click(object sender, EventArgs e)
         {
             if (vehicleRadio1.Checked)
-            {
+            {// requested and NOT available 
                 reportsDataView.DataSource = classRequestedReport("!=");
-                this.Size = new Size(this.Width, 850);
+
+                reportsDataView.Size = new Size(386, 192);
+                reportsDataView.Location = new Point(411, 606);
+                this.Size = new Size(this.Width, 900);
                 this.CenterToScreen();
             }
             else if (vehicleRadio2.Checked)
-            {
+            {// requested and was availablee
                 reportsDataView.DataSource = classRequestedReport("=");
-                this.Size = new Size(this.Width, 850);
+
+                reportsDataView.Size = new Size(386, 192);
+                reportsDataView.Location = new Point(411, 606);
+                this.Size = new Size(this.Width, 900);
+                this.CenterToScreen();
+            }
+            else if (vehicleRadio3.Checked)
+            {// mileage report
+                reportsDataView.DataSource = mileageReport();
+
+                reportsDataView.Size = new Size(1000, 192);
+                reportsDataView.Location = new Point(111, 601);
+                this.Size = new Size(this.Width, 900);
+                this.CenterToScreen();
+            }
+            else if (vehicleRadio4.Checked)
+            {// class rernted the most/least
+
+                if (vehicleMostLeastCombobox.SelectedIndex == 0)
+                {
+                    reportsDataView.DataSource = classRentedMostLeast("MOST");
+                }
+                else
+                {
+                    reportsDataView.DataSource = classRentedMostLeast("LEAST");
+                }
+
+                
+
+                reportsDataView.Location = new Point(396, 595);
+                reportsDataView.Size = new Size(386, 91);
+                this.Size = new Size(this.Width, 800);
                 this.CenterToScreen();
             }
             

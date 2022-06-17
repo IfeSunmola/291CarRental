@@ -40,7 +40,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.brandCombobox = new System.Windows.Forms.ComboBox();
             this.colorCombobox = new System.Windows.Forms.ComboBox();
-            this.transmissionCombobox = new System.Windows.Forms.ComboBox();
+            this.yearCombobox = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@
             this.vehicleMostLeastCombobox = new System.Windows.Forms.ComboBox();
             this.vehicleRadio4 = new System.Windows.Forms.RadioButton();
             this.label16 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.mileageNumericUpdown = new System.Windows.Forms.NumericUpDown();
             this.vehicleRadio3 = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -93,7 +93,7 @@
             this.panel1.SuspendLayout();
             this.vehicleStatsPanel.SuspendLayout();
             this.vehicleFilters.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mileageNumericUpdown)).BeginInit();
             this.branchStatsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown1)).BeginInit();
@@ -125,7 +125,7 @@
             // generateButton
             // 
             this.generateButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.generateButton.Location = new System.Drawing.Point(475, 481);
+            this.generateButton.Location = new System.Drawing.Point(512, 492);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(194, 82);
             this.generateButton.TabIndex = 9;
@@ -186,7 +186,7 @@
             this.vehicleStatsPanel.Controls.Add(this.vehicleMostLeastCombobox);
             this.vehicleStatsPanel.Controls.Add(this.vehicleRadio4);
             this.vehicleStatsPanel.Controls.Add(this.label16);
-            this.vehicleStatsPanel.Controls.Add(this.numericUpDown1);
+            this.vehicleStatsPanel.Controls.Add(this.mileageNumericUpdown);
             this.vehicleStatsPanel.Controls.Add(this.vehicleRadio3);
             this.vehicleStatsPanel.Controls.Add(this.label7);
             this.vehicleStatsPanel.Controls.Add(this.label4);
@@ -203,11 +203,11 @@
             this.vehicleFilters.Controls.Add(this.label23);
             this.vehicleFilters.Controls.Add(this.brandCombobox);
             this.vehicleFilters.Controls.Add(this.colorCombobox);
-            this.vehicleFilters.Controls.Add(this.transmissionCombobox);
+            this.vehicleFilters.Controls.Add(this.yearCombobox);
             this.vehicleFilters.Controls.Add(this.label24);
             this.vehicleFilters.Location = new System.Drawing.Point(236, 343);
             this.vehicleFilters.Name = "vehicleFilters";
-            this.vehicleFilters.Size = new System.Drawing.Size(611, 61);
+            this.vehicleFilters.Size = new System.Drawing.Size(558, 61);
             this.vehicleFilters.TabIndex = 34;
             this.vehicleFilters.Visible = false;
             // 
@@ -247,23 +247,23 @@
             this.colorCombobox.Size = new System.Drawing.Size(140, 33);
             this.colorCombobox.TabIndex = 58;
             // 
-            // transmissionCombobox
+            // yearCombobox
             // 
-            this.transmissionCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.transmissionCombobox.FormattingEnabled = true;
-            this.transmissionCombobox.Location = new System.Drawing.Point(424, 28);
-            this.transmissionCombobox.Name = "transmissionCombobox";
-            this.transmissionCombobox.Size = new System.Drawing.Size(182, 33);
-            this.transmissionCombobox.TabIndex = 60;
+            this.yearCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.yearCombobox.FormattingEnabled = true;
+            this.yearCombobox.Location = new System.Drawing.Point(424, 28);
+            this.yearCombobox.Name = "yearCombobox";
+            this.yearCombobox.Size = new System.Drawing.Size(134, 33);
+            this.yearCombobox.TabIndex = 60;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(424, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(183, 25);
+            this.label24.Size = new System.Drawing.Size(54, 25);
             this.label24.TabIndex = 61;
-            this.label24.Text = "TRANSMISSION TYPE";
+            this.label24.Text = "YEAR";
             // 
             // label25
             // 
@@ -363,24 +363,19 @@
             this.label16.TabIndex = 48;
             this.label16.Text = "MILEAGE";
             // 
-            // numericUpDown1
+            // mileageNumericUpdown
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(236, 152);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            12000,
+            this.mileageNumericUpdown.Location = new System.Drawing.Point(236, 152);
+            this.mileageNumericUpdown.Maximum = new decimal(new int[] {
+            500000,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            12000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(133, 31);
-            this.numericUpDown1.TabIndex = 43;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            12000,
+            this.mileageNumericUpdown.Name = "mileageNumericUpdown";
+            this.mileageNumericUpdown.Size = new System.Drawing.Size(133, 31);
+            this.mileageNumericUpdown.TabIndex = 43;
+            this.mileageNumericUpdown.Value = new decimal(new int[] {
+            120,
             0,
             0,
             0});
@@ -608,7 +603,7 @@
             this.employeeStatsPanel.Controls.Add(this.topFromDatePicker);
             this.employeeStatsPanel.Controls.Add(this.label2);
             this.employeeStatsPanel.Controls.Add(this.topRadioButton);
-            this.employeeStatsPanel.Location = new System.Drawing.Point(55, 775);
+            this.employeeStatsPanel.Location = new System.Drawing.Point(81, 915);
             this.employeeStatsPanel.Name = "employeeStatsPanel";
             this.employeeStatsPanel.Size = new System.Drawing.Size(1059, 349);
             this.employeeStatsPanel.TabIndex = 31;
@@ -772,14 +767,14 @@
             this.reportsDataView.AllowUserToResizeColumns = false;
             this.reportsDataView.AllowUserToResizeRows = false;
             this.reportsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.reportsDataView.Location = new System.Drawing.Point(298, 677);
+            this.reportsDataView.Location = new System.Drawing.Point(396, 595);
             this.reportsDataView.MultiSelect = false;
             this.reportsDataView.Name = "reportsDataView";
             this.reportsDataView.ReadOnly = true;
             this.reportsDataView.RowHeadersWidth = 62;
             this.reportsDataView.RowTemplate.Height = 33;
             this.reportsDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.reportsDataView.Size = new System.Drawing.Size(588, 192);
+            this.reportsDataView.Size = new System.Drawing.Size(386, 91);
             this.reportsDataView.TabIndex = 30;
             // 
             // RunCustomReportPage
@@ -798,7 +793,7 @@
             this.vehicleStatsPanel.PerformLayout();
             this.vehicleFilters.ResumeLayout(false);
             this.vehicleFilters.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mileageNumericUpdown)).EndInit();
             this.branchStatsPanel.ResumeLayout(false);
             this.branchStatsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).EndInit();
@@ -861,7 +856,7 @@
         private ComboBox vehicleMostLeastCombobox;
         private RadioButton vehicleRadio4;
         private Label label16;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown mileageNumericUpdown;
         private RadioButton vehicleRadio3;
         private Label label10;
         private Label label21;
@@ -872,7 +867,7 @@
         private ComboBox brandCombobox;
         private Label label25;
         private Label label24;
-        private ComboBox transmissionCombobox;
+        private ComboBox yearCombobox;
         private Label label23;
         private ComboBox colorCombobox;
         private Panel vehicleFilters;
