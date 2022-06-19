@@ -22,7 +22,7 @@ namespace _291CarRental
         {
             InitializeComponent();
             this.previousPage = previousPage;
-            this.startingSize = new Size(this.Width, 670);
+            this.startingSize = new Size(this.Width, 740);
 
             this.Size = startingSize;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -153,10 +153,11 @@ ORDER BY [Number of times rented] " + flag;
               "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
             String colorFilter = (colorCombobox.SelectedIndex > 0 ?
                "\nAND color = " + addQuotes(colorCombobox.SelectedItem.ToString()) : "");
-            String brand = (brandCombobox.SelectedIndex > 0 ?
+            String brandFilter = (brandCombobox.SelectedIndex > 0 ?
                "\nAND brand = " + addQuotes(brandCombobox.SelectedItem.ToString()) : "");
             String yearFilter = (yearCombobox.SelectedIndex > 0 ?
                "\nAND year = " + yearCombobox.SelectedItem.ToString() : "");
+            String mileageFilter = "\nAND current_mileage BETWEEN " + mileageBetween1.Value.ToString() + " AND " + mileageBetween2.Value.ToString();
             String query = @"
 SELECT
 	(SELECT plate_number FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Plate Number],
@@ -171,7 +172,7 @@ FROM
 	(
 		(SELECT vehicle_id
 		FROM Vehicle
-		WHERE branch_id > 0 " + branchFilter + colorFilter +  yearFilter + @") --using branch_id > 0 so the other filters can be added
+		WHERE branch_id > 0 " + branchFilter + colorFilter + brandFilter +  yearFilter + mileageFilter + @") --using branch_id > 0 so the other filters can be added
 	EXCEPT
 		(SELECT vehicle_id 
 		FROM Rental
@@ -193,6 +194,9 @@ FROM
             String query = @"
 SELECT 
 	(SELECT CONCAT (first_name, ' ', last_name, ' (', emp_id, ')') FROM Employee WHERE E1.emp_id = Employee.emp_id) AS [Name (id)],
+    
+    (SELECT CONCAT (branch_name, ' (', branch_id, ')') FROM Branch WHERE Branch.branch_id = 
+		(SELECT branch_id FROM Employee WHERE emp_id = E1.emp_id)) [Branch Name (id)],
 	(SELECT COUNT(*) FROM Rental WHERE E1.emp_id = Rental.emp_id_booking) [Number of rentals]
 FROM
 	(SELECT TOP (" + numericUpDown.Value.ToString() + @") E.emp_id
@@ -219,7 +223,8 @@ FROM
             String query = @"
 SELECT
 	(SELECT branch_name FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch Name],
-    (SELECT '(' + area_code + ')' + ' ' + phone_number FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch phone number],
+	(SELECT CONCAT('(', area_code, ') ', SUBSTRING(phone_number, 1, 3), '-', SUBSTRING(phone_number, 4, 7))
+		FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch phone number],
 	T1.[Number of Rentals]
 FROM 
 	(SELECT pickup_branch_id, COUNT(*) AS [Number of Rentals]
@@ -299,24 +304,24 @@ FROM
                 reportsDataView.DataSource = classRequestedReport("!=");
 
                 reportsDataView.Size = new Size(386, 192);
-                reportsDataView.Location = new Point(411, 606);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Location = new Point(411, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else if (vehicleRadio2.Checked)
             {// requested and was availablee
                 reportsDataView.DataSource = classRequestedReport("=");
 
                 reportsDataView.Size = new Size(386, 192);
-                reportsDataView.Location = new Point(411, 606);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Location = new Point(411, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else if (vehicleRadio3.Checked)
             {// mileage report
                 reportsDataView.DataSource = mileageReport();
 
                 reportsDataView.Size = new Size(1120, 192);
-                reportsDataView.Location = new Point(51, 601);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Location = new Point(51, 706);
+                this.Size = new Size(this.Width, 990);
 
             }
             else if (vehicleRadio4.Checked)
@@ -330,17 +335,17 @@ FROM
                 {
                     reportsDataView.DataSource = classRentedMostLeast("LEAST");
                 }
-                reportsDataView.Location = new Point(396, 600);
+                reportsDataView.Location = new Point(396, 706);
                 reportsDataView.Size = new Size(386, 91);
-                this.Size = new Size(this.Width, 800);
+                this.Size = new Size(this.Width, 990);
             }
             else if (vehicleRadio5.Checked)
             {// vehicles that haven't been rented
                 reportsDataView.DataSource = vehiclesHaveNotBeingRented();
 
                 reportsDataView.Size = new Size(1120, 192);
-                reportsDataView.Location = new Point(51, 601);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Location = new Point(51, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else
             {
@@ -355,17 +360,17 @@ FROM
             {
                 reportsDataView.DataSource = employeeReport("BEST");
 
-                reportsDataView.Location = new Point(411, 606);
-                reportsDataView.Size = new Size(386, 192);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Size = new Size(620, 192);
+                reportsDataView.Location = new Point(311, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else if (employeeRadio2.Checked)
             {
                 reportsDataView.DataSource = employeeReport("WORST");
 
-                reportsDataView.Location = new Point(411, 606);
-                reportsDataView.Size = new Size(386, 192);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Size = new Size(620, 192);
+                reportsDataView.Location = new Point(311, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else
             {
@@ -380,17 +385,17 @@ FROM
             {
                 reportsDataView.DataSource = branchReport("AT LEAST");
 
-                reportsDataView.Location = new Point(330, 606);
-                reportsDataView.Size = new Size(520, 192);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Size = new Size(620, 192);
+                reportsDataView.Location = new Point(311, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else if (branchRadio2.Checked)
             {
                 reportsDataView.DataSource = branchReport("LESS THAN");
 
-                reportsDataView.Location = new Point(330, 606);
-                reportsDataView.Size = new Size(520, 192);
-                this.Size = new Size(this.Width, 900);
+                reportsDataView.Size = new Size(620, 192);
+                reportsDataView.Location = new Point(311, 706);
+                this.Size = new Size(this.Width, 990);
             }
             else
             {
@@ -461,10 +466,12 @@ FROM
             filterFromDate.Enabled = !vehicleRadio3.Checked;
             filterToDate.Enabled = !vehicleRadio3.Checked;
             vehicleFilters.Visible = vehicleRadio3.Checked;
-            radioButtons_CheckedChanged(sender, e);
+            valueChanged(sender, e);
         }
 
-        private void radioButtons_CheckedChanged(object sender, EventArgs e)
+        // this method is called when any of the radio buttons/filters have their value changed
+        // the screen will be resized so the employee will need to click the generate button again
+        private void valueChanged(object sender, EventArgs e)
         {
             errorMessageLabel.Visible = false;
             // hide the reports each time another radio button is selected
@@ -475,7 +482,9 @@ FROM
         private void vehicleRadio5_CheckedChanged(object sender, EventArgs e)
         {
             vehicleFilters.Visible = vehicleRadio5.Checked;
-            radioButtons_CheckedChanged(sender, e);
+            mileageBetween1.Enabled = vehicleRadio5.Checked;// enable the mileage filter
+            mileageBetween2.Enabled = vehicleRadio5.Checked;
+            valueChanged(sender, e);
         }
     }
 }
