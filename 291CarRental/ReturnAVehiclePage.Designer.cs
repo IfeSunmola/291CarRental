@@ -78,14 +78,14 @@
             this.rentalsDataView.AllowUserToResizeColumns = false;
             this.rentalsDataView.AllowUserToResizeRows = false;
             this.rentalsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rentalsDataView.Location = new System.Drawing.Point(21, 3);
+            this.rentalsDataView.Location = new System.Drawing.Point(0, 3);
             this.rentalsDataView.MultiSelect = false;
             this.rentalsDataView.Name = "rentalsDataView";
             this.rentalsDataView.ReadOnly = true;
             this.rentalsDataView.RowHeadersWidth = 62;
             this.rentalsDataView.RowTemplate.Height = 33;
             this.rentalsDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rentalsDataView.Size = new System.Drawing.Size(974, 229);
+            this.rentalsDataView.Size = new System.Drawing.Size(1069, 229);
             this.rentalsDataView.TabIndex = 4;
             this.rentalsDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.rentalsDataView_CellMouseClick);
             this.rentalsDataView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.rentalsDataView_DataBindingComplete);
@@ -403,7 +403,7 @@
             this.findByCombobox.FormattingEnabled = true;
             this.findByCombobox.Location = new System.Drawing.Point(383, 9);
             this.findByCombobox.Name = "findByCombobox";
-            this.findByCombobox.Size = new System.Drawing.Size(182, 33);
+            this.findByCombobox.Size = new System.Drawing.Size(217, 33);
             this.findByCombobox.TabIndex = 41;
             this.findByCombobox.SelectedIndexChanged += new System.EventHandler(this.findByCombobox_SelectedIndexChanged);
             // 
@@ -412,9 +412,9 @@
             this.findRentalsPanel.Controls.Add(this.selectAVehicleLabel);
             this.findRentalsPanel.Controls.Add(this.rentalsDataView);
             this.findRentalsPanel.Controls.Add(this.viewFullDetails);
-            this.findRentalsPanel.Location = new System.Drawing.Point(104, 193);
+            this.findRentalsPanel.Location = new System.Drawing.Point(62, 193);
             this.findRentalsPanel.Name = "findRentalsPanel";
-            this.findRentalsPanel.Size = new System.Drawing.Size(998, 328);
+            this.findRentalsPanel.Size = new System.Drawing.Size(1069, 328);
             this.findRentalsPanel.TabIndex = 28;
             this.findRentalsPanel.Visible = false;
             // 

@@ -52,11 +52,9 @@ namespace _291CarRental
             findByCombobox.Items.Add("CUSTOMER ID");
             findByCombobox.Items.Add("PHONE NUMBER");
             findByCombobox.Items.Add("PLATE NUMBER");
+            findByCombobox.Items.Add("SHOW ALL RENTALS");
             findByCombobox.SelectedIndex = 0;
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            returnDateTimePicker.Value = DateTime.Now;
-            returnDateTimePicker.Enabled = true;
         }
 
         private String addQuotes(String stringToAdd)
@@ -78,24 +76,21 @@ SELECT
 	FORMAT(initial_amount_paid, 'C') [Amount paid],
 	(SELECT branch_name FROM Branch WHERE Branch.branch_id = Rental.pickup_branch_id) [Expected dropoff location],
 	(SELECT CAST ([year] AS VARCHAR) + ', ' + brand + ' ' + model FROM Vehicle WHERE Rental.vehicle_id = Vehicle.vehicle_id) [Vehicle Rented]
-FROM Rental";
+FROM Rental
+WHERE customer_id > 0 --dummy query so the filters can be chained properly";
 
             String custInput = searchInfoTextbox.Text;
             if (findByCombobox.SelectedIndex == 0)
             {
-                query += "\nWHERE customer_id = " + custInput;
+                query += "\nAND customer_id = " + custInput;
             }
             else if (findByCombobox.SelectedIndex == 1)
             {
-                query += "\nWHERE Rental.customer_id IN (SELECT customer_id FROM Customer WHERE CAST (area_code + phone_number AS VARCHAR) = " + addQuotes(custInput) + @")";
+                query += "\nAND Rental.customer_id IN (SELECT customer_id FROM Customer WHERE CAST (area_code + phone_number AS VARCHAR) = " + addQuotes(custInput) + @")";
             }
             else if (findByCombobox.SelectedIndex == 2)
             {
-                query += "\nWHERE Rental.vehicle_id IN (SELECT vehicle_id FROM Vehicle WHERE plate_number = " + addQuotes(custInput) + @")";
-            }
-            else
-            {
-                MessageBox.Show("INTERNAL ERROR OCCURED IN ReturnAVehiclePage");
+                query += "\nAND Rental.vehicle_id IN (SELECT vehicle_id FROM Vehicle WHERE plate_number = " + addQuotes(custInput) + @")";
             }
 
             if (onlyUnreturnedVehicles.Checked)
@@ -169,12 +164,8 @@ FROM Rental";
                     result = true;
                 }
             }
-
-
-            if (!result)
-            {
-                errorMessageLabel.Visible = true;
-            }
+            errorMessageLabel.Visible = !result;
+            
             return result;
         }
 
@@ -204,24 +195,39 @@ FROM Rental";
 
         private void findAllRentalsButton_Click(object sender, EventArgs e)
         {
-            if (validateSearchTextbox())
-            {
-                // load data into the DataGripView
-                rentalsDataView.DataSource = getCustomerRentals();
-                //disable sorting the columns
-                foreach (DataGridViewColumn dataGridViewColumn in rentalsDataView.Columns)
-                {
-                    dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    dataGridViewColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                }
-                rentalsDataView.Columns["rental_id"].Visible = false;
-                if (rentalsDataView.CurrentCell != null)
-                {
-                    rentalsDataView.CurrentCell.Selected = false;
-                }
-                findRentalsPanel.Show();
-                findAllRentalsSize();
+            if (findByCombobox.SelectedIndex != 3 && !validateSearchTextbox())
+            {// find all rentals was not selected and validating of the "find by" textbox failed
+                return;
             }
+            // load data into the DataGripView
+            rentalsDataView.DataSource = getCustomerRentals();
+            //disable sorting the columns
+            foreach (DataGridViewColumn dataGridViewColumn in rentalsDataView.Columns)
+            {
+                dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+            rentalsDataView.Columns["rental_id"].Visible = false;
+            if (rentalsDataView.CurrentCell != null)
+            {
+                rentalsDataView.CurrentCell.Selected = false;
+            }
+            // if customer doesn't have any active rentals/past rentals
+            if (rentalsDataView.Rows.Count <= 0)
+            {
+                if (onlyUnreturnedVehicles.Checked)
+                {
+                    errorMessageLabel.Text = "CUSTOMER DOESN'T HAVE ANY ACTIVE RENTALS";
+                }
+                else
+                {
+                    errorMessageLabel.Text = "CUSTOMER HAS NEVER MADE A RENTAL";
+                }
+                errorMessageLabel.Visible = true;
+                return;
+            }
+            errorMessageLabel.Visible = false;
+            findRentalsPanel.Show();
+            findAllRentalsSize();
             rentalsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
@@ -265,6 +271,13 @@ FROM Rental";
         {
             searchInfoTextbox.Clear();
             errorMessageLabel.Text = "";
+            
+            if (findByCombobox.SelectedIndex == 3)
+            {// find all rentals
+                searchInfoTextbox.Enabled = false;
+                return;
+            }
+            searchInfoTextbox.Enabled = true;
             findByText.Text = findByCombobox.SelectedItem.ToString();
             if (findByCombobox.SelectedIndex == 0)
             {// customer id
