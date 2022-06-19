@@ -118,6 +118,31 @@ WHERE current_mileage >= " + mileageNumericUpdown.Value + branch + color + brand
             return result;
         }
         
+        private DataTable employeeReport(String flag)
+        {
+            DataTable result = new DataTable();
+            NumericUpDown numericUpDown = (flag.Equals("BEST") ? employeeNumeric1 : employeeNumeric2);
+            flag = (flag.Equals("BEST") ? "DESC" : "ASC");
+            String branch = (branchCombobox.SelectedIndex > 0 ?
+               "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
+            String query = @"
+SELECT 
+	(SELECT CONCAT (first_name, ' ', last_name, ' (', emp_id, ')') FROM Employee WHERE E1.emp_id = Employee.emp_id) AS [Name (id)],
+	(SELECT COUNT(*) FROM Rental WHERE E1.emp_id = Rental.emp_id_booking) [Number of rentals]
+FROM
+	(SELECT TOP (" + numericUpDown.Value.ToString() + @") E.emp_id
+	FROM Employee E, Rental R
+	WHERE E.emp_id = R.emp_id_booking
+	    AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + 
+        branch + @"
+        GROUP BY E.emp_id
+        ORDER BY COUNT(*) " + flag + @") AS E1;
+";
+
+            //MessageBox.Show(query);
+            result.Load(connection.executeReader(query));
+            return result;
+        }
         private DataTable classRentedMostLeast(String flag)
         {
             DataTable result = new DataTable();
@@ -171,6 +196,27 @@ ORDER BY [Number of times rented] " + flag;
                 branchStatsPanel.Location = new Point(181, 60);
                 filtersPanel.Location = new Point(181, 250);
             }
+            foreach (Control radio in vehicleStatsPanel.Controls)
+            {
+                if (radio is RadioButton)
+                {
+                    ((RadioButton)radio).Checked = false;
+                }
+            }
+            foreach (Control radio in employeeStatsPanel.Controls)
+            {
+                if (radio is RadioButton)
+                {
+                    ((RadioButton)radio).Checked = false;
+                }
+            }
+            foreach (Control radio in branchStatsPanel.Controls)
+            {
+                if (radio is RadioButton)
+                {
+                    ((RadioButton)radio).Checked = false;
+                }
+            }
         }
 
         private void generateButton_Click(object sender, EventArgs e)
@@ -182,7 +228,6 @@ ORDER BY [Number of times rented] " + flag;
                 reportsDataView.Size = new Size(386, 192);
                 reportsDataView.Location = new Point(411, 606);
                 this.Size = new Size(this.Width, 900);
-                this.CenterToScreen();
             }
             else if (vehicleRadio2.Checked)
             {// requested and was availablee
@@ -191,7 +236,6 @@ ORDER BY [Number of times rented] " + flag;
                 reportsDataView.Size = new Size(386, 192);
                 reportsDataView.Location = new Point(411, 606);
                 this.Size = new Size(this.Width, 900);
-                this.CenterToScreen();
             }
             else if (vehicleRadio3.Checked)
             {// mileage report
@@ -200,7 +244,7 @@ ORDER BY [Number of times rented] " + flag;
                 reportsDataView.Size = new Size(1000, 192);
                 reportsDataView.Location = new Point(111, 601);
                 this.Size = new Size(this.Width, 900);
-                this.CenterToScreen();
+                
             }
             else if (vehicleRadio4.Checked)
             {// class rernted the most/least
@@ -213,15 +257,29 @@ ORDER BY [Number of times rented] " + flag;
                 {
                     reportsDataView.DataSource = classRentedMostLeast("LEAST");
                 }
-
-                
-
                 reportsDataView.Location = new Point(396, 595);
                 reportsDataView.Size = new Size(386, 91);
                 this.Size = new Size(this.Width, 800);
-                this.CenterToScreen();
             }
-            
+           
+            //employee
+            else if (employeeRadio1.Checked)
+            {
+                reportsDataView.DataSource = employeeReport("BEST");
+
+                reportsDataView.Location = new Point(411, 606);
+                reportsDataView.Size = new Size(386, 192);
+                this.Size = new Size(this.Width, 900);
+            }
+            else if (employeeRadio2.Checked)
+            {
+                reportsDataView.DataSource = employeeReport("WORST");
+
+                reportsDataView.Location = new Point(411, 606);
+                reportsDataView.Size = new Size(386, 192);
+                this.Size = new Size(this.Width, 900);
+            }
+            this.CenterToScreen();
         }
 
         private void backButton_Click(object sender, EventArgs e)

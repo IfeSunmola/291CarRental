@@ -63,19 +63,19 @@
             this.branchStatsPanel = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.branchNumericUpdown2 = new System.Windows.Forms.NumericUpDown();
-            this.branchBottomRadio = new System.Windows.Forms.RadioButton();
+            this.branchRadio2 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.branchNumericUpdown1 = new System.Windows.Forms.NumericUpDown();
-            this.branchTopRadio = new System.Windows.Forms.RadioButton();
+            this.branchRadio1 = new System.Windows.Forms.RadioButton();
             this.employeeStatsPanel = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.employeeNumeric2 = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.topNumericUpdown = new System.Windows.Forms.NumericUpDown();
+            this.employeeRadio2 = new System.Windows.Forms.RadioButton();
+            this.employeeNumeric1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.topRadioButton = new System.Windows.Forms.RadioButton();
+            this.employeeRadio1 = new System.Windows.Forms.RadioButton();
             this.reportsDataView = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.filtersPanel.SuspendLayout();
@@ -86,8 +86,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown1)).BeginInit();
             this.employeeStatsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topNumericUpdown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -434,10 +434,10 @@
             // 
             this.branchStatsPanel.Controls.Add(this.label14);
             this.branchStatsPanel.Controls.Add(this.branchNumericUpdown2);
-            this.branchStatsPanel.Controls.Add(this.branchBottomRadio);
+            this.branchStatsPanel.Controls.Add(this.branchRadio2);
             this.branchStatsPanel.Controls.Add(this.label5);
             this.branchStatsPanel.Controls.Add(this.branchNumericUpdown1);
-            this.branchStatsPanel.Controls.Add(this.branchTopRadio);
+            this.branchStatsPanel.Controls.Add(this.branchRadio1);
             this.branchStatsPanel.Location = new System.Drawing.Point(181, 1073);
             this.branchStatsPanel.Name = "branchStatsPanel";
             this.branchStatsPanel.Size = new System.Drawing.Size(831, 262);
@@ -469,16 +469,16 @@
             0,
             0});
             // 
-            // branchBottomRadio
+            // branchRadio2
             // 
-            this.branchBottomRadio.Location = new System.Drawing.Point(0, 99);
-            this.branchBottomRadio.Name = "branchBottomRadio";
-            this.branchBottomRadio.Size = new System.Drawing.Size(325, 29);
-            this.branchBottomRadio.TabIndex = 41;
-            this.branchBottomRadio.TabStop = true;
-            this.branchBottomRadio.Text = "BRANCHES THAT MADE LESS THAN";
-            this.branchBottomRadio.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.branchBottomRadio.UseVisualStyleBackColor = true;
+            this.branchRadio2.Location = new System.Drawing.Point(0, 99);
+            this.branchRadio2.Name = "branchRadio2";
+            this.branchRadio2.Size = new System.Drawing.Size(325, 29);
+            this.branchRadio2.TabIndex = 41;
+            this.branchRadio2.TabStop = true;
+            this.branchRadio2.Text = "BRANCHES THAT MADE LESS THAN";
+            this.branchRadio2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.branchRadio2.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -506,27 +506,27 @@
             0,
             0});
             // 
-            // branchTopRadio
+            // branchRadio1
             // 
-            this.branchTopRadio.Location = new System.Drawing.Point(0, 31);
-            this.branchTopRadio.Name = "branchTopRadio";
-            this.branchTopRadio.Size = new System.Drawing.Size(325, 29);
-            this.branchTopRadio.TabIndex = 29;
-            this.branchTopRadio.TabStop = true;
-            this.branchTopRadio.Text = "BRANCHES THAT MADE AT LEAST";
-            this.branchTopRadio.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.branchTopRadio.UseVisualStyleBackColor = true;
+            this.branchRadio1.Location = new System.Drawing.Point(0, 31);
+            this.branchRadio1.Name = "branchRadio1";
+            this.branchRadio1.Size = new System.Drawing.Size(325, 29);
+            this.branchRadio1.TabIndex = 29;
+            this.branchRadio1.TabStop = true;
+            this.branchRadio1.Text = "BRANCHES THAT MADE AT LEAST";
+            this.branchRadio1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.branchRadio1.UseVisualStyleBackColor = true;
             // 
             // employeeStatsPanel
             // 
             this.employeeStatsPanel.Controls.Add(this.label10);
             this.employeeStatsPanel.Controls.Add(this.label21);
-            this.employeeStatsPanel.Controls.Add(this.numericUpDown2);
+            this.employeeStatsPanel.Controls.Add(this.employeeNumeric2);
             this.employeeStatsPanel.Controls.Add(this.label22);
-            this.employeeStatsPanel.Controls.Add(this.radioButton3);
-            this.employeeStatsPanel.Controls.Add(this.topNumericUpdown);
+            this.employeeStatsPanel.Controls.Add(this.employeeRadio2);
+            this.employeeStatsPanel.Controls.Add(this.employeeNumeric1);
             this.employeeStatsPanel.Controls.Add(this.label2);
-            this.employeeStatsPanel.Controls.Add(this.topRadioButton);
+            this.employeeStatsPanel.Controls.Add(this.employeeRadio1);
             this.employeeStatsPanel.Location = new System.Drawing.Point(181, 773);
             this.employeeStatsPanel.Name = "employeeStatsPanel";
             this.employeeStatsPanel.Size = new System.Drawing.Size(831, 262);
@@ -550,18 +550,18 @@
             this.label21.TabIndex = 40;
             this.label21.Text = "PERFORMING EMPLOYEE(S)";
             // 
-            // numericUpDown2
+            // employeeNumeric2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(67, 103);
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.employeeNumeric2.Location = new System.Drawing.Point(67, 103);
+            this.employeeNumeric2.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(53, 31);
-            this.numericUpDown2.TabIndex = 42;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.employeeNumeric2.Name = "employeeNumeric2";
+            this.employeeNumeric2.Size = new System.Drawing.Size(53, 31);
+            this.employeeNumeric2.TabIndex = 42;
+            this.employeeNumeric2.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -577,29 +577,29 @@
             this.label22.TabIndex = 43;
             this.label22.Text = "WORST";
             // 
-            // radioButton3
+            // employeeRadio2
             // 
-            this.radioButton3.Location = new System.Drawing.Point(0, 103);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(72, 29);
-            this.radioButton3.TabIndex = 41;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "TOP";
-            this.radioButton3.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.employeeRadio2.Location = new System.Drawing.Point(0, 103);
+            this.employeeRadio2.Name = "employeeRadio2";
+            this.employeeRadio2.Size = new System.Drawing.Size(72, 29);
+            this.employeeRadio2.TabIndex = 41;
+            this.employeeRadio2.TabStop = true;
+            this.employeeRadio2.Text = "TOP";
+            this.employeeRadio2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.employeeRadio2.UseVisualStyleBackColor = true;
             // 
-            // topNumericUpdown
+            // employeeNumeric1
             // 
-            this.topNumericUpdown.Location = new System.Drawing.Point(67, 31);
-            this.topNumericUpdown.Minimum = new decimal(new int[] {
+            this.employeeNumeric1.Location = new System.Drawing.Point(67, 31);
+            this.employeeNumeric1.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.topNumericUpdown.Name = "topNumericUpdown";
-            this.topNumericUpdown.Size = new System.Drawing.Size(53, 31);
-            this.topNumericUpdown.TabIndex = 32;
-            this.topNumericUpdown.Value = new decimal(new int[] {
+            this.employeeNumeric1.Name = "employeeNumeric1";
+            this.employeeNumeric1.Size = new System.Drawing.Size(53, 31);
+            this.employeeNumeric1.TabIndex = 32;
+            this.employeeNumeric1.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -615,16 +615,16 @@
             this.label2.TabIndex = 33;
             this.label2.Text = "BEST";
             // 
-            // topRadioButton
+            // employeeRadio1
             // 
-            this.topRadioButton.Location = new System.Drawing.Point(0, 31);
-            this.topRadioButton.Name = "topRadioButton";
-            this.topRadioButton.Size = new System.Drawing.Size(72, 29);
-            this.topRadioButton.TabIndex = 29;
-            this.topRadioButton.TabStop = true;
-            this.topRadioButton.Text = "TOP";
-            this.topRadioButton.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.topRadioButton.UseVisualStyleBackColor = true;
+            this.employeeRadio1.Location = new System.Drawing.Point(0, 31);
+            this.employeeRadio1.Name = "employeeRadio1";
+            this.employeeRadio1.Size = new System.Drawing.Size(72, 29);
+            this.employeeRadio1.TabIndex = 29;
+            this.employeeRadio1.TabStop = true;
+            this.employeeRadio1.Text = "TOP";
+            this.employeeRadio1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.employeeRadio1.UseVisualStyleBackColor = true;
             // 
             // reportsDataView
             // 
@@ -668,8 +668,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown1)).EndInit();
             this.employeeStatsPanel.ResumeLayout(false);
             this.employeeStatsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.topNumericUpdown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataView)).EndInit();
             this.ResumeLayout(false);
 
@@ -686,14 +686,14 @@
         private DataGridView reportsDataView;
         private Panel employeeStatsPanel;
         private Label label2;
-        private RadioButton topRadioButton;
-        private NumericUpDown topNumericUpdown;
+        private RadioButton employeeRadio1;
+        private NumericUpDown employeeNumeric1;
         private Panel branchStatsPanel;
         private Label label14;
         private NumericUpDown branchNumericUpdown2;
-        private RadioButton branchBottomRadio;
+        private RadioButton branchRadio2;
         private NumericUpDown branchNumericUpdown1;
-        private RadioButton branchTopRadio;
+        private RadioButton branchRadio1;
         private Panel vehicleStatsPanel;
         private Label label7;
         private Label label4;
@@ -714,9 +714,9 @@
         private RadioButton vehicleRadio3;
         private Label label10;
         private Label label21;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown employeeNumeric2;
         private Label label22;
-        private RadioButton radioButton3;
+        private RadioButton employeeRadio2;
         private Label label26;
         private ComboBox brandCombobox;
         private Label label25;
