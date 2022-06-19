@@ -386,7 +386,7 @@
             this.branchCombobox.Name = "branchCombobox";
             this.branchCombobox.Size = new System.Drawing.Size(160, 33);
             this.branchCombobox.TabIndex = 52;
-            this.branchCombobox.SelectedIndexChanged += new System.EventHandler(this.valueChanged);
+            this.branchCombobox.SelectedIndexChanged += new System.EventHandler(this.branchFilter_Changed);
             // 
             // branchLabel
             // 

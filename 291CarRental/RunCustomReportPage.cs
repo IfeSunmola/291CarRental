@@ -242,6 +242,7 @@ FROM
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             errorMessageLabel.Visible = false;
+            branchCombobox.SelectedIndex = 0;
             //disable branch filter when branch is selected
             branchCombobox.Enabled = reportCombobox.SelectedIndex != 2;
 
@@ -484,6 +485,17 @@ FROM
             vehicleFilters.Visible = vehicleRadio5.Checked;
             mileageBetween1.Enabled = vehicleRadio5.Checked;// enable the mileage filter
             mileageBetween2.Enabled = vehicleRadio5.Checked;
+            valueChanged(sender, e);
+        }
+
+        private void branchFilter_Changed(object sender, EventArgs e)
+        {
+            String branchFilter = (branchCombobox.SelectedIndex > 0 ?
+               "\nWHERE branch_id = " + branchCombobox.SelectedIndex : "");
+            String query = @"
+SELECT MIN(date_opened) FROM Branch" + branchFilter;
+            filterFromDate.Value = DateTime.Parse(connection.executeScalar(query));
+            
             valueChanged(sender, e);
         }
     }
