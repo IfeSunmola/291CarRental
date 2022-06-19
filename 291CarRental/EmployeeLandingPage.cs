@@ -56,24 +56,28 @@ namespace _291CarRental
         {
             this.Visible = false;
             new EmpViewAllVehicles(this, empId, connection).ShowDialog();
+            this.Visible = true;
         }
 
         private void returnAVehicleButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             new ReturnAVehiclePage(this, empId, connection).ShowDialog();
+            this.Visible = true;
         }
 
         private void vehicleToolsButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             new VehicleToolsPage(this, empId, connection).ShowDialog();
+            this.Visible = true;
         }
 
         private void runCustomReportsButton_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             new RunCustomReportPage(this, connection).ShowDialog();
+            this.Visible = true;
         }
 
         private void exitButton_Click(object sender, EventArgs e)

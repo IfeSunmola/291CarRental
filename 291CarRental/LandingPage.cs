@@ -20,6 +20,7 @@ namespace _291CarRental
             this.Visible = false;
             empLoginPanel.Visible = false;
             new CustSelectVehicleFilters(this, connection).ShowDialog();
+            this.Visible = true;
         }
 
         private void empButton_Click(object sender, EventArgs e)
@@ -51,12 +52,13 @@ namespace _291CarRental
                     loginMessageLabel.Visible = true;
                     loginMessageLabel.ForeColor = Color.Green;
 
-                    Task.Delay(500).Wait();
+                    Task.Delay(250).Wait();
                     this.Visible = false;
                     new EmployeeLandingPage(this, empId.ToString(), connection).ShowDialog();
 
                     emptyTextboxLabel.Visible = false;
                     loginMessageLabel.Visible = false;
+                    this.Visible = true;
                 }
                 else// id was not found
                 {
