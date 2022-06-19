@@ -17,6 +17,7 @@ namespace _291CarRental
         private DbConnection connection;
         private Size startingSize;
 
+
         public RunCustomReportPage(EmployeeLandingPage previousPage, DbConnection connection)
         {
             InitializeComponent();
@@ -113,7 +114,9 @@ FROM
             String year = (yearCombobox.SelectedIndex > 0 ?
                "\nAND year = " + yearCombobox.SelectedItem.ToString() : "");
             String query = @"
-SELECT plate_number [Plate Number], current_mileage [Current Mileage], [year] [Year], brand [Brand], model [Model], color [Color]
+SELECT plate_number [Plate Number], 
+        (SELECT branch_name FROM Branch WHERE Branch.branch_id = Vehicle.branch_id) [Branch Name], 
+       current_mileage [Current Mileage], [year] [Year], brand [Brand], model [Model], color [Color]
 FROM Vehicle
 WHERE current_mileage >= " + mileageNumericUpdown.Value + branch + color + brand + year;
             result.Load(connection.executeReader(query));
@@ -141,6 +144,42 @@ ORDER BY [Number of times rented] " + flag;
             result.Load(connection.executeReader(query));
             return result;
 
+        }
+
+        private DataTable vehiclesHaveNotBeingRented()
+        {
+            DataTable result = new DataTable();
+            String branchFilter = (branchCombobox.SelectedIndex > 0 ?
+              "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
+            String colorFilter = (colorCombobox.SelectedIndex > 0 ?
+               "\nAND color = " + addQuotes(colorCombobox.SelectedItem.ToString()) : "");
+            String brand = (brandCombobox.SelectedIndex > 0 ?
+               "\nAND brand = " + addQuotes(brandCombobox.SelectedItem.ToString()) : "");
+            String yearFilter = (yearCombobox.SelectedIndex > 0 ?
+               "\nAND year = " + yearCombobox.SelectedItem.ToString() : "");
+            String query = @"
+SELECT
+	(SELECT plate_number FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Plate Number],
+	(SELECT branch_name FROM Branch WHERE Branch.branch_id = 
+		(SELECT branch_id FROM Vehicle WHERE vehicle_id = T1.vehicle_id)) [Branch Name],
+	(SELECT current_mileage FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Current Mileage],
+	(SELECT [year] FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Year],
+	(SELECT brand FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Brand],
+	(SELECT model FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Model],
+	(SELECT color FROM Vehicle WHERE vehicle_id = T1.vehicle_id) [Color]
+FROM 
+	(
+		(SELECT vehicle_id
+		FROM Vehicle
+		WHERE branch_id > 0 " + branchFilter + colorFilter +  yearFilter + @") --using branch_id > 0 so the other filters can be added
+	EXCEPT
+		(SELECT vehicle_id 
+		FROM Rental
+        WHERE [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + @")
+    ) AS T1;
+";
+            result.Load(connection.executeReader(query));
+            return result;
         }
 
         // employee reports
@@ -275,8 +314,8 @@ FROM
             {// mileage report
                 reportsDataView.DataSource = mileageReport();
 
-                reportsDataView.Size = new Size(1000, 192);
-                reportsDataView.Location = new Point(111, 601);
+                reportsDataView.Size = new Size(1120, 192);
+                reportsDataView.Location = new Point(51, 601);
                 this.Size = new Size(this.Width, 900);
 
             }
@@ -294,6 +333,14 @@ FROM
                 reportsDataView.Location = new Point(396, 600);
                 reportsDataView.Size = new Size(386, 91);
                 this.Size = new Size(this.Width, 800);
+            }
+            else if (vehicleRadio5.Checked)
+            {// vehicles that haven't been rented
+                reportsDataView.DataSource = vehiclesHaveNotBeingRented();
+
+                reportsDataView.Size = new Size(1120, 192);
+                reportsDataView.Location = new Point(51, 601);
+                this.Size = new Size(this.Width, 900);
             }
             else
             {
@@ -367,6 +414,7 @@ FROM
             {// branch
                 loadBranchReports();
             }
+            reportsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.CenterToScreen();
         }
 
@@ -422,6 +470,12 @@ FROM
             // hide the reports each time another radio button is selected
             this.Size = startingSize;
             this.CenterToScreen();
+        }
+
+        private void vehicleRadio5_CheckedChanged(object sender, EventArgs e)
+        {
+            vehicleFilters.Visible = vehicleRadio5.Checked;
+            radioButtons_CheckedChanged(sender, e);
         }
     }
 }

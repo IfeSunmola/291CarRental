@@ -52,6 +52,7 @@
             this.branchLabel = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.vehicleStatsPanel = new System.Windows.Forms.Panel();
+            this.vehicleRadio5 = new System.Windows.Forms.RadioButton();
             this.vehicleMostLeastCombobox = new System.Windows.Forms.ComboBox();
             this.vehicleRadio4 = new System.Windows.Forms.RadioButton();
             this.label16 = new System.Windows.Forms.Label();
@@ -336,6 +337,7 @@
             // 
             // vehicleStatsPanel
             // 
+            this.vehicleStatsPanel.Controls.Add(this.vehicleRadio5);
             this.vehicleStatsPanel.Controls.Add(this.vehicleMostLeastCombobox);
             this.vehicleStatsPanel.Controls.Add(this.vehicleRadio4);
             this.vehicleStatsPanel.Controls.Add(this.label16);
@@ -350,11 +352,23 @@
             this.vehicleStatsPanel.Size = new System.Drawing.Size(831, 262);
             this.vehicleStatsPanel.TabIndex = 33;
             // 
+            // vehicleRadio5
+            // 
+            this.vehicleRadio5.AutoSize = true;
+            this.vehicleRadio5.Location = new System.Drawing.Point(0, 203);
+            this.vehicleRadio5.Name = "vehicleRadio5";
+            this.vehicleRadio5.Size = new System.Drawing.Size(355, 29);
+            this.vehicleRadio5.TabIndex = 51;
+            this.vehicleRadio5.TabStop = true;
+            this.vehicleRadio5.Text = "VEHICLES THAT HAVEN\'T BEEN RENTED ";
+            this.vehicleRadio5.UseVisualStyleBackColor = true;
+            this.vehicleRadio5.CheckedChanged += new System.EventHandler(this.vehicleRadio5_CheckedChanged);
+            // 
             // vehicleMostLeastCombobox
             // 
             this.vehicleMostLeastCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.vehicleMostLeastCombobox.FormattingEnabled = true;
-            this.vehicleMostLeastCombobox.Location = new System.Drawing.Point(361, 198);
+            this.vehicleMostLeastCombobox.Location = new System.Drawing.Point(361, 153);
             this.vehicleMostLeastCombobox.Name = "vehicleMostLeastCombobox";
             this.vehicleMostLeastCombobox.Size = new System.Drawing.Size(123, 33);
             this.vehicleMostLeastCombobox.TabIndex = 50;
@@ -363,7 +377,7 @@
             // vehicleRadio4
             // 
             this.vehicleRadio4.AutoSize = true;
-            this.vehicleRadio4.Location = new System.Drawing.Point(0, 202);
+            this.vehicleRadio4.Location = new System.Drawing.Point(0, 157);
             this.vehicleRadio4.Name = "vehicleRadio4";
             this.vehicleRadio4.Size = new System.Drawing.Size(355, 29);
             this.vehicleRadio4.TabIndex = 49;
@@ -375,7 +389,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(320, 149);
+            this.label16.Location = new System.Drawing.Point(320, 105);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(83, 25);
             this.label16.TabIndex = 48;
@@ -383,7 +397,7 @@
             // 
             // mileageNumericUpdown
             // 
-            this.mileageNumericUpdown.Location = new System.Drawing.Point(180, 143);
+            this.mileageNumericUpdown.Location = new System.Drawing.Point(180, 99);
             this.mileageNumericUpdown.Maximum = new decimal(new int[] {
             500000,
             0,
@@ -402,7 +416,7 @@
             // vehicleRadio3
             // 
             this.vehicleRadio3.AutoSize = true;
-            this.vehicleRadio3.Location = new System.Drawing.Point(0, 145);
+            this.vehicleRadio3.Location = new System.Drawing.Point(0, 101);
             this.vehicleRadio3.Name = "vehicleRadio3";
             this.vehicleRadio3.Size = new System.Drawing.Size(174, 29);
             this.vehicleRadio3.TabIndex = 36;
@@ -415,7 +429,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(412, 90);
+            this.label7.Location = new System.Drawing.Point(412, 52);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(152, 25);
             this.label7.TabIndex = 35;
@@ -425,7 +439,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(455, 27);
+            this.label4.Location = new System.Drawing.Point(455, 5);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(150, 25);
             this.label4.TabIndex = 34;
@@ -434,7 +448,7 @@
             // vehicleRadio2
             // 
             this.vehicleRadio2.AutoSize = true;
-            this.vehicleRadio2.Location = new System.Drawing.Point(0, 88);
+            this.vehicleRadio2.Location = new System.Drawing.Point(0, 50);
             this.vehicleRadio2.Name = "vehicleRadio2";
             this.vehicleRadio2.Size = new System.Drawing.Size(421, 29);
             this.vehicleRadio2.TabIndex = 1;
@@ -446,7 +460,7 @@
             // vehicleRadio1
             // 
             this.vehicleRadio1.AutoSize = true;
-            this.vehicleRadio1.Location = new System.Drawing.Point(0, 25);
+            this.vehicleRadio1.Location = new System.Drawing.Point(0, 3);
             this.vehicleRadio1.Name = "vehicleRadio1";
             this.vehicleRadio1.Size = new System.Drawing.Size(464, 29);
             this.vehicleRadio1.TabIndex = 0;
@@ -760,5 +774,6 @@
         private Panel vehicleFilters;
         private Panel filtersPanel;
         private Label errorMessageLabel;
+        private RadioButton vehicleRadio5;
     }
 }
