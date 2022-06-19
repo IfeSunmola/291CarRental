@@ -78,14 +78,14 @@
             this.rentalsDataView.AllowUserToResizeColumns = false;
             this.rentalsDataView.AllowUserToResizeRows = false;
             this.rentalsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rentalsDataView.Location = new System.Drawing.Point(3, 3);
+            this.rentalsDataView.Location = new System.Drawing.Point(21, 3);
             this.rentalsDataView.MultiSelect = false;
             this.rentalsDataView.Name = "rentalsDataView";
             this.rentalsDataView.ReadOnly = true;
             this.rentalsDataView.RowHeadersWidth = 62;
             this.rentalsDataView.RowTemplate.Height = 33;
             this.rentalsDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rentalsDataView.Size = new System.Drawing.Size(995, 229);
+            this.rentalsDataView.Size = new System.Drawing.Size(974, 229);
             this.rentalsDataView.TabIndex = 4;
             this.rentalsDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.rentalsDataView_CellMouseClick);
             this.rentalsDataView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.rentalsDataView_DataBindingComplete);

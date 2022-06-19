@@ -222,6 +222,7 @@ FROM Rental";
                 findRentalsPanel.Show();
                 findAllRentalsSize();
             }
+            rentalsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void startAReturnButton_Click(object sender, EventArgs e)
@@ -344,7 +345,6 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
             if (expectedDropoffDate.AddDays(1) <= returnDateTimePicker.Value)
             {// drop off is late
                 lateFee = getFees_goldStatus().Item2;
-                MessageBox.Show("Late Returns");
             }
 
             Decimal amountDueNow = (lateFee + changeBranchFee);
@@ -406,9 +406,8 @@ MessageBoxButtons.YesNo);
                 if (returnSuccess(lateFeeLabel.Text, differentBranchFeeLabel.Text))
                 {
                     MessageBox.Show("VEHICLE RETURNED SUCCESSFULLY");
-                    //this.Close();
-                    //previousPage.Visible = true;
-                    this.Hide();
+                    
+                    this.Visible = false;
                     new ReturnAVehiclePage(previousPage, empId, connection).ShowDialog();
                     this.Close();
                 }
@@ -428,7 +427,7 @@ MessageBoxButtons.YesNo);
 UPDATE Rental
 SET actual_dropoff_date = " + addQuotes(actualDropoffDate) + @", 
     total_mileage_used = " + mileageUsedTextbox.Text + @", 
-    late_fee = " + lateFee + @", 
+    late_fee = " + calculatedLateFee + @", 
     different_branch_fee = " + calculatedDifferentBranchFee + @", 
     emp_id_return = " + empId + @",
     dropoff_branch_id = " + (branchCombobox.SelectedIndex + 1) + @"
@@ -475,6 +474,7 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
 
         private void rentalsDataView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            // clear whatever is selected in the data view
             rentalsDataView.ClearSelection();
         }
 
@@ -587,6 +587,7 @@ WHERE rental_id = " + rentalId + ";";
 
         private void searchInfoChanged(object sender, EventArgs e)
         {
+            selectAVehicleLabel.Visible = false;
             startingSize();
             findRentalsPanel.Visible = false;
         }
