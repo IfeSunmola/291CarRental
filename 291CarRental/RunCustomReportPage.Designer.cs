@@ -34,6 +34,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errorMessageLabel = new System.Windows.Forms.Label();
             this.filtersPanel = new System.Windows.Forms.Panel();
             this.vehicleFilters = new System.Windows.Forms.Panel();
             this.label26 = new System.Windows.Forms.Label();
@@ -113,7 +114,7 @@
             // generateButton
             // 
             this.generateButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.generateButton.Location = new System.Drawing.Point(512, 492);
+            this.generateButton.Location = new System.Drawing.Point(512, 503);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(194, 82);
             this.generateButton.TabIndex = 9;
@@ -146,6 +147,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.errorMessageLabel);
             this.panel1.Controls.Add(this.filtersPanel);
             this.panel1.Controls.Add(this.vehicleStatsPanel);
             this.panel1.Controls.Add(this.branchStatsPanel);
@@ -160,6 +162,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1190, 1482);
             this.panel1.TabIndex = 28;
+            // 
+            // errorMessageLabel
+            // 
+            this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorMessageLabel.Location = new System.Drawing.Point(433, 475);
+            this.errorMessageLabel.Name = "errorMessageLabel";
+            this.errorMessageLabel.Size = new System.Drawing.Size(353, 25);
+            this.errorMessageLabel.TabIndex = 35;
+            this.errorMessageLabel.Text = "ERROR HEHE HEHE";
+            this.errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.errorMessageLabel.Visible = false;
             // 
             // filtersPanel
             // 
@@ -217,6 +231,7 @@
             this.brandCombobox.Name = "brandCombobox";
             this.brandCombobox.Size = new System.Drawing.Size(182, 33);
             this.brandCombobox.TabIndex = 63;
+            this.brandCombobox.SelectedIndexChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // colorCombobox
             // 
@@ -226,6 +241,7 @@
             this.colorCombobox.Name = "colorCombobox";
             this.colorCombobox.Size = new System.Drawing.Size(140, 33);
             this.colorCombobox.TabIndex = 58;
+            this.colorCombobox.SelectedIndexChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // yearCombobox
             // 
@@ -235,6 +251,7 @@
             this.yearCombobox.Name = "yearCombobox";
             this.yearCombobox.Size = new System.Drawing.Size(134, 33);
             this.yearCombobox.TabIndex = 60;
+            this.yearCombobox.SelectedIndexChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label24
             // 
@@ -261,6 +278,7 @@
             this.filterFromDate.Name = "filterFromDate";
             this.filterFromDate.Size = new System.Drawing.Size(235, 31);
             this.filterFromDate.TabIndex = 51;
+            this.filterFromDate.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label17
             // 
@@ -277,6 +295,7 @@
             this.filterToDate.Name = "filterToDate";
             this.filterToDate.Size = new System.Drawing.Size(235, 31);
             this.filterToDate.TabIndex = 53;
+            this.filterToDate.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label18
             // 
@@ -295,6 +314,7 @@
             this.branchCombobox.Name = "branchCombobox";
             this.branchCombobox.Size = new System.Drawing.Size(160, 33);
             this.branchCombobox.TabIndex = 52;
+            this.branchCombobox.SelectedIndexChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // branchLabel
             // 
@@ -338,6 +358,7 @@
             this.vehicleMostLeastCombobox.Name = "vehicleMostLeastCombobox";
             this.vehicleMostLeastCombobox.Size = new System.Drawing.Size(123, 33);
             this.vehicleMostLeastCombobox.TabIndex = 50;
+            this.vehicleMostLeastCombobox.SelectedIndexChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // vehicleRadio4
             // 
@@ -349,6 +370,7 @@
             this.vehicleRadio4.TabStop = true;
             this.vehicleRadio4.Text = "VEHICLE CLASS THAT WAS RENTED THE";
             this.vehicleRadio4.UseVisualStyleBackColor = true;
+            this.vehicleRadio4.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label16
             // 
@@ -375,6 +397,7 @@
             0,
             0,
             0});
+            this.mileageNumericUpdown.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // vehicleRadio3
             // 
@@ -418,6 +441,7 @@
             this.vehicleRadio2.TabStop = true;
             this.vehicleRadio2.Text = "VEHICLE CLASSES THAT WERE REQUESTED AND";
             this.vehicleRadio2.UseVisualStyleBackColor = true;
+            this.vehicleRadio2.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // vehicleRadio1
             // 
@@ -429,6 +453,7 @@
             this.vehicleRadio1.TabStop = true;
             this.vehicleRadio1.Text = "VEHICLE CLASSES THAT WERE REQUESTED AND WAS";
             this.vehicleRadio1.UseVisualStyleBackColor = true;
+            this.vehicleRadio1.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // branchStatsPanel
             // 
@@ -468,6 +493,7 @@
             0,
             0,
             0});
+            this.branchNumeric2.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // branchRadio2
             // 
@@ -479,6 +505,7 @@
             this.branchRadio2.Text = "BRANCHES THAT MADE LESS THAN";
             this.branchRadio2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.branchRadio2.UseVisualStyleBackColor = true;
+            this.branchRadio2.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label5
             // 
@@ -505,6 +532,7 @@
             0,
             0,
             0});
+            this.branchNumeric1.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // branchRadio1
             // 
@@ -516,6 +544,7 @@
             this.branchRadio1.Text = "BRANCHES THAT MADE AT LEAST";
             this.branchRadio1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.branchRadio1.UseVisualStyleBackColor = true;
+            this.branchRadio1.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // employeeStatsPanel
             // 
@@ -566,6 +595,7 @@
             0,
             0,
             0});
+            this.employeeNumeric2.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label22
             // 
@@ -587,6 +617,7 @@
             this.employeeRadio2.Text = "TOP";
             this.employeeRadio2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.employeeRadio2.UseVisualStyleBackColor = true;
+            this.employeeRadio2.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // employeeNumeric1
             // 
@@ -604,6 +635,7 @@
             0,
             0,
             0});
+            this.employeeNumeric1.ValueChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // label2
             // 
@@ -625,6 +657,7 @@
             this.employeeRadio1.Text = "TOP";
             this.employeeRadio1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.employeeRadio1.UseVisualStyleBackColor = true;
+            this.employeeRadio1.CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
             // 
             // reportsDataView
             // 
@@ -633,7 +666,7 @@
             this.reportsDataView.AllowUserToResizeColumns = false;
             this.reportsDataView.AllowUserToResizeRows = false;
             this.reportsDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.reportsDataView.Location = new System.Drawing.Point(396, 595);
+            this.reportsDataView.Location = new System.Drawing.Point(400, 641);
             this.reportsDataView.MultiSelect = false;
             this.reportsDataView.Name = "reportsDataView";
             this.reportsDataView.ReadOnly = true;
@@ -726,5 +759,6 @@
         private ComboBox colorCombobox;
         private Panel vehicleFilters;
         private Panel filtersPanel;
+        private Label errorMessageLabel;
     }
 }

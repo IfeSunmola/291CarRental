@@ -15,13 +15,15 @@ namespace _291CarRental
     {
         private EmployeeLandingPage previousPage;
         private DbConnection connection;
-        
+        private Size startingSize;
+
         public RunCustomReportPage(EmployeeLandingPage previousPage, DbConnection connection)
         {
             InitializeComponent();
             this.previousPage = previousPage;
+            this.startingSize = new Size(this.Width, 670);
 
-            this.Size = new Size(this.Width, 650);
+            this.Size = startingSize;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.connection = connection;
 
@@ -65,17 +67,17 @@ namespace _291CarRental
             {
                 brandCombobox.Items.Add(reader.GetString("brand").ToUpper());
             }
-            
+
             for (int i = 2019; i <= DateTime.Now.Year; i++)
             {
                 yearCombobox.Items.Add(i);
             }
         }
-       
+
         // vehicle reports
         private DataTable classRequestedReport(String sign)
         {// = is for getting requested and was available; != is for getting requested and not available
-            String branchId = (branchCombobox.SelectedIndex > 0 ? 
+            String branchId = (branchCombobox.SelectedIndex > 0 ?
                 "\nAND pickup_branch_id = " + branchCombobox.SelectedIndex : "");
             DataTable result = new DataTable();
             String query = @"
@@ -109,7 +111,7 @@ FROM
             String brand = (brandCombobox.SelectedIndex > 0 ?
                "\nAND brand = " + addQuotes(brandCombobox.SelectedItem.ToString()) : "");
             String year = (yearCombobox.SelectedIndex > 0 ?
-               "\nAND year = " + yearCombobox.SelectedItem.ToString(): "");
+               "\nAND year = " + yearCombobox.SelectedItem.ToString() : "");
             String query = @"
 SELECT plate_number [Plate Number], current_mileage [Current Mileage], [year] [Year], brand [Brand], model [Model], color [Color]
 FROM Vehicle
@@ -157,7 +159,7 @@ FROM
 	(SELECT TOP (" + numericUpDown.Value.ToString() + @") E.emp_id
 	FROM Employee E, Rental R
 	WHERE E.emp_id = R.emp_id_booking
-	    AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + 
+	    AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) +
         branch + @"
         GROUP BY E.emp_id
         ORDER BY COUNT(*) " + flag + @") AS E1;
@@ -167,7 +169,7 @@ FROM
             result.Load(connection.executeReader(query));
             return result;
         }
-       
+
         // branch reports
         private DataTable branchReport(String flag)
         {
@@ -192,9 +194,10 @@ FROM
             result.Load(connection.executeReader(query));
             return result;
         }
-       
+
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            errorMessageLabel.Visible = false;
             //disable branch filter when branch is selected
             branchCombobox.Enabled = reportCombobox.SelectedIndex != 2;
 
@@ -226,6 +229,7 @@ FROM
                 branchStatsPanel.Location = new Point(181, 60);
                 filtersPanel.Location = new Point(181, 250);
             }
+
             foreach (Control radio in vehicleStatsPanel.Controls)
             {
                 if (radio is RadioButton)
@@ -249,9 +253,8 @@ FROM
             }
         }
 
-        private void generateButton_Click(object sender, EventArgs e)
+        private void loadVehicleReports()
         {
-            //vehicle
             if (vehicleRadio1.Checked)
             {// requested and NOT available 
                 reportsDataView.DataSource = classRequestedReport("!=");
@@ -275,7 +278,7 @@ FROM
                 reportsDataView.Size = new Size(1000, 192);
                 reportsDataView.Location = new Point(111, 601);
                 this.Size = new Size(this.Width, 900);
-                
+
             }
             else if (vehicleRadio4.Checked)
             {// class rernted the most/least
@@ -288,13 +291,20 @@ FROM
                 {
                     reportsDataView.DataSource = classRentedMostLeast("LEAST");
                 }
-                reportsDataView.Location = new Point(396, 595);
+                reportsDataView.Location = new Point(396, 600);
                 reportsDataView.Size = new Size(386, 91);
                 this.Size = new Size(this.Width, 800);
             }
-           
-            //employee
-            else if (employeeRadio1.Checked)
+            else
+            {
+                errorMessageLabel.Text = "SELECT AN OPTION";
+                errorMessageLabel.Visible = true;
+            }
+        }
+
+        private void loadEmployeeReports()
+        {
+            if (employeeRadio1.Checked)
             {
                 reportsDataView.DataSource = employeeReport("BEST");
 
@@ -310,9 +320,16 @@ FROM
                 reportsDataView.Size = new Size(386, 192);
                 this.Size = new Size(this.Width, 900);
             }
-            
-            // branch
-            else if (branchRadio1.Checked)
+            else
+            {
+                errorMessageLabel.Text = "SELECT AN OPTION";
+                errorMessageLabel.Visible = true;
+            }
+        }
+
+        private void loadBranchReports()
+        {
+            if (branchRadio1.Checked)
             {
                 reportsDataView.DataSource = branchReport("AT LEAST");
 
@@ -327,6 +344,28 @@ FROM
                 reportsDataView.Location = new Point(330, 606);
                 reportsDataView.Size = new Size(520, 192);
                 this.Size = new Size(this.Width, 900);
+            }
+            else
+            {
+                errorMessageLabel.Text = "SELECT AN OPTION";
+                errorMessageLabel.Visible = true;
+            }
+        }
+        
+        private void generateButton_Click(object sender, EventArgs e)
+        {
+            if (reportCombobox.SelectedIndex == 0)
+            {//vehicle
+                loadVehicleReports();
+
+            }
+            else if (reportCombobox.SelectedIndex == 1)
+            {// employee
+                loadEmployeeReports();
+            }
+            else if (reportCombobox.SelectedIndex == 2)
+            {// branch
+                loadBranchReports();
             }
             this.CenterToScreen();
         }
@@ -374,6 +413,15 @@ FROM
             filterFromDate.Enabled = !vehicleRadio3.Checked;
             filterToDate.Enabled = !vehicleRadio3.Checked;
             vehicleFilters.Visible = vehicleRadio3.Checked;
+            radioButtons_CheckedChanged(sender, e);
+        }
+
+        private void radioButtons_CheckedChanged(object sender, EventArgs e)
+        {
+            errorMessageLabel.Visible = false;
+            // hide the reports each time another radio button is selected
+            this.Size = startingSize;
+            this.CenterToScreen();
         }
     }
 }
