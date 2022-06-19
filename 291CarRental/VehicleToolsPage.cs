@@ -307,10 +307,10 @@ namespace _291CarRental
             {
                 return;
             }
-            if (plateNumberInDb(edit_plateNumberTextbox))
+            if (plateNumberUpdateCheckbox.Checked && plateNumberInDb(edit_plateNumberTextbox))
             {
                 edit_plateNumErrorLabel.Visible = true;
-                edit_plateNumErrorLabel.Text = "PLATE NUMBER ALREADY IN DATABASE.\nVEHICLE NOT ADDED";
+                edit_plateNumErrorLabel.Text = "PLATE NUMBER ALREADY IN DATABASE";
                 return;
             }
             // valid details from here on

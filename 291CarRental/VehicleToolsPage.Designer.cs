@@ -56,6 +56,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.edit_ErrorMessageLabel = new System.Windows.Forms.Label();
             this.updatePanel = new System.Windows.Forms.Panel();
+            this.plateNumberUpdateCheckbox = new System.Windows.Forms.CheckBox();
             this.edit_plateNumErrorLabel = new System.Windows.Forms.Label();
             this.edit_vehicleClassCombobox = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -434,6 +435,7 @@
             // 
             // updatePanel
             // 
+            this.updatePanel.Controls.Add(this.plateNumberUpdateCheckbox);
             this.updatePanel.Controls.Add(this.edit_plateNumErrorLabel);
             this.updatePanel.Controls.Add(this.edit_vehicleClassCombobox);
             this.updatePanel.Controls.Add(this.label15);
@@ -461,6 +463,16 @@
             this.updatePanel.Size = new System.Drawing.Size(721, 422);
             this.updatePanel.TabIndex = 38;
             // 
+            // plateNumberUpdateCheckbox
+            // 
+            this.plateNumberUpdateCheckbox.AutoSize = true;
+            this.plateNumberUpdateCheckbox.Location = new System.Drawing.Point(231, 279);
+            this.plateNumberUpdateCheckbox.Name = "plateNumberUpdateCheckbox";
+            this.plateNumberUpdateCheckbox.Size = new System.Drawing.Size(344, 29);
+            this.plateNumberUpdateCheckbox.TabIndex = 52;
+            this.plateNumberUpdateCheckbox.Text = "I AM ALSO UPDATING PLATE NUMBER";
+            this.plateNumberUpdateCheckbox.UseVisualStyleBackColor = true;
+            // 
             // edit_plateNumErrorLabel
             // 
             this.edit_plateNumErrorLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -477,7 +489,7 @@
             // 
             this.edit_vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_vehicleClassCombobox.FormattingEnabled = true;
-            this.edit_vehicleClassCombobox.Location = new System.Drawing.Point(3, 354);
+            this.edit_vehicleClassCombobox.Location = new System.Drawing.Point(0, 332);
             this.edit_vehicleClassCombobox.Name = "edit_vehicleClassCombobox";
             this.edit_vehicleClassCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_vehicleClassCombobox.TabIndex = 45;
@@ -485,7 +497,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 316);
+            this.label15.Location = new System.Drawing.Point(0, 294);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(135, 25);
             this.label15.TabIndex = 44;
@@ -495,7 +507,7 @@
             // 
             this.edit_colorCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_colorCombobox.FormattingEnabled = true;
-            this.edit_colorCombobox.Location = new System.Drawing.Point(0, 269);
+            this.edit_colorCombobox.Location = new System.Drawing.Point(0, 240);
             this.edit_colorCombobox.Name = "edit_colorCombobox";
             this.edit_colorCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_colorCombobox.TabIndex = 43;
@@ -504,7 +516,7 @@
             // 
             this.edit_branchCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_branchCombobox.FormattingEnabled = true;
-            this.edit_branchCombobox.Location = new System.Drawing.Point(460, 269);
+            this.edit_branchCombobox.Location = new System.Drawing.Point(460, 240);
             this.edit_branchCombobox.Name = "edit_branchCombobox";
             this.edit_branchCombobox.Size = new System.Drawing.Size(165, 33);
             this.edit_branchCombobox.TabIndex = 42;
@@ -512,7 +524,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(460, 231);
+            this.label13.Location = new System.Drawing.Point(460, 202);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(82, 25);
             this.label13.TabIndex = 41;
@@ -520,7 +532,7 @@
             // 
             // edit_currentMileageTextbox
             // 
-            this.edit_currentMileageTextbox.Location = new System.Drawing.Point(460, 169);
+            this.edit_currentMileageTextbox.Location = new System.Drawing.Point(460, 152);
             this.edit_currentMileageTextbox.Maximum = new decimal(new int[] {
             500000,
             0,
@@ -532,7 +544,7 @@
             // 
             // edit_numOfSeatsTextbox
             // 
-            this.edit_numOfSeatsTextbox.Location = new System.Drawing.Point(231, 167);
+            this.edit_numOfSeatsTextbox.Location = new System.Drawing.Point(231, 150);
             this.edit_numOfSeatsTextbox.Maximum = new decimal(new int[] {
             8,
             0,
@@ -615,7 +627,7 @@
             // edit_plateNumberTextbox
             // 
             this.edit_plateNumberTextbox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.edit_plateNumberTextbox.Location = new System.Drawing.Point(231, 269);
+            this.edit_plateNumberTextbox.Location = new System.Drawing.Point(231, 240);
             this.edit_plateNumberTextbox.MaxLength = 8;
             this.edit_plateNumberTextbox.Name = "edit_plateNumberTextbox";
             this.edit_plateNumberTextbox.Size = new System.Drawing.Size(150, 31);
@@ -624,7 +636,7 @@
             // plateNumberLabel
             // 
             this.plateNumberLabel.AutoSize = true;
-            this.plateNumberLabel.Location = new System.Drawing.Point(231, 231);
+            this.plateNumberLabel.Location = new System.Drawing.Point(231, 202);
             this.plateNumberLabel.Name = "plateNumberLabel";
             this.plateNumberLabel.Size = new System.Drawing.Size(136, 25);
             this.plateNumberLabel.TabIndex = 34;
@@ -649,7 +661,7 @@
             // colorLabel
             // 
             this.colorLabel.AutoSize = true;
-            this.colorLabel.Location = new System.Drawing.Point(0, 231);
+            this.colorLabel.Location = new System.Drawing.Point(0, 202);
             this.colorLabel.Name = "colorLabel";
             this.colorLabel.Size = new System.Drawing.Size(69, 25);
             this.colorLabel.TabIndex = 32;
@@ -658,7 +670,7 @@
             // transmissionLabel
             // 
             this.transmissionLabel.AutoSize = true;
-            this.transmissionLabel.Location = new System.Drawing.Point(0, 130);
+            this.transmissionLabel.Location = new System.Drawing.Point(0, 113);
             this.transmissionLabel.Name = "transmissionLabel";
             this.transmissionLabel.Size = new System.Drawing.Size(183, 25);
             this.transmissionLabel.TabIndex = 26;
@@ -668,7 +680,7 @@
             // 
             this.edit_transmissionComobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.edit_transmissionComobox.FormattingEnabled = true;
-            this.edit_transmissionComobox.Location = new System.Drawing.Point(0, 167);
+            this.edit_transmissionComobox.Location = new System.Drawing.Point(0, 150);
             this.edit_transmissionComobox.Name = "edit_transmissionComobox";
             this.edit_transmissionComobox.Size = new System.Drawing.Size(182, 33);
             this.edit_transmissionComobox.TabIndex = 27;
@@ -676,7 +688,7 @@
             // currentMileageLabel
             // 
             this.currentMileageLabel.AutoSize = true;
-            this.currentMileageLabel.Location = new System.Drawing.Point(460, 131);
+            this.currentMileageLabel.Location = new System.Drawing.Point(460, 114);
             this.currentMileageLabel.Name = "currentMileageLabel";
             this.currentMileageLabel.Size = new System.Drawing.Size(164, 25);
             this.currentMileageLabel.TabIndex = 30;
@@ -685,7 +697,7 @@
             // numOfSeatsLabel
             // 
             this.numOfSeatsLabel.AutoSize = true;
-            this.numOfSeatsLabel.Location = new System.Drawing.Point(231, 131);
+            this.numOfSeatsLabel.Location = new System.Drawing.Point(231, 114);
             this.numOfSeatsLabel.Name = "numOfSeatsLabel";
             this.numOfSeatsLabel.Size = new System.Drawing.Size(165, 25);
             this.numOfSeatsLabel.TabIndex = 28;
@@ -1204,5 +1216,6 @@
         private Label edit_ErrorMessageLabel;
         private Label delete_errorMessageLabel;
         private Label edit_plateNumErrorLabel;
+        private CheckBox plateNumberUpdateCheckbox;
     }
 }
