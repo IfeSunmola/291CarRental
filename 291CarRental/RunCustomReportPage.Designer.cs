@@ -54,7 +54,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.branchCombobox = new System.Windows.Forms.ComboBox();
             this.branchLabel = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.vehicleStatsPanel = new System.Windows.Forms.Panel();
             this.vehicleRadio5 = new System.Windows.Forms.RadioButton();
             this.vehicleMostLeastCombobox = new System.Windows.Forms.ComboBox();
@@ -174,9 +173,9 @@
             // 
             this.errorMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.errorMessageLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorMessageLabel.Location = new System.Drawing.Point(433, 550);
+            this.errorMessageLabel.Location = new System.Drawing.Point(181, 550);
             this.errorMessageLabel.Name = "errorMessageLabel";
-            this.errorMessageLabel.Size = new System.Drawing.Size(353, 25);
+            this.errorMessageLabel.Size = new System.Drawing.Size(831, 25);
             this.errorMessageLabel.TabIndex = 35;
             this.errorMessageLabel.Text = "ERROR HEHE HEHE";
             this.errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -192,7 +191,6 @@
             this.filtersPanel.Controls.Add(this.label18);
             this.filtersPanel.Controls.Add(this.branchCombobox);
             this.filtersPanel.Controls.Add(this.branchLabel);
-            this.filtersPanel.Controls.Add(this.label20);
             this.filtersPanel.Location = new System.Drawing.Point(181, 328);
             this.filtersPanel.Name = "filtersPanel";
             this.filtersPanel.Size = new System.Drawing.Size(831, 207);
@@ -346,7 +344,7 @@
             // 
             // filterFromDate
             // 
-            this.filterFromDate.Location = new System.Drawing.Point(153, 37);
+            this.filterFromDate.Location = new System.Drawing.Point(83, 36);
             this.filterFromDate.Name = "filterFromDate";
             this.filterFromDate.Size = new System.Drawing.Size(235, 31);
             this.filterFromDate.TabIndex = 51;
@@ -355,7 +353,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(411, 42);
+            this.label17.Location = new System.Drawing.Point(341, 41);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(34, 25);
             this.label17.TabIndex = 57;
@@ -363,7 +361,7 @@
             // 
             // filterToDate
             // 
-            this.filterToDate.Location = new System.Drawing.Point(459, 37);
+            this.filterToDate.Location = new System.Drawing.Point(389, 36);
             this.filterToDate.Name = "filterToDate";
             this.filterToDate.Size = new System.Drawing.Size(235, 31);
             this.filterToDate.TabIndex = 53;
@@ -372,7 +370,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(70, 37);
+            this.label18.Location = new System.Drawing.Point(0, 36);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(62, 25);
             this.label18.TabIndex = 56;
@@ -396,15 +394,6 @@
             this.branchLabel.Size = new System.Drawing.Size(86, 25);
             this.branchLabel.TabIndex = 55;
             this.branchLabel.Text = "BRANCH:";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(0, 37);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(58, 25);
-            this.label20.TabIndex = 54;
-            this.label20.Text = "DATE:";
             // 
             // vehicleStatsPanel
             // 
@@ -823,7 +812,6 @@
         private Label label17;
         private Label label18;
         private Label branchLabel;
-        private Label label20;
         private ComboBox branchCombobox;
         private DateTimePicker filterToDate;
         private DateTimePicker filterFromDate;
