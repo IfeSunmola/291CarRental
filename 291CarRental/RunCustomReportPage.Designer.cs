@@ -48,7 +48,7 @@
             this.filterToDate = new System.Windows.Forms.DateTimePicker();
             this.label18 = new System.Windows.Forms.Label();
             this.branchCombobox = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
+            this.branchLabel = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.vehicleStatsPanel = new System.Windows.Forms.Panel();
             this.vehicleMostLeastCombobox = new System.Windows.Forms.ComboBox();
@@ -62,10 +62,10 @@
             this.vehicleRadio1 = new System.Windows.Forms.RadioButton();
             this.branchStatsPanel = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
-            this.branchNumericUpdown2 = new System.Windows.Forms.NumericUpDown();
+            this.branchNumeric2 = new System.Windows.Forms.NumericUpDown();
             this.branchRadio2 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.branchNumericUpdown1 = new System.Windows.Forms.NumericUpDown();
+            this.branchNumeric1 = new System.Windows.Forms.NumericUpDown();
             this.branchRadio1 = new System.Windows.Forms.RadioButton();
             this.employeeStatsPanel = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
@@ -83,8 +83,8 @@
             this.vehicleStatsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mileageNumericUpdown)).BeginInit();
             this.branchStatsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.branchNumeric2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.branchNumeric1)).BeginInit();
             this.employeeStatsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric1)).BeginInit();
@@ -170,7 +170,7 @@
             this.filtersPanel.Controls.Add(this.filterToDate);
             this.filtersPanel.Controls.Add(this.label18);
             this.filtersPanel.Controls.Add(this.branchCombobox);
-            this.filtersPanel.Controls.Add(this.label19);
+            this.filtersPanel.Controls.Add(this.branchLabel);
             this.filtersPanel.Controls.Add(this.label20);
             this.filtersPanel.Location = new System.Drawing.Point(181, 328);
             this.filtersPanel.Name = "filtersPanel";
@@ -296,14 +296,14 @@
             this.branchCombobox.Size = new System.Drawing.Size(160, 33);
             this.branchCombobox.TabIndex = 52;
             // 
-            // label19
+            // branchLabel
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(0, 86);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(86, 25);
-            this.label19.TabIndex = 55;
-            this.label19.Text = "BRANCH:";
+            this.branchLabel.AutoSize = true;
+            this.branchLabel.Location = new System.Drawing.Point(0, 86);
+            this.branchLabel.Name = "branchLabel";
+            this.branchLabel.Size = new System.Drawing.Size(86, 25);
+            this.branchLabel.TabIndex = 55;
+            this.branchLabel.Text = "BRANCH:";
             // 
             // label20
             // 
@@ -433,10 +433,10 @@
             // branchStatsPanel
             // 
             this.branchStatsPanel.Controls.Add(this.label14);
-            this.branchStatsPanel.Controls.Add(this.branchNumericUpdown2);
+            this.branchStatsPanel.Controls.Add(this.branchNumeric2);
             this.branchStatsPanel.Controls.Add(this.branchRadio2);
             this.branchStatsPanel.Controls.Add(this.label5);
-            this.branchStatsPanel.Controls.Add(this.branchNumericUpdown1);
+            this.branchStatsPanel.Controls.Add(this.branchNumeric1);
             this.branchStatsPanel.Controls.Add(this.branchRadio1);
             this.branchStatsPanel.Location = new System.Drawing.Point(181, 1073);
             this.branchStatsPanel.Name = "branchStatsPanel";
@@ -452,18 +452,18 @@
             this.label14.TabIndex = 43;
             this.label14.Text = "RENTALS BETWEEN";
             // 
-            // branchNumericUpdown2
+            // branchNumeric2
             // 
-            this.branchNumericUpdown2.Location = new System.Drawing.Point(331, 97);
-            this.branchNumericUpdown2.Minimum = new decimal(new int[] {
+            this.branchNumeric2.Location = new System.Drawing.Point(331, 97);
+            this.branchNumeric2.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.branchNumericUpdown2.Name = "branchNumericUpdown2";
-            this.branchNumericUpdown2.Size = new System.Drawing.Size(53, 31);
-            this.branchNumericUpdown2.TabIndex = 42;
-            this.branchNumericUpdown2.Value = new decimal(new int[] {
+            this.branchNumeric2.Name = "branchNumeric2";
+            this.branchNumeric2.Size = new System.Drawing.Size(53, 31);
+            this.branchNumeric2.TabIndex = 42;
+            this.branchNumeric2.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -489,18 +489,18 @@
             this.label5.TabIndex = 37;
             this.label5.Text = "RENTALS BETWEEN";
             // 
-            // branchNumericUpdown1
+            // branchNumeric1
             // 
-            this.branchNumericUpdown1.Location = new System.Drawing.Point(316, 31);
-            this.branchNumericUpdown1.Minimum = new decimal(new int[] {
+            this.branchNumeric1.Location = new System.Drawing.Point(316, 31);
+            this.branchNumeric1.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.branchNumericUpdown1.Name = "branchNumericUpdown1";
-            this.branchNumericUpdown1.Size = new System.Drawing.Size(53, 31);
-            this.branchNumericUpdown1.TabIndex = 36;
-            this.branchNumericUpdown1.Value = new decimal(new int[] {
+            this.branchNumeric1.Name = "branchNumeric1";
+            this.branchNumeric1.Size = new System.Drawing.Size(53, 31);
+            this.branchNumeric1.TabIndex = 36;
+            this.branchNumeric1.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -664,8 +664,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.mileageNumericUpdown)).EndInit();
             this.branchStatsPanel.ResumeLayout(false);
             this.branchStatsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.branchNumericUpdown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.branchNumeric2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.branchNumeric1)).EndInit();
             this.employeeStatsPanel.ResumeLayout(false);
             this.employeeStatsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeeNumeric2)).EndInit();
@@ -690,9 +690,9 @@
         private NumericUpDown employeeNumeric1;
         private Panel branchStatsPanel;
         private Label label14;
-        private NumericUpDown branchNumericUpdown2;
+        private NumericUpDown branchNumeric2;
         private RadioButton branchRadio2;
-        private NumericUpDown branchNumericUpdown1;
+        private NumericUpDown branchNumeric1;
         private RadioButton branchRadio1;
         private Panel vehicleStatsPanel;
         private Label label7;
@@ -702,7 +702,7 @@
         private Label label5;
         private Label label17;
         private Label label18;
-        private Label label19;
+        private Label branchLabel;
         private Label label20;
         private ComboBox branchCombobox;
         private DateTimePicker filterToDate;

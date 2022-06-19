@@ -117,7 +117,31 @@ WHERE current_mileage >= " + mileageNumericUpdown.Value + branch + color + brand
             result.Load(connection.executeReader(query));
             return result;
         }
-        
+
+        private DataTable classRentedMostLeast(String flag)
+        {
+            DataTable result = new DataTable();
+            flag = (flag.Equals("MOST") ? "DESC" : "ASC");
+            String branch = (branchCombobox.SelectedIndex > 0 ?
+             "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
+
+            String query = @"
+SELECT TOP (1)
+	vehicle_class [Vehicle Class],
+	COUNT(*) [Number of times rented]
+FROM Rental, Vehicle, Vehicle_Class
+WHERE Rental.vehicle_id = Vehicle.vehicle_id AND Vehicle_Class.vehicle_class_id 
+					IN(SELECT Vehicle.vehicle_class_id FROM Vehicle WHERE vehicle_id = Rental.vehicle_id )
+        AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + branch + @" 
+GROUP BY vehicle_class
+ORDER BY [Number of times rented] " + flag;
+
+            result.Load(connection.executeReader(query));
+            return result;
+
+        }
+
+        // employee reports
         private DataTable employeeReport(String flag)
         {
             DataTable result = new DataTable();
@@ -143,31 +167,37 @@ FROM
             result.Load(connection.executeReader(query));
             return result;
         }
-        private DataTable classRentedMostLeast(String flag)
+       
+        // branch reports
+        private DataTable branchReport(String flag)
         {
             DataTable result = new DataTable();
-            flag = (flag.Equals("MOST") ? "DESC" : "ASC");
-            String branch = (branchCombobox.SelectedIndex > 0 ?
-             "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
+            NumericUpDown numericUpDown = (flag.Equals("AT LEAST") ? branchNumeric1 : branchNumeric2);
+            flag = (flag.Equals("AT LEAST") ? ">=" : "<");
 
             String query = @"
-SELECT TOP (1)
-	vehicle_class [Vehicle Class],
-	COUNT(*) [Number of times rented]
-FROM Rental, Vehicle, Vehicle_Class
-WHERE Rental.vehicle_id = Vehicle.vehicle_id AND Vehicle_Class.vehicle_class_id 
-					IN(SELECT Vehicle.vehicle_class_id FROM Vehicle WHERE vehicle_id = Rental.vehicle_id )
-        AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + branch +         @" 
-GROUP BY vehicle_class
-ORDER BY [Number of times rented] " + flag;
+SELECT
+	(SELECT branch_name FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch Name],
+    (SELECT '(' + area_code + ')' + ' ' + phone_number FROM Branch WHERE Branch.branch_id = T1.pickup_branch_id) AS [Branch phone number],
+	T1.[Number of Rentals]
+FROM 
+	(SELECT pickup_branch_id, COUNT(*) AS [Number of Rentals]
+	FROM Branch, Rental
+	WHERE Branch.branch_id = Rental.pickup_branch_id  
+		AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + @"
+	GROUP BY pickup_branch_id
+	HAVING COUNT (*) " + flag + numericUpDown.Value.ToString() + @") AS T1
+";
 
             result.Load(connection.executeReader(query));
             return result;
-
         }
        
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //disable branch filter when branch is selected
+            branchCombobox.Enabled = reportCombobox.SelectedIndex != 2;
+
             // move whatever is visible away from the screen by offsetting their location
             // and show the content by updating it's  location to be visible
             // and update anything needed
@@ -221,6 +251,7 @@ ORDER BY [Number of times rented] " + flag;
 
         private void generateButton_Click(object sender, EventArgs e)
         {
+            //vehicle
             if (vehicleRadio1.Checked)
             {// requested and NOT available 
                 reportsDataView.DataSource = classRequestedReport("!=");
@@ -277,6 +308,24 @@ ORDER BY [Number of times rented] " + flag;
 
                 reportsDataView.Location = new Point(411, 606);
                 reportsDataView.Size = new Size(386, 192);
+                this.Size = new Size(this.Width, 900);
+            }
+            
+            // branch
+            else if (branchRadio1.Checked)
+            {
+                reportsDataView.DataSource = branchReport("AT LEAST");
+
+                reportsDataView.Location = new Point(330, 606);
+                reportsDataView.Size = new Size(520, 192);
+                this.Size = new Size(this.Width, 900);
+            }
+            else if (branchRadio2.Checked)
+            {
+                reportsDataView.DataSource = branchReport("LESS THAN");
+
+                reportsDataView.Location = new Point(330, 606);
+                reportsDataView.Size = new Size(520, 192);
                 this.Size = new Size(this.Width, 900);
             }
             this.CenterToScreen();
