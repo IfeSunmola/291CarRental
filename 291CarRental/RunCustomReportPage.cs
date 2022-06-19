@@ -143,7 +143,34 @@ ORDER BY [Number of times rented] " + flag;
        
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            // move whatever is visible away from the screen by offsetting their location
+            // and show the content by updating it's  location to be visible
+            // and update anything needed
+            if (reportCombobox.SelectedIndex == 0)
+            {// vehicle reports was selected
+                employeeStatsPanel.Location = new Point(1000, 1000);
+                branchStatsPanel.Location = new Point(1000, 1000);
+
+                vehicleStatsPanel.Location = new Point(181, 60);
+                filtersPanel.Location = new Point(181, 328);
+
+            }
+            if (reportCombobox.SelectedIndex == 1)
+            {// employee reports was selected
+                vehicleStatsPanel.Location = new Point(1000, 1000);
+                branchStatsPanel.Location = new Point(1000, 1000);
+
+                employeeStatsPanel.Location = new Point(181, 60);
+                filtersPanel.Location = new Point(181, 250);
+            }
+            if (reportCombobox.SelectedIndex == 2)
+            {//branch reports was selected
+                vehicleStatsPanel.Location = new Point(1000, 1000);
+                employeeStatsPanel.Location = new Point(1000, 1000);
+
+                branchStatsPanel.Location = new Point(181, 60);
+                filtersPanel.Location = new Point(181, 250);
+            }
         }
 
         private void generateButton_Click(object sender, EventArgs e)
