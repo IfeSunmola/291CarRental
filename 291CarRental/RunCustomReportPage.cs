@@ -16,8 +16,7 @@ namespace _291CarRental
         private EmployeeLandingPage previousPage;
         private DbConnection connection;
         private Size startingSize;
-
-
+ 
         public RunCustomReportPage(EmployeeLandingPage previousPage, DbConnection connection)
         {
             InitializeComponent();
@@ -410,13 +409,14 @@ FROM
         private void generateButton_Click(object sender, EventArgs e)
         {
             // from date is before to date
-            if (filterFromDate.Value >= filterToDate.Value)
+            if (filterFromDate.Value > filterToDate.Value)
             {
                 errorMessageLabel.Text = "FROM DATE SHOULD BE BEFORE TO DATE";
                 errorMessageLabel.Visible = true;
-                this.Size = new Size(this.Width, 990);
+                this.Size = startingSize;
                 return;
             }
+            errorMessageLabel.Visible = false;
             if (reportCombobox.SelectedIndex == 0)
             {//vehicle
                 loadVehicleReports();
