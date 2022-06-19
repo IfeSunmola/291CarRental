@@ -47,10 +47,7 @@ namespace _291CarRental
             brandCombobox.Items.Add("ALL BRANDS");
             yearCombobox.Items.Add("ALL YEARS");
             //////////////////////////////////////////////////////////
-            branchCombobox.SelectedIndex = 0;
-            colorCombobox.SelectedIndex = 0;
-            brandCombobox.SelectedIndex = 0;
-            yearCombobox.SelectedIndex = 0;
+
             String query = "SELECT branch_name FROM Branch; SELECT DISTINCT color FROM Vehicle; " +
                 "SELECT DISTINCT brand FROM Vehicle;";
             SqlDataReader reader = connection.executeReader(query);
@@ -73,6 +70,10 @@ namespace _291CarRental
             {
                 yearCombobox.Items.Add(i);
             }
+            branchCombobox.SelectedIndex = 0;
+            colorCombobox.SelectedIndex = 0;
+            brandCombobox.SelectedIndex = 0;
+            yearCombobox.SelectedIndex = 0;
         }
 
         // vehicle reports
@@ -242,7 +243,8 @@ FROM
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             errorMessageLabel.Visible = false;
-            branchCombobox.SelectedIndex = 0;
+            // for some reason, SelectedIndex = 0 doesn't work here, even when I check with .Items.Count >= 0
+            branchCombobox.SelectedItem = "ALL BRANCHES";
             //disable branch filter when branch is selected
             branchCombobox.Enabled = reportCombobox.SelectedIndex != 2;
 
