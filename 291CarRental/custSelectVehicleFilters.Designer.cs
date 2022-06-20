@@ -162,6 +162,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "CustSelectVehicleFilters";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SELECT VEHICLE FILTERS";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

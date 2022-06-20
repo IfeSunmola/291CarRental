@@ -16,8 +16,7 @@ namespace _291CarRental
         {
             InitializeComponent();
             this.connection = connection;
-            this.previousPage = previousPage;
-            this.StartPosition = FormStartPosition.CenterScreen;// center screen
+            this.previousPage = previousPage;// previous page connection
             fromDatePicker.Value = DateTime.Now.AddDays(1);// vehicles can only be booked a day before
             toDatePicker.Value = DateTime.Now.AddDays(2);
             addressLabel.Visible = false;
