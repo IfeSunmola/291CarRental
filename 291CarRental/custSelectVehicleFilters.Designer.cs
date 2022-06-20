@@ -44,6 +44,7 @@
             // 
             // branchComboBox
             // 
+            this.branchComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.branchComboBox.FormattingEnabled = true;
             this.branchComboBox.Location = new System.Drawing.Point(391, 161);
             this.branchComboBox.Name = "branchComboBox";
@@ -53,6 +54,7 @@
             // 
             // vehicleClassCombobox
             // 
+            this.vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.vehicleClassCombobox.FormattingEnabled = true;
             this.vehicleClassCombobox.Location = new System.Drawing.Point(151, 161);
             this.vehicleClassCombobox.Name = "vehicleClassCombobox";
