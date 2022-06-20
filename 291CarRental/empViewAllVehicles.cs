@@ -12,11 +12,14 @@ using System.Windows.Forms;
 //1194, 1082
 namespace _291CarRental
 {
+    /// <summary>
+    /// Form/Class for when the employee is viewing vehicles. The employee  can view vehicles or rent for a customer
+    /// </summary>
     public partial class EmpViewAllVehicles : Form
     {
         private EmployeeLandingPage previousPage;
-        private String empId;
-        private String currentCustName;
+        private String empId;// empId that's viewing or renting for a customer
+        private String currentCustName;// the current customer that's renting. CHANGE THIS 
 
         private DbConnection connection;
 
@@ -29,32 +32,28 @@ namespace _291CarRental
             this.empId = empId;
             this.currentCustName = "";
 
-            this.Size = new Size(1194, 450);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            vehicleDataGridView.Columns.Clear();
+            this.Size = new Size(1194, 450);// starting size, will be changed accordingly
+            vehicleDataGridView.Columns.Clear();// clear whatever is in the data grid view
 
-            fromDatePicker.Value = DateTime.Now.AddDays(1);
+            fromDatePicker.Value = DateTime.Now.AddDays(1);// set the default start date to 1 daya fter
             toDatePicker.Value = DateTime.Now.AddDays(2);
-            fillComboBoxes();
+            fillComboBoxes();// fill the combo boxes: vehicle class, branches, find customer by
 
-            findByCombobox.Items.Add("NOT APPLICABLE");
-            findByCombobox.Items.Add("CUSTOMER ID");
-            findByCombobox.SelectedIndex = 1;
-            findByCombobox.Items.Add("PHONE NUMBER");
-
-
-            findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            customerDetailsPanel.Visible = false;
+            customerDetailsPanel.Visible = false;// hide the panel that will show the customer information
             
         }
 
+        /// <summary>
+        /// This method gets the vehicles that are available and loads it into the data view
+        /// </summary>
+        /// <param name="vehicleClassId"></param>
+        /// <returns>Returns a data table to be loaded into the data grid view</returns>
         private DataTable getAvailableVehicleList(int vehicleClassId)
         {
-            int branchId = (int)branchComboBox.SelectedIndex;
+            int branchId = (int)branchComboBox.SelectedIndex;// get the current id for to use  filters
 
-            String from = fromDatePicker.Value.Date.ToString("d");
-            String to = toDatePicker.Value.Date.ToString("d");
+            String from = addQuotes(fromDatePicker.Value.Date.ToString("d"));
+            String to = addQuotes(toDatePicker.Value.Date.ToString("d"));
 
             DataTable cars = new DataTable();
             String query = @"
@@ -69,16 +68,16 @@ AND vehicle_id IN
 	(
 		(SELECT [vehicle_id]
 		FROM Rental
-		WHERE [start_date] >= " + addQuotes(from) + @" and expected_dropoff_date <= " + addQuotes(to) + @")
+		WHERE [start_date] >= " + from + @" and expected_dropoff_date <= " + to + @")
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE  " + addQuotes(from) + @" >= [start_date] and " + addQuotes(from) + @" <= expected_dropoff_date)
+			WHERE  " + from + @" >= [start_date] and " + from + @" <= expected_dropoff_date)
 		)
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE expected_dropoff_date >= " + addQuotes(to) + @" and [start_date] <= " + addQuotes(to) + @")
+			WHERE expected_dropoff_date >= " + to + @" and [start_date] <= " + to + @")
 		)
 	) 
 )
@@ -96,26 +95,35 @@ AND vehicle_id IN
             return cars;
         }
 
+        /// <summary>
+        /// back button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
+        /// <summary>
+        /// This method uses the getAvailableVehicleList method to fill the data grid view and set its appropriate properties
+        /// </summary>
+        /// <param name="vehicleClassId"></param>
         private void fillVehicleDataView(int vehicleClassId)
         {
-            vehicleDataGridView.DataSource = getAvailableVehicleList(vehicleClassId);
-            vehicleDataGridView.Columns["vehicle_id"].Visible = false;
+            vehicleDataGridView.DataSource = getAvailableVehicleList(vehicleClassId);// fill the data view
+            vehicleDataGridView.Columns["vehicle_id"].Visible = false;// hide the vehicle id column, vehicle id will be used to get the prices
 
             foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
             {//disable sorting the columns
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            showVehicleDataGripViewPanel.Visible = true;
-            if (vehicleDataGridView.CurrentCell != null)
+            if (vehicleDataGridView.CurrentCell != null)// if the 
             {
                 vehicleDataGridView.CurrentCell.Selected = false;
             }
+            showVehicleDataGripViewPanel.Visible = true;
             String fromToDate = fromDatePicker.Value.Date.ToString("D").ToUpper() + " TO " + toDatePicker.Value.Date.ToString("D").ToUpper();
             showingVehiclesLabel.Text = "SHOWING AVAILABLE VEHICLES FROM " + fromToDate;
         }
@@ -460,9 +468,11 @@ WHERE customer_id = " + customerInfoTextbox.Text + ";";
             {
                 branchComboBox.SelectedIndex = reader.GetInt32("branch_id");
             }
-
-            vehicleClassCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-            branchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            // find by combo box
+            findByCombobox.Items.Add("NOT APPLICABLE");
+            findByCombobox.Items.Add("CUSTOMER ID");
+            findByCombobox.SelectedIndex = 1;
+            findByCombobox.Items.Add("PHONE NUMBER");
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -599,7 +609,7 @@ WHERE vehicle_class_id = " + currentVehicleId;
             customerDetailsPanel.Visible = false;
             if (findByCombobox.SelectedIndex == 0)
             {// not applicable was selected, hide text box
-                customerInfoPanel.Visible = false;
+                getCustomerInfoPanel.Visible = false;
                 filtersValueChanged(sender, e);
                 return;
             }
@@ -612,7 +622,7 @@ WHERE vehicle_class_id = " + currentVehicleId;
                 customerInfoTextbox.MaxLength = 10;
             }
             customerInfoTextbox.Clear();
-            customerInfoPanel.Visible = true;
+            getCustomerInfoPanel.Visible = true;
             findByLabel.Text = findByCombobox.SelectedItem.ToString();
             filtersValueChanged(sender, e);
         }

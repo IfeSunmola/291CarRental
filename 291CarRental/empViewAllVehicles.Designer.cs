@@ -54,7 +54,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.createCustomerLabel = new System.Windows.Forms.LinkLabel();
             this.errorMessageLabel = new System.Windows.Forms.Label();
-            this.customerInfoPanel = new System.Windows.Forms.Panel();
+            this.getCustomerInfoPanel = new System.Windows.Forms.Panel();
             this.findByLabel = new System.Windows.Forms.Label();
             this.customerInfoTextbox = new System.Windows.Forms.TextBox();
             this.addressPanel = new System.Windows.Forms.Panel();
@@ -74,7 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.customerInfoPanel.SuspendLayout();
+            this.getCustomerInfoPanel.SuspendLayout();
             this.addressPanel.SuspendLayout();
             this.customerDetailsPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -116,23 +116,23 @@
             // 
             // vehicleClassCombobox
             // 
+            this.vehicleClassCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.vehicleClassCombobox.FormattingEnabled = true;
             this.vehicleClassCombobox.Location = new System.Drawing.Point(15, 136);
             this.vehicleClassCombobox.Name = "vehicleClassCombobox";
             this.vehicleClassCombobox.Size = new System.Drawing.Size(182, 33);
             this.vehicleClassCombobox.TabIndex = 4;
-            this.vehicleClassCombobox.Text = "SELECT ONE";
             this.vehicleClassCombobox.SelectedIndexChanged += new System.EventHandler(this.filtersValueChanged);
             this.vehicleClassCombobox.DropDownClosed += new System.EventHandler(this.vehicleClassCombobox_DropDownClosed);
             // 
             // branchComboBox
             // 
+            this.branchComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.branchComboBox.FormattingEnabled = true;
             this.branchComboBox.Location = new System.Drawing.Point(280, 136);
             this.branchComboBox.Name = "branchComboBox";
             this.branchComboBox.Size = new System.Drawing.Size(182, 33);
             this.branchComboBox.TabIndex = 5;
-            this.branchComboBox.Text = "BRANCH";
             this.branchComboBox.SelectedIndexChanged += new System.EventHandler(this.branchComboBox_SelectedIndexChanged);
             // 
             // findAvailableVehiclesButton
@@ -324,7 +324,7 @@
             // 
             this.panel1.Controls.Add(this.createCustomerLabel);
             this.panel1.Controls.Add(this.errorMessageLabel);
-            this.panel1.Controls.Add(this.customerInfoPanel);
+            this.panel1.Controls.Add(this.getCustomerInfoPanel);
             this.panel1.Controls.Add(this.addressPanel);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.findByCombobox);
@@ -367,14 +367,14 @@
             this.errorMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.errorMessageLabel.Visible = false;
             // 
-            // customerInfoPanel
+            // getCustomerInfoPanel
             // 
-            this.customerInfoPanel.Controls.Add(this.findByLabel);
-            this.customerInfoPanel.Controls.Add(this.customerInfoTextbox);
-            this.customerInfoPanel.Location = new System.Drawing.Point(271, 218);
-            this.customerInfoPanel.Name = "customerInfoPanel";
-            this.customerInfoPanel.Size = new System.Drawing.Size(318, 33);
-            this.customerInfoPanel.TabIndex = 47;
+            this.getCustomerInfoPanel.Controls.Add(this.findByLabel);
+            this.getCustomerInfoPanel.Controls.Add(this.customerInfoTextbox);
+            this.getCustomerInfoPanel.Location = new System.Drawing.Point(271, 218);
+            this.getCustomerInfoPanel.Name = "getCustomerInfoPanel";
+            this.getCustomerInfoPanel.Size = new System.Drawing.Size(318, 33);
+            this.getCustomerInfoPanel.TabIndex = 47;
             // 
             // findByLabel
             // 
@@ -425,6 +425,7 @@
             // 
             // findByCombobox
             // 
+            this.findByCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.findByCombobox.FormattingEnabled = true;
             this.findByCombobox.Location = new System.Drawing.Point(15, 218);
             this.findByCombobox.Name = "findByCombobox";
@@ -542,14 +543,15 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "EmpViewAllVehicles";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EMPLOYEE VIEWING AVAILABLE VEHICLES";
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).EndInit();
             this.showVehicleDataGripViewPanel.ResumeLayout(false);
             this.showVehicleDataGripViewPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.customerInfoPanel.ResumeLayout(false);
-            this.customerInfoPanel.PerformLayout();
+            this.getCustomerInfoPanel.ResumeLayout(false);
+            this.getCustomerInfoPanel.PerformLayout();
             this.addressPanel.ResumeLayout(false);
             this.addressPanel.PerformLayout();
             this.customerDetailsPanel.ResumeLayout(false);
@@ -599,7 +601,7 @@
         private TextBox customerInfoTextbox;
         private Label findByLabel;
         private Panel addressPanel;
-        private Panel customerInfoPanel;
+        private Panel getCustomerInfoPanel;
         private Label errorMessageLabel;
         private Label amountOfDaysLabel;
         private Label selectAVehicleLabel;
