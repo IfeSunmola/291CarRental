@@ -52,6 +52,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.createCustomerLabel = new System.Windows.Forms.LinkLabel();
             this.errorMessageLabel = new System.Windows.Forms.Label();
             this.customerInfoPanel = new System.Windows.Forms.Panel();
             this.findByLabel = new System.Windows.Forms.Label();
@@ -70,7 +71,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.createCustomerLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -265,9 +265,8 @@
             this.amountOfDaysLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.amountOfDaysLabel.Location = new System.Drawing.Point(179, 463);
             this.amountOfDaysLabel.Name = "amountOfDaysLabel";
-            this.amountOfDaysLabel.Size = new System.Drawing.Size(111, 25);
+            this.amountOfDaysLabel.Size = new System.Drawing.Size(0, 25);
             this.amountOfDaysLabel.TabIndex = 18;
-            this.amountOfDaysLabel.Text = "HEHE DAYS";
             // 
             // estimatedCostLabel
             // 
@@ -344,6 +343,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(917, 990);
             this.panel1.TabIndex = 23;
+            // 
+            // createCustomerLabel
+            // 
+            this.createCustomerLabel.AutoSize = true;
+            this.createCustomerLabel.Location = new System.Drawing.Point(608, 226);
+            this.createCustomerLabel.Name = "createCustomerLabel";
+            this.createCustomerLabel.Size = new System.Drawing.Size(263, 25);
+            this.createCustomerLabel.TabIndex = 49;
+            this.createCustomerLabel.TabStop = true;
+            this.createCustomerLabel.Text = "CREATE CUSTOMER ACCOUNT?";
+            this.createCustomerLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.createCustomerLabel_LinkClicked);
             // 
             // errorMessageLabel
             // 
@@ -522,17 +532,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1154, 1008);
             this.panel2.TabIndex = 24;
-            // 
-            // createCustomerLabel
-            // 
-            this.createCustomerLabel.AutoSize = true;
-            this.createCustomerLabel.Location = new System.Drawing.Point(608, 226);
-            this.createCustomerLabel.Name = "createCustomerLabel";
-            this.createCustomerLabel.Size = new System.Drawing.Size(263, 25);
-            this.createCustomerLabel.TabIndex = 49;
-            this.createCustomerLabel.TabStop = true;
-            this.createCustomerLabel.Text = "CREATE CUSTOMER ACCOUNT?";
-            this.createCustomerLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.createCustomerLabel_LinkClicked);
             // 
             // EmpViewAllVehicles
             // 

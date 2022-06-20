@@ -647,7 +647,15 @@ WHERE vehicle_class_id = " + currentVehicleId;
 
         private void createCustomerLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new CreateCustomerAccount(connection).ShowDialog();
+            errorMessageLabel.Visible = false;
+            CreateCustomerAccount page = new CreateCustomerAccount(connection);
+            page.ShowDialog();
+            if (page.getPhoneNumber() != null)
+            {
+                findByCombobox.SelectedIndex = 2;
+                customerInfoTextbox.Text = page.getPhoneNumber();
+            }
+            
         }
     }
 }

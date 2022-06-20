@@ -16,6 +16,7 @@ namespace _291CarRental
     {
         private DbConnection connection;
         private const int MINIMUM_AGE = 25;
+        private String? returnPhoneNumber = null;
         public CreateCustomerAccount(DbConnection connection)
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace _291CarRental
             fillComboBoxes();
             dateOfBirthPicker.Value = DateTime.Now.AddYears(-MINIMUM_AGE + 1);
         }
-        
+
         private void fillComboBoxes()
         {
             genderCombo.Items.Add("SELECT ONE");
@@ -46,10 +47,10 @@ namespace _291CarRental
             provinceCombo.Items.Add("QC");
             provinceCombo.Items.Add("SK");
         }
-       
+
         //validate information in the textbox
         private bool validateInfo()
-        { 
+        {
             int age = (int)((DateTime.Now - dateOfBirthPicker.Value).TotalDays / 365.242199);
             bool result = false;
             errorMessageLabel.Visible = true;
@@ -58,39 +59,40 @@ namespace _291CarRental
             {
                 errorMessageLabel.Text = "FIRST/LAST NAME ARE REQUIRED";
             }
-            
+
             //email validation
             else if (String.IsNullOrEmpty(emailText.Text))
             {
                 errorMessageLabel.Text = "EMAIL IS REQUIRED";
             }
-            else if (!Regex.IsMatch(emailText.Text, "[A-Z]+@[A-Z]+\\.[A-Z]+")){
+            else if (!Regex.IsMatch(emailText.Text, "[A-Z]+@[A-Z]+\\.[A-Z]+"))
+            {
                 // email is not valid
                 errorMessageLabel.Text = "INVALID EMAIL FORMAT";
             }
-            
+
             // date of birth/age validations
             else if (age < MINIMUM_AGE)
             {
                 errorMessageLabel.Text = "CUSTOMER NEEDS TO BE " + MINIMUM_AGE + "YEARS AND ABOVE";
             }
-            
+
             //gender validations
             else if (genderCombo.SelectedIndex == 0 || String.IsNullOrEmpty(genderCombo.Text))
             {
                 errorMessageLabel.Text = "GENDER IS REQUIRED";
             }
-            
+
             //phone number validations
             else if (String.IsNullOrEmpty(phoneNumberText.Text))
             {
-                errorMessageLabel.Text = "PHONE NUMBER IS REQUIRED";   
+                errorMessageLabel.Text = "PHONE NUMBER IS REQUIRED";
             }
             else if (stripPhoneNumber(phoneNumberText.Text).Length != 10)
             {
                 errorMessageLabel.Text = "PHONE NUMBER MUST BE 10 DIGITS";
             }
-            
+
             //license number validations
             else if (String.IsNullOrEmpty(licenseNoText.Text))
             {
@@ -100,7 +102,7 @@ namespace _291CarRental
             {
                 errorMessageLabel.Text = "LICENSE NUMBER MUST BE 8 CHARACTERS";
             }
-            
+
             //address validations
             else if (String.IsNullOrEmpty(unitNumText.Text) || String.IsNullOrEmpty(streetNumText.Text)
                 || String.IsNullOrEmpty(streetNameText.Text) || String.IsNullOrEmpty(cityText.Text)
@@ -116,14 +118,14 @@ namespace _291CarRental
             {
                 errorMessageLabel.Text = "POSTAL CODE MUST BE FORM A1B-2C3";
             }
-            
+
             // all input are valid
             else
             {
                 result = true;
                 errorMessageLabel.Visible = false;
             }
-            
+
 
             return result;
         }
@@ -133,7 +135,7 @@ namespace _291CarRental
         {
             return phoneNumberText.Text.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
         }
-       
+
         private void createAccountButton_Click(object sender, EventArgs e)
         {
             if (validateInfo())
@@ -154,21 +156,22 @@ namespace _291CarRental
                 String phoneNumber = stripPhoneNumber(phoneNumberText.Text);
                 String areaCode = phoneNumber.Substring(0, 3);
                 String number = phoneNumber.Substring(3, 7);
-               
+
                 String query = @"
 INSERT INTO Customer
 (first_name, last_name, email, date_of_birth, gender, driver_license_no, area_code, phone_number, unit_number, street_number,
 street_name, city, province, postal_code)
 VALUES
-(" + addQuotes(firstNameText.Text) + ", " + addQuotes(lastNameText.Text) + ", " + addQuotes(emailText.Text) + ", " + addQuotes(dateOfBirthPicker.Value.ToString("d")) + 
-@"," + addQuotes(genderCombo.Text) + ", " + addQuotes(licenseNoText.Text) + ", " + addQuotes(areaCode) + ", " + addQuotes(number) 
+(" + addQuotes(firstNameText.Text) + ", " + addQuotes(lastNameText.Text) + ", " + addQuotes(emailText.Text) + ", " + addQuotes(dateOfBirthPicker.Value.ToString("d")) +
+@"," + addQuotes(genderCombo.Text) + ", " + addQuotes(licenseNoText.Text) + ", " + addQuotes(areaCode) + ", " + addQuotes(number)
 + @", " + addQuotes(unitNumText.Text) + ", " + addQuotes(streetNumText.Text) + ", " + addQuotes(streetNameText.Text) + ", " + addQuotes(cityText.Text)
 + @", " + addQuotes(provinceCombo.Text) + ", " + addQuotes(postalCodeText.Text) + ");";
-                MessageBox.Show(query);
                 DialogResult confirmAdding = MessageBox.Show("CREATE THIS ACCOUNT?", "CREATING CUSTOMER ACCOUNT", MessageBoxButtons.YesNo);
                 if (confirmAdding == DialogResult.Yes)
                 {
                     MessageBox.Show((connection.executeNonQuery(query) == 1 ? "ACCOUNT CREATED SUCCESSFULLY" : "DATABASE ERROR IN CreateCustomerPage"));
+                    returnPhoneNumber = areaCode + number;
+                    this.Close();
                 }
                 else
                 {
@@ -183,7 +186,7 @@ VALUES
             return connection.executeScalar(query) != null; ;
         }
         private bool phoneNumberInDb()
-   {
+        {
             //only selecting area code because I just need to know if the return value is null
             String query = "SELECT area_code FROM customer WHERE CAST(area_code + phone_number AS VARCHAR) = " + addQuotes(stripPhoneNumber(phoneNumberText.Text));
             return connection.executeScalar(query) != null;
@@ -214,7 +217,7 @@ VALUES
             {// time to add -
                 phoneNumberText.AppendText("-");
             }
-            
+
         }
 
         // same as above, just hypen
@@ -238,6 +241,13 @@ VALUES
             {
                 genderCombo.DropDownStyle = ComboBoxStyle.DropDownList;
             }
+        }
+
+        // after creating the customer account, the customer phone number will be sent back to the previous form so
+        // it will be automatically loaded
+        internal String getPhoneNumber()
+        {
+            return returnPhoneNumber;
         }
     }
 }
