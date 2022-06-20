@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -126,13 +127,50 @@ namespace _291CarRental
             return result;
         }
 
+        // remove () and - from the phone number
         private String stripPhoneNumber(String phoneNumber)
         {
             return phoneNumberText.Text.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
         }
+       
         private void createAccountButton_Click(object sender, EventArgs e)
         {
-            validateInfo();
+            if (validateInfo())
+            {
+                errorMessageLabel.Visible = true;
+                if (phoneNumberInDb())
+                {
+                    errorMessageLabel.Text = "AN ACCOUNT WITH THAT PHONE NUMBER ALREADY EXISTS";
+                    return;
+                }
+                if (licenseInDb())
+                {
+                    errorMessageLabel.Text = "AN ACCOUNT WITH THAT LICENSE NUMBER ALREADY EXISTS";
+                    return;
+                }
+                // valid info from here out, safe to add
+                errorMessageLabel.Visible = false;
+                MessageBox.Show("SAFE TO ADD");
+            }
+            
+        }
+
+        private bool licenseInDb()
+        {
+            String query = "SELECT driver_license_no FROM customer WHERE driver_license_no = " + addQuotes(licenseNoText.Text);
+            return connection.executeScalar(query) != null; ;
+        }
+        private bool phoneNumberInDb()
+   {
+            //only selecting area code because I just need to know if the return value is null
+            String query = "SELECT area_code FROM customer WHERE CAST(area_code + phone_number AS VARCHAR) = " + addQuotes(stripPhoneNumber(phoneNumberText.Text));
+            return connection.executeScalar(query) != null;
+        }
+        private String addQuotes(String stringToAdd)
+        {
+            String temp1 = stringToAdd.Insert(0, "'");
+            String temp2 = temp1.Insert(temp1.Length, "'");
+            return temp2;
         }
 
         // this method makes textboxes ignore inputs that aren't numbers
