@@ -50,7 +50,8 @@ namespace _291CarRental
         {
             closeReader();// close any open reader to avoid conflicts
             command.CommandText = query;// update command text
-            return command.ExecuteReader();// get and return the data from the database
+            reader = command.ExecuteReader();// get data from the database
+            return reader;// and return
         }
         
         /// <summary>
