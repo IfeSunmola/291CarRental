@@ -1,5 +1,6 @@
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing.Drawing2D;
 
 namespace _291CarRental
 {
@@ -13,6 +14,7 @@ namespace _291CarRental
             this.StartPosition = FormStartPosition.CenterScreen;
 
             connection = new DbConnection();
+
         }
 
         private void custButton_Click(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace _291CarRental
                 {// not null means a value was returned, value will only be returned if the emp_id was found
                     loginMessageLabel.Text = "LOGIN SUCCESSFUL";
                     loginMessageLabel.Visible = true;
-                    loginMessageLabel.ForeColor = Color.Green;
+                    loginMessageLabel.ForeColor = Colors.SUCCESS_COLOR;
 
                     Task.Delay(250).Wait();
                     this.Visible = false;
@@ -63,7 +65,7 @@ namespace _291CarRental
                 else// id was not found
                 {
                     loginMessageLabel.Text = "EMPLOYEE ID NOT FOUND";
-                    loginMessageLabel.ForeColor = Color.Red;
+                    loginMessageLabel.ForeColor = Colors.ERROR_COLOR;
                     loginMessageLabel.Visible = true;
                     emptyTextboxLabel.Visible = false;
                 }

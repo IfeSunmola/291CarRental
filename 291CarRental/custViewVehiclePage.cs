@@ -183,5 +183,21 @@ AND vehicle_id IN
 
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
+
+        private void vehicleDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            vehicleDataGridView.ForeColor = Colors.BACKGRUND_COLOR;
+            for (int i = 0; i < vehicleDataGridView.Rows.Count; i++)
+            {
+                //vehicleDataGridView.Rows[i].DefaultCellStyle.BackColor = Color.FromArgb(56, 81, 156);
+            }
+           
+
+        }
+
+        private void vehicleDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Colors.PRIMARY_COLOR;
+        }
     }
 }

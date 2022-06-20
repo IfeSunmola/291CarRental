@@ -136,13 +136,14 @@
             // 
             // findAvailableVehiclesButton
             // 
+            this.findAvailableVehiclesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.findAvailableVehiclesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.findAvailableVehiclesButton.Location = new System.Drawing.Point(326, 297);
             this.findAvailableVehiclesButton.Name = "findAvailableVehiclesButton";
             this.findAvailableVehiclesButton.Size = new System.Drawing.Size(263, 62);
             this.findAvailableVehiclesButton.TabIndex = 6;
             this.findAvailableVehiclesButton.Text = "FIND AVAILABLE VEHICLES";
-            this.findAvailableVehiclesButton.UseVisualStyleBackColor = true;
+            this.findAvailableVehiclesButton.UseVisualStyleBackColor = false;
             this.findAvailableVehiclesButton.Click += new System.EventHandler(this.findAvailableVehiclesButton_Click);
             // 
             // vehicleDataGridView
@@ -167,6 +168,7 @@
             this.vehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.vehicleDataGridView.Size = new System.Drawing.Size(844, 398);
             this.vehicleDataGridView.TabIndex = 10;
+            this.vehicleDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.vehicleDataGridView_CellFormatting);
             this.vehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleDataGridView_CellMouseClick);
             this.vehicleDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.vehicleDataGridView_DataBindingComplete);
             // 
@@ -222,13 +224,14 @@
             // 
             // rentVehicleButton
             // 
+            this.rentVehicleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.rentVehicleButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rentVehicleButton.Location = new System.Drawing.Point(318, 477);
             this.rentVehicleButton.Name = "rentVehicleButton";
             this.rentVehicleButton.Size = new System.Drawing.Size(199, 64);
             this.rentVehicleButton.TabIndex = 12;
             this.rentVehicleButton.Text = "RENT THIS VEHICLE";
-            this.rentVehicleButton.UseVisualStyleBackColor = true;
+            this.rentVehicleButton.UseVisualStyleBackColor = false;
             this.rentVehicleButton.Click += new System.EventHandler(this.rentThisVehicleButton_Click);
             // 
             // showVehicleDataGripViewPanel
@@ -299,25 +302,27 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 44);
             this.button2.TabIndex = 21;
             this.button2.Text = "BACK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.backButton_Click);
             // 
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.Location = new System.Drawing.Point(1052, 0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(102, 44);
             this.button3.TabIndex = 22;
             this.button3.Text = "EXIT";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // panel1
@@ -525,8 +530,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(1172, 1026);
             this.Controls.Add(this.panel2);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "EmpViewAllVehicles";

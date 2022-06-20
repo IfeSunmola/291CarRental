@@ -275,8 +275,8 @@ AND vehicle_id IN
                         expiresLabel.Visible = true;
                         expiryDate.Visible = true;
 
-                        expiresLabel.ForeColor = Color.Red;
-                        expiryDate.ForeColor = Color.Red;
+                        expiresLabel.ForeColor = Colors.ERROR_COLOR;;
+                        expiryDate.ForeColor = Colors.ERROR_COLOR;;
                     }
                     else
                     {// membership has NOT EXPIRED for gold customer
@@ -287,8 +287,8 @@ AND vehicle_id IN
                         expiresLabel.Visible = true;
                         expiryDate.Visible = true;
 
-                        expiresLabel.ForeColor = Color.Green;
-                        expiryDate.ForeColor = Color.Green;
+                        expiresLabel.ForeColor = Colors.SUCCESS_COLOR;;
+                        expiryDate.ForeColor = Colors.SUCCESS_COLOR;;
                     }
                 }
                 else
@@ -661,7 +661,13 @@ WHERE vehicle_class_id = " + currentVehicleId;
 
         private void vehicleDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            vehicleDataGridView.ClearSelection();
+            vehicleDataGridView.ForeColor = Colors.BACKGRUND_COLOR;
+            vehicleDataGridView.BackgroundColor = Colors.BACKGRUND_COLOR;
+        }
+
+        private void vehicleDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Colors.PRIMARY_COLOR;
         }
     }
 }

@@ -49,6 +49,7 @@
             this.vehicleDataGridView.AllowUserToDeleteRows = false;
             this.vehicleDataGridView.AllowUserToResizeColumns = false;
             this.vehicleDataGridView.AllowUserToResizeRows = false;
+            this.vehicleDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.vehicleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.vehicleDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -56,6 +57,7 @@
             this.Column3,
             this.Column4,
             this.Column5});
+            this.vehicleDataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.vehicleDataGridView.Location = new System.Drawing.Point(88, 68);
             this.vehicleDataGridView.MultiSelect = false;
             this.vehicleDataGridView.Name = "vehicleDataGridView";
@@ -65,7 +67,9 @@
             this.vehicleDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.vehicleDataGridView.Size = new System.Drawing.Size(842, 326);
             this.vehicleDataGridView.TabIndex = 5;
+            this.vehicleDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.vehicleDataGridView_CellFormatting);
             this.vehicleDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.vehicleDataGridView_CellMouseClick);
+            this.vehicleDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.vehicleDataGridView_DataBindingComplete);
             // 
             // Column1
             // 
@@ -118,25 +122,27 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.Location = new System.Drawing.Point(0, 0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(102, 44);
             this.button3.TabIndex = 23;
             this.button3.Text = "BACK";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.backButton_Click);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Location = new System.Drawing.Point(882, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(102, 44);
             this.button1.TabIndex = 24;
             this.button1.Text = "EXIT";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // panel1
@@ -164,8 +170,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(1029, 510);
             this.Controls.Add(this.panel1);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "CustViewVehiclePage";

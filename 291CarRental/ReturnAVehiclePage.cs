@@ -368,11 +368,11 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
             amountDueNowLabel.Text = amountDueNow.ToString("C");
             if (amountDueNow == 0)
             {
-                amountDueNowLabel.BackColor = Color.Green;
+                amountDueNowLabel.BackColor = Colors.SUCCESS_COLOR;
             }
             else if (amountDueNow > 0)
             {
-                amountDueNowLabel.BackColor = Color.Red;
+                amountDueNowLabel.BackColor = Colors.ERROR_COLOR;
             }
             else
             {
@@ -489,6 +489,7 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
         {
             // clear whatever is selected in the data view
             rentalsDataView.ClearSelection();
+            rentalsDataView.ForeColor = Colors.BACKGRUND_COLOR;
         }
 
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -603,11 +604,17 @@ WHERE rental_id = " + rentalId + ";";
             selectAVehicleLabel.Visible = false;
             startingSize();
             findRentalsPanel.Visible = false;
+            errorMessageLabel.Visible = false;
         }
 
         private void branchCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
             startAReturnSize();
+        }
+
+        private void rentalsDataView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.SelectionBackColor = Colors.PRIMARY_COLOR;
         }
     }
 

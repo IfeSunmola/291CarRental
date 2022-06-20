@@ -87,6 +87,7 @@
             this.rentalsDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rentalsDataView.Size = new System.Drawing.Size(1069, 229);
             this.rentalsDataView.TabIndex = 4;
+            this.rentalsDataView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.rentalsDataView_CellFormatting);
             this.rentalsDataView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.rentalsDataView_CellMouseClick);
             this.rentalsDataView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.rentalsDataView_DataBindingComplete);
             // 
@@ -117,36 +118,39 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.Location = new System.Drawing.Point(487, 125);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(216, 62);
             this.button3.TabIndex = 16;
             this.button3.Text = "FIND ALL RENTALS";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.findAllRentalsButton_Click);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 44);
             this.button2.TabIndex = 22;
             this.button2.Text = "BACK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.backButton_Click);
             // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Location = new System.Drawing.Point(1102, 0);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(102, 44);
             this.button4.TabIndex = 25;
             this.button4.Text = "EXIT";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // panel1
@@ -257,13 +261,14 @@
             // 
             // finishReturnButton
             // 
+            this.finishReturnButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.finishReturnButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.finishReturnButton.Location = new System.Drawing.Point(419, 247);
             this.finishReturnButton.Name = "finishReturnButton";
             this.finishReturnButton.Size = new System.Drawing.Size(158, 50);
             this.finishReturnButton.TabIndex = 26;
             this.finishReturnButton.Text = "FINISH RETURN";
-            this.finishReturnButton.UseVisualStyleBackColor = true;
+            this.finishReturnButton.UseVisualStyleBackColor = false;
             this.finishReturnButton.Click += new System.EventHandler(this.finishReturnButton_Click);
             // 
             // lateFeeLabel
@@ -363,13 +368,14 @@
             // 
             // calculateAmountDue
             // 
+            this.calculateAmountDue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.calculateAmountDue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.calculateAmountDue.Location = new System.Drawing.Point(383, 184);
             this.calculateAmountDue.Name = "calculateAmountDue";
             this.calculateAmountDue.Size = new System.Drawing.Size(233, 61);
             this.calculateAmountDue.TabIndex = 37;
             this.calculateAmountDue.Text = "CALCULATE AMOUNT DUE";
-            this.calculateAmountDue.UseVisualStyleBackColor = true;
+            this.calculateAmountDue.UseVisualStyleBackColor = false;
             this.calculateAmountDue.Click += new System.EventHandler(this.calculateAmountDue_Click);
             // 
             // branchCombobox
@@ -424,7 +430,7 @@
             this.selectAVehicleLabel.ForeColor = System.Drawing.Color.Red;
             this.selectAVehicleLabel.Location = new System.Drawing.Point(-3, 235);
             this.selectAVehicleLabel.Name = "selectAVehicleLabel";
-            this.selectAVehicleLabel.Size = new System.Drawing.Size(998, 25);
+            this.selectAVehicleLabel.Size = new System.Drawing.Size(1069, 25);
             this.selectAVehicleLabel.TabIndex = 44;
             this.selectAVehicleLabel.Text = "SELECT A VEHICLE";
             this.selectAVehicleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -432,13 +438,14 @@
             // 
             // viewFullDetails
             // 
+            this.viewFullDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.viewFullDetails.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.viewFullDetails.Location = new System.Drawing.Point(383, 266);
+            this.viewFullDetails.Location = new System.Drawing.Point(413, 263);
             this.viewFullDetails.Name = "viewFullDetails";
             this.viewFullDetails.Size = new System.Drawing.Size(216, 62);
             this.viewFullDetails.TabIndex = 27;
             this.viewFullDetails.Text = "VIEW FULL DETAILS";
-            this.viewFullDetails.UseVisualStyleBackColor = true;
+            this.viewFullDetails.UseVisualStyleBackColor = false;
             this.viewFullDetails.Click += new System.EventHandler(this.viewFullDetails_Click);
             // 
             // onlyUnreturnedVehicles
@@ -456,8 +463,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(1266, 1092);
             this.Controls.Add(this.panel1);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ReturnAVehiclePage";
