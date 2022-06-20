@@ -70,6 +70,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.createCustomerLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
             this.showVehicleDataGripViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -322,6 +323,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.createCustomerLabel);
             this.panel1.Controls.Add(this.errorMessageLabel);
             this.panel1.Controls.Add(this.customerInfoPanel);
             this.panel1.Controls.Add(this.addressPanel);
@@ -361,7 +363,7 @@
             this.customerInfoPanel.Controls.Add(this.customerInfoTextbox);
             this.customerInfoPanel.Location = new System.Drawing.Point(271, 218);
             this.customerInfoPanel.Name = "customerInfoPanel";
-            this.customerInfoPanel.Size = new System.Drawing.Size(397, 33);
+            this.customerInfoPanel.Size = new System.Drawing.Size(318, 33);
             this.customerInfoPanel.TabIndex = 47;
             // 
             // findByLabel
@@ -521,6 +523,17 @@
             this.panel2.Size = new System.Drawing.Size(1154, 1008);
             this.panel2.TabIndex = 24;
             // 
+            // createCustomerLabel
+            // 
+            this.createCustomerLabel.AutoSize = true;
+            this.createCustomerLabel.Location = new System.Drawing.Point(608, 226);
+            this.createCustomerLabel.Name = "createCustomerLabel";
+            this.createCustomerLabel.Size = new System.Drawing.Size(263, 25);
+            this.createCustomerLabel.TabIndex = 49;
+            this.createCustomerLabel.TabStop = true;
+            this.createCustomerLabel.Text = "CREATE CUSTOMER ACCOUNT?";
+            this.createCustomerLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.createCustomerLabel_LinkClicked);
+            // 
             // EmpViewAllVehicles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -591,5 +604,6 @@
         private Label errorMessageLabel;
         private Label amountOfDaysLabel;
         private Label selectAVehicleLabel;
+        private LinkLabel createCustomerLabel;
     }
 }

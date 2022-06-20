@@ -644,5 +644,10 @@ WHERE vehicle_class_id = " + currentVehicleId;
         {
             vehicleDataGridView.ClearSelection();
         }
+
+        private void createCustomerLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new CreateCustomerAccount(connection).ShowDialog();
+        }
     }
 }
