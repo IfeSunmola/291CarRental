@@ -145,6 +145,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.tabPage1.Controls.Add(this.add_errorMessageLabel);
             this.tabPage1.Controls.Add(this.add_vehicleClassCombobox);
             this.tabPage1.Controls.Add(this.label14);
@@ -173,7 +174,6 @@
             this.tabPage1.Size = new System.Drawing.Size(768, 491);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ADD VEHICLE";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // add_errorMessageLabel
             // 
@@ -299,13 +299,14 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Location = new System.Drawing.Point(263, 428);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(210, 42);
             this.button1.TabIndex = 18;
             this.button1.Text = "ADD VEHICLE";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.addVehicleButton_Click);
             // 
             // add_plateNumberTextbox
@@ -1047,13 +1048,14 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 44);
             this.button2.TabIndex = 27;
             this.button2.Text = "BACK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.backButton_Click);
             // 
             // process1
@@ -1076,13 +1078,14 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(86)))), ((int)(((byte)(97)))));
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Location = new System.Drawing.Point(928, 0);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(102, 44);
             this.button4.TabIndex = 28;
             this.button4.Text = "EXIT";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // panel1
@@ -1099,8 +1102,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(1072, 526);
             this.Controls.Add(this.panel1);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "VehicleToolsPage";
