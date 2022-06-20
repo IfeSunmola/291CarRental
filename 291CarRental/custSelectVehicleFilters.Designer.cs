@@ -176,7 +176,6 @@
         private DateTimePicker toDatePicker;
         private DateTimePicker fromDatePicker;
         private Button button1;
-        private Label label7;
         private Panel panel1;
         private Button button3;
         private Button button2;

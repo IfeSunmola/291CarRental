@@ -180,7 +180,6 @@
         #endregion
 
         private DataGridView vehicleDataGridView;
-        private Label label1;
         private Button button3;
         private Button button1;
         private Panel panel1;
