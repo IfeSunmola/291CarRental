@@ -179,8 +179,6 @@ AND vehicle_id IN
                 }
 
             }
-
-
             return Tuple.Create(dailyRate, weeklyRate, monthlyRate);
         }
     }
