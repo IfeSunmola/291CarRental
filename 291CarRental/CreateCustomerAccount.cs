@@ -12,11 +12,15 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
+
+    ///<summary>
+    ///This class/form handles creating customer account
+    ///</summary>
     public partial class CreateCustomerAccount : Form
     {
         private DbConnection connection;
-        private const int MINIMUM_AGE = 25;
-        private String? returnPhoneNumber = null;
+        private const int MINIMUM_AGE = 25;// minimum age requried to create an account
+        private String? returnPhoneNumber = null;// this phone number will be returned to the EmpViewAllVehicles and be automatically filled in 
         public CreateCustomerAccount(DbConnection connection)
         {
             InitializeComponent();
@@ -25,10 +29,13 @@ namespace _291CarRental
             dateOfBirthPicker.Value = DateTime.Now.AddYears(-MINIMUM_AGE + 1);
         }
 
+        /// <summary>
+        /// This method fills the combo boxes in the Form: Gender combo box and Province combo box
+        /// </summary>
         private void fillComboBoxes()
         {
             genderCombo.Items.Add("SELECT ONE");
-            genderCombo.SelectedIndex = 0;
+            genderCombo.SelectedIndex = 0;// default is SELECT ON
             genderCombo.Items.Add("FEMALE");
             genderCombo.Items.Add("MALE");
             genderCombo.Items.Add("OTHER (TYPE)");
@@ -47,13 +54,18 @@ namespace _291CarRental
             provinceCombo.Items.Add("QC");
             provinceCombo.Items.Add("SK");
         }
-
-        //validate information in the textbox
+        
+        /// <summary>
+        /// This method validates the information that the customer has entered
+        /// </summary>
+        /// <returns>
+        /// true if the all the customer's information are valid. False if not.
+        /// </returns>
         private bool validateInfo()
         {
-            int age = (int)((DateTime.Now - dateOfBirthPicker.Value).TotalDays / 365.242199);
+            int age = (int)((DateTime.Now - dateOfBirthPicker.Value).TotalDays / 365.242199);// use to enforce minimum age
             bool result = false;
-            errorMessageLabel.Visible = true;
+            errorMessageLabel.Visible = true;// error message, will hide if all information are valid
             //first and last name validations
             if (String.IsNullOrEmpty(firstNameText.Text) || String.IsNullOrEmpty(lastNameText.Text))
             {
@@ -126,27 +138,36 @@ namespace _291CarRental
                 errorMessageLabel.Visible = false;
             }
 
-
             return result;
         }
 
+        /// <summary>
+        /// this method removes the brackets and hypen that was added when the customer was entering their phone numer
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns>The phone number without () and -</returns>
         // remove () and - from the phone number
         private String stripPhoneNumber(String phoneNumber)
         {
             return phoneNumberText.Text.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
         }
 
+        /// <summary>
+        /// Create the account button click. The account will only be created when the all the customer information is correct
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void createAccountButton_Click(object sender, EventArgs e)
         {
-            if (validateInfo())
+            if (validateInfo())// if valid info
             {
-                errorMessageLabel.Visible = true;
-                if (phoneNumberInDb())
+                errorMessageLabel.Visible = true;// show error messages for the below statements
+                if (phoneNumberInDb())// not allowing duplicate phone numbers
                 {
                     errorMessageLabel.Text = "AN ACCOUNT WITH THAT PHONE NUMBER ALREADY EXISTS";
                     return;
                 }
-                if (licenseInDb())
+                if (licenseInDb())// not allowing duplicate licenses
                 {
                     errorMessageLabel.Text = "AN ACCOUNT WITH THAT LICENSE NUMBER ALREADY EXISTS";
                     return;
@@ -168,43 +189,67 @@ VALUES
 + @", " + addQuotes(provinceCombo.Text) + ", " + addQuotes(postalCodeText.Text) + ");";
                 DialogResult confirmAdding = MessageBox.Show("CREATE THIS ACCOUNT?", "CREATING CUSTOMER ACCOUNT", MessageBoxButtons.YesNo);
                 if (confirmAdding == DialogResult.Yes)
-                {
-                    MessageBox.Show((connection.executeNonQuery(query) == 1 ? "ACCOUNT CREATED SUCCESSFULLY" : "DATABASE ERROR IN CreateCustomerPage"));
-                    returnPhoneNumber = areaCode + number;
+                {// add to db
+                    // if the amount of rows affected is not equal to 1 (shouldn't happen), show an error so the employee can know something is wrong
+                    MessageBox.Show((connection.executeNonQuery(query) == 1 ? "ACCOUNT CREATED SUCCESSFULLY" : "DATABASE ERROR IN CreateCustomerPage, contact administrator"));
+                    returnPhoneNumber = areaCode + number;// sets this for EmpViewAllVehicles screen to be auto filled with the new customer's number
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("ACCOUNT NOT CREATED");
+                    MessageBox.Show("ACCOUNT NOT CREATED");// no was selected
                 }
             }
         }
 
+        /// <summary>
+        /// Checks if the license number already exists in the database
+        /// </summary>
+        /// <returns>True if the license exists, false if not</returns>
         private bool licenseInDb()
         {
             String query = "SELECT driver_license_no FROM customer WHERE driver_license_no = " + addQuotes(licenseNoText.Text);
             return connection.executeScalar(query) != null; ;
         }
+
+        /// <summary>
+        /// Checks if the phone number already exists in the database
+        /// </summary>
+        /// <returns>True if the phone number exists, false if not</returns>
         private bool phoneNumberInDb()
         {
             //only selecting area code because I just need to know if the return value is null
             String query = "SELECT area_code FROM customer WHERE CAST(area_code + phone_number AS VARCHAR) = " + addQuotes(stripPhoneNumber(phoneNumberText.Text));
             return connection.executeScalar(query) != null;
         }
-        private String addQuotes(String stringToAdd)
+        
+        /// <summary>
+        /// Method to simply add quotes to sql query variables. Closing and opening quotes and adding '' seemed too confusing
+        /// </summary>
+        /// <param name="rawString"></param>
+        /// <returns>A string with '' surrounding it. E.g parameter today will return 'Today'</returns>
+        private String addQuotes(String rawString)
         {
-            String temp1 = stringToAdd.Insert(0, "'");
+            String temp1 = rawString.Insert(0, "'");
             String temp2 = temp1.Insert(temp1.Length, "'");
             return temp2;
         }
 
-        // this method makes textboxes ignore inputs that aren't numbers
+        /// <summary>
+        /// This method makes any textbox ignore input that aren't numbers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ignoreCharInput(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
-        // this method adds bracket and hypen to the customer's number as it is being typed in
+        /// <summary>
+        /// This method adds bracket and hypen to the customer's number as it is being typed in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void phoneNumberText_TextChanged(object sender, EventArgs e)
         {
             String currentNumber = phoneNumberText.Text;
@@ -220,32 +265,43 @@ VALUES
 
         }
 
-        // same as above, just hypen
+        /// <summary>
+        /// This method adds hypen to the postal code after the 3rd character
+        /// todo: fix the deleting bug
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void postalCodeText_TextChanged(object sender, EventArgs e)
         {
             String currentPostal = postalCodeText.Text;
             if (currentPostal.Length == 3 && !currentPostal.Contains("-"))
             {
-                postalCodeText.Text = "";
+                postalCodeText.Text = "";// clear text and append old text + hypen
                 postalCodeText.AppendText(currentPostal + "-");
             }
         }
 
+        /// <summary>
+        /// This method changes the gender combo box drop down style when the customer choose "Other (Type)". The customer
+        /// can type their gender in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void genderCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (genderCombo.SelectedIndex == 3)
-            {
+            {// "Other (type) was selcted, change style"
                 genderCombo.DropDownStyle = ComboBoxStyle.DropDown;
             }
             else
-            {
+            {// change back to DropDownList for any other option that was selected
                 genderCombo.DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
 
         // after creating the customer account, the customer phone number will be sent back to the previous form so
         // it will be automatically loaded
-        internal String getPhoneNumber()
+        internal String? getPhoneNumber()
         {
             return returnPhoneNumber;
         }
