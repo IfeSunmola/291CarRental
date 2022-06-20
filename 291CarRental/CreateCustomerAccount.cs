@@ -15,12 +15,13 @@ namespace _291CarRental
     public partial class CreateCustomerAccount : Form
     {
         private DbConnection connection;
+        private const int MINIMUM_AGE = 25;
         public CreateCustomerAccount(DbConnection connection)
         {
             InitializeComponent();
             this.connection = connection;
             fillComboBoxes();
-            dateOfBirthPicker.Value = DateTime.Now.AddYears(-23);
+            dateOfBirthPicker.Value = DateTime.Now.AddYears(-MINIMUM_AGE + 1);
         }
         
         private void fillComboBoxes()
@@ -69,9 +70,9 @@ namespace _291CarRental
             }
             
             // date of birth/age validations
-            else if (age < 23)
+            else if (age < MINIMUM_AGE)
             {
-                errorMessageLabel.Text = "CUSTOMER NEEDS TO BE 23 YEARS AND ABOVE";
+                errorMessageLabel.Text = "CUSTOMER NEEDS TO BE " + MINIMUM_AGE + "YEARS AND ABOVE";
             }
             
             //gender validations
@@ -150,9 +151,30 @@ namespace _291CarRental
                 }
                 // valid info from here out, safe to add
                 errorMessageLabel.Visible = false;
-                MessageBox.Show("SAFE TO ADD");
+                String phoneNumber = stripPhoneNumber(phoneNumberText.Text);
+                String areaCode = phoneNumber.Substring(0, 3);
+                String number = phoneNumber.Substring(3, 7);
+               
+                String query = @"
+INSERT INTO Customer
+(first_name, last_name, email, date_of_birth, gender, driver_license_no, area_code, phone_number, unit_number, street_number,
+street_name, city, province, postal_code)
+VALUES
+(" + addQuotes(firstNameText.Text) + ", " + addQuotes(lastNameText.Text) + ", " + addQuotes(emailText.Text) + ", " + addQuotes(dateOfBirthPicker.Value.ToString("d")) + 
+@"," + addQuotes(genderCombo.Text) + ", " + addQuotes(licenseNoText.Text) + ", " + addQuotes(areaCode) + ", " + addQuotes(number) 
++ @", " + addQuotes(unitNumText.Text) + ", " + addQuotes(streetNumText.Text) + ", " + addQuotes(streetNameText.Text) + ", " + addQuotes(cityText.Text)
++ @", " + addQuotes(provinceCombo.Text) + ", " + addQuotes(postalCodeText.Text) + ");";
+                MessageBox.Show(query);
+                DialogResult confirmAdding = MessageBox.Show("CREATE THIS ACCOUNT?", "CREATING CUSTOMER ACCOUNT", MessageBoxButtons.YesNo);
+                if (confirmAdding == DialogResult.Yes)
+                {
+                    MessageBox.Show((connection.executeNonQuery(query) == 1 ? "ACCOUNT CREATED SUCCESSFULLY" : "DATABASE ERROR IN CreateCustomerPage"));
+                }
+                else
+                {
+                    MessageBox.Show("ACCOUNT NOT CREATED");
+                }
             }
-            
         }
 
         private bool licenseInDb()
