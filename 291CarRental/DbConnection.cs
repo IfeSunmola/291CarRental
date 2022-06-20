@@ -25,37 +25,54 @@ namespace _291CarRental
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(ex.Message, "SQL CONNECTION ERROR (DbConnection.cs)");
+                MessageBox.Show(ex.Message, "SQL CONNECTION ERROR (DbConnection.cs), contact your administrator");
             }
         }
 
+        /// <summary>
+        /// method to execute non query commands
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>the amount of rows that was affected</returns>
         internal int executeNonQuery(String query)
         {
-            closeReader();
-            command.CommandText = query;
-            return command.ExecuteNonQuery();
+            closeReader();// close any open reader to avoid conflicts
+            command.CommandText = query;// update command text
+            return command.ExecuteNonQuery();// execute the query and return the amount of rows that was affected
         }
 
+        /// <summary>
+        /// method to get multiple data from the database
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>SqlDataReader containing the result of the query</returns>
         internal SqlDataReader executeReader(String query)
         {
-            closeReader();
-            command.CommandText = query;
-            reader = command.ExecuteReader();
-            return reader;
+            closeReader();// close any open reader to avoid conflicts
+            command.CommandText = query;// update command text
+            return command.ExecuteReader();// get and return the data from the database
         }
-
+        
+        /// <summary>
+        /// method to execute a query and return only one value
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns>The result of the query</returns>
         internal String? executeScalar(String query)
         {
-            command.CommandText = query;
-            closeReader();
-            var result = command.ExecuteScalar();
-            if (result == null)
+            closeReader();// close any open reader to avoid conflicts
+            command.CommandText = query;// update commmand text
+            var result = command.ExecuteScalar();// store the result in an unknown type
+            if (result == null)// if the result contains null, return null
             {
                 return null;
             }
-            return result.ToString();
+            return result.ToString();// else cast to string and return
         }
 
+        /// <summary>
+        /// method to close the reader, if it wasn't closed properly in the class/form that used it
+        /// </summary>
         private void closeReader()
         {
             if (reader != null)
