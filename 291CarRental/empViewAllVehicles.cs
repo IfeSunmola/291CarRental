@@ -127,13 +127,13 @@ AND vehicle_id IN
 
             if (findByCombobox.SelectedIndex == 0 && validateSearchDetails())
             {// not applicable was selected and the search filters are good. Employee is only viewing
-                //customerDetailsPanel.Visible = false;
                 errorMessageLabel.Visible = false;
                 fillVehicleDataView((int)vehicleClassCombobox.SelectedIndex + 1);
                 if (vehicleDataGridView.Rows.Count > 0)
                 {// there are vehicles available
                     rentVehicleButton.Visible = false;
-                    enlarge(990); // not showing rent this vehicle button
+                    this.Size = new Size(this.Width, 1043);// not showing rent this vehicle button
+                    this.CenterToScreen();
                 }
                 else
                 {
@@ -150,7 +150,8 @@ AND vehicle_id IN
                 fillVehicleDataView((int)vehicleClassCombobox.SelectedIndex + 1);
                 if (vehicleDataGridView.Rows.Count > 0)
                 {// there are vehicles available
-                    enlarge(1043); 
+                    this.Size = new Size(this.Width, 1043);
+                    this.CenterToScreen();
                 }
                 else
                 {
@@ -175,7 +176,8 @@ AND vehicle_id IN
                                     fillVehicleDataView(i);
                                     if (vehicleDataGridView.Rows.Count > 0)
                                     {
-                                        enlarge(1043);
+                                        this.Size = new Size(this.Width, 1043);
+                                        this.CenterToScreen();
                                         break;
                                     }
                                 }
@@ -625,30 +627,9 @@ WHERE vehicle_class_id = " + currentVehicleId;
         // class requested, branch name, find by combo box and id/phone number textbox
         private void filtersValueChanged(object sender, EventArgs e)
         {
-            reduce(450);
+            this.Size = new Size(this.Width, 450);
+            this.CenterToScreen();
             customerDetailsPanel.Visible = false;
-        }
-
-        private void reduce(int newHeight)
-        {
-            while (this.Height >= newHeight)
-            {
-                this.Height -= 13;
-                this.CenterToScreen();
-                Application.DoEvents();
-            }
-        }
-
-        private void enlarge(int newHeight)
-        {
-            while (this.Height <= newHeight)
-            {
-                this.Height += 50;
-                this.CenterToScreen();
-                Application.DoEvents();
-            }
-            estimatedCostLabel.Text = "";
-            amountOfDaysLabel.Text = "";
         }
 
         private void vehicleClassCombobox_DropDownClosed(object sender, EventArgs e)
