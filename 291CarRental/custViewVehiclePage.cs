@@ -11,21 +11,33 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
+    /// <summary>
+    /// This form/class shows the customer the vehicles
+    /// </summary>
     public partial class CustViewVehiclePage : Form
     {
-        private DbConnection connection;
+        private DbConnection connection;// connection to the database
 
+        //information from the filters page
         private CustSelectVehicleFilters previousPage;
         private DateTimePicker fromDate;
         private DateTimePicker toDate;
         private int vehicleClassId;
         private int branchId;
 
-
+        /// <summary>
+        /// Constructor to initialize objects
+        /// </summary>
+        /// <param name="previousPage"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="vehicleClassId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="connection"></param>
         public CustViewVehiclePage(CustSelectVehicleFilters previousPage, DateTimePicker fromDate, DateTimePicker toDate, int vehicleClassId, int branchId, DbConnection connection)
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
+            // initializae instance variables gotten from the filters page 
             this.fromDate = fromDate;
             this.toDate = toDate;
             this.previousPage = previousPage;
@@ -33,15 +45,15 @@ namespace _291CarRental
             this.branchId = branchId;
             this.connection = connection;
 
+            // remove anything that happens to be in the data view
             vehicleDataGridView.Columns.Clear();
 
-            String stringToAppend = fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper();
-            showingVehiclesLabel.Text += stringToAppend;
+            showingVehiclesLabel.Text += fromDate.Value.Date.ToString("D").ToUpper() + " TO " + toDate.Value.Date.ToString("D").ToUpper(); ;
 
             estimatedCostLabel.Text = "";
 
             vehicleDataGridView.DataSource = getAvailableVehicleList();
-            vehicleDataGridView.Columns["vehicle_id"].Visible = false;
+            vehicleDataGridView.Columns["vehicle_id"].Visible = false;// hide vehicle id from the data grid view. the id is later used to get the prices
             //disable sorting the columns
             foreach (DataGridViewColumn dataGridViewColumn in vehicleDataGridView.Columns)
             {
@@ -50,11 +62,15 @@ namespace _291CarRental
 
         }
 
+        /// <summary>
+        /// method to get the vehicles that are available and add them to the DataTable
+        /// </summary>
+        /// <returns>A DataTable containing the vehicles that are available to be rented</returns>
         private DataTable getAvailableVehicleList()
         {
             DataTable vehicles = new DataTable();
-            String from = fromDate.Value.Date.ToString("d");
-            String to = toDate.Value.Date.ToString("d");
+            String from = addQuotes(fromDate.Value.Date.ToString("d"));// convert to sql format date 
+            String to = addQuotes(toDate.Value.Date.ToString("d"));// and add single quotes for sql purposes
 
             String query = @"
 SELECT vehicle_id, branch_name as 'Location', vehicle_class AS 'Class', [year] AS 'Year', brand AS 'Brand', model AS 'Model'
@@ -68,16 +84,16 @@ AND vehicle_id IN
 	(
 		(SELECT [vehicle_id]
 		FROM Rental
-		WHERE [start_date] >= " + addQuotes(from) + @" and expected_dropoff_date <= " + addQuotes(to) + @")
+		WHERE [start_date] >= " + from + @" and expected_dropoff_date <= " + to + @")
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE  " + addQuotes(from) + @" >= [start_date] and " + addQuotes(from) + @" <= expected_dropoff_date)
+			WHERE  " + from + @" >= [start_date] and " + from + @" <= expected_dropoff_date)
 		)
 		UNION(
 			(SELECT [vehicle_id]
 			FROM Rental
-			WHERE expected_dropoff_date >= " + addQuotes(to) + @" and [start_date] <= " + addQuotes(to) + @")
+			WHERE expected_dropoff_date >= " + to + @" and [start_date] <= " + to + @")
 		)
 	) 
 )
@@ -91,19 +107,28 @@ AND vehicle_id IN
             {
                 query += "\nAND Vehicle.vehicle_class_id = " + vehicleClassId + ";";
             }
-            // MessageBox.Show(query);
-
             SqlDataReader reader = connection.executeReader(query);
-            vehicles.Load(reader);
+            vehicles.Load(reader);// load the result into the DataTable
+            reader.Close();
             return vehicles;
         }
 
+        /// <summary>
+        /// back button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
+        /// <summary>
+        /// exit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -118,41 +143,56 @@ AND vehicle_id IN
 
         }
 
-        private String addQuotes(String stringToAdd)
+        /// <summary>
+        /// Method to simply add quotes to sql query variables. Closing and opening quotes and adding '' seemed too confusing
+        /// </summary>
+        /// <param name="rawString"></param>
+        /// <returns>A string with '' surrounding it. E.g parameter today will return 'Today'</returns>
+        private String addQuotes(String rawString)
         {
-            String temp1 = stringToAdd.Insert(0, "'");
+            String temp1 = rawString.Insert(0, "'");
             String temp2 = temp1.Insert(temp1.Length, "'");
             return temp2;
         }
 
+        /// <summary>
+        /// This method is called anytime a cell on the data grid view is clicked on. It updates the estimated cost
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void vehicleDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int currentVehicleId = (int)vehicleDataGridView.CurrentRow.Cells["vehicle_id"].Value;
             int daysBetween = (toDate.Value - fromDate.Value).Days + 1;
-            Decimal dailyRate = getRates(currentVehicleId).Item1;
+            Decimal dailyRate = getRates(currentVehicleId).Item1;// get the rates
             Decimal weeklyRate = getRates(currentVehicleId).Item2;
             Decimal monthlyRate = getRates(currentVehicleId).Item3;
 
             estimatedCostLabel.Text = "ESTIMATED COST: ";
-            if (daysBetween <= 7)
+            if (daysBetween <= 7)// less than a week
             {
                 estimatedCostLabel.Text += (daysBetween * dailyRate).ToString("C");
             }
             else if (daysBetween > 7 && daysBetween < 30)
-            {
+            {// more than a week but less than a month
 
                 Decimal weekly = (daysBetween / 7) * weeklyRate;
                 Decimal daily = (daysBetween % 7) * dailyRate;
                 estimatedCostLabel.Text += (weekly + daily).ToString("C");
             }
-            else //if (daysBetween >= 30)
-            {
+            else
+            {//anything else
                 Decimal monthly = (daysBetween / 14) * monthlyRate;
                 Decimal weekly = (daysBetween % 14) * weeklyRate;
                 estimatedCostLabel.Text += (monthly + weekly).ToString("C");
             }
         }
 
+        /// <summary>
+        /// This method gets the daily, weekly and monthly rate of a vehicle. 
+        /// </summary>
+        /// <param name="currentVehicleId"></param>
+        /// <returns>A tuple containing the 3 rates of a vehicle class. Daily, weekly and monthly</returns>
         private Tuple<Decimal, Decimal, Decimal> getRates(int currentVehicleId)
         {
             String query = "SELECT daily_rate, weekly_rate, monthly_rate" +
@@ -165,15 +205,15 @@ AND vehicle_id IN
             SqlDataReader reader = connection.executeReader(query);
             while (reader.Read())
             {
-                if (reader.GetName(0).Equals("daily_rate"))
+                if (reader.GetName(0).Equals("daily_rate"))// 1st column
                 {
                     dailyRate = reader.GetDecimal(0);
                 }
-                if (reader.GetName(1).Equals("weekly_rate"))
+                if (reader.GetName(1).Equals("weekly_rate"))// 2nd column
                 {
                     weeklyRate = reader.GetDecimal(1);
                 }
-                if (reader.GetName(2).Equals("monthly_rate"))
+                if (reader.GetName(2).Equals("monthly_rate"))// 3rd column
                 {
                     monthlyRate = reader.GetDecimal(2);
                 }

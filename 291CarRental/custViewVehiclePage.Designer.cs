@@ -169,6 +169,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "CustViewVehiclePage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CUSTOMER VIEWING AVAILABLE VEHICLES";
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
