@@ -287,15 +287,15 @@ FROM
             String query = @"
 SELECT TOP(" + profitableNumericUpdown.Value + @")
     branch_name AS [Branch Name],
-    FORMAT(SUM(initial_amount_paid), 'C') AS [Total From Regular Vehicle Rentals],
-	FORMAT(SUM(late_fee), 'C') AS [Total From Late Fees],
-	FORMAT(SUM(different_branch_fee), 'C') AS [Total From Different Branch Return Fees],
-	FORMAT(SUM(initial_amount_paid) + SUM(late_fee) + SUM(different_branch_fee), 'C') AS [Total Profit]
+	FORMAT(SUM(ISNULL(initial_amount_paid, 0)), 'C') AS [Total From Regular Vehicle Rentals],
+	FORMAT(SUM(ISNULL(late_fee, 0)), 'C') AS [Total From Late Fees],
+	FORMAT(SUM(ISNULL(different_branch_fee, 0)), 'C') AS [Total From Different Branch Return Fees],
+	FORMAT(SUM(ISNULL(initial_amount_paid, 0)) + SUM(ISNULL(late_fee, 0)) + SUM(ISNULL(different_branch_fee, 0)), 'C') AS [Total Profit]
 FROM Rental, Branch
 WHERE Rental.pickup_branch_id = Branch.branch_id 
    AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + @"
 GROUP BY branch_id,  branch_name -- branch name is always unique
-ORDER BY SUM(initial_amount_paid) + SUM(late_fee) + SUM(different_branch_fee) " + flag;
+ORDER BY SUM(ISNULL(initial_amount_paid, 0)) + SUM(ISNULL(late_fee, 0)) + SUM(ISNULL(different_branch_fee, 0))" + flag;
             result.Load(connection.executeReader(query));
             return result;
         }

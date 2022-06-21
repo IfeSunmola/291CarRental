@@ -273,11 +273,11 @@ namespace _291CarRental
                 "\nSET year = " + edit_yearTextbox.Text + ", brand = " + addQuotes(edit_brandCombobox.Text) + ", model = " + addQuotes(edit_modelTextbox.Text) +
                 ", transmission_type = " + addQuotes(edit_transmissionComobox.Text) + ", num_seats = " + edit_numOfSeatsTextbox.Text +
                 ", current_mileage = " + edit_currentMileageTextbox.Text + ", color = " + addQuotes(edit_colorCombobox.Text) +
-                ", plate_number = " + addQuotes(edit_plateNumberTextbox.Text) + ", branch_id = " + edit_branchCombobox.SelectedItem +
-                ", vehicle_class_id = " + edit_vehicleClassCombobox.SelectedItem +
+                ", plate_number = " + addQuotes(edit_plateNumberTextbox.Text) + ", branch_id = " + (edit_branchCombobox.SelectedIndex + 1) +
+                ", vehicle_class_id = " + (edit_vehicleClassCombobox.SelectedIndex + 1) +
                 "\nWHERE plate_number = " + addQuotes(edit_plateNumberSearch.Text);
 
-
+                //MessageBox.Show((edit_branchCombobox.SelectedIndex + 1) + " ");
                 MessageBox.Show((connection.executeNonQuery(query) == 1 ? "VEHICLE UPDATED SUCCESSFULLY" : "UPDATE FAILED, DATABASE PROBLEM. CONTAT ADMINSTRATOR"));
                 updatePanel.Visible = false;// updating is done so hide the panel
             }
