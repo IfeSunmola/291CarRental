@@ -114,7 +114,7 @@
             this.empIdTextbox.Size = new System.Drawing.Size(150, 31);
             this.empIdTextbox.TabIndex = 27;
             this.empIdTextbox.Text = "1";
-            this.empIdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.empIdTextbox_KeyPress);
+            this.empIdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ignoreCharInput);
             // 
             // loginMessageLabel
             // 
