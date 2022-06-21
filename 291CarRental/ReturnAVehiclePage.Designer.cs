@@ -374,6 +374,7 @@
             // 
             // branchCombobox
             // 
+            this.branchCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.branchCombobox.FormattingEnabled = true;
             this.branchCombobox.Location = new System.Drawing.Point(344, 120);
             this.branchCombobox.Name = "branchCombobox";

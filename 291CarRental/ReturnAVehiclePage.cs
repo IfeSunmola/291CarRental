@@ -12,11 +12,14 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
+    /// <summary>
+    /// This form is for when the employee wants to return a vehicle
+    /// </summary>
     public partial class ReturnAVehiclePage : Form
     {
         private EmployeeLandingPage previousPage;
         private DbConnection connection;
-        private String empId;
+        private String empId;// the default branch will be gotten from here
 
         // for current rental that is selected, will be updated in rentalsDataView_CellMouseClick
         private String rentalId = "";
@@ -45,9 +48,9 @@ namespace _291CarRental
             this.connection = connection;
             this.empId = empId;
 
-            startingSize();
+            startingSize();// default size
 
-            onlyUnreturnedVehicles.Checked = true;
+            onlyUnreturnedVehicles.Checked = true;// by defualt, the employee would want to see unreturned vehicles
 
             findByCombobox.Items.Add("CUSTOMER ID");
             findByCombobox.Items.Add("PHONE NUMBER");
@@ -57,13 +60,22 @@ namespace _291CarRental
             findByCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private String addQuotes(String stringToAdd)
+        /// <summary>
+        /// Method to simply add quotes to sql query variables. Closing and opening quotes and adding '' seemed too confusing
+        /// </summary>
+        /// <param name="rawString"></param>
+        /// <returns>A string with '' surrounding it. E.g parameter today will return 'Today'</returns>
+        private String addQuotes(String rawString)
         {
-            String temp1 = stringToAdd.Insert(0, "'");
+            String temp1 = rawString.Insert(0, "'");
             String temp2 = temp1.Insert(temp1.Length, "'");
             return temp2;
         }
 
+        /// <summary>
+        /// Method to get all the customer rentals. Both returned, and unreturned, depending on the checkbox
+        /// </summary>
+        /// <returns>Data table containing the customer rentals</returns>
         private DataTable getCustomerRentals()
         {
             DataTable customerRentals = new DataTable();
@@ -79,21 +91,21 @@ SELECT
 FROM Rental
 WHERE customer_id > 0 --dummy query so the filters can be chained properly";
 
-            String custInput = searchInfoTextbox.Text;
-            if (findByCombobox.SelectedIndex == 0)
+            String custInput = searchInfoTextbox.Text;// get the content of the textbox
+            if (findByCombobox.SelectedIndex == 0)// customer id was selected to find by
             {
                 query += "\nAND customer_id = " + custInput;
             }
-            else if (findByCombobox.SelectedIndex == 1)
+            else if (findByCombobox.SelectedIndex == 1)// phone number was selected to find by
             {
                 query += "\nAND Rental.customer_id IN (SELECT customer_id FROM Customer WHERE CAST (area_code + phone_number AS VARCHAR) = " + addQuotes(custInput) + @")";
             }
-            else if (findByCombobox.SelectedIndex == 2)
+            else if (findByCombobox.SelectedIndex == 2)// plate number was selected to find by
             {
                 query += "\nAND Rental.vehicle_id IN (SELECT vehicle_id FROM Vehicle WHERE plate_number = " + addQuotes(custInput) + @")";
             }
 
-            if (onlyUnreturnedVehicles.Checked)
+            if (onlyUnreturnedVehicles.Checked)// only showing un returned vehicles
             {
                 query += "\nAND actual_dropoff_date IS NULL";
             }
@@ -101,18 +113,22 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
             return customerRentals;
         }
 
+        /// <summary>
+        /// method to check if the content of the textbox is valid
+        /// </summary>
+        /// <returns>true if valid and false if not</returns>
         private bool validateSearchTextbox()
         {
             bool result = false;
-            if (string.IsNullOrEmpty(searchInfoTextbox.Text))
+            if (string.IsNullOrEmpty(searchInfoTextbox.Text))// empty textbox
             {
                 errorMessageLabel.Text = findByText.Text + " IS REQUIRED";
                 errorMessageLabel.Visible = true;
                 return result;
             }
 
-            if (findByCombobox.SelectedIndex == 0)
-            {// customer id validations
+            if (findByCombobox.SelectedIndex == 0)// customer id validations
+            {
                 if (searchInfoTextbox.Text.Any(char.IsLetter))
                 {
                     errorMessageLabel.Text = "CUSTOMER ID CAN'T HAVE LETTERS";
@@ -126,8 +142,8 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
                     result = true;
                 }
             }
-            else if (findByCombobox.SelectedIndex == 1)
-            {// phone number validations
+            else if (findByCombobox.SelectedIndex == 1)// phone number validations
+            {
                 if (searchInfoTextbox.Text.Length != 10)
                 {
                     errorMessageLabel.Text = "PHONE NUMBER MUST BE 10 DIGITS";
@@ -145,8 +161,8 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
                     result = true;
                 }
             }
-            else if (findByCombobox.SelectedIndex == 2)
-            {// plate number validations
+            else if (findByCombobox.SelectedIndex == 2)// plate number validations
+            {
                 if (searchInfoTextbox.Text.Length != 8)
                 {
                     errorMessageLabel.Text = "PLATE NUMBER MUST BE 8 CHARACTERS";
@@ -165,10 +181,15 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
                 }
             }
             errorMessageLabel.Visible = !result;
-            
             return result;
         }
 
+        /// <summary>
+        /// method to check if an id, or plate number or phone number is in the database
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <param name="idOrPhoneNumOrPlateNum"></param>
+        /// <returns>True if what the flag speicified is in the database and false if not</returns>
         private bool idOrPhoneNumOrPlateNumInDb(String flag, String idOrPhoneNumOrPlateNum)
         {
             String query = "SELECT customer_id FROM Customer WHERE ";
@@ -187,32 +208,42 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
             return connection.executeScalar(query) != null;// not null: data was found
         }
 
+        /// <summary>
+        /// back button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
+        /// <summary>
+        /// When the button to find all rentals has been clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void findAllRentalsButton_Click(object sender, EventArgs e)
         {
             if (findByCombobox.SelectedIndex != 3 && !validateSearchTextbox())
-            {// find all rentals was not selected and validating of the "find by" textbox failed
+            {// 'find all rentals' was not selected and validating of the "find by" textbox failed
                 return;
             }
-            // load data into the DataGripView
+            // load data into the DataGridView
             rentalsDataView.DataSource = getCustomerRentals();
             //disable sorting the columns
             foreach (DataGridViewColumn dataGridViewColumn in rentalsDataView.Columns)
             {
                 dataGridViewColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            rentalsDataView.Columns["rental_id"].Visible = false;
+            rentalsDataView.Columns["rental_id"].Visible = false;// will be used to get information about the rental 
             if (rentalsDataView.CurrentCell != null)
             {
                 rentalsDataView.CurrentCell.Selected = false;
             }
-            // if customer doesn't have any active rentals/past rentals
-            if (rentalsDataView.Rows.Count <= 0)
+           
+            if (rentalsDataView.Rows.Count <= 0) // if customer doesn't have any active rentals/past rentals
             {
                 if (onlyUnreturnedVehicles.Checked)
                 {
@@ -225,34 +256,18 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
                 errorMessageLabel.Visible = true;
                 return;
             }
-            errorMessageLabel.Visible = false;
-            findRentalsPanel.Show();
-            findAllRentalsSize();
+            // valid info from here on
+            errorMessageLabel.Visible = false;// hide error message
+            findRentalsPanel.Show();// show the rentals data view
+            findAllRentalsSize();// move to the apprpriate size
             rentalsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void startAReturnButton_Click(object sender, EventArgs e)
-        {
-            if (rentalsDataView.SelectedRows.Count == 0)
-            {// no vehicle has been selected
-                selectAVehicleLabel.Text = "SELECT A VEHICLE";
-                selectAVehicleLabel.Visible = true;
-                return;
-            }
-            if (totalMileageUsed > -1)
-            {
-                selectAVehicleLabel.Text = "THAT VEHICLE HAS BEEN RETURNED";
-                selectAVehicleLabel.Visible = true;
-                return;
-            }
-
-            branchCombobox.Items.Clear();
-            fillBranchCombobox();
-
-            returnLabelText.Text = "RETURNING " + vehicleRented.ToUpper() + " FOR " + customerName.ToUpper();
-            startAReturnSize();
-        }
-
+        /// <summary>
+        /// exit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -267,13 +282,18 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
 
         }
 
+        /// <summary>
+        /// For when the "findByCombobox item is changed"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void findByCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            searchInfoTextbox.Clear();
-            errorMessageLabel.Text = "";
+            searchInfoTextbox.Clear();// clear the textbox
+            errorMessageLabel.Text = "";// and error message
             
-            if (findByCombobox.SelectedIndex == 3)
-            {// find all rentals
+            if (findByCombobox.SelectedIndex == 3)// find all rentals was selected, customer id not needed
+            {
                 searchInfoTextbox.Enabled = false;
                 return;
             }
@@ -296,6 +316,10 @@ WHERE customer_id > 0 --dummy query so the filters can be chained properly";
             }
         }
 
+        /// <summary>
+        /// method to get the return fees and gold status of the member
+        /// </summary>
+        /// <returns>A tuple containing the late fee of the vehicle, different branch fee, and customer gold status</returns>
         private Tuple<Decimal, Decimal, bool> getFees_goldStatus()
         {
             String? rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString();
@@ -311,21 +335,27 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
             bool isGoldMember = false;
             if (reader.Read())
             {
-                changeBranchFee = reader.GetDecimal("change_branch_fee");
-                lateFee = reader.GetDecimal("late_fee");
+                changeBranchFee = reader.GetDecimal("change_branch_fee");// get change branch fee
+                lateFee = reader.GetDecimal("late_fee");// and late fee
             }
             reader.NextResult();
             if (reader.Read())
             {
                 String status = reader.GetString("membership_type");
-                isGoldMember = String.Equals(status, "GOLD", StringComparison.OrdinalIgnoreCase);
+                isGoldMember = String.Equals(status, "GOLD", StringComparison.OrdinalIgnoreCase);// and gold status
             }
+            reader.Close();
             return Tuple.Create(changeBranchFee, lateFee, isGoldMember);
         }
 
+        /// <summary>
+        /// When the calculate amount due button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void calculateAmountDue_Click(object sender, EventArgs e)
         {
-            if ((int)mileageUsedTextbox.Value <= 0)
+            if ((int)mileageUsedTextbox.Value <= 0)// mileage check
             {
                 mileageErrorLabel.Text = "MILEAGE SHOULD BE GREATER THAN 0";
                 mileageErrorLabel.Visible = true;
@@ -334,7 +364,7 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
 
             Decimal changeBranchFee = 0.00m;
             Decimal lateFee = 0.00m;
-            String actualDropoffLocation = (String)branchCombobox.SelectedItem;
+            String actualDropoffLocation = (String)branchCombobox.SelectedItem;// current selected item in the combobox
 
             if (!String.Equals(actualDropoffLocation, pickupBranch_expectedDropoffLocation, StringComparison.OrdinalIgnoreCase))
             {// returning to the different location, might need to pay a fee
@@ -360,13 +390,13 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
                 lateFee = getFees_goldStatus().Item2;
             }
 
-            Decimal amountDueNow = (lateFee + changeBranchFee);
-            amountPaidLabel.Text = initialAmountPaid.ToString("C");
+            Decimal amountDueNow = (lateFee + changeBranchFee);// calculate amount due
+            amountPaidLabel.Text = initialAmountPaid.ToString("C");// and show everything
             lateFeeLabel.Text = lateFee.ToString("C");
             differentBranchFeeLabel.Text = changeBranchFee.ToString("C");
 
             amountDueNowLabel.Text = amountDueNow.ToString("C");
-            if (amountDueNow == 0)
+            if (amountDueNow == 0)// just fancy color stuff hehehe
             {
                 amountDueNowLabel.BackColor = Color.Green;
             }
@@ -377,13 +407,16 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
             else
             {
                 amountDueNowLabel.BackColor = Color.Yellow;
-                amountDueNowLabel.Text = "ERROR in calculateAmountDue_Click";
+                amountDueNowLabel.Text = "ERROR in calculateAmountDue_Click, contact your adnministrator";
             }
-
+            // everything is good, move to the next stage
             finishReturnPanel.Visible = true;
             calculateAmountDueSize();
         }
 
+        /// <summary>
+        ///  method to fill the branch combo box
+        /// </summary>
         private void fillBranchCombobox()
         {
             String query = @"
@@ -403,18 +436,22 @@ AND emp_id = " + empId + @";";
             {
                 branchCombobox.SelectedIndex = reader.GetInt32("branch_id") - 1;
             }
-
-            branchCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
+        /// <summary>
+        /// Finish return button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void finishReturnButton_Click(object sender, EventArgs e)
         {
+            // confirm returning of the vehicle
             DialogResult confirmReturn = MessageBox.Show(
 ("Confirm returning of " + vehicleRented + " FOR " + customerName).ToUpper(),
 "CONFIRM RETURN VEHICLE",
 MessageBoxButtons.YesNo);
 
-            if (confirmReturn == DialogResult.Yes)
+            if (confirmReturn == DialogResult.Yes)// employee is returning
             {
                 if (returnSuccess(lateFeeLabel.Text, differentBranchFeeLabel.Text))
                 {
@@ -426,12 +463,18 @@ MessageBoxButtons.YesNo);
                 }
                 else// shouldn't execute
                 {
-                    MessageBox.Show("DATABASE ERROR OCCURED AT StartAReturnPage");
+                    MessageBox.Show("DATABASE ERROR OCCURED AT StartAReturnPage, contact your adminstrator");
                 }
 
             }
         }
 
+        /// <summary>
+        /// Method to return a vehicle
+        /// </summary>
+        /// <param name="calculatedLateFee"></param>
+        /// <param name="calculatedDifferentBranchFee"></param>
+        /// <returns></returns>
         private bool returnSuccess(String calculatedLateFee, String calculatedDifferentBranchFee)
         {
             String actualDropoffDate = returnDateTimePicker.Value.Date.ToString("d");
@@ -459,10 +502,14 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
             return vehicleReturn == 1 && vehicleBranchUpdate == 1;
         }
 
-
+        /// <summary>
+        /// When the "Full details button is click, show the details of the currently selected rental"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void viewFullDetails_Click(object sender, EventArgs e)
         {
-            if (rentalsDataView.SelectedRows.Count == 0)
+            if (rentalsDataView.SelectedRows.Count == 0)// error checking
             {// no vehicle has been selected
                 selectAVehicleLabel.Visible = true;
                 return;
@@ -485,21 +532,32 @@ WHERE vehicle_id IN (SELECT vehicle_id FROM Rental WHERE rental_id = " + rentalI
              "FULL RENTAL DETAILS");
         }
 
+        /// <summary>
+        /// When the vehicles has finished loading into the data view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rentalsDataView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             // clear whatever is selected in the data view
             rentalsDataView.ClearSelection();
         }
 
+        /// <summary>
+        /// Whenveer the emplyee clicks on a cell 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rentalsDataView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            selectAVehicleLabel.Visible = false;
+            selectAVehicleLabel.Visible = false;// remove error lbel
             if (rentalsDataView.Rows.Count <= 0)
             {// if cell mouse click happens when the data grid view is empty
                 return;
             }
-            rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();
+            rentalId = rentalsDataView.CurrentRow.Cells["rental_id"].Value.ToString().ToUpper();// save rental id
             String query = @"
+-- Query to get rental information
 SELECT
 	(SELECT customer_id FROM Customer WHERE customer_id = Rental.customer_id) AS [customer_id],
 	(SELECT last_name + ' ' + first_name
@@ -566,38 +624,51 @@ WHERE rental_id = " + rentalId + ";";
             // showing the actual return part
             branchCombobox.Items.Clear();
             fillBranchCombobox();
-            startAReturnSize();
+            vehicleClickedSize();
         }
 
         private void mileageUsedTextbox_ValueChanged(object sender, EventArgs e)
         {
             mileageErrorLabel.Visible = false;
         }
-
+        
+        /// <summary>
+        /// The start size of this form. It hides the data view that shows the rentals
+        /// </summary>
         private void startingSize()
         {
             this.Size = new Size(1288, 300);
             this.CenterToScreen();
         }
 
+        /// <summary>
+        /// The size after clicking the find all rentals button
+        /// </summary>
         private void findAllRentalsSize()
         {
             this.Size = new Size(1288, 600);
             this.CenterToScreen();
         }
 
-        private void startAReturnSize()
+        /// <summary>
+        /// the size after clicking on a vehicle 
+        /// </summary>
+        private void vehicleClickedSize()
         {
             this.Size = new Size(1288, 850);
             this.CenterToScreen();
         }
 
+        /// <summary>
+        /// the size when it's time to calculate the amount due
+        /// </summary>
         private void calculateAmountDueSize()
         {
             this.Size = new Size(1288, 1148);
             this.CenterToScreen();
         }
 
+        // on search info changed, resize to the starting size so the employee would need to refresh the list
         private void searchInfoChanged(object sender, EventArgs e)
         {
             selectAVehicleLabel.Visible = false;
@@ -607,7 +678,7 @@ WHERE rental_id = " + rentalId + ";";
 
         private void branchCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            startAReturnSize();
+            vehicleClickedSize();
         }
     }
 
