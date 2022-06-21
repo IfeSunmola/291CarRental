@@ -66,8 +66,12 @@
             this.vehicleRadio2 = new System.Windows.Forms.RadioButton();
             this.vehicleRadio1 = new System.Windows.Forms.RadioButton();
             this.branchStatsPanel = new System.Windows.Forms.Panel();
+            this.profitableNumericUpdown = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.branchNumeric2 = new System.Windows.Forms.NumericUpDown();
+            this.branchRadio3 = new System.Windows.Forms.RadioButton();
+            this.branchMostLeastProfitable = new System.Windows.Forms.ComboBox();
             this.branchRadio2 = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.branchNumeric1 = new System.Windows.Forms.NumericUpDown();
@@ -90,6 +94,7 @@
             this.vehicleStatsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mileageNumericUpdown)).BeginInit();
             this.branchStatsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.profitableNumericUpdown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumeric2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumeric1)).BeginInit();
             this.employeeStatsPanel.SuspendLayout();
@@ -531,8 +536,12 @@
             // 
             // branchStatsPanel
             // 
+            this.branchStatsPanel.Controls.Add(this.profitableNumericUpdown);
+            this.branchStatsPanel.Controls.Add(this.label3);
             this.branchStatsPanel.Controls.Add(this.label14);
             this.branchStatsPanel.Controls.Add(this.branchNumeric2);
+            this.branchStatsPanel.Controls.Add(this.branchRadio3);
+            this.branchStatsPanel.Controls.Add(this.branchMostLeastProfitable);
             this.branchStatsPanel.Controls.Add(this.branchRadio2);
             this.branchStatsPanel.Controls.Add(this.label5);
             this.branchStatsPanel.Controls.Add(this.branchNumeric1);
@@ -542,18 +551,44 @@
             this.branchStatsPanel.Size = new System.Drawing.Size(831, 262);
             this.branchStatsPanel.TabIndex = 32;
             // 
+            // profitableNumericUpdown
+            // 
+            this.profitableNumericUpdown.Location = new System.Drawing.Point(67, 40);
+            this.profitableNumericUpdown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.profitableNumericUpdown.Name = "profitableNumericUpdown";
+            this.profitableNumericUpdown.Size = new System.Drawing.Size(53, 31);
+            this.profitableNumericUpdown.TabIndex = 54;
+            this.profitableNumericUpdown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(274, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(212, 25);
+            this.label3.TabIndex = 52;
+            this.label3.Text = "PROFITABLE BRANCH(ES)";
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(394, 105);
+            this.label14.Location = new System.Drawing.Point(390, 164);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(164, 25);
+            this.label14.Size = new System.Drawing.Size(83, 25);
             this.label14.TabIndex = 43;
-            this.label14.Text = "RENTALS BETWEEN";
+            this.label14.Text = "RENTALS";
             // 
             // branchNumeric2
             // 
-            this.branchNumeric2.Location = new System.Drawing.Point(331, 97);
+            this.branchNumeric2.Location = new System.Drawing.Point(331, 162);
             this.branchNumeric2.Minimum = new decimal(new int[] {
             1,
             0,
@@ -569,9 +604,29 @@
             0});
             this.branchNumeric2.ValueChanged += new System.EventHandler(this.valueChanged);
             // 
+            // branchRadio3
+            // 
+            this.branchRadio3.Location = new System.Drawing.Point(0, 40);
+            this.branchRadio3.Name = "branchRadio3";
+            this.branchRadio3.Size = new System.Drawing.Size(72, 29);
+            this.branchRadio3.TabIndex = 44;
+            this.branchRadio3.TabStop = true;
+            this.branchRadio3.Text = "TOP";
+            this.branchRadio3.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.branchRadio3.UseVisualStyleBackColor = true;
+            // 
+            // branchMostLeastProfitable
+            // 
+            this.branchMostLeastProfitable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.branchMostLeastProfitable.FormattingEnabled = true;
+            this.branchMostLeastProfitable.Location = new System.Drawing.Point(141, 40);
+            this.branchMostLeastProfitable.Name = "branchMostLeastProfitable";
+            this.branchMostLeastProfitable.Size = new System.Drawing.Size(123, 33);
+            this.branchMostLeastProfitable.TabIndex = 51;
+            // 
             // branchRadio2
             // 
-            this.branchRadio2.Location = new System.Drawing.Point(0, 99);
+            this.branchRadio2.Location = new System.Drawing.Point(0, 164);
             this.branchRadio2.Name = "branchRadio2";
             this.branchRadio2.Size = new System.Drawing.Size(325, 29);
             this.branchRadio2.TabIndex = 41;
@@ -584,15 +639,15 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(394, 37);
+            this.label5.Location = new System.Drawing.Point(375, 97);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(164, 25);
+            this.label5.Size = new System.Drawing.Size(83, 25);
             this.label5.TabIndex = 37;
-            this.label5.Text = "RENTALS BETWEEN";
+            this.label5.Text = "RENTALS";
             // 
             // branchNumeric1
             // 
-            this.branchNumeric1.Location = new System.Drawing.Point(316, 31);
+            this.branchNumeric1.Location = new System.Drawing.Point(316, 95);
             this.branchNumeric1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -610,7 +665,7 @@
             // 
             // branchRadio1
             // 
-            this.branchRadio1.Location = new System.Drawing.Point(0, 31);
+            this.branchRadio1.Location = new System.Drawing.Point(0, 95);
             this.branchRadio1.Name = "branchRadio1";
             this.branchRadio1.Size = new System.Drawing.Size(325, 29);
             this.branchRadio1.TabIndex = 29;
@@ -774,6 +829,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mileageNumericUpdown)).EndInit();
             this.branchStatsPanel.ResumeLayout(false);
             this.branchStatsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.profitableNumericUpdown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumeric2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchNumeric1)).EndInit();
             this.employeeStatsPanel.ResumeLayout(false);
@@ -841,5 +897,9 @@
         private Label mileageBetweenLabel;
         private NumericUpDown mileageBetween2;
         private Label mileageBetweenAndLabel;
+        private Label label3;
+        private ComboBox branchMostLeastProfitable;
+        private RadioButton branchRadio3;
+        private NumericUpDown profitableNumericUpdown;
     }
 }

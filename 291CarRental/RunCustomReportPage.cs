@@ -46,6 +46,10 @@ namespace _291CarRental
             vehicleMostLeastCombobox.Items.Add("LEAST");
             vehicleMostLeastCombobox.SelectedIndex = 0;
             //////////////////////////////////////////////////////////
+            branchMostLeastProfitable.Items.Add("MOST");
+            branchMostLeastProfitable.Items.Add("LEAST");
+            branchMostLeastProfitable.SelectedIndex = 0;
+            //////////////////////////////////////////////////////////
             branchCombobox.Items.Add("ALL BRANCHES");
             colorCombobox.Items.Add("ALL COLORS");
             brandCombobox.Items.Add("ALL BRANDS");
@@ -248,7 +252,7 @@ FROM
         /// </summary>
         /// <param name="flag"></param>
         /// <returns></returns>
-        private DataTable branchReport(String flag)
+        private DataTable branchReport1And2(String flag)
         {
             DataTable result = new DataTable();
             NumericUpDown numericUpDown = (flag.Equals("AT LEAST") ? branchNumeric1 : branchNumeric2);
@@ -268,7 +272,30 @@ FROM
 	GROUP BY pickup_branch_id
 	HAVING COUNT (*) " + flag + numericUpDown.Value.ToString() + @") AS T1
 ";
+            result.Load(connection.executeReader(query));
+            return result;
+        }
 
+        /// <summary>
+        /// This method gets the most/least profitable branch between the selected filters
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        private DataTable mostLeastProfitableBranch(String flag)
+        {
+            DataTable result = new DataTable();
+            String query = @"
+SELECT TOP(" + profitableNumericUpdown.Value + @")
+    branch_name AS [Branch Name],
+    FORMAT(SUM(initial_amount_paid), 'C') AS [Total From Regular Vehicle Rentals],
+	FORMAT(SUM(late_fee), 'C') AS [Total From Late Fees],
+	FORMAT(SUM(different_branch_fee), 'C') AS [Total From Different Branch Return Fees],
+	FORMAT(SUM(initial_amount_paid) + SUM(late_fee) + SUM(different_branch_fee), 'C') AS [Total Profit]
+FROM Rental, Branch
+WHERE Rental.pickup_branch_id = Branch.branch_id 
+   AND [start_date] BETWEEN " + addQuotes(filterFromDate.Value.ToString("d")) + @" AND " + addQuotes(filterToDate.Value.ToString("d")) + @"
+GROUP BY branch_id,  branch_name -- branch name is always unique
+ORDER BY SUM(initial_amount_paid) + SUM(late_fee) + SUM(different_branch_fee) " + flag;
             result.Load(connection.executeReader(query));
             return result;
         }
@@ -311,7 +338,7 @@ FROM
                 employeeStatsPanel.Location = new Point(1000, 1000);
 
                 branchStatsPanel.Location = new Point(181, 60);
-                filtersPanel.Location = new Point(181, 250);
+                filtersPanel.Location = new Point(181, 290);
             }
             
             // uncheck all radio buttons anytime a new report is selected
@@ -432,20 +459,37 @@ FROM
         private void loadBranchReports()
         {
             if (branchRadio1.Checked)
-            {
-                reportsDataView.DataSource = branchReport("AT LEAST");
+            {//made at least x rentals
+                reportsDataView.DataSource = branchReport1And2("AT LEAST");
 
                 reportsDataView.Size = new Size(620, 192);
                 reportsDataView.Location = new Point(311, 706);
                 this.Size = new Size(this.Width, 990);
             }
             else if (branchRadio2.Checked)
-            {
-                reportsDataView.DataSource = branchReport("LESS THAN");
+            {// made less than x rentals
+                reportsDataView.DataSource = branchReport1And2("LESS THAN");
 
                 reportsDataView.Size = new Size(620, 192);
                 reportsDataView.Location = new Point(311, 706);
                 this.Size = new Size(this.Width, 990);
+            }
+            else if (branchRadio3.Checked)
+            {
+                if (branchMostLeastProfitable.SelectedIndex == 0)// most profitable branch
+                {
+                    reportsDataView.DataSource = mostLeastProfitableBranch("DESC");
+                    reportsDataView.Size = new Size(920, 192);
+                    reportsDataView.Location = new Point(160, 706);
+                    this.Size = new Size(this.Width, 990);
+                }
+                else// least profitable branch
+                {
+                    reportsDataView.DataSource = mostLeastProfitableBranch("ASC");
+                    reportsDataView.Size = new Size(920, 192);
+                    reportsDataView.Location = new Point(160, 706);
+                    this.Size = new Size(this.Width, 990);
+                }
             }
             else
             {
