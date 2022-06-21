@@ -43,7 +43,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.rentVehicleButton = new System.Windows.Forms.Button();
-            this.showVehicleDataGripViewPanel = new System.Windows.Forms.Panel();
+            this.vehicleDataViewPanel = new System.Windows.Forms.Panel();
             this.selectAVehicleLabel = new System.Windows.Forms.Label();
             this.amountOfDaysLabel = new System.Windows.Forms.Label();
             this.estimatedCostLabel = new System.Windows.Forms.Label();
@@ -72,7 +72,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).BeginInit();
-            this.showVehicleDataGripViewPanel.SuspendLayout();
+            this.vehicleDataViewPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.getCustomerInfoPanel.SuspendLayout();
             this.addressPanel.SuspendLayout();
@@ -123,7 +123,6 @@
             this.vehicleClassCombobox.Size = new System.Drawing.Size(182, 33);
             this.vehicleClassCombobox.TabIndex = 4;
             this.vehicleClassCombobox.SelectedIndexChanged += new System.EventHandler(this.filtersValueChanged);
-            this.vehicleClassCombobox.DropDownClosed += new System.EventHandler(this.vehicleClassCombobox_DropDownClosed);
             // 
             // branchComboBox
             // 
@@ -232,20 +231,20 @@
             this.rentVehicleButton.UseVisualStyleBackColor = true;
             this.rentVehicleButton.Click += new System.EventHandler(this.rentThisVehicleButton_Click);
             // 
-            // showVehicleDataGripViewPanel
+            // vehicleDataViewPanel
             // 
-            this.showVehicleDataGripViewPanel.Controls.Add(this.selectAVehicleLabel);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.amountOfDaysLabel);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.estimatedCostLabel);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.showingVehiclesLabel);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.vehicleDataGridView);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.label7);
-            this.showVehicleDataGripViewPanel.Controls.Add(this.rentVehicleButton);
-            this.showVehicleDataGripViewPanel.Location = new System.Drawing.Point(19, 417);
-            this.showVehicleDataGripViewPanel.Name = "showVehicleDataGripViewPanel";
-            this.showVehicleDataGripViewPanel.Size = new System.Drawing.Size(859, 557);
-            this.showVehicleDataGripViewPanel.TabIndex = 17;
-            this.showVehicleDataGripViewPanel.Visible = false;
+            this.vehicleDataViewPanel.Controls.Add(this.selectAVehicleLabel);
+            this.vehicleDataViewPanel.Controls.Add(this.amountOfDaysLabel);
+            this.vehicleDataViewPanel.Controls.Add(this.estimatedCostLabel);
+            this.vehicleDataViewPanel.Controls.Add(this.showingVehiclesLabel);
+            this.vehicleDataViewPanel.Controls.Add(this.vehicleDataGridView);
+            this.vehicleDataViewPanel.Controls.Add(this.label7);
+            this.vehicleDataViewPanel.Controls.Add(this.rentVehicleButton);
+            this.vehicleDataViewPanel.Location = new System.Drawing.Point(19, 417);
+            this.vehicleDataViewPanel.Name = "vehicleDataViewPanel";
+            this.vehicleDataViewPanel.Size = new System.Drawing.Size(859, 557);
+            this.vehicleDataViewPanel.TabIndex = 17;
+            this.vehicleDataViewPanel.Visible = false;
             // 
             // selectAVehicleLabel
             // 
@@ -336,7 +335,7 @@
             this.panel1.Controls.Add(this.findAvailableVehiclesButton);
             this.panel1.Controls.Add(this.vehicleClassCombobox);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.showVehicleDataGripViewPanel);
+            this.panel1.Controls.Add(this.vehicleDataViewPanel);
             this.panel1.Controls.Add(this.toDatePicker);
             this.panel1.Controls.Add(this.fromDatePicker);
             this.panel1.Location = new System.Drawing.Point(129, 3);
@@ -393,7 +392,7 @@
             this.customerInfoTextbox.Size = new System.Drawing.Size(150, 31);
             this.customerInfoTextbox.TabIndex = 43;
             this.customerInfoTextbox.TextChanged += new System.EventHandler(this.filtersValueChanged);
-            this.customerInfoTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customerInfoTextbox_KeyPress);
+            this.customerInfoTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ignoreCharInput);
             // 
             // addressPanel
             // 
@@ -546,8 +545,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EMPLOYEE VIEWING AVAILABLE VEHICLES";
             ((System.ComponentModel.ISupportInitialize)(this.vehicleDataGridView)).EndInit();
-            this.showVehicleDataGripViewPanel.ResumeLayout(false);
-            this.showVehicleDataGripViewPanel.PerformLayout();
+            this.vehicleDataViewPanel.ResumeLayout(false);
+            this.vehicleDataViewPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.getCustomerInfoPanel.ResumeLayout(false);
@@ -573,7 +572,7 @@
         private DataGridView vehicleDataGridView;
         private Label label7;
         private Button rentVehicleButton;
-        private Panel showVehicleDataGripViewPanel;
+        private Panel vehicleDataViewPanel;
         private Label addressLabel;
         private Button button2;
         private Button button3;
