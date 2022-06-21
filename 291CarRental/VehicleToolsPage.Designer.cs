@@ -1104,6 +1104,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "VehicleToolsPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VehicleToolsPage";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
