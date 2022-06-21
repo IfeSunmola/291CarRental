@@ -153,6 +153,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "LandingPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LANDING PAGE";
             this.empLoginPanel.ResumeLayout(false);
             this.empLoginPanel.PerformLayout();

@@ -3,6 +3,9 @@ using System.Data.SqlClient;
 
 namespace _291CarRental
 {
+    /// <summary>
+    /// This form is the first form a customer or employee would see
+    /// </summary>
     public partial class LandingPage : Form
     {
         private DbConnection connection;
@@ -10,19 +13,27 @@ namespace _291CarRental
         public LandingPage()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
-
             connection = new DbConnection();
         }
 
+        /// <summary>
+        /// on "CUSTOMERS" button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void custButton_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
-            empLoginPanel.Visible = false;
-            new CustSelectVehicleFilters(this, connection).ShowDialog();
-            this.Visible = true;
+            this.Visible = false;// hide current form
+            empLoginPanel.Visible = false;// hide the emp login textbox 
+            new CustSelectVehicleFilters(this, connection).ShowDialog();//move to Customers screen
+            this.Visible = true;// on exit
         }
 
+        /// <summary>
+        /// On "EMPLOYEES" button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void empButton_Click(object sender, EventArgs e)
         {
             empLoginPanel.Visible = true;
@@ -30,11 +41,15 @@ namespace _291CarRental
             loginMessageLabel.Visible = false;
         }
 
+        /// <summary>
+        /// when the login button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void empLoginButton_Click(object sender, EventArgs e)
         {
-
-            if (String.IsNullOrEmpty(empIdTextbox.Text))// empty text box
-            {// empty text box, hide loginMessageLabel and show emptyTextboxLabel
+            if (String.IsNullOrEmpty(empIdTextbox.Text))// empty text box, hide loginMessageLabel and show emptyTextboxLabel
+            {
                 loginMessageLabel.Visible = false;
 
                 emptyTextboxLabel.Text = "ID CANNOT BE EMPTY";
@@ -43,18 +58,28 @@ namespace _291CarRental
             else
             {// textbox is not empty, hide the emptyTextboxLabel
                 emptyTextboxLabel.Visible = false;
-                String query = "SELECT emp_id FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
-                String? empId = connection.executeScalar(query);
+                // checking if the employee is in the database
+                String query = "SELECT emp_id, first_name FROM Employee WHERE emp_id = " + empIdTextbox.Text + ";";
+                String firstName = "";
+                String? emp_id = null;
+                SqlDataReader reader = connection.executeReader(query);
+                
+                while (reader.Read())
+                {
+                    emp_id = reader.GetInt32("emp_id").ToString();
+                    firstName = reader.GetString("first_name");
+                }
+                reader.Close();
 
-                if (empId != null)// id was found, show sucess message and hide error messages
+                if (emp_id != null)// id was found, show sucess message and hide error messages
                 {// not null means a value was returned, value will only be returned if the emp_id was found
-                    loginMessageLabel.Text = "LOGIN SUCCESSFUL";
+                    loginMessageLabel.Text = "WELCOME, " + firstName.ToUpper();
                     loginMessageLabel.Visible = true;
                     loginMessageLabel.ForeColor = Color.Green;
 
-                    Task.Delay(250).Wait();
-                    this.Visible = false;
-                    new EmployeeLandingPage(this, empId.ToString(), connection).ShowDialog();
+                    Task.Delay(250).Wait();// just so the employee can see the login message
+                   this.Visible = false;
+                    new EmployeeLandingPage(this, emp_id, connection).ShowDialog();
 
                     emptyTextboxLabel.Visible = false;
                     loginMessageLabel.Visible = false;
@@ -70,6 +95,11 @@ namespace _291CarRental
             }
         }
 
+        /// <summary>
+        /// EXIT BUTTON
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -83,9 +113,12 @@ namespace _291CarRental
             }
         }
 
-        // this method make the employee id textbox only accept numbers
-        // copy and paste won't work because Shortcuts are disabled
-        private void empIdTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        /// <summary>
+        /// This method makes any textbox ignore input that aren't numbers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ignoreCharInput(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
