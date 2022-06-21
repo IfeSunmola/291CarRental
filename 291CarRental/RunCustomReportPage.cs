@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace _291CarRental
 {
+    /// <summary>
+    /// Form for the custom query page
+    /// </summary>
     public partial class RunCustomReportPage : Form
     {
         private EmployeeLandingPage previousPage;
@@ -24,14 +27,16 @@ namespace _291CarRental
             this.startingSize = new Size(this.Width, 740);
 
             this.Size = startingSize;
-            this.StartPosition = FormStartPosition.CenterScreen;
             this.connection = connection;
 
             fillComboboxes();
         }
 
+        /// <summary>
+        /// Method to fill all the combo boxes
+        /// </summary>
         private void fillComboboxes()
-        {
+        {   
             reportCombobox.Items.Add("VEHICLE REPORTS");
             reportCombobox.Items.Add("EMPLOYEE REPORTS");
             reportCombobox.Items.Add("BRANCH REPORTS");
@@ -76,8 +81,13 @@ namespace _291CarRental
         }
 
         // vehicle reports
+        /// <summary>
+        /// method to get the class requested report and return it
+        /// </summary>
+        /// <param name="sign"></param>
+        /// <returns>A DataTable containing the class requested report</returns>
         private DataTable classRequestedReport(String sign)
-        {// = is for getting requested and was available; != is for getting requested and not available
+        {// = is for getting requested and was available .... != is for getting requested and not available
             String branchId = (branchCombobox.SelectedIndex > 0 ?
                 "\nAND pickup_branch_id = " + branchCombobox.SelectedIndex : "");
             DataTable result = new DataTable();
@@ -102,9 +112,14 @@ FROM
             return result;
         }
 
+        /// <summary>
+        /// To get the mileage report
+        /// </summary>
+        /// <returns></returns>
         private DataTable mileageReport()
         {
             DataTable result = new DataTable();
+            // filters for the query
             String branch = (branchCombobox.SelectedIndex > 0 ?
                "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
             String color = (colorCombobox.SelectedIndex > 0 ?
@@ -123,6 +138,11 @@ WHERE current_mileage >= " + mileageNumericUpdown.Value + branch + color + brand
             return result;
         }
 
+        /// <summary>
+        /// To get the class rented most/least report
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         private DataTable classRentedMostLeast(String flag)
         {
             DataTable result = new DataTable();
@@ -146,9 +166,14 @@ ORDER BY [Number of times rented] " + flag;
 
         }
 
+        /// <summary>
+        /// to get the vehicles that have not been rented report
+        /// </summary>
+        /// <returns></returns>
         private DataTable vehiclesHaveNotBeingRented()
         {
             DataTable result = new DataTable();
+            //filters for the query
             String branchFilter = (branchCombobox.SelectedIndex > 0 ?
               "\nAND branch_id = " + branchCombobox.SelectedIndex : "");
             String colorFilter = (colorCombobox.SelectedIndex > 0 ?
@@ -184,6 +209,11 @@ FROM
         }
 
         // employee reports
+        /// <summary>
+        /// To get the most hardworking employees and vice versa
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         private DataTable employeeReport(String flag)
         {
             DataTable result = new DataTable();
@@ -208,12 +238,16 @@ FROM
         ORDER BY COUNT(*) " + flag + @") AS E1;
 ";
 
-            //MessageBox.Show(query);
             result.Load(connection.executeReader(query));
             return result;
         }
 
         // branch reports
+        /// <summary>
+        /// Get the branches that have made at least/less than x rentals
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         private DataTable branchReport(String flag)
         {
             DataTable result = new DataTable();
@@ -239,13 +273,17 @@ FROM
             return result;
         }
 
+        /// <summary>
+        /// When a new report is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void reportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             errorMessageLabel.Visible = false;
             // for some reason, SelectedIndex = 0 doesn't work here, even when I check with .Items.Count >= 0
             branchCombobox.SelectedItem = "ALL BRANCHES";
-            //disable branch filter when branch is selected
-            branchCombobox.Enabled = reportCombobox.SelectedIndex != 2;
+            branchCombobox.Enabled = reportCombobox.SelectedIndex != 2;//disable branch filter when branch is selected
 
             // move whatever is visible away from the screen by offsetting their location
             // and show the content by updating it's  location to be visible
@@ -275,20 +313,21 @@ FROM
                 branchStatsPanel.Location = new Point(181, 60);
                 filtersPanel.Location = new Point(181, 250);
             }
-
+            
+            // uncheck all radio buttons anytime a new report is selected
             foreach (Control radio in vehicleStatsPanel.Controls)
             {
                 if (radio is RadioButton)
-                {
-                    ((RadioButton)radio).Checked = false;
-                }
+            {
+            ((RadioButton)radio).Checked = false;
+            }
             }
             foreach (Control radio in employeeStatsPanel.Controls)
             {
-                if (radio is RadioButton)
-                {
-                    ((RadioButton)radio).Checked = false;
-                }
+            if (radio is RadioButton)
+            {
+            ((RadioButton)radio).Checked = false;
+            }
             }
             foreach (Control radio in branchStatsPanel.Controls)
             {
@@ -299,6 +338,9 @@ FROM
             }
         }
 
+        /// <summary>
+        /// Load vehicle reports into the data view and update the size accordingly
+        /// </summary>
         private void loadVehicleReports()
         {
             if (vehicleRadio1.Checked)
@@ -329,11 +371,11 @@ FROM
             else if (vehicleRadio4.Checked)
             {// class rernted the most/least
 
-                if (vehicleMostLeastCombobox.SelectedIndex == 0)
+                if (vehicleMostLeastCombobox.SelectedIndex == 0)// rented the most
                 {
                     reportsDataView.DataSource = classRentedMostLeast("MOST");
                 }
-                else
+                else// rented the least
                 {
                     reportsDataView.DataSource = classRentedMostLeast("LEAST");
                 }
@@ -356,6 +398,9 @@ FROM
             }
         }
 
+        /// <summary>
+        /// Load employee report into the data view and resize the screen accordingly
+        /// </summary>
         private void loadEmployeeReports()
         {
             if (employeeRadio1.Checked)
@@ -381,6 +426,9 @@ FROM
             }
         }
 
+        /// <summary>
+        /// load branch report and resize the screen accordingly
+        /// </summary>
         private void loadBranchReports()
         {
             if (branchRadio1.Checked)
@@ -406,10 +454,15 @@ FROM
             }
         }
         
+        /// <summary>
+        /// When the generate button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void generateButton_Click(object sender, EventArgs e)
         {
             // from date is before to date
-            if (filterFromDate.Value > filterToDate.Value)
+            if (filterFromDate.Value > filterToDate.Value)// error checking
             {
                 errorMessageLabel.Text = "FROM DATE SHOULD BE BEFORE TO DATE";
                 errorMessageLabel.Visible = true;
@@ -430,23 +483,38 @@ FROM
             {// branch
                 loadBranchReports();
             }
-            reportsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            reportsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;// pretty hehe
             this.CenterToScreen();
         }
 
+        /// <summary>
+        /// back button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
             previousPage.Visible = true;
         }
 
-        private String addQuotes(String stringToAdd)
+        /// <summary>
+        /// Method to simply add quotes to sql query variables. Closing and opening quotes and adding '' seemed too confusing
+        /// </summary>
+        /// <param name="rawString"></param>
+        /// <returns>A string with '' surrounding it. E.g parameter today will return 'Today'</returns>
+        private String addQuotes(String rawString)
         {
-            String temp1 = stringToAdd.Insert(0, "'");
+            String temp1 = rawString.Insert(0, "'");
             String temp2 = temp1.Insert(temp1.Length, "'");
             return temp2;
         }
 
+        /// <summary>
+        /// exit button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitButton_Click(object sender, EventArgs e)
         {
             DialogResult confirmExit = MessageBox.Show(
@@ -461,17 +529,11 @@ FROM
 
         }
 
-        private void sizeDGV(DataGridView dgv)
-        {
-            DataGridViewElementStates states = DataGridViewElementStates.None;
-            dgv.ScrollBars = ScrollBars.None;
-            var totalHeight = dgv.Rows.GetRowsHeight(states) + dgv.ColumnHeadersHeight;
-            totalHeight += dgv.Rows.Count * 4;  // a correction I need
-            var totalWidth = dgv.Columns.GetColumnsWidth(states) + dgv.RowHeadersWidth;
-            dgv.ClientSize = new Size(totalWidth, totalHeight);
-
-        }
-
+        /// <summary>
+        /// For when the mileage report is selected, disable unneeded filters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void vehicleRadio3_CheckedChanged(object sender, EventArgs e)
         {// when "mileage" is checked, disable date filters
             filterFromDate.Enabled = !vehicleRadio3.Checked;
@@ -490,6 +552,11 @@ FROM
             this.CenterToScreen();
         }
 
+        /// <summary>
+        /// When vehicles that haven't been rented report is clicked, enable the filters that are needed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void vehicleRadio5_CheckedChanged(object sender, EventArgs e)
         {
             vehicleFilters.Visible = vehicleRadio5.Checked;
@@ -498,8 +565,13 @@ FROM
             valueChanged(sender, e);
         }
 
+        /// <summary>
+        /// Branch filter changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void branchFilter_Changed(object sender, EventArgs e)
-        {
+        {// the default start date is the day the branch opened
             String branchFilter = (branchCombobox.SelectedIndex > 0 ?
                "\nWHERE branch_id = " + branchCombobox.SelectedIndex : "");
             String query = @"
