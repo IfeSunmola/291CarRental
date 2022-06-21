@@ -355,13 +355,6 @@ WHERE customer_id in (SELECT customer_id FROM Rental WHERE rental_id =  " + rent
         /// <param name="e"></param>
         private void calculateAmountDue_Click(object sender, EventArgs e)
         {
-            if ((int)mileageUsedTextbox.Value <= 0)// mileage check
-            {
-                mileageErrorLabel.Text = "MILEAGE SHOULD BE GREATER THAN 0";
-                mileageErrorLabel.Visible = true;
-                return;
-            }
-
             Decimal changeBranchFee = 0.00m;
             Decimal lateFee = 0.00m;
             String actualDropoffLocation = (String)branchCombobox.SelectedItem;// current selected item in the combobox
@@ -625,11 +618,6 @@ WHERE rental_id = " + rentalId + ";";
             branchCombobox.Items.Clear();
             fillBranchCombobox();
             vehicleClickedSize();
-        }
-
-        private void mileageUsedTextbox_ValueChanged(object sender, EventArgs e)
-        {
-            mileageErrorLabel.Visible = false;
         }
         
         /// <summary>

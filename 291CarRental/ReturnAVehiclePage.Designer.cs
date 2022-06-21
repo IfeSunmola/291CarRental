@@ -49,7 +49,6 @@
             this.differentBranchFeeLabel = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.calculateAmountDuePanel = new System.Windows.Forms.Panel();
-            this.mileageErrorLabel = new System.Windows.Forms.Label();
             this.mileageUsedTextbox = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -295,7 +294,6 @@
             // 
             // calculateAmountDuePanel
             // 
-            this.calculateAmountDuePanel.Controls.Add(this.mileageErrorLabel);
             this.calculateAmountDuePanel.Controls.Add(this.mileageUsedTextbox);
             this.calculateAmountDuePanel.Controls.Add(this.label13);
             this.calculateAmountDuePanel.Controls.Add(this.label3);
@@ -309,18 +307,6 @@
             this.calculateAmountDuePanel.Size = new System.Drawing.Size(998, 245);
             this.calculateAmountDuePanel.TabIndex = 42;
             // 
-            // mileageErrorLabel
-            // 
-            this.mileageErrorLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.mileageErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.mileageErrorLabel.Location = new System.Drawing.Point(-3, 156);
-            this.mileageErrorLabel.Name = "mileageErrorLabel";
-            this.mileageErrorLabel.Size = new System.Drawing.Size(998, 25);
-            this.mileageErrorLabel.TabIndex = 44;
-            this.mileageErrorLabel.Text = "ERROR MESSAGE HEHE HEHE HEHE";
-            this.mileageErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.mileageErrorLabel.Visible = false;
-            // 
             // mileageUsedTextbox
             // 
             this.mileageUsedTextbox.Location = new System.Drawing.Point(720, 122);
@@ -332,7 +318,6 @@
             this.mileageUsedTextbox.Name = "mileageUsedTextbox";
             this.mileageUsedTextbox.Size = new System.Drawing.Size(180, 31);
             this.mileageUsedTextbox.TabIndex = 39;
-            this.mileageUsedTextbox.ValueChanged += new System.EventHandler(this.mileageUsedTextbox_ValueChanged);
             // 
             // label13
             // 
@@ -512,6 +497,5 @@
         private Panel calculateAmountDuePanel;
         private Label errorMessageLabel;
         private Label selectAVehicleLabel;
-        private Label mileageErrorLabel;
     }
 }
